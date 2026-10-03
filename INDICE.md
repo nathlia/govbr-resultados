@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-03T12:21:47Z | execução | piloto-01 | solicitacao | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · c871190b79c2 | `execucoes/piloto-01/2026-10-03T12-21-47Z__solicitacao__opus__com__rep-02__20261003-122147-solicitacao-com-9f7f` |
+| 2026-10-03T12:21:02Z | linha de base | piloto-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/piloto-01/solicitacao/lb-20261003-122102-solicitacao-00fe97` |
 | 2026-10-03T12:08:30Z | execução | piloto-01 | solicitacao | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · d8c50aa53b96 | `execucoes/piloto-01/2026-10-03T12-08-30Z__solicitacao__opus__sem__rep-02__20261003-120830-solicitacao-sem-1a90` |
 | 2026-10-03T12:07:56Z | linha de base | piloto-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/piloto-01/solicitacao/lb-20261003-120756-solicitacao-4ee09e` |
 | 2026-10-03T11:52:50Z | execução | piloto-01 | solicitacao | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · f0d663ba6b69 | `execucoes/piloto-01/2026-10-03T11-52-50Z__solicitacao__opus__com__rep-01__20261003-115250-solicitacao-com-c38a` |
