@@ -1,0 +1,281 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "piloto-01",
+  "runId": "20261003-122147-solicitacao-com-9f7f",
+  "receivedAt": "2026-10-03T12:32:20Z",
+  "receipt": "r-a6987aa176766eb0",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-03T12:32:20.126Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skip link, barra superior, breadcrumb, formulário (campos de texto, selects Tipo de serviço/Unidade, rádios, datepicker com calendário aberto, textarea, upload, checkboxes, declaração), envio vazio (estado de erro), envio com erro parcial, envio completo (sucesso), mensagem de retorno (fechar por Enter/Espaço), modal Cancelar/Descartar (Esc, Continuar preenchendo, Descartar), tabela e paginação (páginas 2 e 3, anterior/seguinte), ordem de Tab e foco visível"
+    ],
+    "notes": "Viewport medido: innerWidth 1280 x innerHeight 900. Ferramentas: scan_page S-page-001 (inicial), S-page-002 (após Enviar vazio), S-page-003 (calendário aberto), S-page-004 (modal Descartar aberto); verify_finding V-005/V-006 confirmaram ausência de br-header/br-footer; V-002 inconclusivo (sem predicado) para cor fora de token, decidido por inspeção do CSS (.dialogo-descarte { color: rgb(51,67,51) } em solicitacao-*.css); V-007 rejeitou ds-structure-button-tag por não citar norma KB: o achado do botão div é mantido com base na anatomia do DS (exemplos oficiais usam <button>) e com a ressalva de que funciona por Enter/Espaço. Interações: Tab sequencial desde o carregamento; foco programático e por teclado em campos; ArrowDown/Enter/Escape nos selects; clique nos rótulos; Enviar vazio; fechar mensagem com Enter e Espaço; preenchimento parcial (CPF 123, data 31/02/2020) e completo; paginação; calendário; Cancelar -> modal -> Tab (foco preso corretamente), Esc, Continuar preenchendo, Descartar; skip link por teclado (fica visível e leva ao main). Incertos/não relatados: após Enter numa opção dos selects o foco vai para o body (parece comportamento padrão do componente Select do DS; Tab seguinte continua no fluxo); foco vai para o body ao chegar à última página (botão Página seguinte desabilitado) e após Descartar; página ativa da paginação sem aria-current (os exemplos do DS também não têm); bordas de rádio/checkbox #ccc sobre branco (~1,6:1) vêm do token padrão --border-color do DS; botão Abrir calendário com aria-hidden e tabindex=-1 segue o exemplo do DS (a data pode ser digitada). Fora do escopo de conformidade: o envio é aceito com CPF '123' e descrição de 600 caracteres, contrariando os textos de apoio (não há erro detectado, então não se aplica o 3.3.1). Não testado: envio real de arquivo (seletor de arquivo nativo), outras larguras (fora do escopo). Erro 404 de favicon no console.",
+    "findings": [
+      {
+        "selector": "header.barra-superior",
+        "rule": "ds-page-header",
+        "observed": "A página não tem .br-header nem <br-header>; a área de cabeçalho é um <header class=\"barra-superior\"> próprio contendo só o link 'gov.br'.",
+        "expected": "Área de Cabeçalho do Template Base ocupada pelo componente Header do DS (.br-header).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003",
+          "V-005"
+        ]
+      },
+      {
+        "selector": "body",
+        "rule": "ds-page-footer",
+        "observed": "Nenhum .br-footer nem <br-footer> no documento; a página termina na paginação da tabela.",
+        "expected": "Área de Rodapé do Template Base ocupada pelo componente Footer do DS (.br-footer).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004",
+          "V-006"
+        ]
+      },
+      {
+        "selector": "#forma-presencial",
+        "rule": "label",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label>Presencial</label> não tem for=\"forma-presencial\". Clicar no texto 'Presencial' não marca a opção.",
+        "expected": "Rádio associado ao rótulo (label for=\"forma-presencial\"), com nome acessível 'Presencial'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006",
+          "S-page-002",
+          "F-013"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\" mas é focável (tabindex=\"1\"); o input file #documentos está com display:none, então leitores de tela não têm controle de upload exposto.",
+        "expected": "O controle que recebe foco deve estar exposto à tecnologia assistiva (sem aria-hidden) com nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex=\"1\": o primeiro Tab após o carregamento vai para ele (no meio do formulário), antes do skip link 'Ir para o conteúdo', do link gov.br, do breadcrumb e dos campos anteriores.",
+        "expected": "Sem tabindex positivo; ordem de foco seguindo a ordem do conteúdo (skip link primeiro).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .br-input, .campo-unidade .br-input"
+        ],
+        "rule": "wcag:2.4.7",
+        "observed": "Com foco por teclado nos campos 'Tipo de serviço' e 'Unidade de atendimento' não há indicador visível: box-shadow none, outline none, borda inalterada rgb(136,136,136). A regra da aplicação '.campo-servico .br-input input:focus, ... :focus-visible { box-shadow:none; outline:none; border-color: var(--border-color-alternative) !important }' remove o foco do DS. Os demais campos mostram anel rgb(194,133,12) de 2px.",
+        "expected": "Indicador de foco visível (o padrão do DS) nos dois campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Nome completo",
+            "Tab",
+            "Tab (foco em #servico)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico[aria-invalid=\"true\"], #unidade[aria-invalid=\"true\"]",
+        "relatedSelectors": [
+          ".campo-servico .feedback, .campo-unidade .feedback"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "No estado de erro, #servico e #unidade recebem aria-invalid=\"true\", mas não têm aria-describedby; as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' estão em spans sem id. Os demais campos (nome, cpf, data, descrição, forma, declaração) ligam a mensagem por aria-describedby.",
+        "expected": "Cada mensagem de erro ligada programaticamente ao seu campo (id na mensagem + aria-describedby no input).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno.danger",
+        "relatedSelectors": [
+          ".mensagem-retorno.danger .icon",
+          ".mensagem-retorno.danger .close"
+        ],
+        "rule": "govbr-3.7.0-component-message-66b01a712e67",
+        "observed": "Na mensagem de erro 'Não foi possível enviar.', o botão Fechar aparece à esquerda (x=201) e o ícone semântico à direita (x=1019); no DOM a ordem é close, content, icon. A mensagem de sucesso segue a ordem correta.",
+        "expected": "Ícone semântico à esquerda e botão Fechar no topo à direita da Message.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno.danger .close > div.br-button",
+        "rule": "ds-structure-button-tag",
+        "observed": "O botão Fechar da mensagem de erro é um <div class=\"br-button circle small\" role=\"button\" tabindex=\"0\">, e não um <button>. Ele responde a Enter e Espaço (verificado). A mensagem de sucesso usa <button>.",
+        "expected": "br-button aplicado a <button type=\"button\">, como na anatomia do Message do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-007",
+          "V-007"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "button-name",
+        "observed": "Os botões de mês anterior e mês seguinte do calendário só contêm ícone (<i class=\"fas fa-chevron-left/right\">) e não têm aria-label nem texto: nome acessível vazio.",
+        "expected": "Nome acessível descritivo (ex.: 'Mês anterior' / 'Próximo mês').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no botão do calendário (#data-preferencial-btn)"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-018",
+          "F-019",
+          "S-page-001",
+          "F-001",
+          "F-002"
+        ]
+      },
+      {
+        "selector": ".flatpickr-calendar.open .flatpickr-day",
+        "rule": "tabindex",
+        "observed": "Com o calendário aberto, os 42 dias (span.flatpickr-day) recebem tabindex=\"1\" (positivo), alterando a ordem de tabulação da página.",
+        "expected": "Sem tabindex maior que 0 (usar 0/-1 com roving tabindex).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no botão do calendário (#data-preferencial-btn)"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-024",
+          "F-030",
+          "F-065"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o modal 'Descartar solicitação?' com Esc ou 'Continuar preenchendo', o foco vai para <body> em vez de voltar ao botão Cancelar que abriu o modal.",
+        "expected": "Ao fechar o modal sem descartar, o foco volta ao botão Cancelar.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher Nome completo com 'Teste'",
+            "Clique em Cancelar",
+            "Escape"
+          ]
+        },
+        "evidence": [
+          "S-page-004"
+        ]
+      },
+      {
+        "selector": ".dialogo-descarte",
+        "rule": "govbr-3.7.0-foundation-global-21b1a2733f7b",
+        "observed": "O modal tem color rgb(51,67,51) (#334333), definido pela regra da aplicação '.dialogo-descarte { color: rgb(51,67,51) }' e herdado pelo título 'Descartar solicitação?'. Esse valor não corresponde a nenhum token de cor do DS (o mais próximo é --green-cool-70 #37493b).",
+        "expected": "Cor de texto da paleta/tokens do DS (ex.: --color, #333333).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher Nome completo com 'Teste'",
+            "Clique em Cancelar"
+          ]
+        },
+        "evidence": [
+          "S-page-004",
+          "F-066",
+          "V-001",
+          "V-002"
+        ]
+      }
+    ]
+  }
+}
