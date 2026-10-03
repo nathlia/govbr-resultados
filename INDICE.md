@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-03T11:25:25Z | execução | piloto-01 | solicitacao | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 4d15492a31b9 | `execucoes/piloto-01/2026-10-03T11-25-25Z__solicitacao__opus__sem__rep-01__20261003-112525-solicitacao-sem-d049` |
+| 2026-10-03T11:25:13Z | linha de base | piloto-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/piloto-01/solicitacao/lb-20261003-112513-solicitacao-70f4f6` |
 | 2026-10-03T10:48:41Z | execução | prova-cliente-01 | solicitacao | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 5b4e7780d7e0 | `execucoes/prova-cliente-01/2026-10-03T10-48-41Z__solicitacao__opus__com__rep-01__20261003-104841-solicitacao-com-9f6b` |
 | 2026-10-03T10:47:50Z | linha de base | prova-cliente-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/prova-cliente-01/solicitacao/lb-20261003-104750-solicitacao-7be99b` |
 | 2026-10-03T10:39:52Z | ensaio | ensaio-duble | solicitacao | com | — | passed | passed | used-adherent | accepted | — | confirmado · f0929b466224 | `ensaios/ensaio-duble/2026-10-03T10-39-52Z__solicitacao__opus__com__rep-01__20261003-103952-solicitacao-com-794c` |
