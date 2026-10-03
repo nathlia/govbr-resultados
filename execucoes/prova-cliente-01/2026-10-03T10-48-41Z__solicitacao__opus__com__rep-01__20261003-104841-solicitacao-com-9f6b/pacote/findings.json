@@ -1,0 +1,270 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "prova-cliente-01",
+  "runId": "20261003-104841-solicitacao-com-9f6b",
+  "receivedAt": "2026-10-03T10:54:20Z",
+  "receipt": "r-4714407dd3b10d06",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-03T10:54:20.317Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skiplink, barra superior, breadcrumb, formulário (campos de texto, 2 selects, radios, datepicker, textarea, upload, checkboxes, ações), tabela e paginação de solicitações anteriores",
+      "Estados: carregamento; ordem de Tab; select aberto e escolha por teclado; envio vazio (erros); envio com CPF/data inválidos; envio válido (sucesso); fechar mensagem de erro pelo teclado; diálogo Cancelar (trap de foco, Esc, Continuar preenchendo, Fechar); paginação página 2"
+    ],
+    "notes": "Viewport medido: innerWidth 1280 x innerHeight 900 (clientWidth/Height iguais). Ferramentas: scan_page S-page-001 (carregamento), S-page-002 (após Enviar vazio), S-page-003 (diálogo Cancelar aberto); verify_finding V-001 (rejeitado por falta de norma no id de checker) e V-002 (regra KB existe, sem predicado: unverifiable; cor #334333 confirmada por inspeção). Interações: Tab sequencial a partir do carregamento (1º foco no botão de upload, antes do skiplink); clique em Tipo de serviço + ArrowDown + Enter; Enviar vazio; Enter no fechar da mensagem (funciona); Cancelar → Tab x2 (foco preso ok) → Esc (fecha, foco vai ao body); Página 2 (conteúdo muda, sem aria-current); preenchimento válido e Enviar (mensagem de sucesso com foco no conteúdo). Rejeitados/incertos: após escolher opção no br-select o foco vai ao body (possível comportamento da biblioteca DS, incerto, não reportado); foco vai ao body ao fechar mensagem de erro (incerto); CPF '123' e data 31/02/2020 aceitos sem validação de formato (não é violação WCAG clara, não reportado); 8 role=alert simultâneos (não reportado); atributo inválido tab-index no botão do calendário (trivial). Observações estruturais de classes extras do scanner não são achados. Erro de console apenas favicon 404. Somente a largura 1280x900 foi coberta, conforme as Entradas.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "label",
+        "observed": "Radio 'Presencial' sem nome acessível: o <label>Presencial</label> irmão não tem for; clicar no texto 'Presencial' não marca a opção (input com opacity 0).",
+        "expected": "Label associado ao input (for='forma-presencial'), como nas demais opções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006",
+          "S-page-002",
+          "F-012",
+          "F-011",
+          "S-page-003",
+          "F-016"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "Botão 'Selecione o arquivo' tem aria-hidden='true' mas é focável (tabindex='1'); o input file #documentos está com display:none, então o único controle operável fica oculto para tecnologias assistivas.",
+        "expected": "Controle de upload focável exposto na árvore de acessibilidade com nome associado ao rótulo, sem aria-hidden.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005",
+          "S-page-002",
+          "F-010"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          ".br-skiplink a.br-item"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex='1' faz o botão de upload receber o primeiro Tab da página, antes do link 'Ir para o conteúdo' e de todo o cabeçalho e formulário.",
+        "expected": "Ordem de foco seguindo a ordem visual/DOM (sem tabindex positivo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Com foco por teclado: outline none, box-shadow none e borda cinza rgb(136,136,136) igual ao estado sem foco; regra da tela '.campo-servico .br-input input:focus-visible, .campo-unidade ... {box-shadow:none; outline:none; border-color: var(--border-color-alternative) !important}' remove o indicador do DS (os outros campos mostram borda/sombra rgb(194,133,12)).",
+        "expected": "Indicador de foco visível, como nos demais campos do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab x9 até 'Tipo de serviço'",
+            "Tab até 'Unidade de atendimento'"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": "wcag:3.3.1",
+        "observed": "Após envio vazio, as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id e os inputs têm aria-invalid='true' sem aria-describedby; os demais campos referenciam seu *-retorno.",
+        "expected": "Mensagem de erro associada programaticamente ao campo (aria-describedby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "emag-2.2",
+        "observed": "Botões de mês anterior/seguinte do calendário contêm apenas ícone, sem aria-label nem texto.",
+        "expected": "Nome acessível descritivo (ex.: 'Mês anterior', 'Próximo mês').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001",
+          "F-002",
+          "S-page-002",
+          "F-008",
+          "F-009"
+        ]
+      },
+      {
+        "selector": ".barra-superior",
+        "rule": "ds-page-header",
+        "observed": "Cabeçalho é um <header class='barra-superior'> próprio; não há .br-header nem <br-header> no documento.",
+        "expected": "Área de Cabeçalho do Template Base com o componente Header do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003"
+        ]
+      },
+      {
+        "selector": "html",
+        "rule": "ds-page-footer",
+        "observed": "Nenhum .br-footer nem <br-footer> na página.",
+        "expected": "Área de Rodapé do Template Base com o componente Footer do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno .close > [role=button]",
+        "rule": "ds-structure-button-tag",
+        "observed": "Botão 'Fechar a mensagem' da mensagem de erro é <div class='br-button circle small' role='button' tabindex='0'> (a mensagem de sucesso usa <button>).",
+        "expected": "br-button aplicado a elemento <button type='button'>.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-007"
+        ]
+      },
+      {
+        "selector": ".dialogo-descarte",
+        "rule": "govbr-3.7.0-foundation-global-21b1a2733f7b",
+        "observed": "Texto do diálogo 'Descartar solicitação?' com color rgb(51,67,51) (#334333), valor que não corresponde a token de cor do DS.",
+        "expected": "Cor de texto da paleta predefinida do DS (ex.: --color / gray-80 #333333).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Cancelar"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-013",
+          "V-002"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o diálogo de descarte com Esc (e também por 'Continuar preenchendo' ou 'Fechar'), o foco vai para o body em vez de voltar ao botão Cancelar.",
+        "expected": "Foco retornar ao elemento que abriu o diálogo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Cancelar",
+            "Tab",
+            "Tab",
+            "Escape"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".paginacao-anteriores a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "Página atual indicada apenas pela classe visual 'active'; o link não tem aria-current='page' (também após ir para a página 2).",
+        "expected": "Página corrente exposta programaticamente (aria-current='page').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#documentos-apoio",
+        "relatedSelectors": [
+          ".br-upload"
+        ],
+        "rule": "govbr-3.7.0-component-upload-985fd2775586",
+        "observed": "Texto de apoio do upload: 'Um arquivo PDF, JPG ou PNG de até 5 MB.' — não informa que é possível arrastar arquivos.",
+        "expected": "Upload aceitar arrastar arquivos e informar essa possibilidade no texto de apoio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      }
+    ]
+  }
+}
