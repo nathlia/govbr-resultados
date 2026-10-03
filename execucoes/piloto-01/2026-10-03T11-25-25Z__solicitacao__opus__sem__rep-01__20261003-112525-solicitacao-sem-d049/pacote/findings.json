@@ -1,0 +1,188 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "piloto-01",
+  "runId": "20261003-112525-solicitacao-sem-d049",
+  "receivedAt": "2026-10-03T11:36:12Z",
+  "receipt": "r-40b5bd65e8f5fd05",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-03T11:36:12.749Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skiplink, cabeçalho, breadcrumb, formulário (todos os campos, selects, datepicker, upload, rádios, checkboxes), mensagens de erro e de sucesso, diálogo de descarte (Cancelar), tabela de solicitações anteriores e paginação (páginas 1-3)"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight). Não havia ferramentas de validação automática (axe etc.) no ambiente; a avaliação foi feita por inspeção com Playwright (árvore de acessibilidade, DOM, estilos calculados, navegação por teclado com registro de focusin). Interações: tabulação completa da página; operação dos selects por teclado (ArrowDown/Enter/Escape) e mouse; envio vazio (8 erros), envio parcial com valores inválidos (CPF '123abc' foi aceito sem validação de formato; data 31/02/2020 foi convertida pelo flatpickr para 02/03/2020), envio completo bem-sucedido (mensagem de sucesso com foco); fechamento da mensagem de erro por Enter e Espaço; diálogo Cancelar (foco inicial correto, foco preso, Esc/Fechar/Continuar/Descartar); paginação por links e botão 'Página seguinte'; abertura do calendário pelo mouse. Limitação: o clique em 'Selecione o arquivo' abriu o seletor de arquivo do sistema, que não pôde ser tratado (sem ferramenta de upload); a aba foi fechada e a página recarregada, então o upload real e a lista de arquivos não foram avaliados. Itens considerados e não relatados (incertos ou herdados do componente padrão do DS): nav do skiplink com role=menubar/menuitem; botões de mês anterior/seguinte do calendário flatpickr sem nome acessível (só aparecem com o calendário aberto, que só é acessível por mouse; o botão 'Abrir calendário' é aria-hidden e tabindex=-1, mas a data pode ser digitada); bordas de rádio/checkbox em #ccc sobre branco (~1,6:1, possível falha 1.4.11, valor vindo do token --border-color do CSS do DS); foco que vai para o body após escolher uma opção do select com Enter, após fechar a mensagem de erro e quando 'Página seguinte' fica desabilitado na última página; na mensagem de erro o botão de fechar fica à esquerda e o ícone à direita (ordem invertida em relação à mensagem de sucesso). 'Descartar' não limpou os valores de Tipo de serviço e Unidade (falha funcional, sem critério de acessibilidade). Contraste de textos, rótulos, mensagens de feedback (branco sobre #e52207 ≈4,6:1) e do texto do diálogo conferidos: sem falhas.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma .br-radio:first-of-type > label"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label>Presencial</label> não tem atributo for (os outros rádios têm), então a árvore de acessibilidade expõe 'radio' sem nome, e clicar no texto 'Presencial' não marca a opção.",
+        "expected": "O rótulo deve estar associado programaticamente ao input (label for='forma-presencial'), dando ao rádio o nome 'Presencial' e área de clique no texto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar no texto 'Presencial'"
+          ]
+        },
+        "evidence": [
+          "browser_snapshot: radio [ref=e56] sem nome",
+          "evaluate: #forma-presencial.checked === false após clicar no rótulo"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por teclado, os campos 'Tipo de serviço' e 'Unidade de atendimento' ficam com outline:none, box-shadow:none e borda rgb(136,136,136), idêntica ao estado sem foco. Regra do CSS da página: '.campo-servico .br-input input:focus... { box-shadow:none; outline:none; border-color: var(--border-color-alternative) !important }'. Os demais campos mostram o anel de foco #c2850c.",
+        "expected": "Indicador de foco visível, como o anel de foco padrão do DS (box-shadow/borda #c2850c) usado nos outros campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Tab até #servico (passando por upload, skiplink, logo, breadcrumb, nome, CPF)"
+          ]
+        },
+        "evidence": [
+          "evaluate getComputedStyle(document.activeElement) em #servico: outline none, box-shadow none, border rgb(136,136,136)",
+          "screenshot page-2026-10-03T11-27-37-731Z.png"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão 'Selecione o arquivo' tem tabindex='1', por isso é o primeiro elemento a receber foco na página, antes do skiplink e do cabeçalho; depois o foco volta a ele só no fim do ciclo.",
+        "expected": "Ordem de foco seguindo a sequência visual/DOM (tabindex 0 ou ausente), com o controle de upload alcançado entre 'Descrição' e os recursos de acessibilidade.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Pressionar Tab"
+          ]
+        },
+        "evidence": [
+          "registro focusin: 1º foco BUTTON.upload-button, 2º A.br-item (skiplink)"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O botão 'Selecione o arquivo' recebe foco e abre o seletor de arquivo, mas tem aria-hidden='true'; o input file #documentos está com display:none. Assim, o único controle de envio de documento fica fora da árvore de acessibilidade: leitores de tela não recebem nome nem papel ao focá-lo.",
+        "expected": "Controle de upload focável exposto a tecnologias assistivas, com papel de botão e nome (sem aria-hidden em elemento focável).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Pressionar Tab (foco no botão de upload)"
+          ]
+        },
+        "evidence": [
+          "DOM: <button class='upload-button' type='button' aria-hidden='true' tabindex='1'>",
+          "getComputedStyle(#documentos).display = none"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "Após enviar o formulário vazio, os campos recebem aria-invalid='true' e as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' aparecem, mas as mensagens não têm id e os inputs não têm aria-describedby. Os outros campos estão associados às suas mensagens (ex.: #nome aria-describedby='nome-retorno').",
+        "expected": "Cada mensagem de erro deve estar associada programaticamente ao seu campo (id na mensagem + aria-describedby no input), como nos demais campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em 'Enviar' com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "evaluate: servico/unidade sem aria-describedby; feedback span sem id"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o diálogo 'Descartar solicitação?' (Esc, botão Fechar, 'Continuar preenchendo' ou 'Descartar'), o foco vai para o <body>, em vez de voltar ao botão 'Cancelar' que abriu o diálogo.",
+        "expected": "Ao fechar o diálogo, o foco deve voltar ao elemento que o abriu ('Cancelar') ou a um ponto lógico do formulário.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em 'Cancelar'",
+            "Pressionar Escape"
+          ]
+        },
+        "evidence": [
+          "evaluate document.activeElement = BODY após Esc, após 'Continuar preenchendo', após 'Fechar' e após 'Descartar'"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação é indicada só visualmente (classe 'active', fundo azul-escuro); o link não tem aria-current e o nome acessível é igual ao das outras páginas ('Página 1').",
+        "expected": "A página atual deve ser exposta programaticamente, por exemplo com aria-current='page' no link ativo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página"
+          ]
+        },
+        "evidence": [
+          "DOM: <a class='page active' aria-label='Página 1' href='#titulo-historico'> sem aria-current; mesmo após ir às páginas 2 e 3"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno.danger .close [role=button]",
+        "rule": null,
+        "observed": "Na mensagem de erro de envio (br-message danger), o botão 'Fechar a mensagem' é um <div class='br-button circle small' role='button' tabindex='0'>, enquanto a mensagem de sucesso da mesma tela usa <button type='button'>. Funciona com Enter e Espaço.",
+        "expected": "Usar o componente botão do DS (<button type='button' class='br-button circle small'>), como na mensagem de sucesso.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em 'Enviar' com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "DOM de .retorno-envio no estado de erro vs. estado de sucesso"
+        ]
+      }
+    ]
+  }
+}
