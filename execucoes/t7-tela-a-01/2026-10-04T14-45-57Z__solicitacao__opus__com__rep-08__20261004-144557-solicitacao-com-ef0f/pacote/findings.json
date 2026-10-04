@@ -1,0 +1,226 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-144557-solicitacao-com-ef0f",
+  "receivedAt": "2026-10-04T14:53:44Z",
+  "receipt": "r-c263c67628aa4924",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T14:53:44.119Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: link de salto, cabeçalho, breadcrumb, formulário de solicitação (campos de texto, selects, rádios, datepicker/calendário, textarea, upload, checkboxes, botões), mensagens de erro e sucesso, diálogo de descarte (Cancelar), tabela de solicitações anteriores e paginação (páginas 1-3)"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight e clientWidth/clientHeight). Interações: ordem de Tab desde o carregamento (o 1º Tab vai ao botão de upload, tabindex=1); link de salto (Enter -> #main-content, Tab seguinte vai a #nome: OK); envio vazio (mensagem danger + 8 feedbacks; foco movido para o conteúdo da mensagem); fechar a mensagem de erro com Enter e com Espaço (funciona); select Tipo de serviço por teclado (ArrowDown/Enter: funciona; foco vai ao body após escolher, mas o Tab seguinte segue para #unidade — não relatado); clique no rótulo 'Presencial' não marca o rádio; calendário só abre pelo botão de ícone (tabindex=-1, aria-hidden), mas a data pode ser digitada; envio válido (mensagem success, com botão Fechar <button> correto); paginação 2 e 3 (a classe active muda; sem aria-current; no fim, o botão seguinte é desabilitado com foco e o foco cai no body — incerto, não relatado); Cancelar -> diálogo com foco inicial em 'Continuar preenchendo' e foco preso (OK); Esc, 'Continuar preenchendo' e 'Descartar' fecham o diálogo, mas o foco vai ao body. Ferramentas: govbr-ds-validator scan_page S-page-001 (inicial), S-page-002 (erro após envio vazio), S-page-003 (sucesso após envio válido), S-page-004 (diálogo aberto); findings F-001..F-023. Observações 'structure-unknown-classes' do validador descartadas (sem norma). F-013 (label-title-only) é o mesmo problema de F-006/F-014 e não foi repetido. Incertezas não relatadas: (1) o CPF '123' e uma data passada (02/03/2020) foram aceitos no envio, apesar da instrução de 11 dígitos — sem critério e-MAG/WCAG claro que obrigue a validação; (2) a borda dos checkboxes/rádios desmarcados é #ccc sobre branco (~1,6:1), mas vem do valor padrão do DS (--border-color) — possível wcag:1.4.11, não afirmado; (3) os aria-label 'Month'/'Year' do flatpickr estão em inglês numa página pt-BR; (4) 'Descartar' não limpa os selects Tipo de serviço/Unidade (defeito funcional, fora do escopo de conformidade); (5) a paginação não usa ul/li como o exemplo canônico, e a página atual só é indicada visualmente (sem aria-current, como no exemplo canônico do DS). Não foi possível testar o envio real de arquivo (o seletor de arquivos não foi acionado). Sem outras larguras, conforme as Entradas. Erro de console: apenas favicon.ico 404.",
+    "findings": [
+      {
+        "selector": "header.barra-superior",
+        "rule": "ds-page-header",
+        "observed": "O cabeçalho é um <header class=\"barra-superior\"> próprio, só com o link 'gov.br'; não há .br-header nem <br-header> no documento.",
+        "expected": "Área de Cabeçalho do Template Base preenchida pelo componente Header do gov.br DS (.br-header ou <br-header>).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003"
+        ]
+      },
+      {
+        "selector": "body",
+        "rule": "ds-page-footer",
+        "observed": "Não há rodapé: nenhum .br-footer nem <br-footer> no documento; a página termina na paginação da tabela.",
+        "expected": "Área de Rodapé do Template Base preenchida pelo componente Footer (.br-footer ou <br-footer>).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004"
+        ]
+      },
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "label",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label>Presencial</label> irmão não tem atributo for, e clicar no texto 'Presencial' não marca a opção (os demais rádios têm for).",
+        "expected": "Rádio associado ao rótulo (label for=\"forma-presencial\"), com nome acessível 'Presencial' e rótulo clicável.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006",
+          "S-page-002",
+          "F-014"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "aria-hidden-focus",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\" e recebe foco pelo teclado; o input file #documentos tem display:none. O único controle de upload operável fica fora da árvore de acessibilidade.",
+        "expected": "Controle de upload focável exposto às tecnologias assistivas com nome (sem aria-hidden em elemento focável), como no exemplo canônico, em que o input file tem aria-label.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex=\"1\": o primeiro Tab após o carregamento vai a ele (no meio do formulário), antes do link 'Ir para o conteúdo', do cabeçalho e dos campos; depois do último controle, o foco volta a ele.",
+        "expected": "Ordem de foco que segue a sequência visual/DOM (sem tabindex positivo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab (o foco vai para .upload-button)"
+          ]
+        },
+        "evidence": [
+          "inspeção: focusin log — 1º Tab = upload-button; 2º = link de salto"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "emag-2.2",
+        "observed": "Os botões de mês anterior e seguinte do calendário da Data preferencial só têm um ícone (<i class=\"fas fa-chevron-...\">) e nenhum aria-label: não têm nome acessível.",
+        "expected": "Botões apenas com ícone com nome acessível descritivo (ex.: aria-label=\"Mês anterior\" / \"Próximo mês\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no botão de calendário (#data-preferencial-btn) — calendário aberto"
+          ]
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001",
+          "F-002",
+          "S-page-003",
+          "F-015",
+          "F-016"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno.danger .close > [role=button]",
+        "rule": "ds-structure-button-tag",
+        "observed": "Na mensagem de erro, o botão 'Fechar a mensagem' é um <div class=\"br-button circle small\" role=\"button\" tabindex=\"0\">; na mensagem de sucesso, é um <button>.",
+        "expected": "br-button aplicado a um elemento <button type=\"button\">.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-007"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno.danger",
+        "relatedSelectors": [
+          ".mensagem-retorno.danger > .close",
+          ".mensagem-retorno.danger > .icon"
+        ],
+        "rule": "govbr-3.7.0-component-message-66b01a712e67",
+        "observed": "Na Message de erro, o botão Fechar aparece à esquerda (x=201) e o ícone semântico (fa-times-circle) aparece à direita (x=1019); a ordem no DOM é close, content, icon.",
+        "expected": "Ícone semântico à esquerda e botão Fechar no topo à direita da Message (como na mensagem de sucesso).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "get_ds_rules: govbr-3.7.0-component-message-66b01a712e67"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .feedback",
+          ".campo-unidade .feedback"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "Após o envio inválido, #servico e #unidade recebem aria-invalid=\"true\", mas não têm aria-describedby; as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id e não estão associadas ao campo (nos outros campos, o feedback está em aria-describedby).",
+        "expected": "Mensagem de erro de cada campo associada programaticamente ao campo (id no feedback + aria-describedby no input).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "inspeção DOM: atributos de #servico/#unidade"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte",
+          ".dialogo-descarte .acao-manter"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o diálogo 'Descartar solicitação?' (com Esc, 'Continuar preenchendo' ou 'Descartar'), o foco vai para o <body>, em vez de voltar ao botão Cancelar que o abriu.",
+        "expected": "Ao fechar o modal, o foco retorna ao elemento que o acionou (botão Cancelar) ou a um ponto lógico.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Foco no botão Cancelar e Enter (diálogo aberto, foco em 'Continuar preenchendo')",
+            "Enter em 'Continuar preenchendo' (ou Esc)"
+          ]
+        },
+        "evidence": [
+          "S-page-004",
+          "inspeção: document.activeElement = BODY após fechar"
+        ]
+      }
+    ]
+  }
+}
