@@ -1,0 +1,247 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-140827-solicitacao-com-1d0a",
+  "receivedAt": "2026-10-04T14:20:14Z",
+  "receipt": "r-dbfcbbf6a76c0606",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T14:20:14.619Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skiplink, barra superior, breadcrumb, formulário (todos os campos, selects, radios, data/calendário, upload, checkboxes, Cancelar/Enviar), mensagens de erro e de sucesso, caixa de diálogo 'Descartar solicitação?', tabela 'Solicitações anteriores' e paginação"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight). Interações: Tab desde o carregamento (o 1º foco vai para .upload-button antes do skiplink); foco programático/teclado em todos os focáveis para checar indicador; abrir selects por clique, setas, Enter (seleção) e Escape; clique no rótulo 'Presencial'; abrir calendário pelo botão; envio vazio (estado de erro), envio parcial (CPF '123', data 31/02/2020) e envio completo (sucesso); fechar mensagens por Enter/Espaço; paginação (página 2); Cancelar -> diálogo (Tab circula dentro dele; Escape, 'Continuar preenchendo' e 'Descartar' fecham). Validador: scans S-page-001 (inicial), S-page-002 (calendário aberto, continuado pelo cursor 19), S-page-003 (estado de erro, escopo form), S-page-004 (tokens nos elementos com estilo próprio), S-page-005 (diálogo aberto, sem achados); verificações V-004/V-005/V-006 confirmadas (as tentativas V-001..V-003 foram rejeitadas só por falta de rule.implements e refeitas). Limitações: não havia ferramenta de upload de arquivo; o seletor de arquivo aberto travou a aba, que precisou ser fechada e reaberta; anexar arquivo ficou fora. Incertos/não relatados: (a) os 42 dias do calendário recebem tabindex=1 quando ele abre (axe 'tabindex', F-014..F-055), mas o calendário fecha ao sair do botão, sem efeito observado na ordem de foco; parece comportamento da biblioteca flatpickr/DS; (b) os landmarks 'region' do calendário anexado ao body (F-011..F-013) vêm da biblioteca; (c) fechar as mensagens de erro e de sucesso manda o foco para o body (não relatado como achado: o elemento é removido e a WCAG não exige destino específico); (d) a página ativa da paginação não tem aria-current, igual ao exemplo canônico do DS; (e) CPF com 3 dígitos e data passada (31/02/2020, convertida para 02/03/2020) são aceitos sem erro: é ausência de validação, não erro detectado sem aviso; (f) 'Descartar' limpa os campos de texto, mas não os selects (funcional); (g) o botão de fechar da mensagem de erro é div role=button em vez de <button> (funciona por Enter/Espaço); (h) h1 com 32px fora da escala do DS (observação do validador, sem norma). O validador rejeita o skiplink (role=menubar) como candidato, pois segue o exemplo canônico. A falta de nome dos botões de mês do calendário pode vir da biblioteca, mas é uma falha real com o calendário aberto.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "label",
+        "observed": "O radio 'Presencial' não tem nome acessível: o <label>Presencial</label> não tem atributo for (os outros radios têm). Clicar no texto 'Presencial' não marca a opção; o radio fica sem nome na árvore de acessibilidade.",
+        "expected": "Rótulo associado ao radio (label for='forma-presencial'), como em 'Por videochamada' e 'Por telefone'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001/F-006",
+          "S-page-003/F-059",
+          "S-page-003/F-058"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden='true', mas é focável (tabindex='1') e recebe foco pelo Tab. O input file #documentos está com display:none, então o controle de upload fica sem nome/papel para tecnologia assistiva.",
+        "expected": "Elemento focável não pode ter aria-hidden; o controle de upload precisa estar exposto com nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001/F-005",
+          "S-page-002/F-007",
+          "S-page-003/F-057"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          ".br-skiplink a"
+        ],
+        "rule": "govbr-3.7.0-accessibility-global-79db88c7f55d",
+        "observed": "O botão de upload tem tabindex='1': o primeiro Tab após o carregamento vai para ele, no meio do formulário, antes do link 'Ir para o conteúdo' e do restante da página.",
+        "expected": "Ordem de foco igual à ordem lógica do DOM, sem tabindex positivo; o skiplink deve ser o primeiro destino do foco.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionar Tab uma vez após o carregamento"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "govbr-3.7.0-accessibility-global-21fbcc2fe37b",
+        "observed": "Com foco de teclado (:focus-visible) nos campos 'Tipo de serviço' e 'Unidade de atendimento', não aparece indicador: outline-style none, box-shadow none no input e nos ancestrais; a borda continua 1px #888. Os outros inputs mostram anel de 2px rgb(194,133,12).",
+        "expected": "Indicador de foco visível, igual ao dos demais campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em #cpf",
+            "Pressionar Tab (foco em #servico)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo, .campo-unidade .retorno-campo"
+        ],
+        "rule": "govbr-3.7.0-accessibility-global-cc837bbaf713",
+        "observed": "No estado de erro, as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id e os inputs não têm aria-describedby (null). Os demais campos associam o erro (ex.: #nome aria-describedby='nome-retorno').",
+        "expected": "Mensagem de erro associada programaticamente ao campo (id + aria-describedby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em 'Enviar' (.acao-enviar) com o formulário vazio"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".mensagem-retorno.danger",
+        "relatedSelectors": [
+          ".mensagem-retorno.danger > .close",
+          ".mensagem-retorno.danger > .icon"
+        ],
+        "rule": "govbr-3.7.0-component-message-66b01a712e67",
+        "observed": "Na Message de erro, a ordem é close -> content -> icon: o botão Fechar fica à esquerda (x=201) e o ícone semântico (fa-times-circle) à direita (x=1019). A mensagem de sucesso segue a ordem correta.",
+        "expected": "Ícone semântico à esquerda e botão Fechar no topo à direita da Message.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em 'Enviar' (.acao-enviar) com o formulário vazio"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".campo-servico [role=option], .campo-unidade [role=option]",
+        "relatedSelectors": [
+          "#servico, #unidade"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao escolher uma opção do select pelo teclado (seta para baixo + Enter), a lista fecha e o foco vai para o body, em vez de voltar ao input do select. O Tab seguinte não continua de forma previsível (caiu em #forma-telefone).",
+        "expected": "Depois da seleção, o foco volta ao campo do select (ordem de foco preservada).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em #servico",
+            "Pressionar ArrowDown",
+            "Pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".dialogo-descarte",
+        "relatedSelectors": [
+          ".acao-cancelar"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar a caixa de diálogo 'Descartar solicitação?' (Escape, 'Continuar preenchendo' ou 'Descartar'), o foco vai para o body em vez de voltar ao botão 'Cancelar' que a abriu.",
+        "expected": "Ao fechar a caixa de diálogo, o foco volta ao elemento que a acionou (.acao-cancelar).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em 'Cancelar' (.acao-cancelar)",
+            "Pressionar Escape"
+          ]
+        },
+        "evidence": [
+          "S-page-005"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "button-name",
+        "observed": "Com o calendário aberto, os botões de mês anterior/seguinte só têm ícone (<i class='fas fa-chevron-left/right'> sem aria-hidden) e nenhum nome acessível (sem texto, aria-label ou title).",
+        "expected": "Botões com nome acessível, ex.: aria-label='Mês anterior' / 'Próximo mês'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão 'Abrir calendário' (#data-preferencial-btn)"
+          ]
+        },
+        "evidence": [
+          "S-page-002/F-008",
+          "S-page-002/F-009"
+        ]
+      },
+      {
+        "selector": "header.barra-superior",
+        "rule": "ds-page-header",
+        "observed": "A área de cabeçalho é um <header class='barra-superior'> próprio, só com a marca 'gov.br'. Não há componente Header do DS (.br-header ou <br-header>): 0 elementos.",
+        "expected": "Área de Cabeçalho do Template Base ocupada pelo componente Header do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001/F-003",
+          "V-004"
+        ]
+      },
+      {
+        "selector": "body",
+        "rule": "ds-page-footer",
+        "observed": "A página não tem Área de Rodapé: 0 elementos .br-footer/<br-footer> e nenhum <footer>.",
+        "expected": "Área de Rodapé do Template Base com o componente Footer do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001/F-004",
+          "V-005"
+        ]
+      },
+      {
+        "selector": "form.formulario-solicitacao",
+        "rule": "ds-token-color",
+        "observed": "A borda do contêiner do formulário usa border-color rgb(222,226,230) (#dee2e6), valor fora do registro de tokens do DS (o mais próximo é --gray-cool-10 #dfe1e2).",
+        "expected": "Cor de borda vinda de um token oficial do gov.br DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003/F-056",
+          "V-006"
+        ]
+      }
+    ]
+  }
+}
