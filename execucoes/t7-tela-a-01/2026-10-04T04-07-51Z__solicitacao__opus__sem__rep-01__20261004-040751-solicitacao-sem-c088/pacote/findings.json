@@ -1,0 +1,229 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-040751-solicitacao-sem-c088",
+  "receivedAt": "2026-10-04T04:17:35Z",
+  "receipt": "r-a55ac80bd00828cf",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T04:17:35.598Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skiplink, cabeçalho, breadcrumb, formulário (campos de texto, selects Tipo de serviço e Unidade, radios Forma de atendimento, data, descrição, upload, checkboxes, declaração), envio vazio (estado de erro), envio parcial, envio completo (sucesso), mensagem de erro e botão de fechar, diálogo Descartar solicitação (Escape, Continuar preenchendo, Descartar), tabela de solicitações anteriores e paginação (página 2, Página seguinte até a 3)"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight e clientWidth/clientHeight). Não havia ferramenta de validação automática (axe, validador e-MAG etc.) no ambiente; tudo foi avaliado por inspeção com Playwright: árvore de acessibilidade, DOM, estilos calculados, regras CSS da página, sequência de foco por teclado (Tab/Shift+Tab/setas/Enter/Espaço/Escape) e cliques. Não há identificadores de ferramenta de validação; a evidência são screenshots e snapshots do Playwright. Interações: carregamento; Tab inicial; abrir os selects e escolher opção pelo teclado; clicar no texto 'Presencial'; Cancelar > diálogo (Tab preso no diálogo; Escape; Continuar preenchendo; Descartar); Enviar vazio; fechar a mensagem de erro com Enter e com Espaço (os dois funcionam); envio com CPF '123' e data '31/02/2020' (aceitos: o flatpickr converteu a data para 02/03/2020 sem avisar; não há validação de formato do CPF — anotado, não relatado como falha WCAG); envio completo > mensagem de sucesso; paginação. Incertos e não relatados: (a) ao chegar à última página com 'Página seguinte', o botão fica desabilitado e o foco vai para o body (padrão comum do componente); (b) role=combobox fica no div .br-input e não no input (estrutura do JS do DS, não confirmada como falha); (c) aria-labels em inglês no calendário flatpickr ('Month', 'Year'), que só é alcançável pelo mouse, mas a data pode ser digitada; (d) o fechar da mensagem de erro é um div role=button (funciona com Enter e com Espaço). A borda de radios e checkboxes vem do token global --border-color (#ccc) da biblioteca e foi relatada pela medição objetiva (1,6:1). Fora do escopo: outras larguras (o escopo não declara meio para alcançá-las) e o upload real de arquivo (só confirmei que o botão dispara o input file).",
+    "findings": [
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão 'Selecione o arquivo' tem tabindex=\"1\". O primeiro Tab após o carregamento foca esse botão no meio do formulário (a página rola até y=518), antes do skiplink 'Ir para o conteúdo', do cabeçalho e dos campos anteriores.",
+        "expected": "Ordem de foco que siga a ordem visual e do DOM (tabindex 0 ou ausente), com o skiplink como primeiro foco.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Pressionar Tab"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-08-21-021Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O botão que abre a seleção de arquivo tem aria-hidden=\"true\", mas é focável (tabindex=1) e é o único controle operável do upload: o input#documentos, que tem o rótulo 'Documentos comprobatórios (opcional)', está com display:none. Para tecnologia assistiva, o foco cai num elemento sem nome nem papel.",
+        "expected": "Controle de upload exposto à tecnologia assistiva com papel e nome acessível (sem aria-hidden no elemento focável, ou com input file focável e rotulado).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Pressionar Tab"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-08-21-021Z.yml"
+        ]
+      },
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma .br-radio:first-of-type label"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O <label>Presencial</label> não tem for=\"forma-presencial\" nem envolve o input. A árvore de acessibilidade expõe 'radio' sem nome, e clicar no texto 'Presencial' ou no círculo (elementFromPoint devolve o label) não marca a opção.",
+        "expected": "Radio com nome acessível 'Presencial' associado ao rótulo (label for), selecionável pelo clique no rótulo como as demais opções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar no texto 'Presencial'"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-08-21-021Z.yml",
+          "../../tmp/pw-0/page-2026-10-04T04-11-28-787Z.yml"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por teclado, os campos 'Tipo de serviço' e 'Unidade de atendimento' ficam com box-shadow none, outline none e borda rgb(136,136,136), igual ao estado sem foco. A regra '.campo-servico .br-input input:focus, ... .campo-unidade ...' de solicitacao-D9ODjg1O.css remove o indicador do DS. Os demais campos mostram borda e sombra de 2px em rgb(194,133,12).",
+        "expected": "Indicador de foco visível nesses campos, como nos demais campos do formulário.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Tab até 'Tipo de serviço' e depois até 'Unidade de atendimento'"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-08-21-021Z.yml"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "No estado de erro, os inputs recebem aria-invalid=\"true\", mas as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id e não são referenciadas por aria-describedby. Nos outros campos (nome-retorno, cpf-retorno, data-retorno etc.) a mensagem fica associada.",
+        "expected": "Mensagem de erro de cada campo associada programaticamente ao input (id + aria-describedby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-12-46-512Z.yml",
+          "../../tmp/pw-0/page-2026-10-04T04-13-05-588Z.png"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao escolher uma opção da lista com ArrowDown + Enter, a lista fecha e document.activeElement passa a ser o body. O foco não volta ao campo.",
+        "expected": "Após a seleção, o foco volta ao campo do select (ou fica em ponto lógico), sem se perder no body.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em 'Tipo de serviço'",
+            "ArrowDown",
+            "ArrowDown",
+            "Enter"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-10-16-905Z.yml",
+          "../../tmp/pw-0/page-2026-10-04T04-10-29-392Z.yml"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "O diálogo 'Descartar solicitação?' é aberto pelo Cancelar. Ao fechá-lo com Escape, com 'Continuar preenchendo' ou com 'Descartar', o foco vai para o body, não volta ao botão Cancelar.",
+        "expected": "Ao fechar o diálogo modal, o foco volta ao elemento que o abriu (Cancelar) ou a um ponto lógico.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em Cancelar",
+            "Pressionar Escape (repetido com 'Continuar preenchendo' e com 'Descartar')"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-11-53-425Z.png",
+          "../../tmp/pw-0/page-2026-10-04T04-12-35-784Z.yml"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores a.page",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação só é indicada pela classe 'active' (fundo azul). Nenhum link tem aria-current, e a árvore de acessibilidade expõe 'Página 1', 'Página 2' e 'Página 3' do mesmo jeito, antes e depois de clicar em 'Página 2'.",
+        "expected": "Link da página atual com aria-current=\"page\" (ou equivalente programático).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em 'Página 2'"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-14-40-515Z.yml"
+        ]
+      },
+      {
+        "selector": ".grupo-forma .br-radio label, .grupo-recursos .br-checkbox label, .campo-declaracao .br-checkbox label",
+        "rule": "wcag:1.4.11",
+        "observed": "O indicador visual dos radios e checkboxes (label::before, 24x24) tem borda de 1px rgb(204,204,204) sobre fundo branco: contraste de 1,6:1. A borda continua #ccc também no estado de erro dos radios.",
+        "expected": "Contorno dos radios e checkboxes não marcados com contraste de pelo menos 3:1 contra o fundo adjacente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-08-45-984Z.png"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno.danger",
+        "rule": null,
+        "observed": "Na mensagem de erro após o envio, a ordem é close (x=201), content, icon (x=1019): o botão de fechar aparece à esquerda e o ícone de erro à direita, e o fechar é um div role=button. Na mensagem de sucesso da mesma tela, a anatomia é a do DS: ícone à esquerda, conteúdo e fechar (<button>) à direita.",
+        "expected": "Mensagem com a anatomia do componente Message do gov.br DS (ícone, conteúdo, botão de fechar à direita), igual à mensagem de sucesso.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "../../tmp/pw-0/page-2026-10-04T04-13-05-588Z.png",
+          "../../tmp/pw-0/page-2026-10-04T04-14-14-130Z.png"
+        ]
+      }
+    ]
+  }
+}
