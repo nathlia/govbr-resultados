@@ -1,0 +1,186 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-094446-solicitacao-sem-ffa5",
+  "receivedAt": "2026-10-04T09:52:36Z",
+  "receipt": "r-1b33814059b66dec",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T09:52:36.110Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skiplink, barra superior, breadcrumb, formulário (todos os campos, combobox de serviço e unidade, rádios, data, descrição, upload, checkboxes, declaração), mensagens de erro e de sucesso, modal de descarte (Cancelar), tabela de solicitações anteriores e paginação"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight e clientWidth/clientHeight). Não havia ferramenta de validação automática (axe ou similar) no ambiente; a avaliação foi feita inspecionando DOM, árvore de acessibilidade, estilos calculados, navegação por teclado (Tab/Shift+Tab, setas, Enter, Espaço, Escape) e mouse; as evidências são as consultas do Playwright, sem identificadores de validador. Interações: Tab completo pela página; abrir/selecionar opções nos combobox por teclado e mouse; clicar no rótulo 'Presencial'; enviar vazio (8 erros); fechar mensagem de erro com Enter e Espaço; enviar com CPF '123abc' e data '31/02/2020' (aceitos sem erro de formato; a data foi convertida para 02/03/2020 — não relatado como violação WCAG); envio válido (mensagem de sucesso com foco no conteúdo role=alert); Cancelar -> modal (o foco fica preso corretamente, Escape fecha); Continuar preenchendo/Fechar/Descartar; paginação página 2. O seletor de arquivos nativo bloqueou a sessão (não há ferramenta de upload); a aba foi fechada e reaberta, e a seleção de arquivo foi apenas simulada por script (DataTransfer), por isso o estado com arquivo não foi avaliado em profundidade. Contraste de textos e controles medido: todos >= 4,5:1 (texto) e >= 3:1 (não textual). Incertos e não relatados: depois de escolher uma opção com Enter nos combobox de serviço e unidade, o foco vai para o body, mas o próximo Tab segue a partir do ponto lógico (parece comportamento da biblioteca do DS); span do breadcrumb com tabindex=0 e role=menubar no skiplink seguem o padrão do DS; botão do calendário com aria-hidden/tabindex=-1 (a data pode ser digitada). O favicon responde 404 (sem impacto em acessibilidade). Outras larguras ficaram fora do escopo, sem meio declarado.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "rule": "wcag:4.1.2",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label>Presencial</label> não tem atributo for e não envolve o input (a árvore de acessibilidade mostra 'radio' sem nome). Clicar no texto 'Presencial' não marca a opção (checked continua false).",
+        "expected": "O rádio deve ter o rótulo associado de forma programática (label for='forma-presencial'), com o nome 'Presencial' e área de clique no rótulo, como as outras opções do grupo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "Playwright browser_evaluate (DOM/estilos calculados)",
+          "Playwright browser_snapshot (árvore de acessibilidade)"
+        ]
+      },
+      {
+        "selector": ".br-upload .upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden='true', mas é focável e operável (abre o seletor de arquivos). O input file #documentos tem display:none, então este botão é o único acesso ao upload e fica oculto para tecnologias assistivas.",
+        "expected": "Um elemento focável e operável não deve ter aria-hidden='true'; o controle de upload deve ser exposto com papel e nome (ex.: 'Selecione o arquivo — Documentos comprobatórios').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab (o foco vai para o botão de upload)"
+          ]
+        },
+        "evidence": [
+          "Playwright browser_evaluate (DOM/estilos calculados)",
+          "Playwright browser_snapshot (árvore de acessibilidade)"
+        ]
+      },
+      {
+        "selector": ".br-upload .upload-button",
+        "relatedSelectors": [
+          ".br-skiplink a.br-item"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex='1'. O primeiro Tab depois do carregamento leva o foco a ele, no meio do formulário, antes do skiplink 'Ir para o conteúdo', do cabeçalho e dos campos anteriores.",
+        "expected": "A ordem de foco deve seguir a ordem visual e lógica (tabindex 0 ou nativo), sem tabindex positivo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "Playwright browser_evaluate (DOM/estilos calculados)",
+          "Playwright browser_snapshot (árvore de acessibilidade)"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Os campos 'Tipo de serviço' e 'Unidade de atendimento' não mostram indicador de foco: outline none, box-shadow none e borda inalterada (regra '.campo-servico .br-input input:focus, ... { box-shadow: none; outline: none; border-color: var(--border-color-alternative) !important }'). Os demais campos têm um box-shadow de 2px rgb(194,133,12).",
+        "expected": "Todo componente que recebe foco pelo teclado deve ter um indicador de foco visível, como o padrão do DS aplicado aos outros campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab até 'Tipo de serviço'",
+            "Tab até 'Unidade de atendimento'"
+          ]
+        },
+        "evidence": [
+          "Playwright browser_evaluate (DOM/estilos calculados)",
+          "Playwright browser_snapshot (árvore de acessibilidade)"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "Depois do envio com erro, os inputs ficam com aria-invalid='true', mas não têm aria-describedby; as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id e não ficam associadas ao campo. Nos outros campos, a mensagem tem id (ex.: nome-retorno) e está em aria-describedby.",
+        "expected": "A mensagem de erro de cada campo deve ficar associada de forma programática ao input (id na mensagem e referência em aria-describedby), como nos outros campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "Playwright browser_evaluate (DOM/estilos calculados)",
+          "Playwright browser_snapshot (árvore de acessibilidade)"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno.danger .close",
+        "relatedSelectors": [
+          ".mensagem-retorno.danger .icon",
+          ".mensagem-retorno.danger .content"
+        ],
+        "rule": null,
+        "observed": "Na mensagem de erro geral, o bloco .close é o primeiro filho e aparece à esquerda; o ícone de status fica no fim, à direita; o fechar é um <div role='button' tabindex='0'>. Na mensagem de sucesso da mesma tela, a ordem é ícone, conteúdo e fechar, com <button> nativo.",
+        "expected": "A mensagem deve seguir a estrutura do componente br-message do DS (ícone, conteúdo e botão fechar à direita, com elemento <button>), igual à variante de sucesso.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "Playwright browser_evaluate (DOM/estilos calculados)",
+          "Playwright browser_snapshot (árvore de acessibilidade)"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte .acao-manter",
+          ".dialogo-descarte .close"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Depois de abrir o modal 'Descartar solicitação?' pelo botão Cancelar e fechá-lo com Escape, 'Continuar preenchendo' ou 'Fechar', o foco vai para o BODY (document.activeElement = BODY) em vez de voltar ao botão Cancelar.",
+        "expected": "Ao fechar o diálogo, o foco deve voltar ao elemento que o abriu (Cancelar), mantendo a sequência de navegação.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher Nome",
+            "Foco em Cancelar e Enter",
+            "Enter em 'Continuar preenchendo' (também testados Escape e 'Fechar')"
+          ]
+        },
+        "evidence": [
+          "Playwright browser_evaluate (DOM/estilos calculados)",
+          "Playwright browser_snapshot (árvore de acessibilidade)"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação é indicada só visualmente (classe 'active', fundo escuro). O link não tem aria-current='page' nem outra indicação programática; a árvore de acessibilidade mostra 'Página 1', 'Página 2' e 'Página 3' sem diferença.",
+        "expected": "A página atual deve ser exposta de forma programática (aria-current='page' no link ativo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "Playwright browser_evaluate (DOM/estilos calculados)",
+          "Playwright browser_snapshot (árvore de acessibilidade)"
+        ]
+      }
+    ]
+  }
+}
