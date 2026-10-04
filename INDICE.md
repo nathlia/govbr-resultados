@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-04T09:55:31Z | execução | t7-tela-a-01 | solicitacao | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · fb28b38b72f1 | `execucoes/t7-tela-a-01/2026-10-04T09-55-31Z__solicitacao__opus__sem__rep-06__20261004-095531-solicitacao-sem-6cf1` |
+| 2026-10-04T09:55:05Z | linha de base | t7-tela-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/t7-tela-a-01/solicitacao/lb-20261004-095505-solicitacao-249375` |
 | 2026-10-04T09:44:46Z | execução | t7-tela-a-01 | solicitacao | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 612f54e43957 | `execucoes/t7-tela-a-01/2026-10-04T09-44-46Z__solicitacao__opus__sem__rep-05__20261004-094446-solicitacao-sem-ffa5` |
 | 2026-10-04T09:44:37Z | linha de base | t7-tela-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/t7-tela-a-01/solicitacao/lb-20261004-094437-solicitacao-1bc5bd` |
 | 2026-10-04T09:32:51Z | execução | t7-tela-a-01 | solicitacao | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · b91294fa7764 | `execucoes/t7-tela-a-01/2026-10-04T09-32-51Z__solicitacao__opus__com__rep-05__20261004-093251-solicitacao-com-f707` |
