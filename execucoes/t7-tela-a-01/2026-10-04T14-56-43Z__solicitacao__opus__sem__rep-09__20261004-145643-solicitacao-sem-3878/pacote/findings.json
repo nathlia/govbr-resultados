@@ -1,0 +1,206 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-145643-solicitacao-sem-3878",
+  "receivedAt": "2026-10-04T15:04:55Z",
+  "receipt": "r-2bbc542f5df3851f",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T15:04:55.345Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Estado inicial (cabeçalho, atalho, trilha, formulário, tabela de histórico)",
+      "Ordem de foco por Tab em toda a página",
+      "Combobox Tipo de serviço/Unidade (clique, setas, Enter)",
+      "Grupo de radios Forma de atendimento (clique no rótulo)",
+      "Calendário do campo Data preferencial (aberto por clique)",
+      "Botão de upload (Enter abre seletor de arquivo)",
+      "Envio vazio (estado de erro) e envio parcial",
+      "Envio válido (mensagem de sucesso)",
+      "Diálogo Descartar solicitação (foco inicial, armadilha de foco, Esc, Continuar preenchendo, Descartar)",
+      "Paginação do histórico (página 2, Página seguinte)",
+      "Fechar mensagem de erro por Enter e Espaço"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight e clientWidth/clientHeight). Não havia ferramentas de validação automatizada (axe, validadores) disponíveis; avaliação feita por inspeção com Playwright (árvore de acessibilidade, DOM, estilos calculados, folhas de estilo da página, contraste calculado via fórmula WCAG, teclado e mouse). Evidências são capturas e snapshots locais em /tmp/pw-0. Interações: carregamento; Tab sequencial em toda a página; Enter no botão de upload abriu seletor de arquivo nativo que não pôde ser tratado (browser_file_upload indisponível), a aba foi fechada e outra aberta no mesmo tamanho 1280x900; o envio de arquivo e a lista de arquivos ficaram fora da avaliação. Contraste de texto: nenhum par abaixo de 4,5:1 no estado inicial, de erro e no diálogo. Itens incertos e não relatados: (a) após escolher opção no combobox com Enter o foco vai para BODY, mas o Tab seguinte prossegue para o próximo campo; parece comportamento do componente do DS; (b) ao chegar na última página com 'Página seguinte' o botão é desabilitado e o foco vai para BODY; (c) atalho 'Ir para o conteúdo' usa role=menubar/menuitem, não confirmei se diverge do exemplo do DS; (d) mensagem de erro usa div role=button para fechar (funciona com Enter e Espaço), diferente da mensagem de sucesso que usa <button>, sem falha WCAG confirmada; (e) CPF '123' e data passada são aceitos sem validação de formato, sem falha de acessibilidade em si; (f) a borda #ccc de checkboxes/radios vem do token --border-color do CSS do DS incluído. Não houve outras larguras no escopo.",
+    "findings": [
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão 'Selecione o arquivo' tem tabindex=\"1\"; o primeiro Tab após o carregamento vai para ele, antes do atalho 'Ir para o conteúdo', do link gov.br, da trilha e dos campos Nome/CPF anteriores.",
+        "expected": "Ordem de foco seguindo a ordem lógica/visual da página (sem tabindex positivo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionou Tab uma vez após o carregamento"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/tab1.png"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão de upload tem aria-hidden=\"true\", mas é focável (tabindex=1) e operável (Enter abre o seletor de arquivo). O input file #documentos está com display:none, então o único controle operável do campo 'Documentos comprobatórios' fica oculto para tecnologias assistivas, sem nome nem papel expostos.",
+        "expected": "O controle focável e operável de envio de arquivo é exposto à árvore de acessibilidade com papel de botão e nome que identifica o campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionou Tab uma vez após o carregamento",
+            "Pressionou Enter no botão Selecione o arquivo (abriu seletor de arquivo)"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/tab1.png",
+          "/tmp/pw-0/page-2026-10-04T14-59-42-645Z.yml"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco pelo teclado, os campos 'Tipo de serviço' e 'Unidade de atendimento' não exibem indicador: a regra da página '.campo-servico .br-input input:focus, ... .campo-unidade ...' define outline:none, box-shadow:none e borda #888 (igual ao repouso). Os demais campos mostram sombra/borda #c2850c no foco.",
+        "expected": "Indicador de foco visível quando os campos recebem foco pelo teclado, como nos demais campos (padrão de foco do DS).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionou Tab 9 vezes até o foco chegar em #servico",
+            "Pressionou Tab mais uma vez até #unidade"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/tab9.png"
+        ]
+      },
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma label:not([for])"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O radio 'Presencial' não tem nome acessível: o rótulo <label>Presencial</label> não tem atributo for e não envolve o input (árvore de acessibilidade: 'radio' sem nome). Clicar no texto 'Presencial' não marca a opção.",
+        "expected": "O radio tem nome acessível 'Presencial', com rótulo associado programaticamente (label for=\"forma-presencial\"), como nas outras duas opções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicou no texto 'Presencial'"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T14-57-14-640Z.yml",
+          "/tmp/pw-0/page-2026-10-04T15-00-36-928Z.yml"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .feedback",
+          ".campo-unidade .feedback"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "No estado de erro, as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id e os inputs #servico e #unidade só recebem aria-invalid=\"true\", sem aria-describedby. Os outros campos com erro apontam aria-describedby para a mensagem.",
+        "expected": "Mensagem de erro associada programaticamente ao campo (aria-describedby apontando para o id da mensagem).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicou em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/erro-envio.png",
+          "/tmp/pw-0/page-2026-10-04T15-01-05-343Z.yml"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "rule": "wcag:2.4.3",
+        "observed": "Depois de abrir o diálogo 'Descartar solicitação?' por Cancelar e fechá-lo com Esc ou com 'Continuar preenchendo', o diálogo é removido e o foco vai para BODY em vez de voltar ao botão Cancelar.",
+        "expected": "Ao fechar o diálogo, o foco volta ao elemento que o abriu (botão Cancelar).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicou em Cancelar",
+            "Pressionou Escape (foco ficou em BODY)",
+            "Clicou em Cancelar",
+            "Pressionou Enter em 'Continuar preenchendo' (foco ficou em BODY)"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/dialogo.png",
+          "/tmp/pw-0/page-2026-10-04T15-03-00-440Z.yml"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação só é indicada visualmente (círculo preenchido, classe 'active'); o link não tem aria-current nem outro texto que informe o estado. Na página 2, o link 'Página 2' também não tem aria-current.",
+        "expected": "A página atual é exposta programaticamente, por exemplo aria-current=\"page\" no link ativo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicou em 'Página 2'"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T15-03-16-339Z.yml"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month button, .flatpickr-next-month button",
+        "rule": "wcag:4.1.2",
+        "observed": "Com o calendário aberto, os botões de mês anterior/seguinte só contêm ícone <i> e não têm aria-label, title nem texto: nome acessível vazio.",
+        "expected": "Botões com nome acessível, por exemplo 'Mês anterior' e 'Próximo mês'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicou no botão 'Abrir calendário' do campo Data preferencial"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/calendario.png"
+        ]
+      },
+      {
+        "selector": ".formulario-solicitacao .br-checkbox label, .grupo-forma .br-radio label",
+        "rule": "wcag:1.4.11",
+        "observed": "A caixa de checkbox e o círculo de radio, desenhados pelo ::before do label (24x24), têm borda de 1px rgb(204,204,204) sobre fundo branco rgb(255,255,255), contraste 1,61:1. São o único limite visual do controle não marcado.",
+        "expected": "Limite visual do controle com contraste de pelo menos 3:1 em relação às cores adjacentes.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/estado0-full.png"
+        ]
+      }
+    ]
+  }
+}
