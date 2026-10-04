@@ -1,0 +1,236 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-091916-solicitacao-sem-c214",
+  "receivedAt": "2026-10-04T09:29:06Z",
+  "receipt": "r-a4734d997210e43e",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T09:29:06.133Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900 (única largura do escopo)",
+      "Estado inicial: skiplink, cabeçalho, breadcrumb, formulário, tabela e paginação",
+      "Ordem de tabulação completa e indicadores de foco",
+      "Selects Tipo de serviço e Unidade (mouse e teclado: setas, Enter, Escape)",
+      "Radios, checkboxes e clique em labels",
+      "Envio vazio (estado de erro), mensagem de erro e fechamento por Enter/Espaço",
+      "Envio válido (mensagem de sucesso)",
+      "Diálogo 'Descartar solicitação?' (Cancelar): foco preso, Escape, X, Continuar preenchendo, Descartar",
+      "Calendário (botão Abrir calendário)",
+      "Paginação 1→2→3",
+      "Upload (clique no botão; lista de arquivo via evento sintético)"
+    ],
+    "notes": "Viewport medido: innerWidth 1280 x innerHeight 900 (clientWidth/Height iguais). Ferramentas: só Playwright (navegador). Não havia validador automático (axe/e-MAG) no ambiente; os achados vêm de inspeção do DOM, de estilos calculados, da árvore de acessibilidade e de interação real com teclado e mouse, sem identificadores de validador. Evidências: capturas e snapshots do Playwright em /tmp/pw-0 (o diretório de trabalho é somente leitura). Interações: Tab por toda a página; clique no label 'Presencial' (não marcou o radio; elementFromPoint no círculo devolve o LABEL); selects por clique e por ArrowDown/Enter/Escape; envio vazio (8 erros); fechamento da mensagem de erro com Enter e com Espaço; envio com CPF '123abc' e data '31/02/2026' (o flatpickr converteu para 03/03/2026); a solicitação foi aceita; Cancelar abriu um modal com foco preso; nas 4 formas de fechar, o foco foi para o body; paginação; skiplink ativado (próximo Tab vai para #nome). Contrastes de texto, bordas e mensagens ≥ 4.5:1 / 3:1 (sem falha). Incertezas e itens não relatados: CPF '123abc' aceito sem erro, apesar da instrução 'Somente números, 11 dígitos' (validação ausente, não é falha WCAG direta); depois de escolher uma opção no select pelo teclado, o foco vai para o body, mas o próximo Tab continua em #unidade (incerto); o botão 'Página seguinte' fica desabilitado com foco ao chegar na pág. 3 e o foco vai para o body (incerto); as opções [role=option] contêm radios focáveis (nested-interactive), padrão herdado do componente br-select do DS (incerto, não relatado); aria-label 'Month'/'Year' em inglês no calendário (não relatado); a mensagem de erro usa div role=button no fechar, operável por Enter/Espaço; o estado de upload com arquivo só foi alcançado por DataTransfer sintético, porque não houve seletor de arquivos real; o nome do botão excluir 'apagar arquivocomprovante.pdf' (sem espaço) não foi relatado por esse motivo. Fora do escopo: outras larguras (não há meio declarado), zoom e reflow.",
+    "findings": [
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\", mas é focável (tabindex=\"1\") e é o único controle operável do upload (o input#documentos tem display:none). Leitores de tela recebem foco num elemento oculto e sem nome/papel.",
+        "expected": "Elemento focável e operável não deve ter aria-hidden=\"true\"; o controle de upload deve expor nome e papel à tecnologia assistiva.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Pressionar Tab (o foco vai para .upload-button)"
+          ]
+        },
+        "evidence": [
+          "DOM: <button class=\"upload-button\" type=\"button\" aria-hidden=\"true\" tabindex=\"1\">",
+          "getComputedStyle(#documentos).display = none"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex=\"1\": o primeiro Tab depois do carregamento vai para o botão de upload, no meio do formulário (a página rola até ele), antes do link 'Ir para o conteúdo', do cabeçalho e dos campos anteriores. Depois de fechar o diálogo, o Tab também volta a ele.",
+        "expected": "Ordem de foco que siga a sequência visual e lógica (sem tabindex positivo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Pressionar Tab"
+          ]
+        },
+        "evidence": [
+          "document.activeElement após 1º Tab = button.upload-button; 2º Tab = .br-skiplink a"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Com foco por teclado (:focus-visible), os campos Tipo de serviço e Unidade de atendimento não mostram indicador: outline-style none e box-shadow none no input, no .input-group e no .br-input; a borda continua 1px #888, igual ao estado sem foco. Os demais inputs mostram box-shadow 0 0 0 2px rgb(194,133,12).",
+        "expected": "Indicador de foco visível ao receber foco pelo teclado, como nos outros campos (padrão de foco do DS).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Tab até #servico (8 Tabs a partir do carregamento)",
+            "Tab até #unidade"
+          ]
+        },
+        "evidence": [
+          "Captura de tela com #servico focado sem indicador (/tmp/pw-0/page-2026-10-04T09-21-11-445Z.png)"
+        ]
+      },
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma label:not([for])"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O <label>Presencial</label> não tem for=\"forma-presencial\" nem envolve o input: o radio fica sem nome acessível (árvore: 'radio' sem nome). Um clique no texto ou no círculo visual (o label cobre o input) não marca a opção.",
+        "expected": "Label associado ao radio (for/id), que dê nome acessível e área de clique.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar no texto 'Presencial'"
+          ]
+        },
+        "evidence": [
+          "Snapshot de acessibilidade: radio [ref=e56] sem nome",
+          "Depois do clique: #forma-presencial.checked = false"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .br-input > .feedback",
+          ".campo-unidade .br-input > .feedback"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "No estado de erro, #servico e #unidade recebem aria-invalid=\"true\", mas não têm aria-describedby; as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id e não ficam associadas aos campos. Os outros campos (ex.: #nome → #nome-retorno) estão associados.",
+        "expected": "Mensagem de erro de cada campo associada programaticamente a ele (aria-describedby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "querySelectorAll('#servico[aria-describedby], #unidade[aria-describedby]').length = 0"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "rule": "wcag:2.4.3",
+        "observed": "Cancelar abre o modal 'Descartar solicitação?'. Ao fechá-lo por Escape, pelo botão Fechar (X), por 'Continuar preenchendo' ou por 'Descartar', o foco vai para o <body> e não volta ao botão Cancelar; o próximo Tab vai para o botão de upload.",
+        "expected": "Ao fechar o diálogo, o foco volta ao elemento que o abriu (ou a um ponto lógico).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Focar Cancelar e pressionar Enter",
+            "Pressionar Escape"
+          ]
+        },
+        "evidence": [
+          "document.activeElement = BODY depois de cada uma das 4 formas de fechar"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação é indicada só visualmente (classe 'active', fundo azul); não há aria-current nem outro indicador programático. O mesmo vale depois de navegar para as páginas 2 e 3.",
+        "expected": "Página atual com aria-current=\"page\" (ou equivalente programático).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página"
+          ]
+        },
+        "evidence": [
+          "DOM: <a class=\"page active\" aria-label=\"Página 1\" href=\"#titulo-historico\">1</a>"
+        ]
+      },
+      {
+        "selector": ".br-select > .br-input[role=\"combobox\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "O papel combobox está na div wrapper sem aria-label nem aria-labelledby; a árvore de acessibilidade mostra 'combobox' sem nome (o label for= nomeia só o input interno, que continua com papel textbox).",
+        "expected": "Elemento com role=combobox com nome acessível (ex.: o papel no input rotulado, ou aria-labelledby apontando para o label).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página"
+          ]
+        },
+        "evidence": [
+          "Snapshot de acessibilidade: combobox [ref=e37] e combobox [ref=e46] sem nome"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "wcag:4.1.2",
+        "observed": "No calendário da Data preferencial, os botões de mês anterior e seguinte só contêm um ícone <i> (sem texto nem aria-hidden) e não têm aria-label/title: o nome acessível fica vazio.",
+        "expected": "Botões com nome acessível (ex.: 'Mês anterior', 'Próximo mês').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar no botão Abrir calendário"
+          ]
+        },
+        "evidence": [
+          "DOM: <button class=\"br-button circle small\" type=\"button\"><i class=\"fas fas fa-chevron-left\"></i></button>"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno.danger .close .br-button",
+        "relatedSelectors": [
+          ".mensagem-retorno.danger .icon"
+        ],
+        "rule": null,
+        "observed": "Na mensagem de erro (br-message danger), o botão Fechar vem primeiro no DOM e aparece à esquerda (x=201), antes do conteúdo; o ícone de status aparece à direita (x=1035). É uma div role=button, e não um <button>. A mensagem de sucesso da mesma tela segue a anatomia do DS (ícone, conteúdo, fechar à direita com <button>).",
+        "expected": "Anatomia do br-message do DS: ícone de status à esquerda, conteúdo e botão Fechar (<button>) à direita, igual à mensagem de sucesso.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar a página",
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "Posições: .close .br-button 201,258; .content 241,250; .icon i 1035,286",
+          "Captura do estado de erro /tmp/pw-0/page-2026-10-04T09-23-01-148Z.png"
+        ]
+      }
+    ]
+  }
+}
