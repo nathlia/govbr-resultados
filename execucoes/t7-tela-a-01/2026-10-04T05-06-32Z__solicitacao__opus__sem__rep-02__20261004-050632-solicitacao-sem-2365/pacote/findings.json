@@ -1,0 +1,204 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-050632-solicitacao-sem-2365",
+  "receivedAt": "2026-10-04T05:17:54Z",
+  "receipt": "r-d429683b40778ef7",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T05:17:54.544Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skip link, cabeçalho, breadcrumb, formulário (todos os campos, combobox Tipo de serviço e Unidade, radios, datepicker, upload, checkboxes, declaração), estados de erro (envio vazio) e de sucesso, mensagens com botão fechar, modal 'Descartar solicitação?' (Continuar preenchendo, Fechar, Escape, Descartar), tabela de solicitações anteriores e paginação (páginas 1-3)"
+    ],
+    "notes": "Viewport medido: innerWidth 1280 x innerHeight 900 (clientWidth/Height iguais). Não havia ferramenta de validação automática (axe/validador) disponível; avaliação por inspeção com Playwright (árvore de acessibilidade, DOM, estilos calculados, teclado e mouse). Contrastes calculados manualmente a partir das cores computadas. Interações: carregamento; Tab sequencial por toda a página (registro de foco e outline); foco programático no skip link (aparece em top:0); clique e setas+Enter nos combobox; clique no texto 'Presencial' (não marca); envio vazio (resumo role=alert recebe foco, 8 erros); preenchimento com CPF '123abc' e data 31/02/2020 e envio (aceito como sucesso: validação só checa vazio; flatpickr converteu para 02/03/2020) — não relatado como achado WCAG por não haver erro detectado automaticamente; botão Cancelar -> modal (foco inicial correto, foco preso, Escape fecha); Descartar limpa campos de texto mas mantém valores de Tipo de serviço e Unidade (defeito funcional, fora de WCAG); fechar mensagem de erro (div role=button) funciona com Enter e Espaço; paginação 1->2->3. Limitações: o seletor de arquivo abriu ao clicar em 'Selecione o arquivo', mas não havia ferramenta de upload; a aba ficou presa no estado de file chooser e foi substituída por nova aba (estado de arquivo anexado/lista de upload não avaliado). Uma opção de Unidade foi selecionada via label.click() em script. Incertos não relatados: foco vai para body após escolher opção com Enter nos combobox (Tab seguinte continua em ordem lógica; comportamento possivelmente do componente DS); foco vai para body ao fechar a mensagem de erro/sucesso e quando 'Página seguinte' fica desabilitado na página 3; dias de meses adjacentes do calendário com opacidade 0.6 (~2,97:1) — não confirmei se são selecionáveis; rótulos 'Month'/'Year' em inglês no flatpickr; cabeçalho próprio (sem br-header) e ausência de rodapé gov.br — sem regra DS específica que eu possa citar. Rejeitados: span com tabindex=0 no breadcrumb, nav role=menubar no skiplink e aria-label 'Breadcrumbs' (marcação padrão do DS); botão do calendário aria-hidden com tabindex=-1 (não focável; data pode ser digitada); contraste dos textos, placeholders, botões e mensagens de erro (branco sobre #e52207 ≈4,6:1) aprovados; foco visível nos demais controles.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "emag:6.2",
+        "observed": "O label 'Presencial' não tem atributo for (nem envolve o input); o radio fica sem nome acessível na árvore de acessibilidade e clicar no texto ou no círculo (label::before cobre o input) não marca a opção.",
+        "expected": "Rótulo associado ao radio (label for='forma-presencial'), dando nome acessível 'Presencial' e área de clique no texto, como nas outras duas opções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no texto 'Presencial'"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-07-00-572Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden='true', mas é focável e é o único controle operável do upload (o input file está com display:none); tecnologia assistiva recebe foco num elemento sem nome nem papel.",
+        "expected": "Controle de upload exposto à tecnologia assistiva com papel de botão e nome (sem aria-hidden em elemento focável e operável).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-07-00-572Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          ".br-skiplink a.br-item"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex='1' no botão de upload: o primeiro Tab após o carregamento vai para ele (no meio do formulário), antes do link 'Ir para o conteúdo', do cabeçalho e dos campos anteriores; após fechar o modal o Tab também volta para ele.",
+        "expected": "Ordem de foco que siga a ordem visual e do DOM (tabindex 0 ou sem tabindex positivo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab (primeira tecla após o carregamento)"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-07-29-286Z.png"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco pelo teclado, outline:none, box-shadow:none e a borda permanece #888 (regra .campo-servico/.campo-unidade .br-input input:focus-visible); nenhum indicador de foco visível, ao contrário dos demais campos (box-shadow 2px #c2850c).",
+        "expected": "Indicador de foco visível nos campos Tipo de serviço e Unidade de atendimento.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab sucessivos até 'Tipo de serviço' e depois 'Unidade de atendimento'"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-08-23-479Z.png"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .feedback",
+          ".campo-unidade .feedback"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "Após envio vazio, os campos recebem aria-invalid='true', mas as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id e os inputs não têm aria-describedby; nos demais campos a mensagem está associada (ex.: nome-retorno).",
+        "expected": "Mensagem de erro associada programaticamente ao campo (aria-describedby apontando para o id da mensagem).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-10-41-360Z.png"
+        ]
+      },
+      {
+        "selector": ".campo-servico [role=combobox], .campo-unidade [role=combobox]",
+        "rule": "wcag:4.1.2",
+        "observed": "O papel combobox (com aria-expanded/aria-controls) está no div .br-input que envolve label, input e botão; o combobox não tem nome acessível (sem aria-label/aria-labelledby) e o input editável tem papel textbox.",
+        "expected": "Elemento com role='combobox' com nome acessível (idealmente o próprio input, nomeado pelo label).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-07-00-572Z.yml"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o modal 'Descartar solicitação?' por Escape, 'Continuar preenchendo', 'Fechar' ou 'Descartar', o foco vai para o body em vez de voltar ao botão Cancelar; o Tab seguinte sai da página e depois recomeça pelo botão de upload.",
+        "expected": "Ao fechar o diálogo, foco devolvido ao botão que o abriu (Cancelar) ou a ponto lógico.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Cancelar",
+            "Escape (repetido com Enter em 'Continuar preenchendo', clique em 'Fechar' e Enter em 'Descartar')"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-12-14-459Z.png"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual é indicada só visualmente (classe active, fundo #0c326f); o link não tem aria-current='page' nem outro indicador programático.",
+        "expected": "Página atual identificada programaticamente (aria-current='page').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-07-00-572Z.yml"
+        ]
+      },
+      {
+        "selector": ".grupo-forma .br-radio label, .grupo-recursos .br-checkbox label, .campo-declaracao .br-checkbox label",
+        "rule": "wcag:1.4.11",
+        "observed": "A caixa/círculo visível dos radios e checkboxes (label::before) tem borda 1px rgb(204,204,204) sobre branco: contraste ≈1,6:1 no estado não marcado.",
+        "expected": "Contorno do controle com contraste mínimo de 3:1 com o fundo adjacente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-04T05-07-29-286Z.png"
+        ]
+      },
+      {
+        "selector": ".flatpickr-day.today",
+        "rule": "wcag:1.4.3",
+        "observed": "No calendário, o dia de hoje usa texto rgb(213,67,9) sobre rgb(253,245,230), 14px peso 600: contraste ≈4,18:1.",
+        "expected": "Contraste mínimo de 4,5:1 para texto de tamanho normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no botão 'Abrir calendário' do campo Data preferencial"
+          ]
+        },
+        "evidence": []
+      }
+    ]
+  }
+}
