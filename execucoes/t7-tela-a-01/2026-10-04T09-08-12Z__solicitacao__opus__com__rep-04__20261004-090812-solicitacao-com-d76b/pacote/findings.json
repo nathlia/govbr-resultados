@@ -1,0 +1,290 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-090812-solicitacao-com-d76b",
+  "receivedAt": "2026-10-04T09:16:24Z",
+  "receipt": "r-2becc5048c9426da",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T09:16:24.160Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skiplink, barra superior, breadcrumb, formulário (campos de texto, selects Tipo de serviço/Unidade, radios Forma de atendimento, datetimepicker com calendário aberto, textarea, upload, checkboxes, declaração, Cancelar/Enviar), estado de erro após envio vazio, estado de sucesso, modal 'Descartar solicitação?' (Tab, Esc, Continuar preenchendo, Descartar), tabela de solicitações anteriores e paginação (página 2)"
+    ],
+    "notes": "Viewport medido: innerWidth 1280 x innerHeight 900. Interações: carregamento; Tab inicial (foco vai primeiro ao botão de upload); Tab por todos os controles com leitura de estilos de foco; seleção nos selects por teclado (ArrowDown/Enter) e mouse; envio vazio (mensagem de erro + erros por campo); fechar mensagem de erro com Enter/Espaço; preenchimento e envio com sucesso (CPF '123' foi aceito sem validação de formato — não reportado como violação WCAG, apenas registrado); abertura do calendário pelo botão; clique no rótulo 'Presencial' (não marca o rádio); paginação para página 2; Cancelar -> modal (retenção de foco funciona, Esc/Continuar/Descartar fecham); skiplink visível ao foco e funcional; Enter no botão de upload abre seletor de arquivo (envio de arquivo não testado: ferramenta de upload indisponível; o estado de seletor de arquivo exigiu fechar a aba). Ferramentas: scan_page S-page-001 (inicial), S-page-002 (erro), S-page-003 (calendário aberto), S-page-004 (sucesso), S-page-005 (modal); verify_finding V-001 (cor do modal), V-004/V-005 (header/footer), V-007 (botão div na mensagem). V-002/V-003/V-006 rejeitadas apenas por falta do campo implements no payload; repetidas com implements e confirmadas. Observações de classes extras do validador não viraram achados (sem norma). Rejeitados: breadcrumb com span tabindex=0 e skiplink role=menubar (canônicos do DS); ausência de aria-current na paginação (exemplos do DS também não têm); fundo da página não inerte com o modal aberto (aria-modal presente). Incertezas: perda de foco após escolher opção no select pode vir do comportamento do componente de base; tabindex=1 nos dias e botões sem nome do calendário vêm da marcação do datetimepicker/flatpickr usada pela tela. Apenas a largura 1280x900 foi coberta, conforme as Entradas.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "label:not([for])"
+        ],
+        "rule": "label",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label>Presencial</label> irmão não tem atributo for. Clicar no texto 'Presencial' não marca a opção, e o usuário de mouse não consegue selecioná-la.",
+        "expected": "Rótulo associado ao rádio (label for='forma-presencial'), igual às demais opções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006",
+          "S-page-002",
+          "F-013",
+          "F-014"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "aria-hidden-focus",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden='true' e continua focável (tabindex='1'). Ele é o único caminho por teclado até o input de arquivo, que está com display:none; leitores de tela não anunciam o controle que recebe o foco.",
+        "expected": "Elemento focável não deve ter aria-hidden; o botão deve ser exposto com seu nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex='1' no botão de upload: o primeiro Tab após o carregamento leva o foco a esse botão, no meio do formulário, antes do skiplink, do cabeçalho e dos campos anteriores.",
+        "expected": "Ordem de foco segue a ordem do conteúdo (tabindex 0 ou nativo, sem valores positivos).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "inspeção: document.activeElement após o primeiro Tab = button.upload-button"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco pelo teclado, os campos dos selects não exibem indicador: outline none, box-shadow none e borda inalterada (#888). A regra da folha da tela '.campo-servico/.campo-unidade .br-input input:focus-visible { box-shadow:none; outline:none }' anula o foco do DS. Os demais inputs mostram sombra #C2850C.",
+        "expected": "Indicador de foco visível, como o padrão do DS (sombra/contorno de foco).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em #cpf",
+            "Tab até #servico"
+          ]
+        },
+        "evidence": [
+          "inspeção de estilos calculados e da folha solicitacao-D9ODjg1O.css"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": "wcag:3.3.1",
+        "observed": "Após o envio vazio, os inputs recebem aria-invalid='true', mas não têm aria-describedby. As mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' ficam sem id e sem vínculo com o campo. Nos demais campos, o vínculo existe (ex.: nome-retorno).",
+        "expected": "Mensagem de erro associada programaticamente ao campo (aria-describedby apontando para o id da mensagem).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "inspeção do DOM no estado de erro"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno .close > div.br-button",
+        "rule": "ds-structure-button-tag",
+        "observed": "Na mensagem de erro (br-message danger), o botão de fechar é um <div class='br-button circle small' role='button' tabindex='0'>. A mensagem de sucesso usa <button>.",
+        "expected": "br-button aplicado a elemento <button type='button'>.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-007",
+          "V-007"
+        ]
+      },
+      {
+        "selector": ".dialogo-descarte",
+        "rule": "ds-token-color",
+        "observed": "O modal 'Descartar solicitação?' tem color rgb(51, 67, 51) (#334333), que é herdada pelo título; o valor não pertence ao registro de tokens (o mais próximo é --green-cool-70 #37493b).",
+        "expected": "Cor de texto do registro de tokens do DS (ex.: cor de texto padrão do tema).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Cancelar"
+          ]
+        },
+        "evidence": [
+          "S-page-005",
+          "F-068",
+          "V-001"
+        ]
+      },
+      {
+        "selector": "button.acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte .acao-manter",
+          ".dialogo-descarte button.close"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o modal de descarte (Esc ou 'Continuar preenchendo'), o foco vai para <body>, e não volta ao botão Cancelar que o abriu.",
+        "expected": "Ao fechar o diálogo, o foco retorna ao elemento que o acionou.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Cancelar",
+            "Esc (ou Enter em 'Continuar preenchendo')"
+          ]
+        },
+        "evidence": [
+          "inspeção: document.activeElement = BODY após fechar"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".br-list[role=listbox] .br-item"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao abrir a lista com ArrowDown e escolher uma opção com Enter, o valor é aplicado e a lista fecha, mas o foco vai para <body>. O usuário de teclado perde a posição no formulário.",
+        "expected": "Após a seleção, o foco volta ao campo do select.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab até #servico",
+            "ArrowDown",
+            "ArrowDown",
+            "Enter"
+          ]
+        },
+        "evidence": [
+          "inspeção: document.activeElement = BODY após Enter (repetido em #unidade)"
+        ]
+      },
+      {
+        "selector": "header.barra-superior",
+        "rule": "ds-page-header",
+        "observed": "O cabeçalho é um <header class='barra-superior'> próprio, só com o link 'gov.br'. Não há .br-header nem <br-header> no documento.",
+        "expected": "Área de Cabeçalho do Template Base com o componente Header do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003",
+          "V-004"
+        ]
+      },
+      {
+        "selector": "body",
+        "rule": "ds-page-footer",
+        "observed": "Não há rodapé: o documento não tem .br-footer, <br-footer> nem elemento <footer>.",
+        "expected": "Área de Rodapé do Template Base com o componente Footer do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004",
+          "V-005"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "button-name",
+        "observed": "No calendário da Data preferencial, os botões de mês anterior e próximo mês têm apenas ícone (<i class='fas fa-chevron-*'>), sem texto, aria-label nem title: não têm nome acessível.",
+        "expected": "Nome acessível descritivo (ex.: aria-label='Mês anterior' / 'Próximo mês').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no botão do calendário (#data-preferencial-btn)"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-016",
+          "F-017",
+          "S-page-001",
+          "F-001",
+          "F-002"
+        ]
+      },
+      {
+        "selector": ".flatpickr-day",
+        "rule": "tabindex",
+        "observed": "Com o calendário aberto, todos os 42 dias (span.flatpickr-day) recebem tabindex='1' (positivo), o que altera a ordem sequencial de foco da página.",
+        "expected": "Sem tabindex positivo; dias com tabindex -1 e roving tabindex (0 apenas no dia ativo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no botão do calendário (#data-preferencial-btn)"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-022",
+          "F-029",
+          "F-063"
+        ]
+      }
+    ]
+  }
+}
