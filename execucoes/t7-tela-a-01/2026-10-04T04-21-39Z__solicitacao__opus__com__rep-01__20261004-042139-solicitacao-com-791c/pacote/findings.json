@@ -1,0 +1,233 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261004-042139-solicitacao-com-791c",
+  "receivedAt": "2026-10-04T04:29:01Z",
+  "receipt": "r-0b167b2377320ad1",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-04T04:29:01.165Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skiplink, barra superior, breadcrumb, formulário (campos de texto, selects Tipo de serviço/Unidade, rádios, datetimepicker com calendário aberto, textarea, upload, checkboxes, declaração), mensagens de erro e de sucesso do envio, modal 'Descartar solicitação?' (Cancelar, Continuar preenchendo, Descartar, Fechar, Escape), tabela de solicitações anteriores e paginação"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight e clientWidth/clientHeight). Interações: Tab pela página inteira (o 1º Tab cai no botão de upload, antes do skiplink); seleção em 'Tipo de serviço' por ArrowDown+Enter e em 'Unidade' por mouse; clique no rótulo 'Presencial' (não marca o rádio); envio vazio (8 erros) e parcial (servico preenchido: 7 erros; CPF '123' e data '31/02/2020', normalizada para 02/03/2020, aceitos sem erro); fechar a mensagem de erro com Enter; envio válido (mensagem de sucesso, foco no conteúdo); Cancelar -> modal: foco inicial em 'Continuar preenchendo', Tab fica preso no modal, Escape/Continuar/Descartar fecham, mas o foco vai para o body; paginação página 2 (tabela atualiza); calendário aberto pelo ícone. Ferramentas: scan_page S-page-001 (inicial), S-page-002 (erro após envio), S-page-003 (modal aberto); verify_finding V-001 (rejeitado por citar o id do checker em vez da norma) e V-002 (regra da KB existe/aplicável/evidência consistente, mas sem predicado = unverifiable); os demais achados foram confirmados por inspeção no navegador. Candidatos rejeitados ou incertos, não relatados: (a) página ativa da paginação sem aria-current: o exemplo canônico do DS também omite, incerto; (b) borda #ccc (1,6:1) do círculo/caixa de rádios e checkboxes vem do próprio DS core, possível WCAG 1.4.11, incerto; (c) após selecionar uma opção do select por Enter, o foco vai para o body, mas o próximo Tab segue para o campo seguinte, comportamento do componente, incerto; (d) CPF com menos de 11 dígitos e data no passado são aceitos: validação ausente, não é falha de identificação de erro (3.3.1), rejeitado; (e) 'Descartar' não limpa o Tipo de serviço: defeito funcional, fora de a11y/DS; (f) erros de campo continuam visíveis após corrigir o campo até o novo envio: aceitável; (g) na mensagem de erro, o botão Fechar vem antes do conteúdo no DOM (na de sucesso vem depois): não relatado em separado; (h) classes extras (observações da ferramenta): sem norma. Fora do escopo: outras larguras (não há meio declarado), envio real de arquivo (seletor de arquivo do SO).",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "label",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label>Presencial</label> irmão não tem atributo for, e clicar no rótulo não marca a opção.",
+        "expected": "Rótulo associado ao rádio (label for=\"forma-presencial\"), como nas outras opções (e-MAG 6.2).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006",
+          "S-page-002",
+          "F-014"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "aria-hidden-focus",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\", mas é focável (tabindex=1). O input file #documentos tem display:none, então o único controle de upload fica oculto para as tecnologias assistivas.",
+        "expected": "Um controle de upload focável não pode ter aria-hidden. Ele deve ser exposto às tecnologias assistivas, com nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "govbr-3.7.0-accessibility-global-79db88c7f55d",
+        "observed": "O botão de upload tem tabindex=\"1\". O primeiro Tab após o carregamento cai nele, no meio do formulário, antes do skiplink, do cabeçalho e dos campos anteriores.",
+        "expected": "Ordem de foco seguindo o DOM, sem tabindex positivo (e-MAG 1.4, WCAG 2.4.3).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "govbr-3.7.0-accessibility-global-21fbcc2fe37b",
+        "observed": "Com foco por teclado, os campos 'Tipo de serviço' e 'Unidade de atendimento' ficam com outline:none, box-shadow:none e borda inalterada (#888). Não há indicador de foco visível. A regra da folha da tela (.campo-servico/.campo-unidade .br-input input:focus-visible { box-shadow:none; outline:none }) remove o foco do DS, que os outros campos exibem.",
+        "expected": "Indicador visual de foco evidente, como nos demais inputs do DS (e-MAG 4.4, WCAG 2.4.7).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab (9 vezes) até #servico",
+            "Escape",
+            "Tab até #unidade"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".campo-servico .feedback, .campo-unidade .feedback",
+        "relatedSelectors": [
+          "#servico",
+          "#unidade"
+        ],
+        "rule": "govbr-3.7.0-accessibility-global-cc837bbaf713",
+        "observed": "Após o envio vazio, as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id, e #servico/#unidade (aria-invalid=true) não têm aria-describedby. Os outros campos associam o erro por aria-describedby.",
+        "expected": "Mensagem de erro associada programaticamente ao campo (aria-describedby), como nos demais campos (e-MAG 6.6, WCAG 3.3.1/1.3.1).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "emag-2.2",
+        "observed": "Os botões de mês anterior/seguinte do calendário só têm ícone e nenhum nome acessível (sem aria-label nem texto).",
+        "expected": "aria-label descritivo, p.ex. 'Mês anterior' / 'Próximo mês'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão 'Abrir calendário' do campo Data preferencial"
+          ]
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001",
+          "F-002"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno .close > [role=\"button\"]",
+        "rule": "ds-structure-button-tag",
+        "observed": "O controle 'Fechar a mensagem' da mensagem de erro é <div class=\"br-button circle small\" role=\"button\" tabindex=\"0\">. A mensagem de sucesso usa <button>.",
+        "expected": "br-button aplicado a um elemento <button type=\"button\">.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-007"
+        ]
+      },
+      {
+        "selector": "button.acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o modal 'Descartar solicitação?' (Escape, 'Continuar preenchendo' ou 'Descartar'), o foco vai para o body, não volta a 'Cancelar', e o Tab seguinte recomeça do início do documento.",
+        "expected": "Ao fechar o modal, o foco volta ao elemento que o abriu (botão Cancelar).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher Nome completo",
+            "Clicar em Cancelar",
+            "Pressionar Escape (ou acionar 'Continuar preenchendo')"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".dialogo-descarte",
+        "rule": "govbr-3.7.0-foundation-global-21b1a2733f7b",
+        "observed": "O modal usa color rgb(51,67,51) (#334333), herdada pelo título 'Descartar solicitação?'. Esse valor não é token do DS (mais próximo: --green-cool-70 #37493b).",
+        "expected": "Cor da paleta predefinida do DS (p.ex. a cor de texto padrão #333).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher Nome completo",
+            "Clicar em Cancelar"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-015",
+          "V-002"
+        ]
+      },
+      {
+        "selector": "header.barra-superior",
+        "rule": "ds-page-header",
+        "observed": "O cabeçalho é um <header class=\"barra-superior\"> próprio, só com o link 'gov.br'. Não há .br-header nem <br-header> no documento.",
+        "expected": "Área de Cabeçalho do Template Base preenchida pelo componente Header do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003"
+        ]
+      },
+      {
+        "selector": "html",
+        "rule": "ds-page-footer",
+        "observed": "Não há rodapé: nenhum .br-footer nem <br-footer> no documento.",
+        "expected": "Área de Rodapé do Template Base preenchida pelo componente Footer do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004"
+        ]
+      }
+    ]
+  }
+}
