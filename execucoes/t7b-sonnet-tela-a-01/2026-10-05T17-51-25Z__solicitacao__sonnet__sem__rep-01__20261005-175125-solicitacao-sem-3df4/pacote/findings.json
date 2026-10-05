@@ -1,0 +1,125 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261005-175125-solicitacao-sem-3df4",
+  "receivedAt": "2026-10-05T17:53:59Z",
+  "receipt": "r-3d284ee869e66d91",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-05T17:53:59.606Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: cabeçalho, breadcrumb, formulário (campos, selects, radios, data, upload, checkboxes), mensagens de erro e de sucesso, tabela e paginação de solicitações anteriores"
+    ],
+    "notes": "Nenhuma ferramenta de validação automática estava disponível; avaliação por inspeção do DOM, árvore de acessibilidade, estilos computados e operação por mouse e teclado. Interações: carregamento; envio do formulário vazio (8 erros exibidos, foco movido à mensagem); abertura dos selects por clique e ArrowDown/Enter; preenchimento com CPF '123' e data '31/02/2027'; marcação de radio e checkbox via rótulo; envio com sucesso; recarga e Tab inicial. Contraste das mensagens de erro (branco sobre #e52207, ~4,6:1) conferido e aceito. Não reportados por incerteza: role=combobox em div sem nome (padrão do DS), botão do calendário aria-hidden e fora da ordem de tabulação (campo aceita digitação), fonte de 11,7px no breadcrumb, favicon 404, paginação sem alterar o conteúdo (não testada). Paginação, calendário aberto e upload de arquivo não foram operados em profundidade. Outras larguras fora do escopo.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "label[for='forma-presencial']",
+          "label:not([for])"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O radio 'Presencial' tem um label sem atributo for e não está associado ao input; o radio fica sem nome acessível (os outros dois radios têm label for) e clicar no texto não o seleciona.",
+        "expected": "O label deve estar associado ao input (for='forma-presencial'), dando nome acessível ao radio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-05T17-51-54-354Z.yml",
+          "input.labels.length=0"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O botão visível 'Selecione o arquivo' tem aria-hidden='true' mas é focável (é o primeiro foco ao pressionar Tab) e sem nome acessível na árvore; o input file real está com display:none.",
+        "expected": "O controle de upload focável deve estar exposto à tecnologia assistiva, sem aria-hidden, com nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-05T17-51-54-354Z.yml",
+          "activeElement=BUTTON.upload-button aria-hidden=true"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex='1' e recebe o primeiro foco da página, antes do link 'Ir para o conteúdo' e dos demais controles.",
+        "expected": "Ordem de foco seguindo a ordem visual/lógica, sem tabindex positivo (tabindex 0 ou ausente).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "activeElement após o primeiro Tab = BUTTON.upload-button"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "O CPF '123' foi aceito no envio sem erro, embora a instrução diga 'Somente números, 11 dígitos'; o formulário foi enviado com mensagem de sucesso.",
+        "expected": "Valor com menos de 11 dígitos deve ser identificado como erro e descrito em texto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Selecionar Tipo de serviço e Unidade por teclado",
+            "Preencher Nome, CPF=123, Data=31/02/2027, Descrição",
+            "Marcar 'Por videochamada' e a declaração",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem 'Solicitação enviada.' com cpf.value='123'"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": "wcag:3.3.1",
+        "observed": "A data inválida '31/02/2027' foi aceita e silenciosamente alterada para '03/03/2027' ao enviar, sem aviso.",
+        "expected": "Data inexistente deve ser identificada como erro com mensagem em texto, sem alterar o valor do usuário.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Selecionar Tipo de serviço e Unidade por teclado",
+            "Preencher Nome, CPF=123, Data=31/02/2027, Descrição",
+            "Marcar 'Por videochamada' e a declaração",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "data-preferencial.value='03/03/2027' após envio"
+        ]
+      }
+    ]
+  }
+}
