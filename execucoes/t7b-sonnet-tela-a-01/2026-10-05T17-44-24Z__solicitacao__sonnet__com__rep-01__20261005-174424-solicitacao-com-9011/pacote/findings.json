@@ -1,0 +1,249 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261005-174424-solicitacao-com-9011",
+  "receivedAt": "2026-10-05T17:48:12Z",
+  "receipt": "r-5ae762853ae2884b",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-05T17:48:12.778Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Formulário Solicitar serviço (estado inicial)",
+      "Estado de erro após envio vazio",
+      "Seletores (teclado), calendário aberto, envio bem-sucedido",
+      "Tabela Solicitações anteriores e paginação (página 2)"
+    ],
+    "notes": "Janela 1280x900 única. Interações: carga; scan_page (S-page-001, todos os checks); clique em Enviar vazio (8 erros); abertura do calendário; Tab pelo formulário; seleção por teclado nos comboboxes; envio com CPF '123' e data '31/02/2020' (aceito, data normalizada para 02/03/2020); clique em Página 2; scan_page com calendário aberto (S-page-002, 51 achados, só os 32 primeiros paginados; os demais são do mesmo tipo tabindex dos dias do calendário). Não usei verify_finding; achados por inspeção direta (DOM/estilos/teclado) e saída das ferramentas. Observações de classes desconhecidas e 'region' do axe nos elementos do flatpickr não foram reportadas. Incertezas: ordem de Tab do botão com tabindex=1 inferida do log de foco; o 404 do favicon não foi reportado. Não foram testados upload de arquivo real nem outras larguras.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "label[for='forma-presencial']"
+        ],
+        "rule": "label",
+        "observed": "O radio 'Presencial' não tem nome acessível: o <label> não possui atributo for e não envolve o input; clicar no texto 'Presencial' não marca a opção (testado), enquanto as outras duas opções funcionam.",
+        "expected": "Todo campo de formulário deve ter rótulo associado (label for=\"forma-presencial\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-006",
+          "S-page-002:F-012"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\" e é focável (tabindex=\"1\"); o input file nativo está com display:none, então o controle de upload some para leitores de tela.",
+        "expected": "Elemento focável não pode estar com aria-hidden; o controle de upload deve ser exposto à tecnologia assistiva.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-005",
+          "S-page-002:F-009"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex=\"1\" (positivo) no botão de upload: no ciclo de Tab ele recebe foco depois da paginação e antes do link 'Ir para o conteúdo', fora da ordem visual/DOM (observado por log de focusin).",
+        "expected": "Sem tabindex positivo; ordem de foco seguindo a ordem do conteúdo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab repetidas vezes pelo formulário até a paginação",
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "log focusin: ...Página seguinte -> upload-button -> Ir para o conteúdo"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button",
+        "relatedSelectors": [
+          ".flatpickr-next-month > button"
+        ],
+        "rule": "button-name",
+        "observed": "Com o calendário aberto, os botões de mês anterior e próximo são apenas ícones (<i>) sem texto nem aria-label.",
+        "expected": "Botões com nome acessível (ex.: 'Mês anterior', 'Próximo mês').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #data-preferencial-btn"
+          ]
+        },
+        "evidence": [
+          "S-page-002:F-010",
+          "S-page-002:F-011"
+        ]
+      },
+      {
+        "selector": ".flatpickr-day",
+        "rule": "tabindex",
+        "observed": "Com o calendário aberto, os 42 dias têm tabindex=\"1\" (maior que 0).",
+        "expected": "Nenhum elemento com tabindex positivo; dias navegáveis por tabindex 0/-1 em ordem lógica.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #data-preferencial-btn"
+          ]
+        },
+        "evidence": [
+          "S-page-002:F-016..F-038 (axe tabindex)"
+        ]
+      },
+      {
+        "selector": "#data-preferencial-btn",
+        "relatedSelectors": [
+          "#data-preferencial"
+        ],
+        "rule": null,
+        "observed": "O botão 'Abrir calendário' tem aria-hidden=\"true\" e tabindex=\"-1\": não é alcançável por teclado nem exposto a leitores de tela (o snapshot o mostra como botão sem nome).",
+        "expected": "O botão que abre o calendário deve ser acessível por teclado e ter nome acessível exposto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "DOM #data-preferencial-btn; snapshot e69 'button' sem nome"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": null,
+        "observed": "Após envio vazio, os selects recebem aria-invalid=\"true\" mas não têm aria-describedby; as mensagens de erro (span role=alert sem id) não são associadas ao campo, diferente de nome, CPF, data e descrição.",
+        "expected": "Mensagem de erro associada ao campo via aria-describedby, como nos demais campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click Enviar (formulário vazio)"
+          ]
+        },
+        "evidence": [
+          "avaliação DOM: servico.desc=null, unidade.desc=null"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": null,
+        "observed": "CPF '123' é aceito e a solicitação é enviada com sucesso, apesar do texto de apoio 'Somente números, 11 dígitos.'. Nenhuma validação de formato.",
+        "expected": "Rejeitar CPF inválido com mensagem de erro identificando o problema.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher nome 'Maria Silva'",
+            "preencher CPF '123'",
+            "preencher data",
+            "escolher serviço e unidade, forma, descrição, declaração",
+            "click Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem 'Solicitação enviada.' com cpf.value='123'"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": null,
+        "observed": "A data '31/02/2020' (inexistente e passada) é aceita sem erro e silenciosamente convertida para 02/03/2020; a solicitação é enviada.",
+        "expected": "Validar data existente e não passada, com mensagem de erro; não alterar o valor silenciosamente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher data '31/02/2020'",
+            "demais campos válidos",
+            "click Enviar"
+          ]
+        },
+        "evidence": [
+          "valor final do campo: 02/03/2020; mensagem de sucesso exibida"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores a.page.active",
+        "rule": null,
+        "observed": "O link da página atual (Página 1) só se diferencia pela classe 'active'; não tem aria-current=\"page\".",
+        "expected": "Indicar a página atual programaticamente (aria-current=\"page\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "DOM: aria-current ausente nos links .page"
+        ]
+      },
+      {
+        "selector": "header.barra-superior",
+        "relatedSelectors": [
+          "#root"
+        ],
+        "rule": "ds-page-header",
+        "observed": "Nenhum componente .br-header/<br-header> na página; o cabeçalho é um <header> próprio com a marca gov.br.",
+        "expected": "Área de Cabeçalho do Template Base preenchida com o componente Header.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-003"
+        ]
+      },
+      {
+        "selector": "main#main-content",
+        "rule": "ds-page-footer",
+        "observed": "A página não tem rodapé: nenhum .br-footer/<br-footer> nem <footer>.",
+        "expected": "Área de Rodapé do Template Base preenchida com o componente Footer.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-004"
+        ]
+      }
+    ]
+  }
+}
