@@ -1,0 +1,172 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-a-01",
+  "runId": "20261005-021940-solicitacao-sem-d009",
+  "receivedAt": "2026-10-05T02:27:16Z",
+  "receipt": "r-153fa25e6a8bf0fd",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-05T02:27:16.173Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: atalho, cabeçalho, trilha, formulário (todos os campos, comboboxes abertos/fechados, calendário, upload), envio vazio com erros, envio válido com sucesso, mensagem de retorno e botão fechar, diálogo de descarte (Cancelar), tabela de solicitações anteriores e paginação (página 2)"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight e clientWidth/clientHeight). Não havia ferramenta de validação automática (axe, validador e-MAG etc.) no ambiente; todos os achados vêm de inspeção do DOM, da árvore de acessibilidade (snapshot do Playwright), de estilos calculados, capturas de tela e operação por mouse e teclado; por isso evidence fica vazio. Interações: tabulação completa da página com registro de foco; abertura do combobox Tipo de serviço por clique e seleção com ArrowDown+Enter; seleção em Unidade por teclado; abertura do calendário pelo botão; envio vazio (8 erros), fechamento da mensagem de erro com Enter e com Espaço; paginação para a página 2; Cancelar -> diálogo (foco preso no diálogo ok; Esc e 'Continuar preenchendo' fecham); preenchimento válido e envio (mensagem de sucesso, foco movido para ela); CPF '123abc' aceito sem validação de formato (comportamento funcional, não registrado como violação WCAG). Limitações: clicar no botão de upload abriu o seletor de arquivos nativo, que não pôde ser tratado (ferramenta de upload indisponível); a aba foi fechada e a página recarregada, portanto o estado com arquivo anexado e a lista de upload não foram avaliados. Seleção de dia no calendário por clique não foi concluída (data digitada no campo). Sem outras larguras, zoom ou reflow (fora do escopo). Incertos não relatados: após escolher opção com Enter no combobox o foco vai para o body (a navegação sequencial continua no próximo campo, por isso não registrado); botão fechar da mensagem de erro é div role=button posicionado antes do conteúdo (opera com Enter e Espaço); botão 'Abrir calendário' com aria-hidden=true e tabindex=-1 (não focável; data pode ser digitada). Contraste de textos verificado (todos >= 4.5:1). Achado de aria-current na paginação e dos botões do calendário têm certeza moderada (comportamento padrão de componentes da biblioteca).",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma label:not([for])"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O rádio 'Presencial' não tem nome acessível (árvore de acessibilidade: 'radio' sem nome); o <label>Presencial</label> não tem atributo for e não envolve o input. Clicar no texto 'Presencial' não marca a opção (checked permaneceu false).",
+        "expected": "Rádio associado ao rótulo (label for=\"forma-presencial\"), com nome acessível 'Presencial' e área clicável no rótulo, como as demais opções do grupo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\" mas é focável (tabindex=\"1\") e é o único controle de upload visível (input#documentos está display:none); fica ausente da árvore de acessibilidade, sem nome/papel para tecnologia assistiva.",
+        "expected": "Elemento focável e operável não deve ter aria-hidden=\"true\"; o controle de upload deve expor papel de botão e nome acessível associado a 'Documentos comprobatórios (opcional)'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex=\"1\" no botão de upload: ao pressionar Tab a partir do carregamento, ele é o primeiro elemento focado, antes do link 'Ir para o conteúdo', da marca e da trilha; ao final da página o foco também volta a ele.",
+        "expected": "Ordem de foco segue a ordem visual/DOM (tabindex 0 ou ausente), com o upload alcançado entre 'Descrição da solicitação' e os recursos de acessibilidade.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por teclado (classe focus-visible aplicada), os campos 'Tipo de serviço' e 'Unidade de atendimento' ficam com outline-style none e box-shadow none, sem mudança visual no campo ou no contêiner; os demais campos de texto mostram anel de foco #C2850C.",
+        "expected": "Indicador de foco visível nos campos dos comboboxes, como nos demais campos (padrão de foco do Design System).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no campo CPF",
+            "Tab"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".grupo-forma .br-radio > label, .br-checkbox > label",
+        "rule": "wcag:1.4.11",
+        "observed": "O círculo/quadrado que representa rádios e caixas de seleção (label::before) tem borda 1px rgb(204,204,204) sobre fundo branco, contraste ~1,6:1; é o único limite visual do controle não marcado.",
+        "expected": "Borda do controle com contraste de pelo menos 3:1 contra o fundo adjacente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .feedback",
+          ".campo-unidade .feedback"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "Após envio vazio, as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' são span.feedback sem id, e #servico/#unidade recebem aria-invalid=\"true\" sem aria-describedby; nos demais campos a mensagem tem id e é referenciada por aria-describedby.",
+        "expected": "Mensagem de erro de cada combobox associada programaticamente ao campo (id na mensagem e aria-describedby no input).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte",
+          ".dialogo-descarte .acao-manter"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o diálogo 'Descartar solicitação?' com Esc ou com 'Continuar preenchendo', o foco vai para <body>, não retorna ao botão Cancelar que abriu o diálogo.",
+        "expected": "Ao fechar o diálogo sem descartar, o foco volta ao elemento que o abriu (botão Cancelar).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Digitar 'Maria Teste' em Nome completo",
+            "Clique em Cancelar",
+            "Tab",
+            "Tab",
+            "Esc"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação é indicada só visualmente (classe active, fundo azul); o link não tem aria-current, nem antes nem depois de navegar para a página 2.",
+        "expected": "Link da página atual com aria-current=\"page\" (ou outro meio programático equivalente).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "wcag:4.1.2",
+        "observed": "Com o calendário aberto, os botões de mês anterior/seguinte contêm só ícone (<i> sem texto alternativo) e não têm aria-label; nome acessível vazio na árvore de acessibilidade.",
+        "expected": "Botões com nome acessível, p.ex. 'Mês anterior' e 'Próximo mês'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clique no botão Abrir calendário"
+          ]
+        },
+        "evidence": []
+      }
+    ]
+  }
+}
