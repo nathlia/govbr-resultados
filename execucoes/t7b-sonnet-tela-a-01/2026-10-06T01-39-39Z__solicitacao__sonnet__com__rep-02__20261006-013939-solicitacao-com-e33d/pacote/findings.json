@@ -1,0 +1,184 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261006-013939-solicitacao-com-e33d",
+  "receivedAt": "2026-10-06T01:43:46Z",
+  "receipt": "r-f908e8cdfe4c10dc",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-06T01:43:46.726Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280×900: cabeçalho, trilha, formulário (campos, selects, rádios, data, upload, checkboxes), mensagens de erro e de sucesso, modal de cancelamento, tabela e paginação de solicitações anteriores"
+    ],
+    "notes": "Interações: leitura da árvore de acessibilidade e do DOM; envio vazio (8 erros); preenchimento parcial; abertura do modal Cancelar (Tab, Escape, Continuar preenchendo); fechamento da mensagem com Enter; select de unidade por teclado; envio com CPF '123' e data '99/99/9999' (aceito com mensagem de sucesso); abertura do calendário pelo botão (clique no campo não abre); paginação (página 2). Ferramentas: scan_page (S-page-001, S-page-002) e verify_finding (V-001..V-005). verify_finding não tem predicado para as regras axe (V-001, V-002 unverifiable; achados decididos por inspeção direta, certeza alta) e rejeitou como observação, por falta de norma nomeada, a ausência de .br-header/.br-footer e o br-button em <div> na mensagem de erro; por isso não os reporto como achados. Limitações: não testei envio de arquivo; contraste inspecionado só por amostra (texto de erro branco sobre #E52207 ≈4,6:1, ok); botão do calendário com aria-hidden e tabindex=-1 notado mas não reportado por incerteza (campo aceita digitação). Clique de mouse em opção do select de unidade foi instável na automação; usei teclado.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "label[for=forma-presencial]"
+        ],
+        "rule": "label",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label> não possui atributo for (aparece como radio sem nome na árvore de acessibilidade); os outros dois rádios têm label for.",
+        "expected": "Rádio associado ao rótulo 'Presencial' (label for=forma-presencial).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-006",
+          "S-page-002:F-012",
+          "V-001"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "Botão 'Selecione o arquivo' com aria-hidden=\"true\" e focável (tabindex=1); o input file real está com display:none, então o controle fica invisível para leitores de tela mas acessível por teclado.",
+        "expected": "Controle de upload exposto à tecnologia assistiva, sem aria-hidden em elemento focável.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-005",
+          "V-002"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex=\"1\" (valor positivo) no botão de upload, tirando-o da ordem natural de foco: ele recebe foco antes dos demais campos do formulário.",
+        "expected": "Ordem de foco seguindo a ordem visual/DOM (tabindex 0 ou ausente).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "DOM: button.upload-button tabindex=1"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month button, .flatpickr-next-month button",
+        "rule": "emag-2.2",
+        "observed": "Com o calendário aberto (clique em 'Abrir calendário'), os botões de mês anterior/seguinte são botões só com ícone, sem aria-label nem texto (32×32 px, visíveis).",
+        "expected": "Nome acessível, por ex. 'Mês anterior' e 'Próximo mês'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão #data-preferencial-btn (Abrir calendário)"
+          ]
+        },
+        "evidence": [
+          "S-page-001:F-001",
+          "S-page-001:F-002"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "CPF '123' foi aceito: nenhum erro de formato; a tela exibiu 'Solicitação enviada.', apesar do texto de ajuda 'Somente números, 11 dígitos.'",
+        "expected": "Rejeitar CPF com formato inválido e identificar o erro em texto junto ao campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher nome, CPF=123, data=99/99/9999, descrição, forma e declaração; escolher serviço e unidade; clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem 'Solicitação enviada.' observada no DOM"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": "wcag:3.3.1",
+        "observed": "Data '99/99/9999' foi aceita: nenhum erro de formato; envio concluído com sucesso, apesar da orientação 'Informe no formato dd/mm/aaaa.'",
+        "expected": "Rejeitar data inexistente ou fora do formato dd/mm/aaaa e identificar o erro em texto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher nome, CPF=123, data=99/99/9999, descrição, forma e declaração; escolher serviço e unidade; clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem 'Solicitação enviada.' observada no DOM"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": null,
+        "observed": "Após o envio vazio, os campos de seleção ficam com aria-invalid=\"true\" mas sem aria-describedby; a mensagem de erro correspondente (.feedback sem id) não está ligada ao campo. Nos demais campos (nome, CPF, data, descrição, forma, declaração) o vínculo existe.",
+        "expected": "Mensagem de erro associada ao campo por id e aria-describedby, como nos outros campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "DOM após envio: input#servico e input#unidade sem aria-describedby"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o modal 'Descartar solicitação?' (por Escape ou por 'Continuar preenchendo'), o foco vai para o body, não volta ao botão Cancelar que abriu o modal.",
+        "expected": "Foco devolvido ao botão Cancelar ao fechar o modal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Cancelar",
+            "Pressionar Escape (ou clicar em Continuar preenchendo)"
+          ]
+        },
+        "evidence": [
+          "document.activeElement = BODY após fechar"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores a.active",
+        "rule": null,
+        "observed": "Na paginação, a página atual (página 2) é marcada só pela classe 'active'; o link não tem aria-current.",
+        "expected": "Página atual indicada por aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no link 'Página 2' da paginação"
+          ]
+        },
+        "evidence": [
+          "DOM: a.page.active aria-label='Página 2' sem aria-current"
+        ]
+      }
+    ]
+  }
+}
