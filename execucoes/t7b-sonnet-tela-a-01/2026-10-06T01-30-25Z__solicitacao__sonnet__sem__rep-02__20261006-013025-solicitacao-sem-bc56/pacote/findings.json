@@ -1,0 +1,236 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261006-013025-solicitacao-sem-bc56",
+  "receivedAt": "2026-10-06T01:35:35Z",
+  "receipt": "r-95cc0a0ec112c563",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-06T01:35:35.011Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: carregamento, envio vazio, envio com dados, listas de seleção, calendário, paginação do histórico, diálogo de descarte, navegação por Tab"
+    ],
+    "notes": "Nenhuma ferramenta de validação automatizada estava disponível; só as ferramentas de navegador, então os achados vêm de inspeção do DOM, da árvore de acessibilidade, de estilos calculados e de operação por mouse e teclado, e as regras são referências normativas, não identificadores de ferramenta. Interações: envio vazio (8 erros por campo e mensagem geral), preenchimento parcial, seleção em listas, envio com sucesso, abertura do calendário, paginação (página 2), Cancelar com diálogo (Esc e Enter em Continuar preenchendo). Incertezas: o botão do calendário (aria-hidden, tabindex -1) e o foco dos campos de seleção (só muda a borda) não foram reportados porque o campo de data aceita digitação e a borda muda de estado. Data no passado aceita no envio: não reportada, pois o texto da tela não exige data futura. Contraste, tamanho de alvo e rótulos dos demais campos conferidos sem problema. Console: só 404 de favicon.ico (não reportado). Outras larguras fora do escopo.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma label:not([for])"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o rótulo <label> não tem atributo for. Na árvore de acessibilidade aparece como radio sem nome, e clicar no texto 'Presencial' não marca o rádio.",
+        "expected": "O rótulo deve estar associado ao rádio (for='forma-presencial'), como nas demais opções, dando nome acessível e área de clique.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção DOM via browser_evaluate/browser_snapshot (sem ferramenta de validação disponível)"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden='true' e continua focável (tabindex=1). O input file real está com display:none, então o controle de envio de arquivo fica sem nome e inacessível a leitores de tela.",
+        "expected": "O controle de upload visível deve ser exposto à tecnologia assistiva, sem aria-hidden, e ter nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção DOM via browser_evaluate/browser_snapshot (sem ferramenta de validação disponível)"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex='1' (positivo), tirando-o da ordem natural. Na navegação por Tab ele fica fora de ordem e foi pulado na sequência dos campos.",
+        "expected": "Sem tabindex positivo, para que o foco siga a ordem visual e do DOM.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção DOM via browser_evaluate/browser_snapshot (sem ferramenta de validação disponível)"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": null,
+        "observed": "Com CPF '123' (3 dígitos) o envio foi aceito com mensagem de sucesso, sem erro de formato, embora o texto de apoio diga 'Somente números, 11 dígitos.'",
+        "expected": "CPF com menos de 11 dígitos deve ser rejeitado com mensagem de erro associada ao campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Clicar em Nome completo",
+            "Pressionar Tab 12 vezes a partir do Nome",
+            "Abrir lista Tipo de serviço e escolher Atualização cadastral",
+            "Preencher CPF com 123",
+            "Preencher Data preferencial com 01/01/2020",
+            "Clicar em Enviar",
+            "Preencher Nome com Maria Silva",
+            "Clicar no rótulo Presencial (sem efeito)",
+            "Preencher Descrição com Teste",
+            "Marcar declaração",
+            "Escolher Agência Norte em Unidade de atendimento",
+            "Focar o rádio Presencial e pressionar Espaço",
+            "Clicar em Enviar (mensagem de sucesso)"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM via browser_evaluate/browser_snapshot (sem ferramenta de validação disponível)"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month button, .flatpickr-next-month button",
+        "rule": "wcag:4.1.2",
+        "observed": "Os botões de mês anterior e seguinte do calendário não têm texto nem aria-label (só ícone), então não têm nome acessível.",
+        "expected": "Cada botão deve ter nome acessível, como 'Mês anterior' e 'Próximo mês'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Clicar em Nome completo",
+            "Pressionar Tab 12 vezes a partir do Nome",
+            "Abrir lista Tipo de serviço e escolher Atualização cadastral",
+            "Preencher CPF com 123",
+            "Preencher Data preferencial com 01/01/2020",
+            "Clicar em Enviar",
+            "Preencher Nome com Maria Silva",
+            "Clicar no rótulo Presencial (sem efeito)",
+            "Preencher Descrição com Teste",
+            "Marcar declaração",
+            "Escolher Agência Norte em Unidade de atendimento",
+            "Focar o rádio Presencial e pressionar Espaço",
+            "Clicar em Enviar (mensagem de sucesso)",
+            "Clicar em Abrir calendário"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM via browser_evaluate/browser_snapshot (sem ferramenta de validação disponível)"
+        ]
+      },
+      {
+        "selector": ".flatpickr-monthDropdown-months, .flatpickr-current-month .cur-year",
+        "rule": "wcag:3.1.2",
+        "observed": "Os controles de mês e ano do calendário têm aria-label em inglês ('Month', 'Year') numa página pt-BR.",
+        "expected": "Os nomes devem estar em português ('Mês', 'Ano').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Clicar em Nome completo",
+            "Pressionar Tab 12 vezes a partir do Nome",
+            "Abrir lista Tipo de serviço e escolher Atualização cadastral",
+            "Preencher CPF com 123",
+            "Preencher Data preferencial com 01/01/2020",
+            "Clicar em Enviar",
+            "Preencher Nome com Maria Silva",
+            "Clicar no rótulo Presencial (sem efeito)",
+            "Preencher Descrição com Teste",
+            "Marcar declaração",
+            "Escolher Agência Norte em Unidade de atendimento",
+            "Focar o rádio Presencial e pressionar Espaço",
+            "Clicar em Enviar (mensagem de sucesso)",
+            "Clicar em Abrir calendário"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM via browser_evaluate/browser_snapshot (sem ferramenta de validação disponível)"
+        ]
+      },
+      {
+        "selector": ".br-pagination .page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual ('Página 2' depois do clique) é indicada só pela classe e pela aparência, sem aria-current.",
+        "expected": "A página atual deve ser exposta programaticamente com aria-current='page'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Clicar em Nome completo",
+            "Pressionar Tab 12 vezes a partir do Nome",
+            "Abrir lista Tipo de serviço e escolher Atualização cadastral",
+            "Preencher CPF com 123",
+            "Preencher Data preferencial com 01/01/2020",
+            "Clicar em Enviar",
+            "Preencher Nome com Maria Silva",
+            "Clicar no rótulo Presencial (sem efeito)",
+            "Preencher Descrição com Teste",
+            "Marcar declaração",
+            "Escolher Agência Norte em Unidade de atendimento",
+            "Focar o rádio Presencial e pressionar Espaço",
+            "Clicar em Enviar (mensagem de sucesso)",
+            "Clicar em Abrir calendário",
+            "Pressionar Esc",
+            "Clicar em Página 2"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM via browser_evaluate/browser_snapshot (sem ferramenta de validação disponível)"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "rule": "wcag:2.4.3",
+        "observed": "Depois de Cancelar abrir o diálogo 'Descartar solicitação?' e ele ser fechado (Esc ou Continuar preenchendo), o foco vai para o body, não volta a Cancelar.",
+        "expected": "Ao fechar o diálogo, o foco deve voltar ao elemento que o abriu.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Clicar em Nome completo",
+            "Pressionar Tab 12 vezes a partir do Nome",
+            "Abrir lista Tipo de serviço e escolher Atualização cadastral",
+            "Preencher CPF com 123",
+            "Preencher Data preferencial com 01/01/2020",
+            "Clicar em Enviar",
+            "Preencher Nome com Maria Silva",
+            "Clicar no rótulo Presencial (sem efeito)",
+            "Preencher Descrição com Teste",
+            "Marcar declaração",
+            "Escolher Agência Norte em Unidade de atendimento",
+            "Focar o rádio Presencial e pressionar Espaço",
+            "Clicar em Enviar (mensagem de sucesso)",
+            "Clicar em Abrir calendário",
+            "Pressionar Esc",
+            "Clicar em Página 2",
+            "Clicar em Cancelar",
+            "Pressionar Esc"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM via browser_evaluate/browser_snapshot (sem ferramenta de validação disponível)"
+        ]
+      }
+    ]
+  }
+}
