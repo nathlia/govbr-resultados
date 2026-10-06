@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-06T01:16:01Z | execução | t7-tela-b-01 | vistorias | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 380b07e12574 | `execucoes/t7-tela-b-01/2026-10-06T01-16-01Z__vistorias__opus__com__rep-01__20261006-011601-vistorias-com-940e` |
+| 2026-10-06T01:15:14Z | linha de base | t7-tela-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/t7-tela-b-01/vistorias/lb-20261006-011514-vistorias-dec34f` |
 | 2026-10-06T00:57:27Z | execução | t7-tela-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · e86f6705e82a | `execucoes/t7-tela-b-01/2026-10-06T00-57-27Z__vistorias__opus__sem__rep-01__20261006-005727-vistorias-sem-1fa6` |
 | 2026-10-06T00:57:00Z | linha de base | t7-tela-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/t7-tela-b-01/vistorias/lb-20261006-005700-vistorias-01133b` |
 | 2026-10-05T17:51:25Z | execução | t7b-sonnet-tela-a-01 | solicitacao | sem | claude-sonnet-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 8324ad0a515d | `execucoes/t7b-sonnet-tela-a-01/2026-10-05T17-51-25Z__solicitacao__sonnet__sem__rep-01__20261005-175125-solicitacao-sem-3df4` |
