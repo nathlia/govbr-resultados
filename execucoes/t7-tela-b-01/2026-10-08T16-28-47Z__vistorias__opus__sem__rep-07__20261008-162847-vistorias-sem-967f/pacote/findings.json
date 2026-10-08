@@ -1,0 +1,548 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-b-01",
+  "runId": "20261008-162847-vistorias-sem-967f",
+  "receivedAt": "2026-10-08T16:40:56Z",
+  "receipt": "r-cc8e7d67bad17ae9",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-08T16:40:56.559Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+    "scope": [
+      "Tela Vistorias (perfil mpa) em 1280x900: cabeçalho, menu do avatar, breadcrumb, abas Agendar/Tramitando/Concluídos, filtros Cidade/Porto (Vistoriador e Status com o mesmo componente), busca, filtros de data, tabela e ações por linha, ações em lote, diálogos Atribuir/Excluir/Notificar/Exportar (SweetAlert), paginação, Exibir/Página, Voltar"
+    ],
+    "notes": "Viewport medido: innerWidth 1280 x innerHeight 900 (clientWidth/Height iguais); sem redimensionar nem emular. A URL redireciona para /pnip/portal-mpa/vistorias. Não havia ferramenta de validação automática disponível (só Playwright); tudo foi decidido por inspeção do DOM, inclusive dos shadow roots (br-header, br-breadcrumb, br-input, br-button), da árvore de acessibilidade, de estilos calculados e contraste calculado (fórmula WCAG). Por isso evidence fica vazio e as regras são referências normativas. Seletores para elementos em shadow DOM apontam para o host (br-header, br-breadcrumb, br-input, br-button). Interações: Tab/Enter/Escape no avatar; diálogos abertos pelo teclado (foco preso corretamente, mas perdido ao fechar); clique no olho navega para /vistorias/agendar-vistoria/<id> (fora do escopo, voltei); filtros Cidade/Porto abertos com o mouse e opção Barra Nova aplicada; Limpar Filtro; busca \"zzzzzz\"; campos de data digitados; abas Concluídos e Agendar; paginação página 2; Exibir=25; selecionar todos; Exportar. Não executei ações destrutivas ou de envio (Sim, excluir; Sim, notificar; OK; Exportar; Notificar Selecionadas; Alterar vistoriador em lote; Sair; Trocar unidade). Observações sem achado: foco visível presente nos controles testados (contorno tracejado do DS e anel nativo nos checkboxes); o botão \"Menu\" do cabeçalho não abre nenhum menu (sem #main-navigation e sem aria-expanded), registrado como incerto; em Agendar, página 2 + Exibir=25 deixa a lista vazia e a paginação some (defeito funcional); o ícone user-times nas linhas com vistoriador abre o mesmo diálogo \"Atribuir Vistoriador\" (rejeitado como problema de acessibilidade); console com TypeError \"reading bind\" ao digitar data. Incertezas: a busca tem como nome só o placeholder \"Pesquise aqui ...\" (não relatado); grupo de checkboxes de exportação e combobox do Exibir/Página com certeza moderada; a tabela larga é relatada sem critério WCAG porque 1.4.10 se refere a 320px. Vistoriador/Status: só inspecionei a estrutura, igual à de Cidade/Porto.",
+    "findings": [
+      {
+        "selector": "pnip-filter-panel span.br-tag.interaction.border-solid-sm",
+        "rule": "wcag:2.1.1",
+        "observed": "Os filtros Cidade, Porto, Vistoriador e Status são <span class=\"br-tag interaction\"> com cursor:pointer e tratador de clique, sem tabindex nem role; não entram na ordem de tabulação (após a aba \"Concluídos\" o Tab vai direto para a busca) e só abrem com o mouse.",
+        "expected": "Gatilhos de filtro operáveis por teclado, expostos como botão com estado expandido/recolhido (aria-expanded).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "pnip-filter-panel .br-list .br-item label",
+        "rule": "wcag:2.1.1",
+        "observed": "As opções da lista de filtro (ex.: \"Barra Nova\") são <label> sem input associado dentro de .br-item com tabindex=-1; não recebem foco nem têm papel de opção, e só podem ser escolhidas com o mouse.",
+        "expected": "Opções focáveis e selecionáveis por teclado, com papel e estado de seleção expostos (ex.: radio/checkbox reais ou role=option).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Clicar no filtro \"Cidade\""
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "pnip-filter-panel span.br-tag.interaction > button.br-button.inverted.circle",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão de remover o filtro aplicado (chip \"Barra Nova\") contém somente o ícone fa-times sem aria-hidden, sem texto, aria-label ou title; nome acessível vazio (\"\").",
+        "expected": "Botão com nome acessível, ex.: \"Remover filtro Barra Nova\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Clicar no filtro \"Cidade\"",
+            "Clicar na opção \"Barra Nova\""
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "table input[type=\"checkbox\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "Os 11 checkboxes da tabela (selecionar todos no cabeçalho e um por linha) não têm label, aria-label nem aria-labelledby; nome acessível vazio.",
+        "expected": "Cada checkbox com nome acessível, ex.: \"Selecionar todas as vistorias\" e \"Selecionar vistoria Coral Mansa IV\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "br-button[icon=\"eye\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão de visualizar (ícone de olho) de cada linha não tem title, label nem texto; o <button> interno tem aria-label=\"\" e o ícone tem aria-hidden; nome acessível vazio. Os botões vizinhos têm title (ex.: \"Excluir vistoria\").",
+        "expected": "Botão com nome acessível, ex.: \"Visualizar vistoria\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "br-input[type=\"date\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "Os dois campos de data (input type=date no shadow DOM, ids br-input-8 e br-input-9) não têm label, aria-label nem aria-labelledby; os textos visíveis \"Data da vistoria:\" e \"até\" são <span> não associados. Na árvore de acessibilidade aparecem como textbox sem nome.",
+        "expected": "Cada campo de data com nome acessível associado ao rótulo visível, ex.: \"Data da vistoria inicial\" e \"Data da vistoria final\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": [],
+        "relatedSelectors": [
+          "span.text-bold"
+        ]
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-blue-40 > div",
+        "rule": "wcag:1.4.3",
+        "observed": "Etiqueta \"Vistoria agendada\": texto rgb(255,255,255) sobre rgb(79,151,209), 14px e peso 500; contraste 3,14:1.",
+        "expected": "Contraste mínimo de 4,5:1 para texto normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-secondary-06 > div",
+        "rule": "wcag:1.4.3",
+        "observed": "Etiqueta \"Vistoria pré agendada\": texto rgb(255,255,255) sobre rgb(136,136,136), 14px e peso 500; contraste 3,54:1.",
+        "expected": "Contraste mínimo de 4,5:1 para texto normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Clicar na aba \"Agendar\""
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "span.br-tag.primary-pastel-01",
+        "rule": "wcag:1.4.3",
+        "observed": "A etiqueta informativa \"Nenhum filtro de data aplicado\" tem texto rgb(255,255,255) sobre rgb(197,212,235), 14px e peso 500; contraste 1,5:1. Não é um controle desabilitado.",
+        "expected": "Contraste mínimo de 4,5:1 para texto normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"] > ul > li > li",
+        "rule": "wcag:1.3.1",
+        "observed": "Na paginação, cada número de página fica em um <li> aninhado diretamente em outro <li>, sem <ul>/<ol> intermediário; a árvore de acessibilidade mostra listitem dentro de listitem.",
+        "expected": "Estrutura de lista válida: um único <li> por página dentro do <ul>.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"] a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual só é indicada pela classe \"active\" (estilo visual); o link não tem aria-current nem texto oculto.",
+        "expected": "Página atual identificada programaticamente, ex.: aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"] a.page",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao ativar pelo teclado o link de página \"2\" (Enter), a lista é atualizada e o foco vai para <body>; o usuário volta ao início da ordem de tabulação.",
+        "expected": "O foco permanece no controle de paginação ativado (ou vai para um ponto lógico, como o início dos resultados).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Clicar na aba \"Agendar\"",
+            "Focar o link de página \"2\" e pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "nav.tab-nav li.tab-item.active > button",
+        "rule": "wcag:1.3.1",
+        "observed": "A aba ativa (\"Tramitando\"; também observado em \"Agendar\" e \"Concluídos\") só é indicada pela classe \"active\" no <li>; os botões não têm aria-selected, aria-current nem role=tab.",
+        "expected": "Estado da aba atual exposto programaticamente (role=tablist/tab com aria-selected, ou aria-current na navegação).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#avatar-dropdown-trigger",
+        "rule": "wcag:2.5.3",
+        "observed": "O botão exibe o texto \"Olá, Usuária de Teste, SUPERVISOR\", mas aria-label=\"Avatar com dropdown\" substitui esse texto; o nome acessível não contém o rótulo visível.",
+        "expected": "O nome acessível contém o texto visível, ex.: sem aria-label, ou aria-label que comece por \"Olá, Usuária de Teste, SUPERVISOR\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#avatar-menu",
+        "rule": "wcag:4.1.2",
+        "observed": "O container tem role=\"menu\", mas os filhos são div, span e button sem role=\"menuitem\"; o papel de menu não corresponde ao conteúdo.",
+        "expected": "Papel coerente com o conteúdo: remover role=\"menu\" ou dar role=menuitem aos itens, com a interação de teclado de menu.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Pressionar Tab até o botão do avatar e pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#avatar-menu span.text-blue-vivid-60",
+        "rule": "wcag:2.1.1",
+        "observed": "\"Trocar unidade\" é um <span> com cursor:pointer, sem tabindex nem role; não é alcançável nem acionável pelo teclado.",
+        "expected": "Controle nativo (button ou link) focável e acionável pelo teclado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Pressionar Tab até o botão do avatar e pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#avatar-menu img",
+        "rule": "wcag:1.1.1",
+        "observed": "O ícone do botão \"Sair\" (<img src=\"../../../assets/images/exit-icon.png\">) não tem atributo alt.",
+        "expected": "Imagem decorativa com alt=\"\" (o botão já tem o texto \"Sair\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Pressionar Tab até o botão do avatar e pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#avatar-menu",
+        "rule": null,
+        "observed": "Com o menu do avatar aberto e o foco no gatilho, a tecla Escape não fecha o menu (hidden continua false e aria-expanded continua \"true\").",
+        "expected": "Escape fecha o menu suspenso e mantém o foco no gatilho, como no dropdown do Design System.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Pressionar Tab até o botão do avatar e pressionar Enter",
+            "Pressionar Escape"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "br-header",
+        "rule": "wcag:1.1.1",
+        "observed": "O logotipo gov.br, dentro do shadow root de br-header (<img src=\"assets/images/govbr-logo.png\">), tem alt=\"logo\", que não descreve a imagem.",
+        "expected": "Texto alternativo que descreva a marca, ex.: \"gov.br\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "br-breadcrumb",
+        "rule": "wcag:4.1.2",
+        "observed": "No breadcrumb (shadow root), o item inicial é um <a href=\"/portal-mpa\"> com um <button aria-label=\"\"> dentro: elementos interativos aninhados e duas paradas de tabulação (\"Home\" link e \"Home\" botão) para o mesmo destino.",
+        "expected": "Um único elemento interativo (link) para o item \"Home\", sem botão aninhado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "td br-button[title=\"Atribuir vistoriador\"], td br-button[icon=\"trash\"], td br-button[icon=\"bell\"], .d-flex.justify-content-end.align-items-center > br-button[type=\"primary\"]",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao abrir pelo teclado os diálogos \"Atribuir Vistoriador\", \"Excluir Vistoria\", \"Notificar Vistoria(s)?\" e \"Exportar Vistorias\" e fechá-los (Escape ou Cancelar), o foco vai para <body> em vez de voltar ao botão que abriu o diálogo.",
+        "expected": "Ao fechar o diálogo, o foco retorna ao botão que o abriu.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Focar o botão \"Atribuir vistoriador\" da linha 2 e pressionar Enter",
+            "Pressionar Escape",
+            "(repetido com \"Excluir vistoria\" + Tab + Enter em Cancelar, \"Notificar solicitante da vistoria\" + Escape e \"Exportar Vistorias\" + Escape)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#swal2-select",
+        "rule": "wcag:4.1.2",
+        "observed": "No diálogo \"Atribuir Vistoriador\", o select de vistoriadores não tem label, aria-label nem aria-labelledby; o texto \"Selecione um Vistoriador\" está em #swal2-html-container, que não está associado ao select.",
+        "expected": "Select com nome acessível, ex.: associado ao texto \"Selecione um Vistoriador\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Focar o botão \"Atribuir vistoriador\" da linha 2 e pressionar Enter"
+          ]
+        },
+        "evidence": [],
+        "relatedSelectors": [
+          "#swal2-html-container"
+        ]
+      },
+      {
+        "selector": "#swal2-html-container input[type=\"checkbox\"]",
+        "rule": "wcag:1.3.1",
+        "observed": "No diálogo \"Exportar Vistorias\", os 5 checkboxes de status têm label próprio, mas o rótulo do grupo \"Status:\" é um <strong> solto, sem fieldset/legend nem role=group com aria-labelledby.",
+        "expected": "Grupo de checkboxes identificado programaticamente pelo rótulo \"Status\" (fieldset/legend ou role=group).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Focar \"Exportar Vistorias\" e pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "div.align-content-center > span.br-tag.interaction > button.br-button.inverted.circle",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão de remover o filtro de data (tag \"Exibindo vistorias a partir de 01/01/2030\") contém só o ícone fa-times com aria-hidden, sem texto, aria-label nem title; nome acessível vazio.",
+        "expected": "Botão com nome acessível, ex.: \"Remover filtro de data\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Digitar 01012030 no primeiro campo de data"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "div.flex-column.justify-content-center > p",
+        "rule": "wcag:4.1.3",
+        "observed": "Após buscar \"zzzzzz\", a mensagem \"Não há vistorias para exibir.\" substitui a tabela, mas não está em região viva; não há nenhum aria-live, role=status ou role=alert na página nesse estado.",
+        "expected": "O resultado da busca (lista vazia) é anunciado por região de status (role=status/aria-live=polite).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Digitar \"zzzzzz\" no campo \"Pesquise aqui ...\" e pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "div.mt-5.text-center > p",
+        "rule": "wcag:4.1.3",
+        "observed": "Ao aplicar o filtro de data sem resultados, a mensagem \"Não há vistorias para exibir nesse periodo selecionado.\" aparece fora de região viva (0 elementos aria-live/role=status/role=alert na página).",
+        "expected": "Mensagem de resultado vazio anunciada por região de status.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Digitar 01012030 no primeiro campo de data"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#total, #page",
+        "rule": "wcag:4.1.2",
+        "observed": "Os seletores \"Exibir\" e \"Página\" são input type=text que abrem uma lista de opções (ArrowDown abre e move o foco para .br-item), mas não têm role=combobox, aria-expanded nem aria-controls; o botão \"Exibir lista\" também não expõe aria-expanded.",
+        "expected": "Estado aberto/fechado e relação com a lista expostos programaticamente (role=combobox, aria-expanded, aria-controls).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)",
+            "Focar o campo \"Exibir\" e pressionar ArrowDown"
+          ]
+        },
+        "evidence": [],
+        "relatedSelectors": [
+          "button[aria-label=\"Exibir lista\"]"
+        ]
+      },
+      {
+        "selector": "div.br-table > table.table",
+        "rule": null,
+        "observed": "Na aba Tramitando, a tabela tem 1272px de largura dentro de .br-table com 1096px e overflow visível; o documento fica com scrollWidth 1364px em viewport de 1280px, a última coluna de ações (botão de notificar) fica cortada na borda direita e o botão de sino focado fica em x 1258–1336.",
+        "expected": "Tabela contida no layout, com rolagem horizontal dentro do próprio container (padrão responsivo da tabela do Design System) ou colunas que caibam em 1280px.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": [],
+        "relatedSelectors": [
+          "div.br-table"
+        ]
+      },
+      {
+        "selector": "title",
+        "rule": "wcag:2.4.2",
+        "observed": "O título do documento é apenas \"PNIP\" e não identifica a página (Vistorias).",
+        "expected": "Título descritivo e único, ex.: \"Vistorias – Plataforma Nacional da Indústria do Pescado\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "main h2",
+        "rule": "emag:1.3",
+        "observed": "O único cabeçalho da página é o h2 \"Vistorias\"; não há h1.",
+        "expected": "O título principal do conteúdo marcado como h1, com hierarquia de cabeçalhos a partir dele.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "main",
+        "rule": "emag:1.5",
+        "observed": "Não há atalhos/âncoras para blocos de conteúdo: o primeiro elemento focável é o botão \"Menu\" do cabeçalho, não há link \"Ir para o conteúdo\" e o <main> não tem id que sirva de destino.",
+        "expected": "Links de salto no início da página (ex.: \"Ir para o conteúdo\" → main com id), como no padrão eMAG/gov.br.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Carregar http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa (aba Tramitando ativa)"
+          ]
+        },
+        "evidence": []
+      }
+    ]
+  }
+}
