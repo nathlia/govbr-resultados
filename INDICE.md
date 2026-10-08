@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-08T12:21:01Z | execução | t7-tela-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · ab4f14f3d864 | `execucoes/t7-tela-b-01/2026-10-08T12-21-01Z__vistorias__opus__sem__rep-05__20261008-122101-vistorias-sem-ee65` |
+| 2026-10-08T12:20:44Z | linha de base | t7-tela-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/t7-tela-b-01/vistorias/lb-20261008-122044-vistorias-a01788` |
 | 2026-10-08T12:03:54Z | execução | t7-tela-b-01 | vistorias | com | claude-opus-5-5 | passed | passed | used-with-errors | accepted | — | confirmado · 4d5b574c5b2d | `execucoes/t7-tela-b-01/2026-10-08T12-03-54Z__vistorias__opus__com__rep-05__20261008-120354-vistorias-com-563b` |
 | 2026-10-08T12:03:01Z | linha de base | t7-tela-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/t7-tela-b-01/vistorias/lb-20261008-120301-vistorias-12b21f` |
 | 2026-10-08T11:47:25Z | execução | t7-tela-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · c370cc176d3a | `execucoes/t7-tela-b-01/2026-10-08T11-47-25Z__vistorias__opus__sem__rep-04__20261008-114725-vistorias-sem-3eaf` |
