@@ -1,0 +1,618 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7-tela-b-01",
+  "runId": "20261009-003628-vistorias-com-437f",
+  "receivedAt": "2026-10-09T00:48:10Z",
+  "receipt": "r-c953638eba6c8c04",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-09T00:48:10.538Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+    "scope": [
+      "Tela Vistorias (redireciona para /pnip/portal-mpa/vistorias) em 1280x900",
+      "abas Agendar, Tramitando, Concluídos",
+      "filtros Cidade (aberto/aplicado), busca, filtro de datas (válido e intervalo invertido), estado vazio",
+      "tabela: seleção em lote, botões de ação por linha",
+      "modais Atribuir Vistoriador, Excluir Vistoria, Notificar Vistoria(s), Exportar Vistorias",
+      "menu do usuário (avatar), botão Menu do cabeçalho, breadcrumb",
+      "paginação (página 2 e 3 por clique e teclado)"
+    ],
+    "notes": "Viewport medido: 1280x900 (innerWidth/innerHeight). A URL redireciona para /pnip/portal-mpa/vistorias sem a query. Interações: Tab pela página; abertura do filtro Cidade e seleção de Barra Nova; clique/Enter em Atribuir, Excluir, Notificar (fechados com Esc, foco verificado); botão olho (navega para /agendar-vistoria/<id>, outra tela, fora do escopo); checkbox de selecionar todas; avatar (Esc não fecha o menu, não reportado por falta de critério estrito); botão Menu (sem efeito); abas; Exportar; busca sem resultado; datas 28/03 a 01/03 (intervalo invertido aceito sem aviso, só mensagem de vazio; não reportado: incerto se 3.3.1 se aplica). Ferramentas: scan_page com todos os checks e o check structure completo excederam o limite de resposta e não puderam ser lidos (sem ferramenta de leitura de arquivo); os checks foram rodados separadamente (S-page-003 axe+page, S-page-004/005 structure, S-page-006 a 011 axe por estado, S-page-012 tokens cor/fonte sem violações). Os achados emag-2.2 do checker structure (F-221 a F-260) para os botões com title foram rejeitados: os botões Atribuir/Excluir/Notificar recebem nome pelo atributo title; só o botão olho não tem nome. verify_finding rejeitou por falta de norma nomeada (applicability) F-261 (breadcrumb em div em vez de nav; V-001), F-177 (ausência de br-footer; V-002) e F-178 (salto para o conteúdo; V-003). Ausência de rodapé e breadcrumb sem nav ficam como observações de revisão, não como achados; o salto para o conteúdo foi mantido sob a regra e-MAG 1.5 (govbr-...-7d2b85f81c52). Incertezas: o indicador de foco do link Home do breadcrumb parece parcialmente cortado (não reportado); ícone user-times com título \"Atribuir vistoriador\" (o modal confirma a atribuição, não reportado); os modais SweetAlert em vez do br-modal do DS não foram reportados por falta de regra explícita. Outras larguras: não aplicável.",
+    "findings": [
+      {
+        "selector": "td:nth-child(9) br-button[icon=\"eye\"]",
+        "rule": "button-name",
+        "observed": "O botão de ícone \"olho\" de cada linha (abre o detalhe da vistoria) não tem nome acessível: o button interno tem aria-label=\"\" e não tem title nem texto; só o ícone fa-eye com aria-hidden.",
+        "expected": "Todo botão de ícone deve ter nome acessível (ex.: aria-label=\"Visualizar vistoria\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-179",
+          "F-180",
+          "F-181",
+          "F-182",
+          "F-183",
+          "F-184",
+          "F-185",
+          "F-186",
+          "F-187",
+          "F-188",
+          "S-page-011",
+          "F-303"
+        ]
+      },
+      {
+        "selector": "br-input[type=\"date\"]",
+        "rule": "label",
+        "observed": "Os dois campos de data (#br-input-8 e #br-input-9, no shadow DOM) não têm rótulo associado; os textos \"Data da vistoria:\" e \"até\" são spans soltos.",
+        "expected": "Cada campo deve ter label associado (for/id ou aria-labelledby), por exemplo \"Data inicial da vistoria\" e \"Data final da vistoria\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-202",
+          "F-203"
+        ],
+        "relatedSelectors": [
+          "span.text-bold"
+        ]
+      },
+      {
+        "selector": "table input[type=\"checkbox\"]",
+        "rule": "label",
+        "observed": "As 11 caixas de seleção da tabela (a de \"selecionar todas\" no cabeçalho e uma por linha) não têm nenhum nome acessível.",
+        "expected": "Cada checkbox deve ter nome (ex.: \"Selecionar todas\", \"Selecionar vistoria Coral Mansa IV\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-204",
+          "F-205",
+          "F-214"
+        ]
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-blue-40 > .text-secondary-01",
+        "rule": "color-contrast",
+        "observed": "A etiqueta de status \"Vistoria agendada\" (aba Tramitando) tem texto branco #ffffff sobre #4f97d1, com contraste de 3,14:1, em texto de 14px normal.",
+        "expected": "Contraste mínimo de 4,5:1 entre texto e fundo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-190",
+          "F-199",
+          "govbr-3.7.0-accessibility-global-cb09bc0c77c0"
+        ]
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-secondary-06 > .text-secondary-01",
+        "rule": "color-contrast",
+        "observed": "Na aba Agendar, a etiqueta de status \"Vistoria pré agendada\" tem texto branco #ffffff sobre #888888, com contraste de 3,54:1, em texto de 14px normal.",
+        "expected": "Contraste mínimo de 4,5:1 entre texto e fundo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar na aba 'Agendar' (#AGENDAR)"
+          ]
+        },
+        "evidence": [
+          "S-page-009",
+          "F-287",
+          "F-296"
+        ]
+      },
+      {
+        "selector": ".br-tag.primary-pastel-01",
+        "rule": "color-contrast",
+        "observed": "A etiqueta \"Nenhum filtro de data aplicado\" tem texto branco #ffffff sobre #c5d4eb, com contraste de 1,5:1, em texto de 14px.",
+        "expected": "Contraste mínimo de 4,5:1 entre texto e fundo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-189"
+        ]
+      },
+      {
+        "selector": "thead th:last-child",
+        "rule": "empty-table-header",
+        "observed": "O cabeçalho da coluna de ações (th scope=col) está vazio.",
+        "expected": "O cabeçalho de coluna deve ter texto, mesmo que só para leitores de tela (ex.: \"Ações\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-201"
+        ]
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"] li > li",
+        "rule": "listitem",
+        "observed": "Na paginação, cada número de página é um li aninhado diretamente dentro de outro li, sem ul/ol intermediário (marcação de lista inválida).",
+        "expected": "Cada li deve ser filho direto de ul/ol, sem li dentro de li.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-215",
+          "F-216",
+          "F-217",
+          "F-218"
+        ]
+      },
+      {
+        "selector": "pnip-propesc-vistorias h2",
+        "rule": "govbr-3.7.0-accessibility-global-3ac0aaa53900",
+        "observed": "A página não tem h1; o título principal \"Vistorias\" é um h2 e é o único cabeçalho do documento.",
+        "expected": "O conteúdo principal deve ter um h1 (ex.: \"Vistorias\"), e os demais níveis devem seguir a hierarquia.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-219",
+          "page-has-heading-one"
+        ]
+      },
+      {
+        "selector": "html",
+        "rule": "govbr-3.7.0-accessibility-global-7d2b85f81c52",
+        "observed": "Não há link de salto para o conteúdo: o primeiro link focável é o \"Home\" do breadcrumb (href=\"/portal-mpa\").",
+        "expected": "O primeiro link focável deve levar ao conteúdo principal (ex.: \"#main-content\" apontando para o main).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-003",
+          "F-178",
+          "emag:1.5"
+        ]
+      },
+      {
+        "selector": "br-breadcrumb",
+        "rule": "wcag:4.1.2",
+        "observed": "O item \"Home\" do breadcrumb é um link a[href=\"/portal-mpa\"] com um button.br-button dentro (elemento interativo aninhado), o que cria duas paradas de Tab seguidas (\"Home\" link e \"Home\" botão) para o mesmo destino.",
+        "expected": "O item deve ter um único elemento interativo (só o link, com o ícone e o texto sr-only).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab x4 a partir do carregamento"
+          ]
+        },
+        "evidence": [
+          "inspeção do shadow DOM de br-breadcrumb; ordem de foco: A Home, BUTTON Home"
+        ]
+      },
+      {
+        "selector": "pnip-filter-panel span.br-tag.interaction",
+        "rule": "govbr-3.7.0-accessibility-global-e6fd5e1247de",
+        "observed": "Os gatilhos dos filtros \"Cidade\", \"Porto\", \"Vistoriador\" e \"Status\" são span.br-tag com cursor:pointer, sem role, sem tabindex e sem aria-expanded. Abrem só com o mouse e ficam fora da ordem de Tab.",
+        "expected": "Os gatilhos devem ser elementos focáveis e operáveis por teclado (button com aria-expanded/aria-controls).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção: lista de focáveis não inclui os filtros",
+          "wcag:2.1.1"
+        ]
+      },
+      {
+        "selector": "pnip-filter-panel .br-radio",
+        "rule": "wcag:4.1.2",
+        "observed": "As opções do painel de filtro (ex.: \"Barra Nova\") são div.br-radio só com label, sem input type=radio, sem role e sem tabindex=-1: não comunicam papel nem estado de seleção e não podem ser operadas por teclado.",
+        "expected": "As opções devem usar a estrutura de Radio do DS (input type=radio + label) ou um papel ARIA equivalente com estado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no filtro 'Cidade' (span.br-tag)"
+          ]
+        },
+        "evidence": [
+          "inspeção: 6 .br-radio, 0 inputs"
+        ]
+      },
+      {
+        "selector": "pnip-filter-panel .br-tag button.br-button.inverted",
+        "rule": "button-name",
+        "observed": "O botão \"×\" que remove o filtro aplicado (chip \"Barra Nova\") não tem nome acessível; só tem o ícone fa-times.",
+        "expected": "O botão deve ter nome, por exemplo aria-label=\"Remover filtro Barra Nova\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no filtro 'Cidade' (span.br-tag)",
+            "clicar na opção 'Barra Nova'"
+          ]
+        },
+        "evidence": [
+          "S-page-006",
+          "F-262"
+        ]
+      },
+      {
+        "selector": ".br-tag.interaction:not(pnip-filter-panel .br-tag) > button.br-button.inverted.circle",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão \"×\" do chip \"Exibindo vistorias a partir de 28/03/2026\" (filtro de data) não tem nome acessível; só tem o ícone fa-times e não tem aria-label.",
+        "expected": "O botão deve ter nome acessível (ex.: \"Remover filtro de data\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher a data inicial (#br-input-8) com 28/03/2026"
+          ]
+        },
+        "evidence": [
+          "inspeção do DOM: button.br-button.inverted.circle sem aria-label/texto"
+        ]
+      },
+      {
+        "selector": "nav.tab-nav .tab-item > button",
+        "rule": "wcag:4.1.2",
+        "observed": "As abas Agendar, Tramitando e Concluídos são buttons sem role=tab, aria-selected ou aria-current. A aba ativa só é indicada pela classe .active no li, então o estado não chega às tecnologias assistivas.",
+        "expected": "A aba ativa deve ter o estado exposto (role=\"tab\" + aria-selected=\"true\" em tablist, ou aria-current).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção do DOM das abas"
+        ]
+      },
+      {
+        "selector": "br-input#search",
+        "rule": "govbr-3.7.0-accessibility-global-b95c42b61ed3",
+        "observed": "O campo de pesquisa só tem placeholder (\"Pesquise aqui ...\") como rótulo; não há label visível nem associado, e o texto some ao digitar.",
+        "expected": "O campo deve ter label associado (visível ou, no mínimo, programático e persistente).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção: árvore de acessibilidade nomeia o textbox só pelo placeholder",
+          "wcag:3.3.2"
+        ]
+      },
+      {
+        "selector": "#avatar-dropdown-trigger",
+        "rule": "wcag:2.5.3",
+        "observed": "O botão do usuário mostra \"Olá, Usuária de Teste, SUPERVISOR\", mas o aria-label=\"Avatar com dropdown\" substitui esse texto visível no nome acessível.",
+        "expected": "O nome acessível deve conter o texto visível (remover o aria-label ou incluir o texto exibido).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção do atributo aria-label"
+        ]
+      },
+      {
+        "selector": "#avatar-menu",
+        "rule": "aria-required-children",
+        "observed": "O menu do usuário tem role=\"menu\", mas não contém elementos role=\"menuitem\"; contém divs, spans e um button.",
+        "expected": "Usar role=menu com filhos menuitem ou remover o role menu e usar uma lista/região comum.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-008",
+          "F-284"
+        ]
+      },
+      {
+        "selector": "#avatar-menu img",
+        "rule": "image-alt",
+        "observed": "O ícone img (exit-icon.png) do botão \"Sair\" não tem atributo alt.",
+        "expected": "Imagem decorativa com alt=\"\" (o botão já tem o texto \"Sair\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-008",
+          "F-285"
+        ]
+      },
+      {
+        "selector": "#avatar-menu span[style*=\"cursor\"]",
+        "rule": "govbr-3.7.0-accessibility-global-e6fd5e1247de",
+        "observed": "A ação \"Trocar unidade\" no menu do usuário é um span com cursor:pointer e tabIndex -1, sem role; não recebe foco nem pode ser acionada pelo teclado.",
+        "expected": "A ação deve ser um button ou link focável e operável por teclado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "inspeção do DOM (tabIndex -1)",
+          "wcag:2.1.1"
+        ]
+      },
+      {
+        "selector": "br-header",
+        "rule": null,
+        "observed": "O botão \"Menu\" (#navigation, data-target=\"#main-navigation\") do cabeçalho não faz nada: o alvo #main-navigation não existe no documento nem no shadow DOM, e o clique não abre nenhum menu nem define aria-expanded.",
+        "expected": "O botão de menu do cabeçalho deve abrir o menu principal (br-menu) que controla, ou não deve ser exibido.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão 'Menu' do cabeçalho"
+          ]
+        },
+        "evidence": [
+          "inspeção: #main-navigation e .br-menu ausentes"
+        ]
+      },
+      {
+        "selector": "br-header",
+        "rule": "emag:3.6",
+        "observed": "A imagem do logotipo no cabeçalho tem alt=\"logo\", que não identifica a marca (gov.br).",
+        "expected": "O alt deve descrever a imagem (ex.: \"gov.br\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção do shadow DOM de br-header: <img alt=\"logo\">",
+          "wcag:1.1.1"
+        ]
+      },
+      {
+        "selector": "#swal2-select",
+        "rule": "select-name",
+        "observed": "No modal \"Atribuir Vistoriador\", o select de vistoriadores não tem rótulo associado; o texto \"Selecione um Vistoriador\" é só a descrição do diálogo.",
+        "expected": "O select deve ter label associado (for/id ou aria-labelledby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em 'Atribuir vistoriador' da linha 2"
+          ]
+        },
+        "evidence": [
+          "S-page-007",
+          "F-283",
+          "govbr-3.7.0-accessibility-global-b95c42b61ed3"
+        ]
+      },
+      {
+        "selector": "td:nth-child(9) br-button[icon=\"trash\"], td:nth-child(9) br-button[icon=\"bell\"], td:nth-child(9) br-button[title=\"Atribuir vistoriador\"]",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao abrir pelo teclado (Enter) os modais \"Excluir Vistoria\" e \"Notificar Vistoria(s)?\" e fechar com Esc, o foco vai para o body em vez de voltar ao botão da linha que abriu o modal. O mesmo acontece no modal \"Atribuir Vistoriador\".",
+        "expected": "Ao fechar o modal, o foco deve voltar ao elemento que o abriu.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "focar o botão 'Excluir vistoria' da linha 2",
+            "pressionar Enter",
+            "pressionar Escape"
+          ]
+        },
+        "evidence": [
+          "inspeção: document.activeElement = BODY após fechar"
+        ]
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"] a.page",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao ativar um número de página com Enter (ex.: \"3\"), a tabela é recarregada e o foco vai para o body, e o usuário de teclado perde a posição.",
+        "expected": "Depois de trocar de página, o foco deve ficar no controle de paginação ou ir para um ponto lógico (ex.: início da tabela).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "focar o link de página '3'",
+            "pressionar Enter"
+          ]
+        },
+        "evidence": [
+          "inspeção: document.activeElement = BODY"
+        ]
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"] a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação só é indicada pela classe .active, sem aria-current=\"page\".",
+        "expected": "O link da página atual deve ter aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção do DOM da paginação"
+        ]
+      },
+      {
+        "selector": "pnip-propesc-vistorias .d-flex.flex-column.justify-content-center > p",
+        "rule": "wcag:4.1.3",
+        "observed": "Depois de uma busca sem resultados, a mensagem \"Não há vistorias para exibir.\" aparece num p fora de qualquer região aria-live/role=status (a região aria-live da paginação é removida), então não é anunciada.",
+        "expected": "Mensagens de resultado ou estado vazio devem ser anunciadas por uma região de status (role=\"status\"/aria-live).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "digitar 'zzzinexistente' no campo de pesquisa",
+            "pressionar Enter"
+          ]
+        },
+        "evidence": [
+          "inspeção: nenhum [aria-live]/[role=status] no documento"
+        ]
+      },
+      {
+        "selector": ".br-table",
+        "rule": null,
+        "observed": "Na janela de 1280px, a tabela (1272px de largura) transborda o contêiner .br-table (1096px), que não tem overflow, e gera rolagem horizontal na página (scrollWidth 1364 > 1280). A coluna de ações (botão \"Notificar\") fica cortada fora da área visível.",
+        "expected": "A tabela deve caber na grade ou rolar dentro do próprio contêiner, sem cortar as ações nem gerar rolagem horizontal na página.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção: documentElement.scrollWidth=1364, clientWidth=1280"
+        ]
+      },
+      {
+        "selector": "head > title",
+        "rule": "govbr-3.7.0-accessibility-global-5d5a5f21d94b",
+        "observed": "O título do documento é só \"PNIP\", sem identificar o conteúdo da tela (Vistorias); o mesmo título aparece na tela de detalhe.",
+        "expected": "Título descritivo no padrão \"[assunto da página] – [nome do sistema]\", ex.: \"Vistorias – PNIP\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção: document.title=\"PNIP\"",
+          "emag:3.3"
+        ]
+      },
+      {
+        "selector": ".br-table > table",
+        "rule": "govbr-3.7.0-accessibility-global-cd705eb5da2a",
+        "observed": "A tabela de vistorias não tem caption nem aria-label/aria-labelledby.",
+        "expected": "A tabela deve ser identificada por caption (ex.: \"Vistorias tramitando\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção: table.caption=null",
+          "emag:3.9"
+        ]
+      },
+      {
+        "selector": ".swal2-popup label > input[type=\"checkbox\"]",
+        "rule": "govbr-3.7.0-accessibility-global-11ffc5c577f6",
+        "observed": "No modal \"Exportar Vistorias\", as cinco caixas de status ficam sob o texto solto \"Status:\", sem fieldset/legend nem role=group com nome.",
+        "expected": "Agrupar as opções num fieldset com legend \"Status\" (ou role=\"group\" com aria-labelledby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em 'Exportar Vistorias'"
+          ]
+        },
+        "evidence": [
+          "S-page-010 (axe sem violações neste escopo)",
+          "inspeção do DOM"
+        ]
+      }
+    ]
+  }
+}
