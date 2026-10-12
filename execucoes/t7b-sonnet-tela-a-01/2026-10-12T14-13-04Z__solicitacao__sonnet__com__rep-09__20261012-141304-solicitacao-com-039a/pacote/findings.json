@@ -1,0 +1,191 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-141304-solicitacao-com-039a",
+  "receivedAt": "2026-10-12T14:17:19Z",
+  "receipt": "r-f73ffcebf70ed98a",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T14:17:19.954Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira 1280x900: carregamento, envio vazio, envio válido, selects, paginação, foco por teclado"
+    ],
+    "notes": "Ferramentas: scan_page (S-page-001) e Playwright. verify_finding não usado; achados decididos por inspeção do DOM e interação (certeza alta). Os achados axe-core F-001/F-002 do scan (botões só com ícone) não foram aceitos: os botões 'Exibir lista' têm aria-label. Observações de classes desconhecidas descartadas (sem norma). Datepicker (calendário) não foi aberto; favicon 404 ignorado. Botão fechar da mensagem de erro é div role=button operável por Enter (não relatado). Outras larguras fora do escopo.",
+    "findings": [
+      {
+        "relatedSelectors": [],
+        "selector": "#forma-presencial",
+        "rule": "label",
+        "observed": "O input radio 'Presencial' tem <label> sem atributo for e sem envolver o input; o radio fica sem nome acessível (snapshot: radio sem nome; axe label, critical).",
+        "expected": "O rótulo 'Presencial' associado ao radio (label for=\"forma-presencial\"), como nos outros dois radios.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006"
+        ]
+      },
+      {
+        "relatedSelectors": [],
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "O botão visível 'Selecione o arquivo' tem aria-hidden=\"true\" e é focável (tabindex=1); o input file real está com display:none, então o upload não é exposto a tecnologias assistivas.",
+        "expected": "O botão de upload exposto na árvore de acessibilidade (sem aria-hidden) com nome acessível, ou o controle focável não ocultado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005"
+        ]
+      },
+      {
+        "relatedSelectors": [],
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão tem tabindex=\"1\"; na primeira tecla Tab após carregar, o foco vai para ele, antes do link de salto, do cabeçalho e dos demais campos; o foco só retorna à ordem natural depois.",
+        "expected": "Sem tabindex positivo; ordem de foco seguindo a ordem visual/DOM (link de salto primeiro).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionar Tab uma vez após o carregamento"
+          ]
+        },
+        "evidence": [
+          "document.activeElement = button.upload-button.focus-visible"
+        ]
+      },
+      {
+        "relatedSelectors": [],
+        "selector": "#servico, #unidade",
+        "rule": "wcag:3.3.1",
+        "observed": "Após enviar vazio, os campos têm aria-invalid=true, mas sem aria-describedby; as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não são associadas aos campos (os demais campos associam via aria-describedby).",
+        "expected": "Mensagem de erro associada ao campo por aria-describedby (como em nome, cpf, data, descrição).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM: #servico/#unidade aria-describedby=null"
+        ]
+      },
+      {
+        "relatedSelectors": [],
+        "selector": "input[name='forma'], #declaracao",
+        "rule": "wcag:3.3.1",
+        "observed": "Depois de corrigir (marcar 'Por videochamada' e a declaração), as mensagens de erro 'Escolha a forma de atendimento.' e 'Confirme a declaração...' permanecem e os inputs continuam com aria-invalid=true; os campos de texto limpam o erro ao serem preenchidos.",
+        "expected": "Erro e aria-invalid removidos quando o radio/checkbox passa a ser válido.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Preencher nome, CPF, data e descrição",
+            "Escolher 'Por videochamada'",
+            "Marcar a declaração"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM: #forma-retorno e #declaracao-retorno presentes; aria-invalid=true"
+        ]
+      },
+      {
+        "relatedSelectors": [],
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "O CPF '123' (3 dígitos) é aceito: o formulário foi enviado com a mensagem 'Solicitação enviada.', apesar do texto de apoio 'Somente números, 11 dígitos.'",
+        "expected": "Validar o CPF (11 dígitos) e exibir mensagem de erro identificando o campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher CPF com 123 e demais campos válidos",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem de sucesso exibida com cpf=123"
+        ]
+      },
+      {
+        "relatedSelectors": [],
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": null,
+        "observed": "A página atual da paginação é marcada só pela classe 'active'; não há aria-current (nenhum link tem aria-current) e os três links apontam para o mesmo href #titulo-historico.",
+        "expected": "Página atual indicada programaticamente com aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em 'Página 2'"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM: aria-current=null em .page"
+        ]
+      },
+      {
+        "relatedSelectors": [],
+        "selector": "header.barra-superior",
+        "rule": "ds-page-header",
+        "observed": "Nenhum .br-header ou <br-header>; o cabeçalho é um <header> próprio só com a marca gov.br.",
+        "expected": "Área de Cabeçalho com o componente Header do DS (Template Base).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003"
+        ]
+      },
+      {
+        "relatedSelectors": [],
+        "selector": "html",
+        "rule": "ds-page-footer",
+        "observed": "Nenhum .br-footer ou <br-footer> no documento.",
+        "expected": "Área de Rodapé com o componente Footer do DS (Template Base).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004"
+        ]
+      }
+    ]
+  }
+}
