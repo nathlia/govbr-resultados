@@ -1,0 +1,255 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-092639-solicitacao-com-e1dd",
+  "receivedAt": "2026-10-12T09:30:23Z",
+  "receipt": "r-994638393fea31db",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T09:30:23.470Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Formulário de solicitação (estado inicial, erros de validação, sucesso, selects, calendário)",
+      "Tabela Solicitações anteriores e paginação (páginas 1 e 2)"
+    ],
+    "notes": "Janela 1280x900 sem alterações. Interações: envio com formulário vazio (8 erros); abertura de select por teclado (ArrowDown/Enter); preenchimento parcial com CPF '123' e data '99/99/9999'; envio bem-sucedido; fechamento da mensagem por teclado; calendário aberto pelo botão; paginação p.2. Ferramentas: scan_page (S-page-001, S-page-002 com clique no botão do calendário; S-page-002 foi lido só até o cursor 32, os demais itens são dias do calendário com tabindex>0), verify_finding V-001 (axe 'label': unverifiable/no-predicate, elemento localizado). Os demais achados foram decididos por inspeção do DOM/estilos. Incertezas: validação de CPF/data inferida do comportamento (nenhum erro exibido); ausência de header .br-header/footer baseada no scan_page e no DOM (existe cabeçalho próprio .barra-superior, sem rodapé). Contraste e tamanhos não apresentaram problema nas medições feitas. Escopo de outras larguras fora do alcance.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "rule": "label",
+        "observed": "Radio 'Presencial' sem nome acessível: o <label> não tem atributo for e não envolve o input.",
+        "expected": "Label associado (for=\"forma-presencial\") para que o radio tenha nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001 F-006",
+          "S-page-002 F-010"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "Botão 'Selecione o arquivo' com aria-hidden=\"true\" e focável (único controle visível de envio de arquivo; o input file está display:none).",
+        "expected": "Controle focável não pode ficar em aria-hidden; expor o botão a tecnologias assistivas.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001 F-005",
+          "S-page-002 F-007"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "Botão com tabindex=\"1\" (positivo), é o primeiro na ordem de tabulação, antes do skip link e dos campos anteriores.",
+        "expected": "Sem tabindex positivo; ordem de foco seguindo a ordem visual/DOM.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "DOM: tabindex=1"
+        ]
+      },
+      {
+        "selector": "#data-preferencial-btn",
+        "rule": "wcag:4.1.2",
+        "observed": "Botão 'Abrir calendário' com aria-hidden=\"true\" e tabindex=\"-1\": fora da árvore de acessibilidade e da tabulação; sem nome acessível no snapshot.",
+        "expected": "Botão de abrir calendário acessível por teclado e leitor de tela (sem aria-hidden, sem tabindex -1), ou alternativa equivalente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "snapshot: button sem nome"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "emag-2.2",
+        "observed": "Botões de mês anterior/seguinte do calendário só com ícone, sem aria-label nem texto.",
+        "expected": "Nome acessível (ex.: 'Mês anterior', 'Próximo mês').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #data-preferencial-btn"
+          ]
+        },
+        "evidence": [
+          "S-page-002 F-008",
+          "S-page-002 F-009",
+          "S-page-001 F-001",
+          "S-page-001 F-002"
+        ]
+      },
+      {
+        "selector": ".flatpickr-day",
+        "rule": "axe:tabindex",
+        "observed": "Com o calendário aberto, os 42 dias têm tabindex=\"1\" (positivo).",
+        "expected": "Sem tabindex maior que 0; navegação pelo teclado em ordem natural.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #data-preferencial-btn"
+          ]
+        },
+        "evidence": [
+          "S-page-002 F-014 a F-038+"
+        ]
+      },
+      {
+        "selector": ".flatpickr-monthDropdown-months, .cur-year",
+        "rule": "wcag:3.1.2",
+        "observed": "Com o calendário aberto, rótulos aria-label \"Month\" e \"Year\" em inglês em página pt-BR.",
+        "expected": "Rótulos em português (ex.: 'Mês', 'Ano').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #data-preferencial-btn"
+          ]
+        },
+        "evidence": [
+          "DOM"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "Informar CPF '123' (apoio diz 'Somente números, 11 dígitos') e enviar: sem erro, e a solicitação é aceita ('Solicitação enviada.').",
+        "expected": "Validar formato/11 dígitos e exibir mensagem de erro textual associada ao campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "fill #nome 'Maria Teste'",
+            "fill #cpf '123'",
+            "fill #descricao 'Teste'",
+            "fill #data-preferencial '99/99/9999'",
+            "selecionar serviço, unidade, Por telefone, declaração",
+            "click Enviar"
+          ]
+        },
+        "evidence": [
+          "envio sucesso sem erro de CPF"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": "wcag:3.3.1",
+        "observed": "Digitar '99/99/9999' é convertido silenciosamente para '09/03/0007' e aceito no envio, sem erro.",
+        "expected": "Rejeitar data inválida/passada com mensagem de erro, sem alterar o valor digitado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "fill #data-preferencial '99/99/9999'",
+            "blur",
+            "click Enviar"
+          ]
+        },
+        "evidence": [
+          "valor do campo após o preenchimento: 09/03/0007"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:3.3.1",
+        "observed": "No estado de erro, os campos de seleção ficam aria-invalid=\"true\" mas sem aria-describedby; as mensagens de erro (sem id) não estão associadas aos campos, ao contrário de nome, CPF, data e descrição.",
+        "expected": "Associar a mensagem de erro ao campo via aria-describedby.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click Enviar com formulário vazio"
+          ]
+        },
+        "evidence": [
+          "DOM: aria-describedby null"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": null,
+        "observed": "Após ir à página 2, o link da página atual não tem aria-current=\"page\" (só a classe active).",
+        "expected": "Indicar a página atual com aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click link 'Página 2'"
+          ]
+        },
+        "evidence": [
+          "DOM"
+        ]
+      },
+      {
+        "selector": "html",
+        "rule": "ds-page-footer",
+        "observed": "Nenhum elemento .br-footer; a página não tem rodapé.",
+        "expected": "Área de rodapé com o componente Footer (Template Base).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001 F-004"
+        ]
+      },
+      {
+        "selector": "html",
+        "rule": "ds-page-header",
+        "observed": "Cabeçalho próprio (.barra-superior) sem o componente .br-header.",
+        "expected": "Área de cabeçalho com o componente Header (Template Base).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001 F-003"
+        ]
+      }
+    ]
+  }
+}
