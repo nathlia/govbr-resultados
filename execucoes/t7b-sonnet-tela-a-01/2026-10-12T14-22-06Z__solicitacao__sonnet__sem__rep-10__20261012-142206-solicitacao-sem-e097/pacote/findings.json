@@ -1,0 +1,114 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-142206-solicitacao-sem-e097",
+  "receivedAt": "2026-10-12T14:25:02Z",
+  "receipt": "r-0bad3dabce184470",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T14:25:02.705Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280×900: cabeçalho, breadcrumb, formulário (campos, selects, radios, data, upload, checkboxes), mensagens de erro e sucesso, tabela de solicitações anteriores e paginação"
+    ],
+    "notes": "Nenhuma ferramenta de validação automática estava disponível (somente ferramentas de navegador); todos os achados vêm de inspeção do DOM, estilos calculados, teclado e envio do formulário, com certeza alta. Interações: Enviar com formulário vazio (8 erros, mensagem com role=alert, foco movido para ela); fechar a mensagem com Enter; abrir o select Tipo de serviço por clique e ArrowDown e escolher com Enter; Unidade de atendimento idêntico; clique em Página 2 da paginação (tabela mudou, link ativo só visual); CPF '123' e data '31/02/2020' (virou 02/03/2020) preenchidos; clique no rótulo 'Presencial' não marcou o rádio; envio com 'Por videochamada' marcado foi aceito com CPF inválido. Contrastes verificados (texto #333 sobre branco, #1351b4, branco sobre #e52207 ≈4,6:1) sem falha. Incertezas, não reportadas: wrappers .br-input[role=combobox] dos selects aparecem sem nome acessível e o input interno não tem role combobox/aria-activedescendant; botão de calendário da data tem aria-hidden e tabindex=-1, mas a digitação manual é alternativa; tabela sem caption (título em div); 404 de favicon. Anexos/arquivo real e calendário flatpickr não foram operados.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "O label 'Presencial' não tem atributo for; o rádio fica sem nome acessível e clicar no texto não o marca (confirmado: checked=false após o clique). Os outros dois rádios têm for.",
+        "expected": "Label associado ao input (for=forma-presencial), dando nome acessível ao rádio e permitindo marcá-lo pelo rótulo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com formulário vazio",
+            "Preencher campos",
+            "Clicar no texto 'Presencial'"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-22-35-742Z.yml",
+          "/tmp/pw-0/page-2026-10-12T14-24-27-568Z.png"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "Botão 'Selecione o arquivo' com aria-hidden=\"true\" é focável e é o controle visível de upload; o input file real está com display:none. O botão aparece sem nome na árvore de acessibilidade.",
+        "expected": "O controle de upload focável deve ficar exposto às tecnologias assistivas, sem aria-hidden, com nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-22-35-742Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex=\"1\": é o primeiro item da ordem de tabulação, antes do link 'Ir para o conteúdo' e do cabeçalho.",
+        "expected": "Sem tabindex positivo; a ordem de foco deve seguir a ordem visual (tabindex=0 ou omitido).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-22-35-742Z.yml"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": null,
+        "observed": "Após clicar em Página 2, o link ativo só se distingue pela classe/estilo; não há aria-current.",
+        "expected": "A página atual deve ter aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em 'Página 2'"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-24-15-958Z.yml"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "A dica diz 'Somente números, 11 dígitos', mas o valor '123' foi aceito sem erro e o formulário foi enviado com sucesso (mensagem 'Solicitação enviada').",
+        "expected": "Valor fora do formato deve ser identificado como erro, com mensagem textual associada ao campo, e impedir o envio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher CPF com 123",
+            "Preencher demais campos obrigatórios",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-24-27-568Z.png"
+        ]
+      }
+    ]
+  }
+}
