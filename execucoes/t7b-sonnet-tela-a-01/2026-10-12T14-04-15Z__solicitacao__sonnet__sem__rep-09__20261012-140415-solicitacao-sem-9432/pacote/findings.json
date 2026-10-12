@@ -1,0 +1,213 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-140415-solicitacao-sem-9432",
+  "receivedAt": "2026-10-12T14:08:24Z",
+  "receipt": "r-2f2a76e146cb4696",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T14:08:24.643Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: cabeçalho, trilha, formulário, comboboxes, calendário, upload, validação, histórico paginado"
+    ],
+    "notes": "Nenhuma ferramenta de validação automatizada estava disponível; avaliação por inspeção (árvore de acessibilidade, DOM, estilos computados, teclado e capturas de tela). Interações: envio vazio; Tab desde o carregamento (focusin registrado); abertura de combobox e seleção; paginação (página 2); calendário aberto pelo botão; preenchimento com CPF 123 e data 99/99/2020 e envio com sucesso. Contraste de texto medido, sem falhas. Incertezas/não reportado: o calendário não fecha com Esc e o botão do calendário está aria-hidden/tabindex -1 (há alternativa digitada, por isso não reportado); upload de arquivo real não testado; mudança de página da tabela sem aviso a leitores de tela não confirmada com leitor. Larguras diferentes de 1280 fora do escopo. Evidências são capturas e snapshots em /tmp/pw-0.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "label[for=forma-presencial]"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O rótulo \"Presencial\" é um label sem atributo for; o radio #forma-presencial aparece na árvore de acessibilidade sem nome (radio sem nome), ao contrário dos outros dois.",
+        "expected": "Cada radio deve ter nome acessível, com label for=\"forma-presencial\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-04-46-354Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O botão \"Selecione o arquivo\" tem aria-hidden=\"true\" mas é focável (tabindex=1); o input file #documentos está com display:none, então o único controle operável fica oculto das tecnologias assistivas e sem nome na árvore.",
+        "expected": "O controle de upload operável deve estar exposto à árvore de acessibilidade, com nome acessível, sem aria-hidden.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-04-46-354Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          ".br-skiplink .br-item"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex=\"1\"; ao pressionar Tab após o carregamento o foco vai primeiro para ele, antes do link \"Ir para o conteúdo\" e do restante da página.",
+        "expected": "Ordem de foco coerente com a ordem visual (sem tabindex positivo); o link de salto deve ser o primeiro foco.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionar Tab após o carregamento"
+          ]
+        },
+        "evidence": [
+          "focusin: BUTTON upload-button primeiro foco"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por teclado, os campos de combobox têm outline none e box-shadow none; no input, no .input-group e no .br-input não há indicador visível, enquanto os demais campos exibem box-shadow âmbar de 2px.",
+        "expected": "Indicador de foco visível em #servico e #unidade, como nos outros campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionar Tab até #servico e #unidade"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-06-12-544Z.png"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month button, .flatpickr-next-month button",
+        "rule": "wcag:4.1.2",
+        "observed": "Os botões de mês anterior e mês seguinte do calendário são só ícone, sem texto, aria-label ou title; não têm nome acessível.",
+        "expected": "Cada botão deve ter nome acessível, como \"Mês anterior\" e \"Próximo mês\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão \"Abrir calendário\" de Data preferencial"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-06-51-428Z.png"
+        ]
+      },
+      {
+        "selector": ".flatpickr-monthDropdown-months, .flatpickr-current-month .cur-year",
+        "rule": "wcag:3.1.2",
+        "observed": "O seletor de mês e o campo de ano do calendário têm aria-label em inglês (\"Month\", \"Year\") em uma página pt-BR.",
+        "expected": "Nomes acessíveis em português, como \"Mês\" e \"Ano\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão \"Abrir calendário\" de Data preferencial"
+          ]
+        },
+        "evidence": [
+          "DOM do calendário"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "O valor \"123\" foi aceito: o envio teve sucesso, sem erro, embora o texto de apoio exija 11 dígitos.",
+        "expected": "CPF fora do formato (11 dígitos) deve gerar mensagem de erro identificando o campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher Nome com \"Maria Teste\", CPF com \"123\" e data com \"99/99/2020\"",
+            "Escolher unidade Agência Centro, forma por videochamada, descrição \"Teste\" e marcar a declaração",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "Mensagem \"Solicitação enviada.\" com cpf=123"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": "wcag:3.3.1",
+        "observed": "O texto \"99/99/2020\" foi aceito e convertido em silêncio para \"08/03/2028\"; o envio teve sucesso, sem erro.",
+        "expected": "Data inválida deve gerar mensagem de erro, não ser trocada por outra data sem aviso.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Digitar \"99/99/2020\" em Data preferencial",
+            "Preencher os demais campos",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "valor final do campo: 08/03/2028"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": "wcag:3.3.1",
+        "observed": "Após o envio vazio, #servico e #unidade ficam com aria-invalid=\"true\" mas sem aria-describedby; as mensagens \"Selecione o tipo de serviço.\" e \"Selecione a unidade de atendimento.\" não têm id e não se associam ao campo (os outros campos associam).",
+        "expected": "A mensagem de erro deve estar associada ao campo por aria-describedby.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T14-05-20-446Z.png"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": null,
+        "observed": "Após clicar em \"Página 2\", a página atual só se distingue visualmente (classe active); o link não tem aria-current=\"page\".",
+        "expected": "A página atual deve ser indicada programaticamente com aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no link \"Página 2\" da paginação"
+          ]
+        },
+        "evidence": [
+          "DOM do nav.paginacao-anteriores"
+        ]
+      }
+    ]
+  }
+}
