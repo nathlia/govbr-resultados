@@ -1,0 +1,202 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-134732-solicitacao-com-0d5a",
+  "receivedAt": "2026-10-12T13:52:15Z",
+  "receipt": "r-2c9b8997fa515d0b",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T13:52:15.684Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: formulário (campos, selects, rádios, data, upload, checkboxes), estados de erro e sucesso do envio, calendário, tabela e paginação, navegação por teclado"
+    ],
+    "notes": "Interações: carga; Tab pelos controles com registro de foco; envio vazio (8 erros); paginação para a página 2; abertura dos selects e escolha de opções; preenchimento com CPF \"123\" e data \"99/99/2020\" e envio (aceito com sucesso); abertura do calendário; fechamento da mensagem por Enter. Ferramentas: scan_page (S-page-001 estado inicial; S-page-002 após envio vazio) e verify_finding (V-001, sem predicado para axe label → unverifiable; confirmado por inspeção do DOM e clique no rótulo). Os candidatos F-001/F-002 do scan (botões do calendário) foram confirmados por inspeção com o calendário aberto. Observações do scan sobre classes extras (trilha-servico etc.) não são violação e foram descartadas. Incertezas: selects sem indicador de foco e cabeçalho/rodapé decididos por inspeção/scan, sem predicado de confirmação; mensagens de erro de selects sem aria-describedby não reportadas. Não testado: envio real de arquivo, outras larguras (fora do escopo). Erro de console: favicon 404 (irrelevante).",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma .br-radio:first-of-type label"
+        ],
+        "rule": "label",
+        "observed": "O radio \"Presencial\" não tem nome acessível: o <label> não tem atributo for e não envolve o input; clicar no texto \"Presencial\" não marca o radio (checked=false após o clique).",
+        "expected": "<label for=\"forma-presencial\"> associado ao input, como nas outras duas opções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001/F-006",
+          "S-page-002/F-009",
+          "V-001"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "Botão \"Selecione o arquivo\" com aria-hidden=\"true\" e focável (tabindex=\"1\"): fica oculto da tecnologia assistiva mas é o controle visível de upload.",
+        "expected": "Controle focável sem aria-hidden, com nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001/F-005",
+          "S-page-002/F-007"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "ds:govbr-3.7.0-accessibility-global-79db88c7f55d",
+        "observed": "tabindex=\"1\" no botão de upload: ao pressionar Tab pela primeira vez o foco vai para ele, antes do link \"Ir para o conteúdo\" e do cabeçalho.",
+        "expected": "Ordem de tabulação seguindo o DOM (sem tabindex positivo); o skip link deve ser o primeiro foco.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab (1ª vez)"
+          ]
+        },
+        "evidence": [
+          "registro de focusin: BUTTON.upload-button primeiro, depois A.br-item (skip link)"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month button, .flatpickr-next-month button",
+        "rule": "emag:2.2",
+        "observed": "Botões de mês anterior/próximo do calendário só têm ícone, sem aria-label nem texto.",
+        "expected": "Nome acessível (ex.: \"Mês anterior\", \"Próximo mês\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em \"Abrir calendário\""
+          ]
+        },
+        "evidence": [
+          "S-page-001/F-001",
+          "S-page-001/F-002"
+        ]
+      },
+      {
+        "selector": "#data-preferencial-btn",
+        "relatedSelectors": [
+          "#data-preferencial"
+        ],
+        "rule": null,
+        "observed": "O botão visível \"Abrir calendário\" tem aria-hidden=\"true\" e tabindex=\"-1\": inacessível por teclado e oculto de leitores de tela.",
+        "expected": "Botão do calendário alcançável por teclado e exposto à tecnologia assistiva.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "DOM: #data-preferencial-btn; Tab pula do rádio para #data-preferencial e depois para #descricao"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por teclado, os campos de seleção não têm nenhum indicador visível (outline none, box-shadow none, borda inalterada rgb(136,136,136)); os demais campos de texto mostram box-shadow.",
+        "expected": "Indicador de foco visível em todos os campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab até #servico"
+          ]
+        },
+        "evidence": [
+          "estilos computados no foco; captura de tela"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "CPF \"123\" (3 dígitos) é aceito sem erro e o formulário é enviado com sucesso (\"Solicitação enviada.\"), embora a ajuda diga 11 dígitos.",
+        "expected": "Validar o formato (11 dígitos) e exibir erro identificando o campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher nome, CPF \"123\", serviço, unidade, forma, descrição, declaração",
+            "clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem de sucesso com cpf=123"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": "wcag:3.3.1",
+        "observed": "Digitar \"99/99/2020\" é convertido silenciosamente em \"08/03/2028\" e aceito, sem mensagem de erro de formato.",
+        "expected": "Rejeitar data inválida com mensagem de erro, sem alterar o valor digitado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "digitar \"99/99/2020\" em Data preferencial",
+            "clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "valor final do campo: 08/03/2028"
+        ]
+      },
+      {
+        "selector": "html",
+        "rule": "ds-page-header",
+        "observed": "Cabeçalho é um <header class=\"barra-superior\"> só com a marca; não há .br-header nem <br-header>.",
+        "expected": "Área de cabeçalho com o componente Header do Template Base.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001/F-003"
+        ]
+      },
+      {
+        "selector": "html",
+        "rule": "ds-page-footer",
+        "observed": "A página não tem rodapé (nenhum .br-footer, <footer> ou contentinfo).",
+        "expected": "Área de rodapé com o componente Footer do Template Base.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001/F-004"
+        ]
+      }
+    ]
+  }
+}
