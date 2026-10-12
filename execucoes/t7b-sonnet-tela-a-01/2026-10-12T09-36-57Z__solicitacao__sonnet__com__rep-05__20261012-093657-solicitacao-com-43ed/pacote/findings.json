@@ -1,0 +1,199 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-093657-solicitacao-com-43ed",
+  "receivedAt": "2026-10-12T09:40:11Z",
+  "receipt": "r-e47b988808688afe",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T09:40:11.025Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: cabeçalho, trilha, formulário (campos, selects, rádios, datepicker, upload, checkboxes), estados de erro e de sucesso do envio, tabela e paginação de solicitações anteriores"
+    ],
+    "notes": "Interações: carga; Tab inicial; envio vazio (8 erros); abertura dos selects; preenchimento com CPF '123' e data '99/99/9999'; clique no texto 'Presencial'; envio completo; paginação (página 2). Ferramentas: scan_page (S-page-001) e verify_finding (V-001 unverifiable por falta de predicado para axe 'label'; V-002 rejeitado para ds-page-header por não nomear norma, por isso os achados de cabeçalho/rodapé têm grau de certeza menor: a página só tem um banner com logotipo, sem .br-header/.br-footer). Os achados F-001/F-002 do scan (botões sem aria-label nos selects) foram rejeitados: os botões têm aria-label 'Exibir lista'. Observações de classes desconhecidas descartadas (sem norma). Não foi testado o calendário aberto via teclado nem a ação Cancelar. O botão de fechar da mensagem de erro é div role=button (não aprofundado). Erro 404 de favicon ignorado.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [],
+        "rule": "label",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label> não possui atributo for e não envolve o input; clicar no texto 'Presencial' não marca a opção; a árvore de acessibilidade mostra radio sem nome.",
+        "expected": "Label associado ao input (for=\"forma-presencial\"), como nas demais opções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-006",
+          "clique em 'Presencial' não marcou o rádio"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "aria-hidden-focus",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\" e é focável; o input file nativo está com display:none, logo o envio de documento fica sem controle exposto a tecnologias assistivas.",
+        "expected": "Botão de upload sem aria-hidden, com nome acessível, ou input file acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-005"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#nome",
+          "[role=menuitem]"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "O botão tem tabindex=\"1\": é o primeiro elemento focado ao pressionar Tab (antes do link 'Ir para o conteúdo' e do campo Nome), tirando o foco da ordem do documento.",
+        "expected": "Sem tabindex positivo; ordem de foco seguindo a ordem visual/DOM.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "document.activeElement após o primeiro Tab = button.upload-button"
+        ]
+      },
+      {
+        "selector": "#data-preferencial-btn",
+        "relatedSelectors": [
+          "#data-preferencial"
+        ],
+        "rule": "wcag:2.1.1",
+        "observed": "O botão 'Abrir calendário' tem aria-hidden=\"true\" e tabindex=\"-1\": não é alcançável pelo teclado nem exposto a leitores de tela (a árvore mostra um botão sem nome).",
+        "expected": "Botão do calendário focável, sem aria-hidden, com nome 'Abrir calendário'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "snapshot: button sem nome após Data preferencial",
+          "DOM: aria-hidden=true tabindex=-1"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "relatedSelectors": [
+          "#cpf-apoio"
+        ],
+        "rule": "wcag:3.3.1",
+        "observed": "CPF '123' foi aceito: o envio foi concluído com a mensagem de sucesso, apesar da orientação 'Somente números, 11 dígitos.'",
+        "expected": "Validar o CPF (11 dígitos) e exibir mensagem de erro identificando o campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher CPF=123",
+            "preencher demais campos",
+            "clicar Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem 'Solicitação enviada.' com cpf=123"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "relatedSelectors": [
+          "#data-apoio"
+        ],
+        "rule": "wcag:3.3.1",
+        "observed": "Ao digitar '99/99/9999' o campo passou silenciosamente para '09/03/0007' e o envio foi aceito sem erro.",
+        "expected": "Rejeitar data inválida ou fora de prazo com mensagem de erro, sem alterar o valor digitado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher data=99/99/9999",
+            "clicar Enviar"
+          ]
+        },
+        "evidence": [
+          "valor final 09/03/0007; mensagem de sucesso"
+        ]
+      },
+      {
+        "selector": ".br-pagination .page",
+        "relatedSelectors": [],
+        "rule": null,
+        "observed": "Os links de página não têm aria-current; a página ativa (classe active) só se distingue visualmente, inclusive após ir para a página 2.",
+        "expected": "aria-current=\"page\" na página atual.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar Página 2"
+          ]
+        },
+        "evidence": [
+          "DOM: aria-current null em todos os .page"
+        ]
+      },
+      {
+        "selector": "html",
+        "relatedSelectors": [
+          "[role=banner]"
+        ],
+        "rule": "ds-page-header",
+        "observed": "Não há componente .br-header nem <br-header>; o topo é apenas um banner com o link/logotipo gov.br.",
+        "expected": "Área de cabeçalho do Template Base com o componente Header.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-003"
+        ]
+      },
+      {
+        "selector": "html",
+        "relatedSelectors": [],
+        "rule": "ds-page-footer",
+        "observed": "Não há componente .br-footer nem <br-footer> na página.",
+        "expected": "Área de rodapé do Template Base com o componente Footer.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001:F-004"
+        ]
+      }
+    ]
+  }
+}
