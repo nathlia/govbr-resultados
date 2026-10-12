@@ -1,0 +1,177 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-090018-solicitacao-com-5f6c",
+  "receivedAt": "2026-10-12T09:03:25Z",
+  "receipt": "r-e88b56c53426ca38",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T09:03:25.894Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Formulário de solicitação completo (campos, selects, datepicker, upload, checkboxes, mensagens)",
+      "Estados de erro de validação e de sucesso do envio",
+      "Tabela de solicitações anteriores e paginação",
+      "Somente a janela 1280x900"
+    ],
+    "notes": "Interações: carga; scan_page (S-page-001: axe, estrutura, página, tokens); envio vazio (erros em 8 campos); abertura do calendário pelo botão; abertura e escolha em select; paginação página 2; preenchimento com CPF '123' e data '31/02/2026' e reenvio (sucesso); recarga e fechamento da mensagem de erro por teclado (Enter funciona). verify_finding retornou 'unverifiable' (sem predicado) para label, aria-hidden-focus e emag-2.2 (V-001, V-002, V-003): confirmados por inspeção direta do DOM. Os achados ds-page-header/ds-page-footer do scan (F-003, F-004) foram rejeitados pelo verificador (V-004, V-005) e não foram relatados; a página usa cabeçalho próprio e não tem rodapé (incerto quanto à norma). Console: 404 de favicon.ico (não relatado). Contraste de texto e fontes sem problemas medidos. Não testei leitores de tela reais nem navegação por Tab sequencial com screenshots; ordem de tab inferida por tabIndex.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "rule": "label",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label> irmão não possui atributo for (os outros dois rádios têm). A árvore de acessibilidade mostra radio sem nome.",
+        "expected": "label for=\"forma-presencial\" associado ao rádio, como nos demais.",
+        "relatedSelectors": [
+          "#forma-presencial + label, .grupo-forma .br-radio:first-of-type label"
+        ],
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006",
+          "V-001"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "Botão 'Selecione o arquivo' tem aria-hidden=\"true\" mas é focalizável (botão visível e tabulável); o input file real está com display:none.",
+        "expected": "Controle de upload focalizável não pode estar oculto às tecnologias assistivas; remover aria-hidden e expor nome acessível.",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005",
+          "V-002"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex=\"1\" (positivo); na ordem de tabulação aparece depois da textarea mas por tabindex positivo é lido antes de todos os elementos com tabindex 0 no documento quando o foco entra na página.",
+        "expected": "Sem tabindex positivo; ordem de foco seguindo a ordem do DOM.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "inspeção DOM: tabIndex=1"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "rule": "emag-2.2",
+        "observed": "Botões de mês anterior/seguinte do calendário contêm apenas ícone e não têm aria-label nem texto (nome acessível vazio).",
+        "expected": "aria-label descritivo, por exemplo 'Mês anterior' e 'Próximo mês'.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #data-preferencial-btn"
+          ]
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001",
+          "F-002",
+          "V-003"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": null,
+        "observed": "Após envio vazio, os campos de seleção ficam com aria-invalid=\"true\", mas a mensagem de erro (role=alert) não tem id e os inputs não têm aria-describedby; nos demais campos a mensagem é associada.",
+        "expected": "Mensagem de erro de cada select associada ao campo por aria-describedby, como nos outros campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click button.acao-enviar"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM"
+        ]
+      },
+      {
+        "selector": ".br-pagination .page.active",
+        "rule": null,
+        "observed": "A página atual (link 'Página 2' após clicar) tem apenas a classe 'active'; não há aria-current=\"page\".",
+        "expected": "aria-current=\"page\" no item da página atual.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click a[aria-label='Página 2']"
+          ]
+        },
+        "evidence": [
+          "inspeção DOM"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": null,
+        "observed": "O campo CPF aceitou o valor '123' e o formulário foi enviado com sucesso, embora o texto de apoio exija 11 dígitos numéricos.",
+        "expected": "Validação do formato (11 dígitos) com mensagem de erro antes do envio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher campos",
+            "fill #cpf '123'",
+            "click button.acao-enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem de sucesso exibida"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": null,
+        "observed": "A data '31/02/2026' foi aceita e convertida silenciosamente para 03/03/2026 (data passada em relação a 12/10/2026), e o envio teve sucesso sem erro.",
+        "expected": "Rejeitar data inválida ou passada com mensagem de erro, conforme o formato dd/mm/aaaa informado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "fill #data-preferencial '31/02/2026'",
+            "click button.acao-enviar"
+          ]
+        },
+        "evidence": [
+          "screenshot após envio mostrando 03/03/2026"
+        ]
+      }
+    ]
+  }
+}
