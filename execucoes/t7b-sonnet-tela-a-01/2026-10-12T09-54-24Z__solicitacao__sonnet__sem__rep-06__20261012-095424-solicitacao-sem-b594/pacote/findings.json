@@ -1,0 +1,146 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-095424-solicitacao-sem-b594",
+  "receivedAt": "2026-10-12T09:57:21Z",
+  "receipt": "r-c1ce85b49fa80430",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T09:57:21.787Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: cabeçalho, breadcrumb, formulário (campos, selects, rádios, data, upload, checkboxes), estados de erro e sucesso do envio, tabela e paginação de solicitações anteriores"
+    ],
+    "notes": "Nenhuma ferramenta de validação automatizada estava disponível (somente ferramentas de navegador); os achados vêm de inspeção do DOM, da árvore de acessibilidade e de estilos calculados, por isso rule usa referências normativas ou null. Interações: carga; Enviar com formulário vazio (8 erros, foco no alerta); fechar mensagem com Enter; abrir o select Tipo de serviço; preenchimento parcial com CPF '123' e data '01/01/2020' e novo envio (4 erros); preenchimento completo e envio (sucesso, aceitou CPF '123' e data passada); paginação página 2; recarga e Tab (primeiro foco foi o botão de upload). Não exercitei por completo o calendário flatpickr nem a navegação por setas nos selects. Erro de console: apenas favicon 404 (não avaliado como achado). Outras larguras fora do escopo.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O rádio 'Presencial' está sem nome acessível: o label não tem atributo for e não envolve o input (os outros dois rádios têm for). A árvore de acessibilidade mostra radio sem nome.",
+        "expected": "O label 'Presencial' deve estar associado ao input (for=\"forma-presencial\"), dando nome acessível ao rádio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-54-52-332Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos",
+          ".skiplink",
+          ".br-skiplink a"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex=\"1\" (positivo) e é o primeiro foco ao pressionar Tab após carregar a página, antes do link 'Ir para o conteúdo', do cabeçalho e dos campos. Ele também tem aria-hidden=\"true\" enquanto é focável, e o input file está display:none.",
+        "expected": "O botão não deve usar tabindex positivo; a ordem de foco deve seguir a ordem visual/DOM (tabindex=\"0\" ou omitido), e um controle focável não deve ficar em aria-hidden.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Recarregar a página",
+            "Pressionar Tab"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-56-59-801Z.yml",
+          "document.activeElement após Tab: upload-button"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por teclado (:focus-visible), os campos de seleção não têm indicador de foco: outline none, box-shadow none, borda #888 de 2px, igual ao estado sem foco (os demais campos de texto mostram sombra/borda âmbar de 2px).",
+        "expected": "Os campos Tipo de serviço e Unidade de atendimento devem mostrar indicador de foco visível ao receber foco por teclado, como os demais campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Enviar com formulário vazio",
+            "Focar #unidade por teclado"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-55-56-254Z.png"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          "#servico ~ .retorno-campo",
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": null,
+        "observed": "Após o envio com erro, as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id, e os inputs têm aria-invalid mas sem aria-describedby, então a mensagem não fica associada ao campo (os outros campos associam via aria-describedby).",
+        "expected": "Cada mensagem de erro deve ter id e ser referenciada por aria-describedby no input correspondente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com formulário vazio"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-55-20-530Z.yml"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": "wcag:4.1.2",
+        "observed": "O link da página atual (.page.active) não tem aria-current; só se distingue visualmente pela cor de fundo. Isso permaneceu após ir para a página 2.",
+        "expected": "A página atual deve ter aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em 'Página 2'"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-56-43-884Z.yml"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "relatedSelectors": [
+          "#cpf-apoio"
+        ],
+        "rule": null,
+        "observed": "A ajuda diz 'Somente números, 11 dígitos', mas o formulário foi enviado com sucesso com CPF '123': nenhum erro foi mostrado.",
+        "expected": "O CPF fora do formato (11 dígitos) deve gerar mensagem de erro e impedir o envio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher nome, CPF '123', data, descrição, serviço, unidade, forma e declaração",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-56-34-496Z.yml"
+        ]
+      }
+    ]
+  }
+}
