@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-12T13:47:32Z | execução | t7b-sonnet-tela-a-01 | solicitacao | com | claude-sonnet-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 35e48f163f8b | `execucoes/t7b-sonnet-tela-a-01/2026-10-12T13-47-32Z__solicitacao__sonnet__com__rep-08__20261012-134732-solicitacao-com-0d5a` |
+| 2026-10-12T13:46:43Z | linha de base | t7b-sonnet-tela-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/t7b-sonnet-tela-a-01/solicitacao/lb-20261012-134643-solicitacao-e7ff65` |
 | 2026-10-12T10:19:52Z | execução | t7b-sonnet-tela-a-01 | solicitacao | sem | claude-sonnet-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 742b9b42d8a2 | `execucoes/t7b-sonnet-tela-a-01/2026-10-12T10-19-52Z__solicitacao__sonnet__sem__rep-07__20261012-101952-solicitacao-sem-1543` |
 | 2026-10-12T10:19:38Z | linha de base | t7b-sonnet-tela-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/t7b-sonnet-tela-a-01/solicitacao/lb-20261012-101938-solicitacao-d6e9e3` |
 | 2026-10-12T10:12:03Z | execução | t7b-sonnet-tela-a-01 | solicitacao | com | claude-sonnet-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 3a92d66e3d5d | `execucoes/t7b-sonnet-tela-a-01/2026-10-12T10-12-03Z__solicitacao__sonnet__com__rep-07__20261012-101203-solicitacao-com-bbe6` |
