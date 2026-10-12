@@ -1,0 +1,267 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-100232-solicitacao-com-9c91",
+  "receivedAt": "2026-10-12T10:07:05Z",
+  "receipt": "r-3fdf3770f5c0d453",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T10:07:05.809Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela completa em 1280x900: formulário, estados de erro e sucesso, selects, calendário, diálogo de descarte, tabela com paginação"
+    ],
+    "notes": "Viewport 1280x900. Interações: envio com formulário vazio (8 erros); abertura/seleção dos selects; abertura do calendário; preenchimento com CPF \"123\" e data \"99/99/9999\" e envio (aceito como sucesso); Cancelar abre diálogo de descarte (Escape fecha); paginação 1→2; navegação por Tab. Ferramentas: scan_page (S-page-001; axe, estrutura, página, tokens) executado; verify_finding não usado, achados decididos por inspeção do DOM/estilos com certeza alta. Observações de classes desconhecidas do scanner não foram tratadas como achados. Não testados: upload de arquivo real, outras larguras (fora do escopo). Favicon 404 no console (não reportado). Incertezas: pagination aria-current e erro persistente do select são julgamento próprio.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "label",
+        "observed": "Radio \"Presencial\" sem label associado: o <label> não tem atributo for e não envolve o input; o radio fica sem nome acessível",
+        "expected": "Radio com label associado (for=\"forma-presencial\") ou nome acessível",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "aria-hidden-focus",
+        "observed": "O botão \"Selecione o arquivo\" tem aria-hidden=\"true\" e é focável (tabindex=1); o input file real está com display:none, então o envio de documento fica inacessível a leitores de tela",
+        "expected": "Controle de upload exposto à tecnologia assistiva, sem aria-hidden em elemento focável",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [],
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex=\"1\" (positivo): ao pressionar Tab pela primeira vez o foco vai direto ao botão de upload, no meio do formulário, antes do link de salto e dos campos iniciais",
+        "expected": "Ordem de foco seguindo a ordem visual/DOM, sem tabindex positivo",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionar Tab"
+          ]
+        },
+        "evidence": [
+          "inspeção de document.activeElement após Tab"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button, .flatpickr-next-month > button",
+        "relatedSelectors": [
+          "#data-preferencial-btn"
+        ],
+        "rule": "emag-2.2",
+        "observed": "Botões de mês anterior/seguinte do calendário contêm só ícone, sem aria-label nem texto; sem nome acessível",
+        "expected": "Nomes acessíveis (ex.: \"Mês anterior\", \"Próximo mês\")",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão \"Abrir calendário\""
+          ]
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001",
+          "F-002"
+        ]
+      },
+      {
+        "selector": ".flatpickr-monthDropdown-months, .flatpickr-current-month .cur-year",
+        "relatedSelectors": [],
+        "rule": "wcag:3.1.2",
+        "observed": "Seletor de mês e campo de ano do calendário têm aria-label em inglês (\"Month\", \"Year\") em página pt-BR",
+        "expected": "Rótulos em português (\"Mês\", \"Ano\")",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão \"Abrir calendário\""
+          ]
+        },
+        "evidence": [
+          "inspeção do DOM"
+        ]
+      },
+      {
+        "selector": "html",
+        "relatedSelectors": [
+          "header.barra-superior"
+        ],
+        "rule": "ds-page-header",
+        "observed": "Não há componente .br-header nem <br-header>; o topo é um <header class=\"barra-superior\"> customizado só com a marca",
+        "expected": "Área de Cabeçalho com o componente Header do Template Base",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003"
+        ]
+      },
+      {
+        "selector": "html",
+        "relatedSelectors": [],
+        "rule": "ds-page-footer",
+        "observed": "Não há componente .br-footer nem <br-footer> na página",
+        "expected": "Área de Rodapé com o componente Footer do Template Base",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "relatedSelectors": [
+          "#cpf-apoio"
+        ],
+        "rule": "wcag:3.3.1",
+        "observed": "CPF \"123\" foi aceito no envio (mensagem de sucesso), apesar da instrução \"Somente números, 11 dígitos.\"",
+        "expected": "Validar o formato (11 dígitos) e exibir erro textual identificando o campo",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher nome, CPF \"123\", serviço, unidade, forma, data, descrição e marcar a declaração",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem \"Solicitação enviada.\" com CPF 123"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "relatedSelectors": [
+          "#data-apoio"
+        ],
+        "rule": "wcag:3.3.1",
+        "observed": "Data \"99/99/9999\" foi aceita e convertida para \"09/03/0007\"; o envio terminou com sucesso",
+        "expected": "Validar a data no formato dd/mm/aaaa e rejeitar valores inválidos com mensagem de erro",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher data com 99/99/9999 e os demais campos",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "valor do campo após envio: 09/03/0007"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte",
+          ".acao-manter"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o diálogo \"Descartar solicitação?\" com Escape, o foco vai para o body em vez de voltar ao botão Cancelar que o abriu",
+        "expected": "Devolver o foco ao elemento que abriu o diálogo",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Cancelar",
+            "Pressionar Escape"
+          ]
+        },
+        "evidence": [
+          "document.activeElement = BODY após fechar"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores a.page",
+        "relatedSelectors": [],
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação é indicada só pela classe visual \"active\"; nenhum link tem aria-current=\"page\"",
+        "expected": "Página atual com aria-current=\"page\"",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em \"Página seguinte\""
+          ]
+        },
+        "evidence": [
+          "DOM da navegação: data-current=2, aria-current ausente"
+        ]
+      },
+      {
+        "selector": "#servico",
+        "relatedSelectors": [
+          "#servico ~ .retorno-campo"
+        ],
+        "rule": null,
+        "observed": "Após o envio vazio e a escolha de \"Emissão de certidão\", o campo continua com aria-invalid=\"true\" e a mensagem \"Selecione o tipo de serviço.\" segue visível",
+        "expected": "Remover o estado e a mensagem de erro quando o campo passa a ser válido",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com formulário vazio",
+            "Abrir \"Tipo de serviço\" e escolher \"Emissão de certidão\""
+          ]
+        },
+        "evidence": [
+          "DOM: #servico[aria-invalid=true] com valor preenchido"
+        ]
+      }
+    ]
+  }
+}
