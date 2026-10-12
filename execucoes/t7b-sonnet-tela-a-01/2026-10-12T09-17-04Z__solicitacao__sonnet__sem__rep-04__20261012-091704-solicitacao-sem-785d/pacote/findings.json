@@ -1,0 +1,174 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-091704-solicitacao-sem-785d",
+  "receivedAt": "2026-10-12T09:21:59Z",
+  "receipt": "r-2ba3da8a938c6c78",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T09:21:59.990Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: formulário, selects, radios, data com calendário, upload, checkboxes, mensagens de erro e sucesso, modal de descarte, tabela e paginação"
+    ],
+    "notes": "Nenhuma ferramenta de validação automatizada estava disponível (somente Playwright); a avaliação foi por inspeção da árvore de acessibilidade, DOM, estilos calculados, teclado e capturas, sem confirmação por ferramenta (certeza média a alta, conforme o caso). Interações: envio vazio (8 erros), preenchimento parcial e total, envio com sucesso, Tab pelo formulário, seleção por teclado e mouse nos comboboxes, calendário aberto por clique, paginação (página 2), Cancelar com modal (Escape e Descartar), fechar mensagem por Enter. Observações não reportadas por incerteza: CPF \"123\" e data passada são aceitos sem validação; 31/02/2020 é normalizado em silêncio para 02/03/2020 pelo calendário; aria-label \"Month\"/\"Year\" em inglês no calendário; paginação sem aria-current na página ativa e sem anúncio da troca; tabela sem caption associado ao título; favicon 404. Só a largura 1280 foi coberta, conforme o escopo. Os achados 5, 7 e 8 vêm de comportamento observado; o 7 só foi testado no campo Tipo de serviço.",
+    "findings": [
+      {
+        "selector": "label:not([for])",
+        "rule": "wcag:4.1.2",
+        "observed": "O rótulo \"Presencial\" é um label sem atributo for; o radio #forma-presencial não tem nome acessível e clicar no texto não o seleciona (verificado: o radio continuou desmarcado).",
+        "expected": "Associar o label ao radio (for=\"forma-presencial\") para que ele tenha nome acessível e o texto acione a seleção.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Clicar no texto \"Presencial\""
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-17-51-890Z.png"
+        ],
+        "relatedSelectors": [
+          "#forma-presencial"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex=\"1\", e entra na ordem de tabulação antes dos demais controles (tabIndex=1).",
+        "expected": "Não usar tabindex positivo; manter o botão na ordem natural do DOM (tabindex 0 ou ausente).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-17-51-890Z.png"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão de upload, focável e operável, tem aria-hidden=\"true\" e não aparece na árvore de acessibilidade com nome; o input file real está com display:none.",
+        "expected": "Não ocultar da tecnologia assistiva um controle focável; expor o botão com nome acessível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-17-51-890Z.png"
+        ],
+        "relatedSelectors": [
+          "#documentos"
+        ]
+      },
+      {
+        "selector": "#data-preferencial-btn",
+        "rule": "wcag:2.1.1",
+        "observed": "O botão que abre o calendário tem aria-hidden=\"true\" e tabindex=\"-1\": não é alcançável pelo teclado nem exposto a leitores de tela (só abre por clique do mouse).",
+        "expected": "O botão \"Abrir calendário\" deve ser focável e exposto à tecnologia assistiva, ou haver outro meio de teclado para abrir o calendário.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão do calendário"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-17-51-890Z.png"
+        ],
+        "relatedSelectors": [
+          "#data-preferencial"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por Tab, os campos de seleção não têm indicador visível: outline none, box-shadow none e borda cinza #888 sem mudança, ao contrário de #nome e #descricao, que mostram box-shadow de 2px.",
+        "expected": "Mostrar indicador de foco visível nos campos Tipo de serviço e Unidade de atendimento.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Navegar com Tab até #servico e #unidade"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-17-51-890Z.png"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month button, .flatpickr-next-month button",
+        "rule": "wcag:4.1.2",
+        "observed": "Os botões de mês anterior e mês seguinte do calendário não têm nome acessível (sem aria-label e sem texto, só ícone).",
+        "expected": "Fornecer nome acessível, por exemplo \"Mês anterior\" e \"Próximo mês\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no botão do calendário"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-17-51-890Z.png"
+        ]
+      },
+      {
+        "selector": "#servico",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao escolher uma opção com ArrowDown e Enter, a lista fecha e o foco vai para o body, em vez de voltar ao campo.",
+        "expected": "Devolver o foco ao campo após a seleção.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no campo Tipo de serviço",
+            "ArrowDown",
+            "Enter"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-17-51-890Z.png"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o modal \"Descartar solicitação?\" com Escape, o foco vai para o body, e não volta ao botão Cancelar que o abriu.",
+        "expected": "Devolver o foco ao botão que abriu o diálogo ao fechá-lo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Cancelar",
+            "Pressionar Escape"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-17-51-890Z.png"
+        ]
+      }
+    ]
+  }
+}
