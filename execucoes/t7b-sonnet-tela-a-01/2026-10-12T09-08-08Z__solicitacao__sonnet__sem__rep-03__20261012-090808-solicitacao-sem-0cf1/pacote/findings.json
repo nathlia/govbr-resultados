@@ -1,0 +1,180 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-090808-solicitacao-sem-0cf1",
+  "receivedAt": "2026-10-12T09:12:32Z",
+  "receipt": "r-17427583e23d986c",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T09:12:32.179Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: cabeçalho, breadcrumb, formulário (todos os campos, selects, calendário, upload), estados de erro e de sucesso do envio, tabela de solicitações anteriores e paginação"
+    ],
+    "notes": "Nenhuma ferramenta de validação automática estava disponível; a avaliação foi feita por inspeção da árvore de acessibilidade, DOM, estilos calculados, teclado (Tab) e operação do formulário, portanto \"rule\" é null onde não há identificador de ferramenta. Interações: envio vazio (8 erros), abertura do select e do calendário, preenchimento com CPF/data inválidos, envio com erro e com sucesso, Cancelar (não faz nada visível; não reportado), paginação (página 2), Tab pela página inteira. Tabulação: o botão de upload (tabindex=1) recebe foco antes do skiplink. Incertezas/itens não reportados por parecerem padrão do DS: foco cinza nos selects, bordas #ccc de radio/checkbox, fonte de 11,66px no breadcrumb, role=button em div no botão de fechar da mensagem de erro (funciona com Enter), rótulos em inglês (Month/Year) no calendário. Larguras adicionais fora do escopo. Evidências são arquivos de captura em /tmp/pw-0.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma"
+        ],
+        "rule": null,
+        "observed": "O rádio \"Presencial\" não tem nome acessível: o label não tem atributo for nem envolve o input; clicar no texto não seleciona a opção (árvore de acessibilidade: radio sem nome).",
+        "expected": "Cada rádio deve ter label associado (for/id), com nome acessível \"Presencial\" e ativável pelo clique no rótulo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-08-35-747Z.yml",
+          "/tmp/pw-0/page-2026-10-12T09-10-39-807Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "O botão \"Selecione o arquivo\" tem tabindex=\"1\": na tabulação recebe foco antes do link \"Ir para o conteúdo\" e fora da ordem visual, que o põe no meio do formulário.",
+        "expected": "Sem tabindex positivo; o botão deve entrar na ordem de foco na sua posição natural no DOM.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Pressionar Tab repetidamente pela página inteira"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-09-07-434Z.png"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": null,
+        "observed": "O botão de upload, focável e visível, tem aria-hidden=\"true\", e o input file real está com display:none; a ação de anexar fica oculta das tecnologias assistivas.",
+        "expected": "O controle de upload operável não deve ter aria-hidden; deve ter nome acessível e papel expostos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-08-35-747Z.yml"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "relatedSelectors": [
+          ".paginacao-anteriores"
+        ],
+        "rule": null,
+        "observed": "A página atual da paginação (1) só se distingue pela cor/fundo (classe active); não há aria-current=\"page\" nela, nem ao mudar para a página 2.",
+        "expected": "O link da página atual deve ter aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-08-35-747Z.yml"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": null,
+        "observed": "Após Enviar vazio, os campos têm aria-invalid=\"true\", mas as mensagens de erro (\"Selecione o tipo de serviço.\", \"Selecione a unidade de atendimento.\") não estão ligadas por aria-describedby (sem id); nos demais campos há associação.",
+        "expected": "A mensagem de erro de cada campo deve ser associada ao input por aria-describedby.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-09-01-445Z.yml"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "relatedSelectors": [
+          "#cpf-apoio"
+        ],
+        "rule": null,
+        "observed": "Com CPF \"123\" (a instrução diz 11 dígitos), o envio foi aceito e exibiu \"Solicitação enviada.\" sem erro no campo.",
+        "expected": "O CPF com menos de 11 dígitos deve gerar erro identificado em texto e impedir o envio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Abrir Tipo de serviço e escolher Emissão de certidão",
+            "Abrir o calendário e fechar com Escape",
+            "Preencher Nome=Maria Souza, CPF=123, Data=99/99/9999, Descrição",
+            "Clicar no rótulo Presencial",
+            "Escolher Unidade Agência Centro e marcar a declaração",
+            "Clicar em Enviar (erro: falta forma de atendimento)",
+            "Selecionar Por videochamada",
+            "Clicar em Enviar (sucesso)"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-11-19-056Z.png"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "relatedSelectors": [
+          "#data-apoio"
+        ],
+        "rule": null,
+        "observed": "A entrada \"99/99/9999\" foi convertida silenciosamente para \"09/03/0007\" e o envio foi aceito.",
+        "expected": "Data inválida ou fora do formato dd/mm/aaaa deve gerar erro identificado em texto e impedir o envio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio",
+            "Abrir Tipo de serviço e escolher Emissão de certidão",
+            "Abrir o calendário e fechar com Escape",
+            "Preencher Nome=Maria Souza, CPF=123, Data=99/99/9999, Descrição",
+            "Clicar no rótulo Presencial",
+            "Escolher Unidade Agência Centro e marcar a declaração",
+            "Clicar em Enviar (erro: falta forma de atendimento)",
+            "Selecionar Por videochamada",
+            "Clicar em Enviar (sucesso)"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-11-19-056Z.png"
+        ]
+      }
+    ]
+  }
+}
