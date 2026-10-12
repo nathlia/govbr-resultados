@@ -1,0 +1,184 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-135625-solicitacao-sem-c959",
+  "receivedAt": "2026-10-12T13:59:46Z",
+  "receipt": "r-baffd01a8f6bcf2f",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T13:59:46.793Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: cabeçalho, breadcrumb, formulário (campos, selects, radios, data, upload, checkboxes), estados de erro e de sucesso do envio, tabela e paginação de solicitações anteriores"
+    ],
+    "notes": "Nenhuma ferramenta de validação automática estava disponível (somente navegador Playwright); todos os achados vêm de inspeção do DOM, árvore de acessibilidade, estilos calculados e operação por mouse/teclado, e por isso 'rule' usa referências normativas ou null. Interações: carregamento; Tab x6 (foco inicial no botão de upload); envio vazio (8 erros); abertura dos selects e escolha de opções; preenchimento com CPF '123' e data '99/99/9999' (aceitos; o flatpickr converteu a data para 09/03/0007); envio com campos pendentes (3 erros); correção dos campos e novo envio (sucesso); recarga, envio vazio e fechamento da mensagem com Enter (funciona); ArrowDown no campo de data (calendário não abre). Fora de escopo/não verificado: outras larguras, paginação da tabela (links apontam para #titulo-historico, não testei troca de páginas), seleção de arquivo, leitores de tela reais. Incerteza: a ausência de validação de formato (CPF/data) pode ser decisão de protótipo; 'erros persistentes' foi confirmado por inspeção. Contraste e tamanhos de alvo revisados sem problema evidente. 404 de favicon no console ignorado.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "#forma-presencial + label"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O rádio 'Presencial' tem <label> sem atributo for e fora do input; a árvore de acessibilidade mostra radio sem nome (os outros dois têm nome).",
+        "expected": "Todo rádio deve ter nome acessível: label com for=\"forma-presencial\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "snapshot /tmp/pw-0/page-2026-10-12T13-56-53-119Z.yml (radio [ref=e56] sem nome)"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos",
+          ".upload-label"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\" mas é focável e é o único controle visível; o input file real (#documentos) está com display:none, portanto fora da árvore de acessibilidade e do foco.",
+        "expected": "O controle de envio de arquivo deve estar exposto a tecnologias assistivas (sem aria-hidden em elemento focável) com nome e papel corretos, associado ao rótulo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "DOM: button.upload-button aria-hidden=true tabindex=1; input#documentos display:none"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão de upload tem tabindex=\"1\"; o primeiro Tab desde o carregamento foca esse botão, antes do link 'Ir para o conteúdo' e do restante da página.",
+        "expected": "Sem tabindex positivo; ordem de foco seguindo a ordem visual/DOM (link de salto primeiro).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "log de focusin: upload-button foi o 1º elemento focado, seguido de br-item (skip link), marca-govbr"
+        ]
+      },
+      {
+        "selector": "#data-preferencial-btn",
+        "relatedSelectors": [
+          "#data-preferencial"
+        ],
+        "rule": "wcag:2.1.1",
+        "observed": "O botão 'Abrir calendário' tem aria-hidden=\"true\" e tabindex=\"-1\" (há também atributo inválido tab-index); Tab não o alcança e ArrowDown no campo de data não abre o calendário.",
+        "expected": "O seletor de calendário deve ser operável por teclado e exposto a leitores de tela (botão focável sem aria-hidden).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "foco em #data-preferencial",
+            "ArrowDown",
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "flatpickr-calendar sem classe open após ArrowDown; foco foi para #descricao"
+        ]
+      },
+      {
+        "selector": ".trilha-servico span[aria-current=\"page\"]",
+        "rule": "wcag:2.4.3",
+        "observed": "O item atual do breadcrumb (texto não interativo) tem tabindex=\"0\" e entra na sequência de Tab (foco visível em um SPAN).",
+        "expected": "Elemento não interativo não deve ser focável por teclado; remover tabindex.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab x6"
+          ]
+        },
+        "evidence": [
+          "log de focusin: último foco em SPAN"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "CPF '123' foi aceito sem erro, apesar da instrução 'Somente números, 11 dígitos.'; o envio resultou em 'Solicitação enviada.'",
+        "expected": "Validar o formato (11 dígitos) e identificar o erro em texto associado ao campo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher CPF 123 e demais campos obrigatórios",
+            "clicar Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem de sucesso após envio com cpf=123"
+        ]
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": "wcag:3.3.1",
+        "observed": "A data '99/99/9999' foi convertida para '09/03/0007' e aceita; envio concluído com sucesso sem alerta de data inválida.",
+        "expected": "Validar a data no formato dd/mm/aaaa (data real e plausível) e informar o erro em texto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher data 99/99/9999",
+            "clicar Enviar"
+          ]
+        },
+        "evidence": [
+          "valor final data-preferencial=09/03/0007; mensagem de sucesso"
+        ]
+      },
+      {
+        "selector": "#forma-retorno, #declaracao-retorno, .campo-unidade .retorno-campo",
+        "relatedSelectors": [
+          "#forma-video",
+          "#declaracao",
+          "#unidade"
+        ],
+        "rule": null,
+        "observed": "Após corrigir os campos (rádio marcado, declaração marcada, unidade escolhida), as mensagens de erro e aria-invalid=\"true\" permaneceram visíveis ('Escolha a forma de atendimento.', 'Confirme a declaração…', 'Selecione a unidade…') até o novo envio.",
+        "expected": "O erro de um campo deve ser removido (e aria-invalid retirado) quando o valor passa a ser válido, para não contradizer o estado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar Enviar com formulário vazio",
+            "escolher tipo de serviço",
+            "preencher nome, CPF, data e descrição",
+            "clicar Enviar",
+            "marcar Por videochamada e declaração",
+            "escolher unidade"
+          ]
+        },
+        "evidence": [
+          "inspeção: .retorno-campo ainda presentes, aria-invalid=true em #forma-video e #declaracao"
+        ]
+      }
+    ]
+  }
+}
