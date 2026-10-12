@@ -1,0 +1,180 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-094447-solicitacao-sem-1433",
+  "receivedAt": "2026-10-12T09:50:19Z",
+  "receipt": "r-69df55a7c676e539",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T09:50:19.926Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: carregamento, navegação por Tab, envio vazio (erros), envio inválido/parcial, envio com sucesso, selects, rádios, calendário, Cancelar/diálogo de descarte, paginação do histórico"
+    ],
+    "notes": "Nenhuma ferramenta de validação automatizada estava disponível; avaliação por inspeção com Playwright (árvore de acessibilidade, DOM, estilos calculados, teclado e mouse), portanto rule usa referências wcag: ou null. Interações em ordem: carregar; Tab pela página; clicar Enviar vazio (8 erros); preencher nome, CPF 123, data 31/02/2026 (convertida pelo calendário em 03/03/2026 sem aviso), descrição; escolher serviço e unidade; marcar declaração; clicar no rótulo Presencial (não seleciona); escolher videochamada; Enviar (sucesso mesmo com CPF 123); Cancelar abre diálogo de descarte; Escape/Continuar fecham e o foco vai ao body; Descartar limpa campos mas mantém Tipo de serviço e Unidade; calendário abre só por clique no botão (tabindex -1 e aria-hidden); paginação página 2. Não reportados por serem incertos: data/serviço/unidade não limpos após Descartar, data silenciosamente alterada, erros de serviço/unidade sem aria-describedby, botão fechar do erro como div role=button (funciona com Enter). Upload de arquivo não foi exercitado (seletor de arquivos nativo). Erro 404 de favicon no console, ignorado. Outras larguras fora do escopo.",
+    "findings": [
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          "#documentos"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "Botão \"Selecione o arquivo\" tem aria-hidden=\"true\" mas é focável e operável; o input file real (#documentos) está com display:none. O controle de upload fica oculto das tecnologias assistivas.",
+        "expected": "O controle de envio de arquivo deve estar exposto à árvore de acessibilidade (sem aria-hidden) com nome e papel.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-45-15-928Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          ".atalho-conteudo a"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "Botão de upload tem tabindex=\"1\" e recebe o primeiro foco ao pressionar Tab, antes do link \"Ir para o conteúdo\" e do restante da página.",
+        "expected": "Sem tabindex positivo; a ordem de foco segue a ordem do DOM (skip link primeiro).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionar Tab uma vez após o carregamento"
+          ]
+        },
+        "evidence": [
+          "focusin: botão .upload-button primeiro, depois a.br-item (skip link)"
+        ]
+      },
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma .br-radio label:not([for])"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O rádio \"Presencial\" não tem nome acessível: o <label>Presencial</label> não tem atributo for; na árvore aparece como radio sem nome e clicar no rótulo não seleciona a opção.",
+        "expected": "O rótulo deve estar associado ao input (for=\"forma-presencial\"), como nas demais opções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no texto \"Presencial\""
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-45-15-928Z.yml"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por Tab, os campos Tipo de serviço e Unidade de atendimento não têm outline nem box-shadow (outline none, box-shadow none, borda inalterada); não há indicador visível de foco, ao contrário de Nome, CPF, data e descrição.",
+        "expected": "Indicador de foco visível em todos os campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Pressionar Tab até chegar a Tipo de serviço e Unidade de atendimento"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-46-10-298Z.png"
+        ]
+      },
+      {
+        "selector": "#data-preferencial-btn",
+        "relatedSelectors": [
+          "#data-preferencial"
+        ],
+        "rule": null,
+        "observed": "Botão \"Abrir calendário\" tem aria-hidden=\"true\" e tabindex=\"-1\": não é alcançável por Tab nem exposto a leitores de tela; o calendário só abre por clique do mouse (clicar ou focar o input não abre). A digitação da data continua possível.",
+        "expected": "O botão que abre o calendário deve ser acessível por teclado e exposto às tecnologias assistivas.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no campo Data preferencial",
+            "Pressionar Tab"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-49-01-108Z.png"
+        ]
+      },
+      {
+        "selector": ".page.active",
+        "relatedSelectors": [
+          ".paginacao-anteriores"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "Após clicar em \"Página 2\", o link da página atual só ganha a classe visual \"active\"; não há aria-current.",
+        "expected": "A página atual deve ser indicada programaticamente (aria-current=\"page\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Página 2 da paginação"
+          ]
+        },
+        "evidence": [
+          "DOM: .page.active aria-current=null"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o diálogo \"Descartar solicitação?\" (Escape ou Continuar preenchendo), o foco vai para o body em vez de voltar ao botão Cancelar que abriu o diálogo.",
+        "expected": "Ao fechar o diálogo, o foco retorna ao elemento que o acionou.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Cancelar",
+            "Clicar em Continuar preenchendo (ou Escape)"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-48-18-247Z.png"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "O valor \"123\" foi aceito e a solicitação enviada com sucesso, embora o campo exija 11 dígitos; nenhum erro é identificado.",
+        "expected": "Valor com menos de 11 dígitos deve ser rejeitado com mensagem de erro em texto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher CPF com 123 e demais campos válidos",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T09-47-57-276Z.png"
+        ]
+      }
+    ]
+  }
+}
