@@ -1,0 +1,193 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-101203-solicitacao-com-bbe6",
+  "receivedAt": "2026-10-12T10:15:48Z",
+  "receipt": "r-14b49e30a4e0b25a",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T10:15:47.996Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: carregamento, navegação por Tab, calendário, listas de seleção, envio vazio/parcial/válido, paginação do histórico"
+    ],
+    "notes": "Ferramentas: scan_page (S-page-001, checks tokens/structure/page/axe) e verify_finding (V-001 para o rótulo do radio: unverifiable/no-predicate para axe 'label'; confirmado por inspeção do DOM). Demais achados decididos por inspeção do DOM/estilos/teclado e declarados com certeza alta, exceto o do CPF (média: depende da intenção de validar). Interações: Tab desde o carregamento (o primeiro foco vai para .upload-button, depois skiplink e logo); calendário aberto pelo botão; lista de Tipo de serviço e Unidade; envio vazio (8 erros), envio parcial (4 erros), envio válido com CPF '123' (aceito, mensagem de sucesso); paginação p.2; botão fechar da mensagem por Enter (funciona). Descartados/incertos: botão do calendário com aria-hidden+tabindex=-1 (padrão do DS, há alternativa por digitação); classes extras (observações do scanner, sem norma); breadcrumb com todos os links para /solicitacao e fonte de 11,66px no breadcrumb (sem regra segura); posição invertida de ícone e botão de fechar na mensagem de erro (incerto); aria-label em inglês 'Month'/'Year' no calendário (não verificado como norma); contraste do feedback 4,6:1 (passa). Erro 404 de favicon ignorado. Outras larguras fora do escopo.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "rule": "axe:label",
+        "observed": "Radio 'Presencial' sem nome acessível: o <label> não tem atributo for nem envolve o input; a árvore de acessibilidade mostra radio sem nome.",
+        "expected": "Radio com label associado (for=\"forma-presencial\"), como os demais radios do grupo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "axe:aria-hidden-focus",
+        "observed": "Botão 'Selecione o arquivo' com aria-hidden=\"true\" e focalizável (tabindex=1).",
+        "expected": "Controle focalizável não pode estar sob aria-hidden; remover aria-hidden ou torná-lo não focalizável.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex=\"1\" no botão de upload: ao pressionar Tab desde o carregamento, o primeiro foco vai para ele, antes do link para o conteúdo, do logo e do restante da página.",
+        "expected": "Ordem de foco seguindo a ordem visual/DOM (sem tabindex positivo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab (3 vezes) desde o carregamento"
+          ]
+        },
+        "evidence": [
+          "log de focusin: BUTTON.upload-button, A.br-item, A.marca-govbr"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month > button",
+        "relatedSelectors": [
+          ".flatpickr-next-month > button"
+        ],
+        "rule": "emag:2.2",
+        "observed": "Botões de mês anterior e seguinte do calendário só com ícone, sem texto nem aria-label (sem nome acessível).",
+        "expected": "Nome acessível descritivo (ex.: 'Mês anterior', 'Mês seguinte').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click: botão 'Abrir calendário' (#data-preferencial-btn)"
+          ]
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001",
+          "F-002"
+        ]
+      },
+      {
+        "selector": "header.barra-superior",
+        "rule": "ds-page-header",
+        "observed": "Cabeçalho é um <header> próprio só com o logo; não há .br-header nem <br-header>.",
+        "expected": "Área de Cabeçalho com o componente Header do DS (Template Base).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003"
+        ]
+      },
+      {
+        "selector": "html",
+        "rule": "ds-page-footer",
+        "observed": "Página sem rodapé: nenhum .br-footer nem <br-footer>.",
+        "expected": "Área de Rodapé com o componente Footer do DS (Template Base).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004"
+        ]
+      },
+      {
+        "selector": "#servico",
+        "relatedSelectors": [
+          "#unidade"
+        ],
+        "rule": "wcag:3.3.1",
+        "observed": "Após o envio vazio, os campos Tipo de serviço e Unidade de atendimento recebem aria-invalid mas não aria-describedby; as mensagens .feedback não têm id e não se associam ao campo (os demais campos associam).",
+        "expected": "Mensagem de erro associada programaticamente ao campo (id + aria-describedby), como nos outros campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click: botão Enviar (formulário vazio)"
+          ]
+        },
+        "evidence": [
+          "scan: S-page-001 (DOM inspecionado)"
+        ]
+      },
+      {
+        "selector": ".br-pagination a.page.active",
+        "rule": null,
+        "observed": "A página atual da paginação é indicada só pela classe 'active'; o link não tem aria-current=\"page\" (nem na página 1 nem após ir à 2).",
+        "expected": "Página atual exposta a tecnologias assistivas (aria-current=\"page\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click: link 'Página 2'"
+          ]
+        },
+        "evidence": [
+          "DOM: aria-current=null nos 3 links"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "CPF '123' é aceito: sem erro e o envio conclui com 'Solicitação enviada.', embora a ajuda diga 'Somente números, 11 dígitos'.",
+        "expected": "Valor fora do formato exigido deve ser identificado com mensagem de erro em texto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "fill: Nome 'Maria Silva'",
+            "fill: CPF '123'",
+            "fill: Data '32/13/2026' (normalizada para 01/01/2027)",
+            "fill: Descrição 'Teste'",
+            "select: Tipo 'Emissão de certidão', Unidade 'Agência Centro'",
+            "click: radio 'Por videochamada'",
+            "click: checkbox declaração",
+            "click: Enviar"
+          ]
+        },
+        "evidence": [
+          "mensagem br-message success exibida"
+        ]
+      }
+    ]
+  }
+}
