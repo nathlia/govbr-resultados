@@ -1,0 +1,170 @@
+{
+  "contract": "findings.v1",
+  "fixture": false,
+  "campaignId": "t7b-sonnet-tela-a-01",
+  "runId": "20261012-101952-solicitacao-sem-1543",
+  "receivedAt": "2026-10-12T10:23:25Z",
+  "receipt": "r-c5c3b57621404918",
+  "findingContract": "achado-2",
+  "report": {
+    "timestamp": "2026-10-12T10:23:25.459Z",
+    "model": "claude-sonnet-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Formulário de solicitação (estado inicial)",
+      "Envio vazio com erros de validação",
+      "Seleção em combos, radios, envio com dados parciais",
+      "Envio com sucesso",
+      "Mensagem de erro: fechar por teclado",
+      "Navegação por Tab desde o carregamento",
+      "Paginação do histórico (página 2)",
+      "Calendário de data preferencial"
+    ],
+    "notes": "Viewport 1280x900 medido. Nenhuma ferramenta de validação automática (axe etc.) estava disponível; avaliação por inspeção do DOM, árvore de acessibilidade, estilos calculados e operação manual. Por isso 'rule' é referência normativa justificada ou null. Contraste verificado nos textos principais (ok; texto branco sobre vermelho do feedback ≈4,6:1). Incertezas: o botão do calendário (#data-preferencial-btn) tem aria-hidden=true e tabindex=-1, de modo que o calendário só abre por mouse; como a data pode ser digitada, não registrei como achado. Calendário e paginação só foram alcançados após interação. Erro 404 de favicon no console ignorado. Fora do escopo: outras larguras. A ordem do foco após fechar a mensagem de erro (foco vai para body) não foi registrada como achado. Itens do menu do select (radios dentro de options) não avaliados em profundidade.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "label:not([for])"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O input radio 'Presencial' não tem nome acessível: o <label> não tem atributo for e não envolve o input; a árvore de acessibilidade mostra radio sem nome (os outros dois têm).",
+        "expected": "O radio deve ter nome acessível 'Presencial' (label for=\"forma-presencial\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T10-20-20-702Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "Botão 'Selecione o arquivo' tem aria-hidden=\"true\" mas é focável e recebe o foco (foi o primeiro elemento focado ao pressionar Tab); o input file real está com display:none.",
+        "expected": "Controle focável e visível não deve ficar oculto à tecnologia assistiva; deve ter papel/nome expostos e acionar o seletor de arquivo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Recarregar a página",
+            "Pressionar Tab uma vez"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T10-20-20-702Z.yml"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "O botão tem tabindex=\"1\" (positivo); ao pressionar Tab no carregamento ele recebe o foco antes do link de salto e de todos os demais controles, fora da ordem visual.",
+        "expected": "Sem tabindex positivo; a ordem do foco deve seguir a ordem visual/DOM.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Recarregar a página",
+            "Pressionar Tab uma vez"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T10-20-20-702Z.yml"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": null,
+        "observed": "Após envio vazio, a mensagem de erro de cada combo ('Selecione o tipo de serviço.', 'Selecione a unidade de atendimento.') não tem id e os inputs têm só aria-invalid=true, sem aria-describedby; nos demais campos a mensagem é associada via aria-describedby.",
+        "expected": "A mensagem de erro deve estar programaticamente associada ao campo (aria-describedby com o id da mensagem).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar em Enviar com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "/tmp/pw-0/page-2026-10-12T10-20-47-141Z.yml"
+        ]
+      },
+      {
+        "selector": "#cpf",
+        "rule": "wcag:3.3.1",
+        "observed": "CPF '123' (3 dígitos, contra a orientação '11 dígitos') foi aceito sem erro e a solicitação foi enviada com sucesso.",
+        "expected": "Valor fora do formato (11 dígitos / CPF válido) deve ser identificado como erro em texto e impedir o envio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher Nome, CPF=123, Data=31/02/2027, Descrição",
+            "Selecionar tipo de serviço, unidade e forma de atendimento",
+            "Marcar a declaração",
+            "Clicar em Enviar"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#data-preferencial",
+        "rule": "wcag:3.3.1",
+        "observed": "Data inexistente '31/02/2027' foi aceita sem erro e substituída silenciosamente por '03/03/2027' no campo; envio concluído com sucesso.",
+        "expected": "Data inválida deve gerar mensagem de erro ('Informe no formato dd/mm/aaaa') em vez de ser alterada sem aviso.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Preencher Data preferencial com 31/02/2027",
+            "Completar demais campos e clicar em Enviar"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".flatpickr-prev-month button, .flatpickr-next-month button",
+        "rule": "wcag:4.1.2",
+        "observed": "Os botões de mês anterior/seguinte do calendário são só ícone (<i>) e não têm texto nem aria-label.",
+        "expected": "Cada botão deve ter nome acessível (ex.: 'Mês anterior', 'Próximo mês').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Acionar o botão de calendário de Data preferencial"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".paginacao-anteriores .page.active",
+        "rule": "wcag:4.1.2",
+        "observed": "Após clicar em 'Página 2', o link ativo só tem a classe 'active'; sem aria-current (null) ou outro indicador programático da página atual.",
+        "expected": "A página atual deve ser indicada com aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Clicar no link 'Página 2' da paginação"
+          ]
+        },
+        "evidence": []
+      }
+    ]
+  }
+}
