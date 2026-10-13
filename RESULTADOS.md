@@ -2,7 +2,7 @@
 
 > Gerado pelo painel de resultados (`npm run painel:resultados -- resumo --arquivo <clone>` ou o botão “Atualizar RESULTADOS.md”). Não edite à mão: gere de novo.
 
-Gerado em: 05/10/2026, 00:04 (Brasília)
+Gerado em: 12/10/2026, 21:02 (Brasília)
 
 Os números vêm da revisão cega: cada alegação do agente virou um cartão, decidido sem saber o braço, e só então a análise contou as unidades da referência confirmadas. Cada linha usa a revisão atual do par, `analises/<campanha>/<par>/revisoes/rev-NNN/summary.json` (o arquivo exato está abaixo de cada tabela).
 
@@ -11,6 +11,137 @@ Os números vêm da revisão cega: cada alegação do agente virou um cartão, d
 - **sem análise**: o par ainda não foi preparado no painel (ou falta um braço).
 - **NÃO CONTA — par inelegível**: um braço teve falha técnica (mesmo depois de enviar o relatório), isolamento não comprovado ou identidade fora da campanha. A pontuação dele é só diagnóstico; o par nunca vira FINAL nem entra na soma.
 - A soma de uma campanha usa só os pares FINAIS e diz o n. Um par provisório nunca entra na soma.
+
+## t7b-sonnet-tela-a-01 — campanha formal
+
+Campanha T7b — tela A (Solicitar serviço), referência 2.0.0, Sonnet 5.5 high, 10 pares sem/com em ordem contrabalançada
+
+### Desfecho principal — **PROVISÓRIO — D = confirmadas com − sem nas unidades sorteadas (A-*); n efetivo 0 de 10 pares planejados**
+
+- provisório: 10 par(es) planejado(s) ainda não final(is) nem perdido(s)
+- D por par: nenhum par final ainda
+- média indisponível · mediana indisponível · desvio-padrão indisponível
+- IC 95% da média: indisponível: n efetivo 0 < 5 (bootstrap percentil sobre pares, 10000 reamostragens, gerador mulberry32, semente 1573597886 de sha256(1a4959bbce62…/bootstrap))
+- teste principal — permutação exata por troca de sinal sobre a média, bicaudal: p = indisponível (sem pares)
+- leitura: indisponível (nenhum par final)
+- robustez — Wilcoxon de postos sinalizados (Pratt, postos médios, exato): p = indisponível; zeros 0
+- robustez — teste do sinal exato: 0 a favor do com, 0 do sem, 0 empates (fora); p = indisponível
+
+Secundários, por braço (nunca somados ao principal):
+
+- sem: precisão média das afirmações indisponível · incorretas indisponível · defeitos novos corretos indisponível · página (P-*) indisponível (n = 0)
+- com: precisão média das afirmações indisponível · incorretas indisponível · defeitos novos corretos indisponível · página (P-*) indisponível (n = 0)
+
+### Planejado × executado (pela agenda)
+
+- slots planejados 20 · não iniciados 0 · válidos 20 · aguardam nova tentativa 0 · perdidos 0
+- tentativas 20 (extras usadas 0 de 4) · pares completos 10 de 10 · pares perdidos 0
+- perdas por braço: sem 0 de 10 tentados (tempo esgotado 0) · com 0 de 10 tentados (tempo esgotado 0)
+
+| Par | Abre com | Slot sem | Slot com | Intervalo entre inícios | D (sorteadas) |
+|---|---|---|---|---|---|
+| p01 | com | p01-sem: válido | p01-com: válido | 7 min | sem análise preparada |
+| p02 | sem | p02-sem: válido | p02-com: válido | 9 min | sem análise preparada |
+| p03 | com | p03-sem: válido | p03-com: válido | 8 min | sem análise preparada |
+| p04 | sem | p04-sem: válido | p04-com: válido | 10 min | sem análise preparada |
+| p05 | com | p05-sem: válido | p05-com: válido | 8 min | sem análise preparada |
+| p06 | sem | p06-sem: válido | p06-com: válido | 8 min | sem análise preparada |
+| p07 | com | p07-sem: válido | p07-com: válido | 8 min | sem análise preparada |
+| p08 | com | p08-sem: válido | p08-com: válido | 9 min | sem análise preparada |
+| p09 | sem | p09-sem: válido | p09-com: válido | 9 min | sem análise preparada |
+| p10 | sem | p10-sem: válido | p10-com: válido | 8 min | sem análise preparada |
+
+Pares finais: **0 de 10**. Nenhum par final ainda: não há soma.
+
+| Par | Tela | Modelo | Sem oráculo: confirmadas/total | Com oráculo: confirmadas/total | Diferença com − sem | Defeitos novos corretos sem / com | Incorretas sem / com | Selo |
+|---|---|---|---|---|---|---|---|---|
+| p01 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p02 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p03 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p04 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p05 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p06 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p07 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p08 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p09 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p10 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+
+## t7-tela-b-01 — campanha formal
+
+Campanha T7c — tela B (Vistorias PROPESC), referência 1.0.0, Opus 5.5 high, 10 pares sem/com em ordem contrabalançada
+
+### Desfecho principal — **FINAL — D = specs confirmadas com − sem, nas 29 specs da referência (spec confirmada = pelo menos 1 unidade confirmada; D-102 (NAT-69, opção A; protocolo §2)); n efetivo 10 de 10 pares planejados**
+
+- D por par (em specs): p01 −1 · p02 0 · p03 −3 · p04 −2 · p05 0 · p06 0 · p07 −2 · p08 +2 · p09 −3 · p10 +2
+- média -0,70 · mediana -0,50 · desvio-padrão 1,83
+- IC 95% da média: -1,70 a 0,40 (bootstrap percentil sobre pares, 10000 reamostragens, gerador mulberry32, semente 2608969728 de sha256(2a0b6613af91…/bootstrap))
+- teste principal — permutação exata por troca de sinal sobre a média, bicaudal: p = 0,3125
+- leitura: sem diferença detectável (não estabelece equivalência)
+- robustez — Wilcoxon de postos sinalizados (Pratt, postos médios, exato): p = 0,2813; zeros 3
+- robustez — teste do sinal exato: 2 a favor do com, 5 do sem, 3 empates (fora); p = 0,4531
+
+Secundários, por braço (nunca somados ao principal):
+
+- unidades confirmadas por par (das 102), sem → com: p01 33 → 32 (−1) · p02 32 → 32 (0) · p03 35 → 32 (−3) · p04 33 → 31 (−2) · p05 33 → 33 (0) · p06 33 → 33 (0) · p07 32 → 30 (−2) · p08 31 → 33 (+2) · p09 35 → 32 (−3) · p10 30 → 32 (+2)
+- sem: unidades confirmadas 327/1020 · precisão média das afirmações 89,3% · incorretas 41 · defeitos novos corretos 572 · página (P-*) indisponível (n = 10)
+- com: unidades confirmadas 320/1020 · precisão média das afirmações 91,9% · incorretas 29 · defeitos novos corretos 649 · página (P-*) indisponível (n = 10)
+
+### Planejado × executado (pela agenda)
+
+- slots planejados 20 · não iniciados 0 · válidos 20 · aguardam nova tentativa 0 · perdidos 0
+- tentativas 21 (extras usadas 1 de 4) · pares completos 10 de 10 · pares perdidos 0
+- perdas por braço: sem 0 de 10 tentados (tempo esgotado 0) · com 0 de 10 tentados (tempo esgotado 0)
+
+| Par | Abre com | Slot sem | Slot com | Intervalo entre inícios | D (specs) |
+|---|---|---|---|---|---|
+| p01 | sem | p01-sem: válido | p01-com: válido | 19 min | **−1** (specs 11 → 10; unidades 33 → 32) |
+| p02 | com | p02-sem: válido | p02-com: válido | 12 min | **0** (specs 10 → 10; unidades 32 → 32) |
+| p03 | com | p03-sem: válido | p03-com: válido | 15 min | **−3** (specs 13 → 10; unidades 35 → 32) |
+| p04 | com | p04-sem: válido | p04-com: válido | 15 min | **−2** (specs 11 → 9; unidades 33 → 31) |
+| p05 | com | p05-sem: válido | p05-com: válido | 17 min | **0** (specs 11 → 11; unidades 33 → 33) |
+| p06 | sem | p06-sem: válido | p06-com: válido | 15 min | **0** (specs 11 → 11; unidades 33 → 33) |
+| p07 | sem | p07-sem: válido | p07-com: válido (2 tentativas) — tentativa 2 (primeira elegível) | 7 h 33 min | **−2** (specs 10 → 8; unidades 32 → 30) |
+| p08 | sem | p08-sem: válido | p08-com: válido | 17 min | **+2** (specs 9 → 11; unidades 31 → 33) |
+| p09 | com | p09-sem: válido | p09-com: válido | 16 min | **−3** (specs 13 → 10; unidades 35 → 32) |
+| p10 | sem | p10-sem: válido | p10-com: válido | 17 min | **+2** (specs 8 → 10; unidades 30 → 32) |
+
+Pares finais: **10 de 10**. Unidades confirmadas somadas só nos pares finais (n = 10): **sem 327 · com 320** (de 1020 unidades da referência). Soma descritiva, sem inferência.
+
+| Par | Tela | Modelo | Sem oráculo: confirmadas/total | Com oráculo: confirmadas/total | Diferença com − sem | Defeitos novos corretos sem / com | Incorretas sem / com | Selo |
+|---|---|---|---|---|---|---|---|---|
+| p01 | vistorias | claude-opus-5-5 | 33/102 (recall 32,4%) | 32/102 (recall 31,4%) | −1 unidade (−1,0 p.p.) | 77 / 51 | 4 / 2 | **FINAL** |
+| p02 | vistorias | claude-opus-5-5 | 32/102 (recall 31,4%) | 32/102 (recall 31,4%) | 0 unidades (0,0 p.p.) | 70 / 38 | 8 / 8 | **FINAL** |
+| p03 | vistorias | claude-opus-5-5 | 35/102 (recall 34,3%) | 32/102 (recall 31,4%) | −3 unidades (−2,9 p.p.) | 44 / 64 | 3 / 3 | **FINAL** |
+| p04 | vistorias | claude-opus-5-5 | 33/102 (recall 32,4%) | 31/102 (recall 30,4%) | −2 unidades (−2,0 p.p.) | 48 / 46 | 2 / 2 | **FINAL** |
+| p05 | vistorias | claude-opus-5-5 | 33/102 (recall 32,4%) | 33/102 (recall 32,4%) | 0 unidades (0,0 p.p.) | 34 / 107 | 2 / 2 | **FINAL** |
+| p06 | vistorias | claude-opus-5-5 | 33/102 (recall 32,4%) | 33/102 (recall 32,4%) | 0 unidades (0,0 p.p.) | 66 / 71 | 3 / 2 | **FINAL** |
+| p07 | vistorias | — | 32/102 (recall 31,4%) | 30/102 (recall 29,4%) | −2 unidades (−2,0 p.p.) | 66 / 55 | 2 / 3 | **FINAL** |
+| p08 | vistorias | claude-opus-5-5 | 31/102 (recall 30,4%) | 33/102 (recall 32,4%) | +2 unidades (+2,0 p.p.) | 53 / 66 | 2 / 2 | **FINAL** |
+| p09 | vistorias | claude-opus-5-5 | 35/102 (recall 34,3%) | 32/102 (recall 31,4%) | −3 unidades (−2,9 p.p.) | 48 / 106 | 10 / 2 | **FINAL** |
+| p10 | vistorias | claude-opus-5-5 | 30/102 (recall 29,4%) | 32/102 (recall 31,4%) | +2 unidades (+2,0 p.p.) | 66 / 45 | 5 / 3 | **FINAL** |
+
+Fontes:
+
+- p01: `analises/t7-tela-b-01/p01/revisoes/rev-002/summary.json`
+- p02: `analises/t7-tela-b-01/p02/revisoes/rev-002/summary.json`
+- p03: `analises/t7-tela-b-01/p03/revisoes/rev-003/summary.json`
+- p04: `analises/t7-tela-b-01/p04/revisoes/rev-003/summary.json`
+- p05: `analises/t7-tela-b-01/p05/revisoes/rev-002/summary.json`
+- p06: `analises/t7-tela-b-01/p06/revisoes/rev-002/summary.json`
+- p07: `analises/t7-tela-b-01/p07/revisoes/rev-003/summary.json`
+- p08: `analises/t7-tela-b-01/p08/revisoes/rev-002/summary.json`
+- p09: `analises/t7-tela-b-01/p09/revisoes/rev-002/summary.json`
+- p10: `analises/t7-tela-b-01/p10/revisoes/rev-002/summary.json`
+
+## prova-vistorias-01 — calibração — não é resultado (D-67)
+
+Prova de tempo e custo da tela B (Vistorias) — braço com, Opus high, 1 execução fora do resultado
+
+Campanha de um braço só (pelo desenho): não há comparação com × sem.
+
+| Par | Tela | Modelo | Sem oráculo: confirmadas/total | Com oráculo: confirmadas/total | Diferença com − sem | Defeitos novos corretos sem / com | Incorretas sem / com | Selo |
+|---|---|---|---|---|---|---|---|---|
+| par-01 | vistorias | claude-opus-5-5 | — | — | indisponível | — | — | **um braço só (desenho da campanha)** |
 
 ## t7-tela-a-01 — campanha formal
 
@@ -104,4 +235,4 @@ Campanha de um braço só (pelo desenho): não há comparação com × sem.
 |---|---|---|---|---|---|---|---|---|
 | par-01 | solicitacao | claude-opus-5-5 | — | — | indisponível | — | — | **um braço só (desenho da campanha)** |
 
-Fora desta página: 3 campanhas de ensaio (ensaio-agenda-01, ensaio-duble, ensaio-t4) — dublê, roteiro ou fixture, nunca dado científico.
+Fora desta página: 4 campanhas de ensaio (ensaio-vistorias-01, ensaio-agenda-01, ensaio-duble, ensaio-t4) — dublê, roteiro ou fixture, nunca dado científico.
