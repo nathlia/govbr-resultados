@@ -2,7 +2,7 @@
 
 > Gerado pelo painel de resultados (`npm run painel:resultados -- resumo --arquivo <clone>` ou o botão “Atualizar RESULTADOS.md”). Não edite à mão: gere de novo.
 
-Gerado em: 12/10/2026, 21:02 (Brasília)
+Gerado em: 12/10/2026, 21:19 (Brasília)
 
 Os números vêm da revisão cega: cada alegação do agente virou um cartão, decidido sem saber o braço, e só então a análise contou as unidades da referência confirmadas. Cada linha usa a revisão atual do par, `analises/<campanha>/<par>/revisoes/rev-NNN/summary.json` (o arquivo exato está abaixo de cada tabela).
 
@@ -16,21 +16,20 @@ Os números vêm da revisão cega: cada alegação do agente virou um cartão, d
 
 Campanha T7b — tela A (Solicitar serviço), referência 2.0.0, Sonnet 5.5 high, 10 pares sem/com em ordem contrabalançada
 
-### Desfecho principal — **PROVISÓRIO — D = confirmadas com − sem nas unidades sorteadas (A-*); n efetivo 0 de 10 pares planejados**
+### Desfecho principal — **FINAL — D = confirmadas com − sem nas unidades sorteadas (A-*); n efetivo 10 de 10 pares planejados**
 
-- provisório: 10 par(es) planejado(s) ainda não final(is) nem perdido(s)
-- D por par: nenhum par final ainda
-- média indisponível · mediana indisponível · desvio-padrão indisponível
-- IC 95% da média: indisponível: n efetivo 0 < 5 (bootstrap percentil sobre pares, 10000 reamostragens, gerador mulberry32, semente 1573597886 de sha256(1a4959bbce62…/bootstrap))
-- teste principal — permutação exata por troca de sinal sobre a média, bicaudal: p = indisponível (sem pares)
-- leitura: indisponível (nenhum par final)
-- robustez — Wilcoxon de postos sinalizados (Pratt, postos médios, exato): p = indisponível; zeros 0
-- robustez — teste do sinal exato: 0 a favor do com, 0 do sem, 0 empates (fora); p = indisponível
+- D por par: p01 +3 · p02 +2 · p03 0 · p04 +1 · p05 −2 · p06 −3 · p07 −1 · p08 +2 · p09 −2 · p10 −2
+- média -0,20 · mediana -0,50 · desvio-padrão 2,10
+- IC 95% da média: -1,40 a 1 (bootstrap percentil sobre pares, 10000 reamostragens, gerador mulberry32, semente 1573597886 de sha256(1a4959bbce62…/bootstrap))
+- teste principal — permutação exata por troca de sinal sobre a média, bicaudal: p = 0,8828
+- leitura: sem diferença detectável (não estabelece equivalência)
+- robustez — Wilcoxon de postos sinalizados (Pratt, postos médios, exato): p = 0,8633; zeros 1
+- robustez — teste do sinal exato: 4 a favor do com, 5 do sem, 1 empates (fora); p = 1,0000
 
 Secundários, por braço (nunca somados ao principal):
 
-- sem: precisão média das afirmações indisponível · incorretas indisponível · defeitos novos corretos indisponível · página (P-*) indisponível (n = 0)
-- com: precisão média das afirmações indisponível · incorretas indisponível · defeitos novos corretos indisponível · página (P-*) indisponível (n = 0)
+- sem: precisão média das afirmações 60,4% · incorretas 30 · defeitos novos corretos 16 · página (P-*) 0/20 (n = 10)
+- com: precisão média das afirmações 46,3% · incorretas 161 · defeitos novos corretos 29 · página (P-*) 6/20 (n = 10)
 
 ### Planejado × executado (pela agenda)
 
@@ -40,31 +39,44 @@ Secundários, por braço (nunca somados ao principal):
 
 | Par | Abre com | Slot sem | Slot com | Intervalo entre inícios | D (sorteadas) |
 |---|---|---|---|---|---|
-| p01 | com | p01-sem: válido | p01-com: válido | 7 min | sem análise preparada |
-| p02 | sem | p02-sem: válido | p02-com: válido | 9 min | sem análise preparada |
-| p03 | com | p03-sem: válido | p03-com: válido | 8 min | sem análise preparada |
-| p04 | sem | p04-sem: válido | p04-com: válido | 10 min | sem análise preparada |
-| p05 | com | p05-sem: válido | p05-com: válido | 8 min | sem análise preparada |
-| p06 | sem | p06-sem: válido | p06-com: válido | 8 min | sem análise preparada |
-| p07 | com | p07-sem: válido | p07-com: válido | 8 min | sem análise preparada |
-| p08 | com | p08-sem: válido | p08-com: válido | 9 min | sem análise preparada |
-| p09 | sem | p09-sem: válido | p09-com: válido | 9 min | sem análise preparada |
-| p10 | sem | p10-sem: válido | p10-com: válido | 8 min | sem análise preparada |
+| p01 | com | p01-sem: válido | p01-com: válido | 7 min | **+3** (2 → 5) |
+| p02 | sem | p02-sem: válido | p02-com: válido | 9 min | **+2** (3 → 5) |
+| p03 | com | p03-sem: válido | p03-com: válido | 8 min | **0** (5 → 5) |
+| p04 | sem | p04-sem: válido | p04-com: válido | 10 min | **+1** (4 → 5) |
+| p05 | com | p05-sem: válido | p05-com: válido | 8 min | **−2** (5 → 3) |
+| p06 | sem | p06-sem: válido | p06-com: válido | 8 min | **−3** (7 → 4) |
+| p07 | com | p07-sem: válido | p07-com: válido | 8 min | **−1** (5 → 4) |
+| p08 | com | p08-sem: válido | p08-com: válido | 9 min | **+2** (2 → 4) |
+| p09 | sem | p09-sem: válido | p09-com: válido | 9 min | **−2** (7 → 5) |
+| p10 | sem | p10-sem: válido | p10-com: válido | 8 min | **−2** (3 → 1) |
 
-Pares finais: **0 de 10**. Nenhum par final ainda: não há soma.
+Pares finais: **10 de 10**. Unidades confirmadas somadas só nos pares finais (n = 10): **sem 43 · com 47** (de 160 unidades da referência). Soma descritiva, sem inferência.
 
 | Par | Tela | Modelo | Sem oráculo: confirmadas/total | Com oráculo: confirmadas/total | Diferença com − sem | Defeitos novos corretos sem / com | Incorretas sem / com | Selo |
 |---|---|---|---|---|---|---|---|---|
-| p01 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p02 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p03 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p04 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p05 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p06 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p07 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p08 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p09 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
-| p10 | solicitacao | claude-sonnet-5-5 | — | — | indisponível | — | — | **sem análise** |
+| p01 | solicitacao | claude-sonnet-5-5 | 2/16 (recall 12,5%)<br>sorteadas × página: A-\* 2/14 (recall 14,3%) × P-\* 0/2 (recall 0,0%) | 7/16 (recall 43,8%)<br>sorteadas × página: A-\* 5/14 (recall 35,7%) × P-\* 2/2 (recall 100,0%) | +5 unidades (+31,3 p.p.) | 1 / 1 | 2 / 46 | **FINAL** |
+| p02 | solicitacao | claude-sonnet-5-5 | 3/16 (recall 18,8%)<br>sorteadas × página: A-\* 3/14 (recall 21,4%) × P-\* 0/2 (recall 0,0%) | 5/16 (recall 31,3%)<br>sorteadas × página: A-\* 5/14 (recall 35,7%) × P-\* 0/2 (recall 0,0%) | +2 unidades (+12,5 p.p.) | 2 / 3 | 5 / 3 | **FINAL** |
+| p03 | solicitacao | claude-sonnet-5-5 | 5/16 (recall 31,3%)<br>sorteadas × página: A-\* 5/14 (recall 35,7%) × P-\* 0/2 (recall 0,0%) | 5/16 (recall 31,3%)<br>sorteadas × página: A-\* 5/14 (recall 35,7%) × P-\* 0/2 (recall 0,0%) | 0 unidades (0,0 p.p.) | 2 / 2 | 1 / 3 | **FINAL** |
+| p04 | solicitacao | claude-sonnet-5-5 | 4/16 (recall 25,0%)<br>sorteadas × página: A-\* 4/14 (recall 28,6%) × P-\* 0/2 (recall 0,0%) | 5/16 (recall 31,3%)<br>sorteadas × página: A-\* 5/14 (recall 35,7%) × P-\* 0/2 (recall 0,0%) | +1 unidade (+6,3 p.p.) | 1 / 4 | 5 / 48 | **FINAL** |
+| p05 | solicitacao | claude-sonnet-5-5 | 5/16 (recall 31,3%)<br>sorteadas × página: A-\* 5/14 (recall 35,7%) × P-\* 0/2 (recall 0,0%) | 3/16 (recall 18,8%)<br>sorteadas × página: A-\* 3/14 (recall 21,4%) × P-\* 0/2 (recall 0,0%) | −2 unidades (−12,5 p.p.) | 2 / 4 | 2 / 2 | **FINAL** |
+| p06 | solicitacao | claude-sonnet-5-5 | 7/16 (recall 43,8%)<br>sorteadas × página: A-\* 7/14 (recall 50,0%) × P-\* 0/2 (recall 0,0%) | 5/16 (recall 31,3%)<br>sorteadas × página: A-\* 4/14 (recall 28,6%) × P-\* 1/2 (recall 50,0%) | −2 unidades (−12,5 p.p.) | 1 / 4 | 0 / 5 | **FINAL** |
+| p07 | solicitacao | claude-sonnet-5-5 | 5/16 (recall 31,3%)<br>sorteadas × página: A-\* 5/14 (recall 35,7%) × P-\* 0/2 (recall 0,0%) | 5/16 (recall 31,3%)<br>sorteadas × página: A-\* 4/14 (recall 28,6%) × P-\* 1/2 (recall 50,0%) | 0 unidades (0,0 p.p.) | 1 / 2 | 4 / 2 | **FINAL** |
+| p08 | solicitacao | claude-sonnet-5-5 | 2/16 (recall 12,5%)<br>sorteadas × página: A-\* 2/14 (recall 14,3%) × P-\* 0/2 (recall 0,0%) | 4/16 (recall 25,0%)<br>sorteadas × página: A-\* 4/14 (recall 28,6%) × P-\* 0/2 (recall 0,0%) | +2 unidades (+12,5 p.p.) | 4 / 3 | 4 / 5 | **FINAL** |
+| p09 | solicitacao | claude-sonnet-5-5 | 7/16 (recall 43,8%)<br>sorteadas × página: A-\* 7/14 (recall 50,0%) × P-\* 0/2 (recall 0,0%) | 6/16 (recall 37,5%)<br>sorteadas × página: A-\* 5/14 (recall 35,7%) × P-\* 1/2 (recall 50,0%) | −1 unidade (−6,3 p.p.) | 1 / 6 | 6 / 1 | **FINAL** |
+| p10 | solicitacao | claude-sonnet-5-5 | 3/16 (recall 18,8%)<br>sorteadas × página: A-\* 3/14 (recall 21,4%) × P-\* 0/2 (recall 0,0%) | 2/16 (recall 12,5%)<br>sorteadas × página: A-\* 1/14 (recall 7,1%) × P-\* 1/2 (recall 50,0%) | −1 unidade (−6,3 p.p.) | 1 / 0 | 1 / 46 | **FINAL** |
+
+Fontes:
+
+- p01: `analises/t7b-sonnet-tela-a-01/p01/revisoes/rev-002/summary.json`
+- p02: `analises/t7b-sonnet-tela-a-01/p02/revisoes/rev-002/summary.json`
+- p03: `analises/t7b-sonnet-tela-a-01/p03/revisoes/rev-002/summary.json`
+- p04: `analises/t7b-sonnet-tela-a-01/p04/revisoes/rev-002/summary.json`
+- p05: `analises/t7b-sonnet-tela-a-01/p05/revisoes/rev-002/summary.json`
+- p06: `analises/t7b-sonnet-tela-a-01/p06/revisoes/rev-002/summary.json`
+- p07: `analises/t7b-sonnet-tela-a-01/p07/revisoes/rev-002/summary.json`
+- p08: `analises/t7b-sonnet-tela-a-01/p08/revisoes/rev-002/summary.json`
+- p09: `analises/t7b-sonnet-tela-a-01/p09/revisoes/rev-002/summary.json`
+- p10: `analises/t7b-sonnet-tela-a-01/p10/revisoes/rev-002/summary.json`
 
 ## t7-tela-b-01 — campanha formal
 

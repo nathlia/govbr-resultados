@@ -1,0 +1,570 @@
+{
+  "version": "flow-semantic-1.5.0",
+  "decisions": [
+    {
+      "cardId": "C-018008aa736fb80d44be52e351eb9adc9aeee9d4a88467fd49eb69f35406e9d8",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Alegação principal: botão aria-hidden focável / upload não exposto. Medido: .upload-button recebe aria-hidden=\"true\" do próprio BRUpload do DS (core.js cria o botão com setAttribute(\"aria-hidden\",\"true\")) e o input .upload-input tem display:none pelo CSS do DS; esse ocultamento é comportamento do DS, não da página. A parte secundária (tabindex=1, escrito pelo código da página: querySelector(\".upload-button\").tabIndex=1) se confirma e é A-02: o primeiro Tab da página cai no botão. Decido pela alegação principal (ocultamento do DS) -> incorreta; parcial: a parte do tabindex=1 corresponderia a A-02.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O botão visível 'Selecione o arquivo' tem aria-hidden=\"true\" e é focável (tabindex=1); o input file real está com display:none, então o upload não é exposto a tecnologias assistivas.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(6)>div>button"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta"
+        }
+      ]
+    },
+    {
+      "cardId": "C-199e6c6e6c624e9940b71903b676604fcc0902c8bfda32296c211fbd5277efd7",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: nenhum .br-header nem <br-header>; o cabeçalho é <header class=\"barra-superior\"> só com a marca gov.br. Alegação correta; a unidade que cabe é P-01 (área de cabeçalho sem Header do DS), não oferecida porque o sujeito é <html>.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Nenhum elemento .br-header nem web component <br-header> no documento (DOM claro e shadow roots abertos).",
+          "subjects": [
+            ""
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "defeito-novo-correto"
+        }
+      ]
+    },
+    {
+      "cardId": "C-22a571bd39590f993edd5585640e79f0c040280ac9b35a0a9b88c9eb94a7df7a",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-399066d10d962b12d8278580142f6f01ff463a3d9498431b9da35b0cd2686e66",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: com CPF \"123\" e os demais campos válidos (data válida 10/11/2026), o envio mostra \"Solicitação enviada...\" e #cpf fica sem aria-invalid; não há validação de formato apesar do apoio \"Somente números, 11 dígitos.\" Nenhuma unidade oferecida cabe (só P-02). A data 99/99/2020 do roteiro não é o objeto desta alegação.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O valor \"123\" foi aceito: o envio teve sucesso, sem erro, embora o texto de apoio exija 11 dígitos.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(2)>div:nth-of-type(2)>div>input"
+          ],
+          "unitIds": [],
+          "citation": "supported",
+          "decisao": "defeito-novo-correto"
+        }
+      ]
+    },
+    {
+      "cardId": "C-4e565b4aebc621440d2ee7b509800285b3f95fd0080a6e025271b726a8439a32",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: nenhum .br-footer, <br-footer>, <footer> ou role=contentinfo no documento renderizado. Alegação correta; a unidade que cabe é P-02 (área de rodapé ausente), não oferecida neste cartão porque o sujeito é <html>.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Nenhum .br-footer ou <br-footer> no documento.",
+          "subjects": [
+            ""
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "defeito-novo-correto"
+        }
+      ]
+    },
+    {
+      "cardId": "C-5080eaa60f410257d59c0fde5f250637f00351703b6774fe2027cb330d8fb268",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Mesma alegação, mesmos elementos e estado do cartão C-beb72d8b955a já decidido. Medido: axe label-title-only acusa #forma-presencial no estado após envio vazio (o radio ganha aria-describedby=\"forma-retorno\" e continua sem rótulo); a causa é o mesmo <label>Presencial</label> sem for (nome acessível \"\" via CDP). Corresponde a A-09.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Form elements should have a visible label",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>fieldset:nth-of-type(1)>div:nth-of-type(1)>input"
+          ],
+          "unitIds": [
+            "U-471fd34bfed8d491133fe60cfe6233aa00117fefb796768495ff7598fa7a6a5e"
+          ],
+          "citation": "uncertain",
+          "decisao": "duplicada",
+          "duplicateOf": {
+            "cardId": "C-beb72d8b955a7a0a44fc4274ae15ffec2bfc8e46edd11a43b1a96a5a581d8af5",
+            "atomId": "a1"
+          }
+        }
+      ]
+    },
+    {
+      "cardId": "C-6143a98147394b1ff5fe269dad91dcee01072c188bdb7587d9d7630874fc50e3",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido com foco por teclado (:focus-visible = true): #servico e #unidade têm outline none, box-shadow none e borda rgb(136,136,136) (sem mudança), e .input-group/.br-input também sem box-shadow; #nome, #cpf e #data-preferencial focados mostram box-shadow rgb(194,133,12) 0 0 0 2px e borda âmbar. Corresponde a A-04 nos dois selects.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Ao receber foco por teclado, os campos de combobox têm outline none e box-shadow none; no input, no .input-group e no .br-input não há indicador visível, enquanto os demais campos exibem box-shadow âmbar de 2px.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(3)>div:nth-of-type(1)>div>div:nth-of-type(1)>div>input",
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(3)>div:nth-of-type(2)>div>div:nth-of-type(1)>div>input"
+          ],
+          "unitIds": [
+            "U-27cc0d4a8e5df91ab64931d3374ec1ea9b51d3e9b519f740b3d4b3c1a6c195d8",
+            "U-a4c4e6005ce86b914ed8b58011b3f8effcee1326c119327ddd4eb9e9e0540a41"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-68c22b6ec89ae51741bce394cab81c7059457badd13056c773c0fdd8199431b3",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: nenhum link .br-pagination a tem aria-current, no estado inicial (Página 1 com class \"page active\") nem após clicar em Página 2 (class active migra para Página 2, aria-current continua null); .br-pagination [aria-current] = 0 elementos. Os três links têm href=\"#titulo-historico\". A alegação reproduz e corresponde a A-12. Parte secundária (mesmo href nos três links) também se confirma.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "A página atual da paginação é marcada só pela classe 'active'; não há aria-current (nenhum link tem aria-current) e os três links apontam para o mesmo href #titulo-historico.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>section>div>div:nth-of-type(2)>nav>a:nth-of-type(1)"
+          ],
+          "unitIds": [
+            "U-fa46b3b01953095c45ccd4ee7da378bc7eaab3a1936698faa3f365516a5be29e"
+          ],
+          "citation": "uncertain",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-6d2657e55492162b873ed1faf850edc8297b4b0395ed60fd5c9b1993f47088a8",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido com o diálogo de descarte aberto (Cancelar): color computado rgb(51, 67, 51) (#334333) em .br-modal-header, .modal-title, .br-modal-body e .br-modal-footer do div.br-modal.dialogo-descarte; não é token do DS (texto padrão #333333). Corresponde a A-03.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "color: rgb(51, 67, 51) (#334333) não corresponde a nenhum token do DS",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>div>div"
+          ],
+          "unitIds": [
+            "U-07d298f4df34c286740799c74d0ebada13b65d950a4b6ad514d6f6e090153e4d"
+          ],
+          "citation": "uncertain",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-8e20a2ea1754aef08aa059484557b670ac2f1d2e6b7a8bfb82c3b298a4061209",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-9240827c513ce434efe3eeed697daccf0121ec6c2b58c0cf60b3a831e49ed66a",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: os únicos <button>/.br-button sem aria-label nem texto no documento são os dois botões de navegação do calendário (não renderizados com o calendário fechado). Os botões de mês anterior/seguinte (span.flatpickr-prev-month / .flatpickr-next-month > button.br-button.circle.small, só ícone, sem aria-label) são gerados pelo BRDateTimePicker do DS (config prevArrow/nextArrow no core.js); comportamento do DS, não da página.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Elemento interativo apenas com ícone, sem aria-label (br-button)",
+          "subjects": [
+            "body>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(2)>button"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta"
+        }
+      ]
+    },
+    {
+      "cardId": "C-9ffb3c88a136e131a8ba489793ecd48dff33ff54d381f1ce5ec0479fd40f5b82",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: <header class=\"barra-superior\"> contém só a.marca-govbr (\"gov.br — página inicial\"); nenhum .br-header nem <br-header> no documento. Corresponde a P-01.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Nenhum .br-header ou <br-header>; o cabeçalho é um <header> próprio só com a marca gov.br.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>header"
+          ],
+          "unitIds": [
+            "U-3b0dc613459834f10f92faa9a4293beb463bd60e7dba8d3733c18e9508c32d5a"
+          ],
+          "citation": "uncertain",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-a7245e3161663c4fb75e78dd531f7d14e67c75a380e74fb2706973ef6c552558",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido após envio vazio: .retorno-envio .close contém <div class=\"br-button circle small\" role=\"button\" tabindex=\"0\" aria-label=\"Fechar a mensagem\"> no lugar de <button>. Corresponde a A-06.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "br-button aplicado a <div>",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(1)>div>div:nth-of-type(1)>div"
+          ],
+          "unitIds": [
+            "U-bbfc7654327714d26fe1c4acef5b74dd3a8b5e541d8cd630d6ebc6f9d63f8fc0"
+          ],
+          "citation": "uncertain",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-b4dce5f44bc7ee190100e93986080c0d2182fcd3dcc49010dbff86046b4ddf2a",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: os únicos <button>/.br-button sem aria-label nem texto no documento são os dois botões de navegação do calendário (não renderizados com o calendário fechado). Os botões de mês anterior/seguinte (span.flatpickr-prev-month / .flatpickr-next-month > button.br-button.circle.small, só ícone, sem aria-label) são gerados pelo BRDateTimePicker do DS (config prevArrow/nextArrow no core.js); comportamento do DS, não da página.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Elemento interativo apenas com ícone, sem aria-label (br-button)",
+          "subjects": [
+            "body>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(1)>button"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta"
+        }
+      ]
+    },
+    {
+      "cardId": "C-bda1b93e7df897b0ab139b7860fcaa755dff61b6cfb8429ee0fb569d65edd9cc",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: <label>Presencial</label> sem for e sem envolver #forma-presencial; árvore de acessibilidade (CDP) dá radio com name=\"\" (os outros dois têm nome, ex. \"Por videochamada\"); axe \"label\" acusa #forma-presencial. Corresponde a A-09.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O input radio 'Presencial' tem <label> sem atributo for e sem envolver o input; o radio fica sem nome acessível (snapshot: radio sem nome; axe label, critical).",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>fieldset:nth-of-type(1)>div:nth-of-type(1)>input"
+          ],
+          "unitIds": [
+            "U-471fd34bfed8d491133fe60cfe6233aa00117fefb796768495ff7598fa7a6a5e"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-beb72d8b955a7a0a44fc4274ae15ffec2bfc8e46edd11a43b1a96a5a581d8af5",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: <label>Presencial</label> sem for e sem envolver #forma-presencial; árvore de acessibilidade (CDP) dá radio com name=\"\" (os outros dois têm nome, ex. \"Por videochamada\"); axe \"label\" acusa #forma-presencial. Corresponde a A-09.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Form elements must have labels",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>fieldset:nth-of-type(1)>div:nth-of-type(1)>input"
+          ],
+          "unitIds": [
+            "U-471fd34bfed8d491133fe60cfe6233aa00117fefb796768495ff7598fa7a6a5e"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-bf4a8f3dbb96c9c752f412f51f338a99c77d012fd25a09c1cfdd4cdc0bbec453",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-c061e4313b20b3f8266884057356c80369279cb64b3a5b5848b40f2d87557bc8",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: primeiro Tab após o carregamento foca BUTTON.upload-button (tabindex=1); só depois vêm o atalho \"Ir para o conteúdo\", a marca gov.br e o início da trilha. O tabindex=1 é escrito pelo código da página. Corresponde a A-02.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O botão de upload tem tabindex=\"1\"; ao pressionar Tab após o carregamento o foco vai primeiro para ele, antes do link \"Ir para o conteúdo\" e do restante da página.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(6)>div>button"
+          ],
+          "unitIds": [
+            "U-b3362afca6c4004dc1bfe74c6ea6d81e8a2e500a8eb931d94b772c90ee1746bd"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-c96785c11fd0bea3e742769ab16ea0c73b21dac0ecf717bf988864398b4732eb",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-ca7736d7fd9ea420919ffd8bac44f332003bf83c43bfa2b8dae9457d68d4d637",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: com CPF \"123\" e os demais campos válidos, o envio mostra \"Solicitação enviada. Acompanhe o andamento em Solicitações anteriores.\" e #cpf fica sem aria-invalid; não há validação dos 11 dígitos. Nenhuma unidade oferecida cabe (só P-02).",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O CPF '123' (3 dígitos) é aceito: o formulário foi enviado com a mensagem 'Solicitação enviada.', apesar do texto de apoio 'Somente números, 11 dígitos.'",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(2)>div:nth-of-type(2)>div>input"
+          ],
+          "unitIds": [],
+          "citation": "supported",
+          "decisao": "defeito-novo-correto"
+        }
+      ]
+    },
+    {
+      "cardId": "C-cac4cff17b1e8e652cee2a6bbd10e3c47671d021d530ae63e2ed2f943e36de01",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: nenhum .br-footer, <br-footer>, <footer> ou role=contentinfo no documento. Alegação correta; a unidade que cabe é P-02 (área de rodapé ausente), não oferecida porque o sujeito é <html>.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Nenhum elemento .br-footer nem web component <br-footer> no documento (DOM claro e shadow roots abertos).",
+          "subjects": [
+            ""
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "defeito-novo-correto"
+        }
+      ]
+    },
+    {
+      "cardId": "C-d54653e69fa0ceeb3abe755f65a4bbaf3154fc69b68850492c94bfd2c1a3585c",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: select.flatpickr-monthDropdown-months aria-label=\"Month\" e input.cur-year aria-label=\"Year\" existem, mas vêm dos padrões monthAriaLabel/yearAriaLabel do flatpickr embutido no BRDateTimePicker do DS (core.js); internos do datepicker do DS, não defeito da página.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O seletor de mês e o campo de ano do calendário têm aria-label em inglês (\"Month\", \"Year\") em uma página pt-BR.",
+          "subjects": [
+            "body>div:nth-of-type(2)>div:nth-of-type(1)>div>div>div>input",
+            "body>div:nth-of-type(2)>div:nth-of-type(1)>div>div>select"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta"
+        }
+      ]
+    },
+    {
+      "cardId": "C-ddab910ff563d5588ed94dadeffb307900e27073db922ad189168297fc4cab58",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: primeiro Tab após o carregamento foca BUTTON.upload-button (tabindex=1); o segundo Tab vai para o atalho \"Ir para o conteúdo\" e segue a ordem do DOM. O tabindex=1 é escrito pelo código da página. Corresponde a A-02.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O botão tem tabindex=\"1\"; na primeira tecla Tab após carregar, o foco vai para ele, antes do link de salto, do cabeçalho e dos demais campos; o foco só retorna à ordem natural depois.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(6)>div>button"
+          ],
+          "unitIds": [
+            "U-b3362afca6c4004dc1bfe74c6ea6d81e8a2e500a8eb931d94b772c90ee1746bd"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-e206d5b79a81fe16410a94c6fc370ce04e13586702e3dbf3889e176c02702946",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-e25e404ff8d45ffb492797c047a328297f986cafc67c8d334c093b40ff07d0dd",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: nenhum link .br-pagination a tem aria-current, no estado inicial (Página 1 com class \"page active\") nem após clicar em Página 2 (class active migra para Página 2, aria-current continua null); .br-pagination [aria-current] = 0 elementos. Os três links têm href=\"#titulo-historico\". A alegação reproduz e corresponde a A-12.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "medição Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html (scripts m2-m4.mjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Após clicar em \"Página 2\", a página atual só se distingue visualmente (classe active); o link não tem aria-current=\"page\".",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>section>div>div:nth-of-type(2)>nav>a:nth-of-type(1)"
+          ],
+          "unitIds": [
+            "U-fa46b3b01953095c45ccd4ee7da378bc7eaab3a1936698faa3f365516a5be29e"
+          ],
+          "citation": "uncertain",
+          "decisao": "defeito-do-gabarito"
+        }
+      ]
+    },
+    {
+      "cardId": "C-f80b45a49a673c278a0dc3d0115d840dc066c13fbc8dc775d1c04720d58d9049",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-fa31b13235579e462b1875290f73f398dbda0c199b4b54f5a07695bb8b21d7d5",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    }
+  ],
+  "_painel": {
+    "formato": "decisoes-painel-1.0.0",
+    "versao": 20,
+    "salvoEm": "2026-10-13T00:18:22.709Z",
+    "revisora": "agente-revisor-opus (cego)",
+    "cartao": "C-ca7736d7fd9ea420919ffd8bac44f332003bf83c43bfa2b8dae9457d68d4d637",
+    "decisao": "defeito-novo-correto",
+    "justificativa": "Medido: com CPF \"123\" e os demais campos válidos, o envio mostra \"Solicitação enviada. Acompanhe o andamento em Solicitações anteriores.\" e #cpf fica sem aria-invalid; não há validação dos 11 dígitos. Nenhuma unidade oferecida cabe (só P-02).",
+    "baseadaEm": {
+      "revisao": "rev-001",
+      "decisoes": "decisoes-0019.json"
+    }
+  }
+}
