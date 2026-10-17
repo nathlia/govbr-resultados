@@ -1,0 +1,569 @@
+{
+  "version": "flow-semantic-1.7.0",
+  "decisions": [
+    {
+      "cardId": "C-8ac53003bafdd4a44cb6e72961e698730fcad5679b37d98eeddd6d36a3c43d10",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: <input id=\"forma-presencial\"> sem for/aria-label/aria-labelledby, input.labels.length=0; o <label>Presencial</label> não tem for nem envolve o input; clicar no texto \"Presencial\" -> checked=false. ariaSnapshot: \"radio\" sem nome. Corresponde a A-09.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O radio \"Presencial\" não tem nome acessível: o <label> não tem atributo for e não envolve o input; clicar no texto \"Presencial\" não marca o radio (checked=false após o clique).",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>fieldset:nth-of-type(1)>div:nth-of-type(1)>input"
+          ],
+          "unitIds": [
+            "U-471fd34bfed8d491133fe60cfe6233aa00117fefb796768495ff7598fa7a6a5e"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito",
+          "verdict": "reference"
+        }
+      ]
+    },
+    {
+      "cardId": "C-d283e47435c75092868055be373b86d929c55d5041d99b94dab915b6ba4bc2c3",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Reproduzido: todos os obrigatórios preenchidos com #cpf=\"123\" -> Enviar -> nenhum aria-invalid e mensagem \"Solicitação enviada. Acompanhe o andamento em Solicitações anteriores.\" apesar do apoio \"Somente números, 11 dígitos.\". Alegação correta; nenhuma candidata oferecida cabe (só P-02, rodapé).",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "CPF '123' foi aceito sem erro, apesar da instrução 'Somente números, 11 dígitos.'; o envio resultou em 'Solicitação enviada.'",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(2)>div:nth-of-type(2)>div>input"
+          ],
+          "unitIds": [],
+          "citation": "supported",
+          "decisao": "defeito-novo-correto",
+          "verdict": "novel"
+        }
+      ]
+    },
+    {
+      "cardId": "C-da8925c7b81cc7c40987ced3fe66b06f6e37dafe7ca4685390debc276a422388",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: digitar \"99/99/2020\" em #data-preferencial e sair do campo -> valor vira \"08/03/2028\"; envio aceito. A conversão (rolagem de dia/mês) é do datetimepicker do DS: o core.js (BRDateTimePicker) chama fp.setDate(valor) no blur e o flatpickr normaliza a data, então a página recebe uma data já válida. Julgamento difícil: a página também não valida formato, mas o que a alegação descreve (alteração silenciosa do valor) é do DS.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Digitar \"99/99/2020\" é convertido silenciosamente em \"08/03/2028\" e aceito, sem mensagem de erro de formato.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(4)>div>div>div>input"
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-c650671d962a11b173b302ce3157dcffe7ee6c00f3a728f2c41d156235d87faa",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: <span tabindex=\"0\" aria-current=\"page\">Solicitar serviço</span> no breadcrumb recebe foco no 6º Tab. É a marcação do item atual do componente Breadcrumb do DS (o exemplo oficial traz o span com tabindex=\"0\" e aria-current=\"page\"; o core.js do BRBreadcrumb manipula esse tabindex). Padrão/interno do breadcrumb do DS, não defeito da página.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O item atual do breadcrumb (texto não interativo) tem tabindex=\"0\" e entra na sequência de Tab (foco visível em um SPAN).",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>nav:nth-of-type(2)>ol>li:nth-of-type(3)>span"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-c34392d0fdd9e62b0cba35850d3a66a65726c2716437fe8cdd7d1b8864250d3a",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: \".br-header, br-header\" = 0; há apenas <header class=\"barra-superior\"> com a marca. Alegação correta. Nenhuma candidata oferecida; cabe a unidade P-* de área de cabeçalho do Template Base (provavelmente P-01).",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Nenhum elemento .br-header nem web component <br-header> no documento (DOM claro e shadow roots abertos).",
+          "subjects": [
+            ""
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "defeito-novo-correto",
+          "verdict": "novel"
+        }
+      ]
+    },
+    {
+      "cardId": "C-3910611ace7b2a6fd88335dcb392db18e375b425d6bb77c74d50921fb90a5e37",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: digitar \"99/99/9999\" em #data-preferencial e sair do campo -> valor vira \"09/03/0007\"; envio aceito sem erro. A conversão silenciosa é do datetimepicker do DS (core.js BRDateTimePicker chama fp.setDate no blur; o flatpickr normaliza dia/mês), então a página recebe uma data sintaticamente válida. Julgamento difícil: a parte secundária (página aceita ano 0007 sem checar plausibilidade) procede como falta de validação da página, mas a alegação principal (conversão sem aviso) é comportamento do DS.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "A data '99/99/9999' foi convertida para '09/03/0007' e aceita; envio concluído com sucesso sem alerta de data inválida.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(4)>div>div>div>input"
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-d190dcb65c4a51e3250bea6b7f39c87f67c19abc5a3709d4d11da2f18e372044",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: \".br-header, br-header\" = 0; o único header é <header class=\"barra-superior\"> contendo só o link .marca-govbr (\"gov.br — página inicial\"). Alegação correta: não há componente Header do DS. Nenhuma candidata oferecida; cabe a unidade P-* de área de cabeçalho do Template Base (camada de página; provavelmente P-01).",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Cabeçalho é um <header class=\"barra-superior\"> só com a marca; não há .br-header nem <br-header>.",
+          "subjects": [
+            ""
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "defeito-novo-correto",
+          "verdict": "novel"
+        }
+      ]
+    },
+    {
+      "cardId": "C-b0fef50c388b0724da8d4866e4527d8e52165e69b036a034ee4705af3b34dac2",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-499a68faf13c2d852ffaeda0de20ca269a536c19c3b07fb4e44f752e42da9089",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: button.upload-button tem aria-hidden=\"true\" (e tabindex=\"1\"); #documentos (input file) tem display:none. Ambos vêm do DS: o core.js (BRUpload._setBehavior) cria o botão com setAttribute(\"aria-hidden\",\"true\"), e o CSS do DS tem \".br-upload input{display:none}\". O <label for=\"documentos\"> da página está correto. Comportamento do componente Upload do DS, não defeito da página. (O tabindex=1, não alegado aqui, seria A-02.)",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O botão 'Selecione o arquivo' tem aria-hidden=\"true\" mas é focável e é o único controle visível; o input file real (#documentos) está com display:none, portanto fora da árvore de acessibilidade e do foco.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(6)>div>button"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-eee0403bd0970e49cc3086895030e8c0d2cee8401c6214f08ceda7b1477efa9b",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-deadc1c968410f1752f45d330e6e4626b8cc402f2a7ae806fb0ccd17ebfd5db6",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: button.upload-button tem aria-hidden=\"true\" e tabindex=\"1\"; axe aponta aria-hidden-focus. O aria-hidden é criado pelo core.js do DS (BRUpload._setBehavior: createElement(\"button\"), setAttribute(\"aria-hidden\",\"true\")) e o botão é focável por ser <button> nativo. A alegação principal (aria-hidden no controle visível) culpa a página por comportamento do DS -> incorreta. COMPOSTA: a parte secundária (tabindex=\"1\", posto pelo script da página) procede e corresponde a A-02, mas não é o objeto da alegação.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Botão \"Selecione o arquivo\" com aria-hidden=\"true\" e focável (tabindex=\"1\"): fica oculto da tecnologia assistiva mas é o controle visível de upload.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(6)>div>button"
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-f8c2b2b666f530c5c44f64605aad371e96030460a13e6ba3198075bf71464f38",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: carregar a página e pressionar Tab uma vez -> activeElement = <button class=\"upload-button\" tabindex=\"1\">; o 2º Tab vai ao link \"Ir para o conteúdo\". O tabindex=1 é posto pelo script da página (upload-button.tabIndex=1). Corresponde a A-02.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O botão de upload tem tabindex=\"1\"; o primeiro Tab desde o carregamento foca esse botão, antes do link 'Ir para o conteúdo' e do restante da página.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(6)>div>button"
+          ],
+          "unitIds": [
+            "U-b3362afca6c4004dc1bfe74c6ea6d81e8a2e500a8eb931d94b772c90ee1746bd"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito",
+          "verdict": "reference"
+        }
+      ]
+    },
+    {
+      "cardId": "C-96c6b84f20d884bf8a6e9bff955582b1fcc575f14d55129cfd4d7fd36ed484de",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: clicar Cancelar abre div.br-modal.dialogo-descarte; getComputedStyle().color = rgb(51, 67, 51) (#334333) no modal, header e título - não é token do DS (texto do DS = #333333). Corresponde a A-03.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "color: rgb(51, 67, 51) (#334333) não corresponde a nenhum token do DS",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>div>div"
+          ],
+          "unitIds": [
+            "U-07d298f4df34c286740799c74d0ebada13b65d950a4b6ad514d6f6e090153e4d"
+          ],
+          "citation": "uncertain",
+          "decisao": "defeito-do-gabarito",
+          "verdict": "reference"
+        }
+      ]
+    },
+    {
+      "cardId": "C-0fad530af09be5769be4bd5ef5c88dc2ee6fb060f00f7935a184a88a4c10c057",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-704aa69226365028c77b04134ebb72d405075cb35a2a10d7a116159bfa0e8d7d",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: o .br-button sem aria-label é um dos botões de seta do calendário (<button class=\"br-button circle small\"><i class=\"fas fa-chevron-...\"></i></button>, não renderizado). Marcação gerada pelo core.js do DS (prevArrow/nextArrow do BRDateTimePicker), não pela página. Os demais .br-button da página têm nome.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Elemento interativo apenas com ícone, sem aria-label (br-button)",
+          "subjects": [
+            "body>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(2)>button"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-6ca0b73aaf2ba333808261afa09853a76f223a8636a69a752956011d2b6f658b",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido com foco por teclado: #servico e #unidade -> outline none, box-shadow none, border rgb(136,136,136) (igual ao estado sem foco); #nome, #cpf, #data-preferencial, #descricao -> box-shadow rgb(194,133,12) 0 0 0 2px e borda rgb(194,133,12). Alegação correta para os dois selects -> as duas A-04 (uma por select).",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Ao receber foco por teclado, os campos de seleção não têm nenhum indicador visível (outline none, box-shadow none, borda inalterada rgb(136,136,136)); os demais campos de texto mostram box-shadow.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(3)>div:nth-of-type(1)>div>div:nth-of-type(1)>div>input",
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(3)>div:nth-of-type(2)>div>div:nth-of-type(1)>div>input"
+          ],
+          "unitIds": [
+            "U-27cc0d4a8e5df91ab64931d3374ec1ea9b51d3e9b519f740b3d4b3c1a6c195d8",
+            "U-a4c4e6005ce86b914ed8b58011b3f8effcee1326c119327ddd4eb9e9e0540a41"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito",
+          "verdict": "reference"
+        }
+      ]
+    },
+    {
+      "cardId": "C-72e9fd50d68616b96676fb80eabd5e47ac4b37f8d060aa4e754e8ddd7dfe70c5",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: <input id=\"forma-presencial\"> sem for/aria-label/aria-labelledby, input.labels.length=0; o <label>Presencial</label> não tem for nem envolve o input. ariaSnapshot do fieldset: \"radio\" sem nome, enquanto \"Por videochamada\" e \"Por telefone\" têm nome. axe: label em #forma-presencial. Corresponde a A-09.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O rádio 'Presencial' tem <label> sem atributo for e fora do input; a árvore de acessibilidade mostra radio sem nome (os outros dois têm nome).",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>fieldset:nth-of-type(1)>div:nth-of-type(1)>input"
+          ],
+          "unitIds": [
+            "U-471fd34bfed8d491133fe60cfe6233aa00117fefb796768495ff7598fa7a6a5e"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito",
+          "verdict": "reference"
+        }
+      ]
+    },
+    {
+      "cardId": "C-add312a900669fd530efb7e3c562a903dd8cf216d4df5802591ecf19592b07c6",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: querySelectorAll(\".br-footer, br-footer\").length=0 e (\"footer,[role=contentinfo]\").length=0 - a página não tem área de rodapé. Alegação correta. Nenhuma candidata oferecida; a unidade que cabe é P-02 (área de rodapé ausente, camada de página).",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "A página não tem rodapé (nenhum .br-footer, <footer> ou contentinfo).",
+          "subjects": [
+            ""
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "defeito-novo-correto",
+          "verdict": "novel"
+        }
+      ]
+    },
+    {
+      "cardId": "C-0f29451b27c91bf7896b04ed8c1b1cc438dc50053040d1263c6372f89b151f0a",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-7dbf817dfea0b59af16e7cb99d5ee275fbb4d92cd83165c1fd07465e1f0556ba",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: os únicos .br-button sem nome acessível são os dois <button class=\"br-button circle small\"><i class=\"fas fa-chevron-left|right\"></i></button> do calendário (não renderizados até abrir). Essa marcação é a prevArrow/nextArrow definida no core.js do DS (BRDateTimePicker, config do flatpickr). Interno do datepicker do DS, não defeito da página. Todos os demais .br-button têm nome (aria-label ou sr-only).",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Elemento interativo apenas com ícone, sem aria-label (br-button)",
+          "subjects": [
+            "body>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(1)>button"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-f4bbff07bd2e775682c66340eac3376005789c2b9a1cb318cbbda6a8007b94f4",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: button#data-preferencial-btn tem aria-hidden=\"true\", tabindex=\"-1\" e tab-index=\"-1\". É o comportamento/marcação do datetimepicker do DS: o core.js do DS (BRDateTimePicker, construtor e onOpen) aplica aria-hidden=\"true\" e tab-index=\"-1\" a todo .br-button do componente, e o exemplo oficial traz o botão com tabindex -1/aria-hidden. O campo #data-preferencial é focável e aceita digitação por teclado (preenchimento \"10/12/2026\" aceito). Comportamento entregue pelo DS, não defeito da página.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O botão visível \"Abrir calendário\" tem aria-hidden=\"true\" e tabindex=\"-1\": inacessível por teclado e oculto de leitores de tela.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(4)>div>div>div>button"
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-0d12f4891b9f45bdcce018c8cb9f3b73f119fbf92dc51cf68eb29dc1a0c39d5a",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: <input id=\"forma-presencial\" type=\"radio\"> sem aria-label/aria-labelledby/title; o <label>Presencial</label> irmão não tem for nem envolve o input (input.labels.length=0); ariaSnapshot do fieldset mostra \"radio\" sem nome (os outros dois têm nome). axe (estado inicial e após envio vazio) reporta label em #forma-presencial. Clicar em \"Presencial\" não marca o radio. Corresponde a A-09.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Form elements must have labels",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>fieldset:nth-of-type(1)>div:nth-of-type(1)>input"
+          ],
+          "unitIds": [
+            "U-471fd34bfed8d491133fe60cfe6233aa00117fefb796768495ff7598fa7a6a5e"
+          ],
+          "citation": "supported",
+          "decisao": "defeito-do-gabarito",
+          "verdict": "reference"
+        }
+      ]
+    },
+    {
+      "cardId": "C-10348d331d44529a147dc9e9f78d7d74853c4a26af29b68b525dd5586e486ebb",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: \".br-footer, br-footer\" = 0 e \"footer,[role=contentinfo]\" = 0 no documento. Alegação correta. Nenhuma candidata oferecida; a unidade que cabe é P-02 (área de rodapé ausente).",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Nenhum elemento .br-footer nem web component <br-footer> no documento (DOM claro e shadow roots abertos).",
+          "subjects": [
+            ""
+          ],
+          "unitIds": [],
+          "citation": "uncertain",
+          "decisao": "defeito-novo-correto",
+          "verdict": "novel"
+        }
+      ]
+    },
+    {
+      "cardId": "C-267c7a91ef0370d11b8f7b13dd58244d9b7061126fc88a158f83fb9a4577056a",
+      "status": "pending",
+      "reviewer": "",
+      "rationale": "",
+      "complete": false,
+      "evidenceRefs": [],
+      "atoms": []
+    },
+    {
+      "cardId": "C-daa508cdf2cc085e675d2c7be634a75400a49336a4b58ef09442de0d8e1d9164",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: os botões de mês anterior/próximo são <button class=\"br-button circle small\"> só com <i class=\"fas fa-chevron-left/right\">, sem aria-label - mas essa marcação vem do core.js do DS (prevArrow/nextArrow do BRDateTimePicker). Internos do datepicker do DS; a página não os define.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "Botões de mês anterior/próximo do calendário só têm ícone, sem aria-label nem texto.",
+          "subjects": [
+            "body>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(1)>button",
+            "body>div:nth-of-type(2)>div:nth-of-type(1)>span:nth-of-type(2)>button"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    },
+    {
+      "cardId": "C-a0f27b29677e621b8edc7639899342c012505783745afe955efc71330d3c5848",
+      "status": "reviewed",
+      "reviewer": "agente-revisor-opus (cego)",
+      "rationale": "Medido: button#data-preferencial-btn tem aria-hidden=\"true\", tabindex=\"-1\" e o atributo inválido tab-index=\"-1\"; não entra na ordem de Tab. Isso é o datetimepicker do DS: o core.js (BRDateTimePicker, construtor e onOpen) põe aria-hidden=\"true\" e tab-index=\"-1\" em todo .br-button do componente, e o exemplo oficial traz o botão com tabindex -1/aria-hidden. O campo #data-preferencial é focável e aceita a data digitada (preenchimento por teclado \"10/12/2026\" aceito no envio), então a função não fica inoperável por teclado. ArrowDown não abrir o calendário também é comportamento do componente do DS. Não é defeito da página.",
+      "complete": true,
+      "evidenceRefs": [
+        "cartão",
+        "página congelada via Playwright headless (scripts m1-m5.cjs)"
+      ],
+      "atoms": [
+        {
+          "id": "a1",
+          "text": "O botão 'Abrir calendário' tem aria-hidden=\"true\" e tabindex=\"-1\" (há também atributo inválido tab-index); Tab não o alcança e ArrowDown no campo de data não abre o calendário.",
+          "subjects": [
+            "body>div:nth-of-type(1)>div>main>form>div:nth-of-type(4)>div>div>div>button"
+          ],
+          "unitIds": [],
+          "citation": "unsupported",
+          "decisao": "incorreta",
+          "verdict": "false"
+        }
+      ]
+    }
+  ]
+}
