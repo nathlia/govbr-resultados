@@ -1,0 +1,573 @@
+{
+ "aviso": "NÃO abrir antes de julgar. O servidor só entrega um caso depois de um julgamento completo gravado para ele.",
+ "casos": {
+  "R-01": {
+   "id": "M-0180",
+   "grupo": "desacordo tela B abas-sem-estado-programatico",
+   "decisoes": [
+    {
+     "texto": "As abas Agendar/Tramitando/Concluídos são <button> sem role=\"tab\"/aria-selected nem aria-current; a aba ativa só é indicada pela classe \"active\" no li.",
+     "decisao": "incorreta",
+     "veredito": "false"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido: botões #AGENDAR/#TRAMITANDO/#HISTORICO sem role tab/aria-selected; a ativa só por li.tab-item.active. É exatamente a marcação canônica do br-tab do DS (nav.tab-nav > ul > li.tab-item.active > button), sem aria-selected, e o core.js não acrescenta aria-selected. Padrão do DS, não defeito da página.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": true
+  },
+  "R-02": {
+   "id": "M-0036",
+   "grupo": "principal tela A A-01",
+   "decisoes": [
+    {
+     "texto": "Ao fechar o diálogo \"Descartar solicitação?\" (Escape ou Continuar preenchendo), o foco vai para o body em vez de voltar ao botão Cancelar que abriu o diálogo.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "A-01"
+   ],
+   "justificativa": "Medido: Cancelar abre o diálogo e o foco vai para \"Continuar preenchendo\"; ao fechar com Escape document.activeElement = BODY; ao fechar por \"Continuar preenchendo\" também BODY. Alegação correta; a unidade que cobre é A-01 (fecha-sem-devolver, estado dialogo-aberto), não oferecida a este cartão.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-03": {
+   "id": "M-0019",
+   "grupo": "principal tela B B-05",
+   "decisoes": [
+    {
+     "texto": "Os dois campos de data (inputs id br-input-8 e br-input-9 no shadow DOM) não têm nome acessível. Os textos \"Data da vistoria:\" e \"até\" são <span> soltos, sem associação; a árvore expõe \"textbox\" sem nome.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-05"
+   ],
+   "justificativa": "input type=date #br-input-8/#br-input-9 sem label/aria-label/aria-labelledby; 'Data da vistoria:' e 'até' são spans soltos; snapshot mostra textbox sem nome. Correto; corresponde à B-05, não oferecida.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-04": {
+   "id": "M-0701",
+   "grupo": "principal tela B B-26",
+   "decisoes": [
+    {
+     "texto": "Os cabeçalhos de coluna da seleção (só com um checkbox) e da coluna de ações não têm texto acessível.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Veredito real: defeito-do-gabarito B-26 para o th de ações (9o th scope=col da lista, vazio: sem texto, aria-label nem filhos; medido no site congelado, Playwright headless 1280x900). O cartão nomeia também o th da caixa (2a coluna, causa atribuída à B-06 pela referência) e o th \"Data\" da tabela do detalhe, que tem texto; o painel recusou B-26 com \"Unsupported subject\". Gravado como novo-correto pela regra do orquestrador.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-05": {
+   "id": "M-0462",
+   "grupo": "principal tela B B-01",
+   "decisoes": [
+    {
+     "texto": "O primeiro link da página é o \"Home\" do breadcrumb (href=\"/portal-mpa\"); não há atalho para pular ao conteúdo principal.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-01"
+   ],
+   "justificativa": "Primeiro <a href> é '/portal-mpa' Home do breadcrumb; 0 âncoras '#…', 0 .br-skiplink; primeiro Tab = botão Menu. Correto e corresponde à B-01, que não foi oferecida em nenhuma cena deste cartão.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-06": {
+   "id": "M-0341",
+   "grupo": "desacordo tela A label-title-only",
+   "decisoes": [
+    {
+     "texto": "Form elements should have a visible label",
+     "decisao": "defeito-do-gabarito",
+     "veredito": "reference"
+    }
+   ],
+   "specsCreditadas": [
+    "A-09"
+   ],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido: após Enviar vazio, axe reporta label-title-only e label em #forma-presencial (o radio ganha aria-describedby=forma-retorno mas segue sem rótulo: input.labels.length=0, sem aria-label/aria-labelledby; o <label>Presencial</label> não tem for). Falta de rótulo visível associado -> A-09.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-07": {
+   "id": "M-0056",
+   "grupo": "principal tela B B-04",
+   "decisoes": [
+    {
+     "texto": "O campo de busca não tem rótulo visível nem <label>. A única indicação é o placeholder \"Pesquise aqui ...\", que some ao digitar.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-04"
+   ],
+   "justificativa": "input#search: sem <label> (labels=0), sem aria-label, sem rotulo visivel; so placeholder \"Pesquise aqui ...\". Correto. Parcial: a parte programatica e a B-04 (nao oferecida); a parte de rotulo visivel persistente nao esta na referencia.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-08": {
+   "id": "M-0317",
+   "grupo": "principal tela B B-08",
+   "decisoes": [
+    {
+     "texto": "Botões de ação das linhas usam a variante 'secondary middle' (não circular) e exibem só ícone (user-plus/user-times, eye, trash, bell), sem rótulo visível.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-08"
+   ],
+   "justificativa": "Medido: os 40 br-button das ações da linha renderizam <button class=\"br-button secondary middle\"> só com ícone (user-plus/user-times, eye, trash, bell), sem classe circle e sem texto visível. A unidade que cabe é B-08, não oferecida neste cartão (só B-03).",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-09": {
+   "id": "M-0771",
+   "grupo": "desacordo tela A data-invalida-normalizada",
+   "decisoes": [
+    {
+     "texto": "A data '31/02/2026' foi aceita e convertida silenciosamente para 03/03/2026 (data passada em relação a 12/10/2026), e o envio teve sucesso sem erro.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido: '31/02/2026' em #data-preferencial vira '03/03/2026' ao sair do campo; Enviar com demais campos válidos -> 'Solicitação enviada.', sem erro nem aria-invalid na data. 03/03/2026 é anterior a 12/10/2026 e foi aceita. Conversão pelo flatpickr do DS; aceitação sem validação é da página. Alegação correta; nenhuma candidata (só P-02) corresponde.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-10": {
+   "id": "M-0500",
+   "grupo": "principal tela B B-02",
+   "decisoes": [
+    {
+     "texto": "A página não tem <h1>; o título \"Vistorias\" é <h2> e é o único cabeçalho da página.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-02"
+   ],
+   "justificativa": "Lista: único cabeçalho <h2>Vistorias</h2>, 0 <h1>. Correto e é a B-02, que não foi oferecida em nenhuma cena deste cartão.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-11": {
+   "id": "M-0287",
+   "grupo": "desacordo tela B paginacao-sem-aria-current",
+   "decisoes": [
+    {
+     "texto": "A página atual é indicada só pela classe \"active\"; o link não tem aria-current=\"page\".",
+     "decisao": "incorreta",
+     "veredito": "false"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido: a.page.active sem aria-current. Mas é o padrão do próprio DS: os exemplos canônicos do br-pagination marcam a página atual só com a classe active (sem aria-current). Comportamento do DS, não defeito da página.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": true
+  },
+  "R-12": {
+   "id": "M-0482",
+   "grupo": "principal tela B B-25",
+   "decisoes": [
+    {
+     "texto": "O title do documento é apenas \"PNIP\" e não muda para a tela de Vistorias.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-25"
+   ],
+   "justificativa": "Medido: document.title = 'PNIP' na lista e nos detalhes, não muda com a rota. Correto; a unidade que cabe é a B-25, não oferecida neste cartão (só B-01, que não cabe).",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-13": {
+   "id": "M-0636",
+   "grupo": "principal tela B B-07",
+   "decisoes": [
+    {
+     "texto": "O botão com ícone de olho em cada linha não tem nome acessível: o button interno tem aria-label=\"\" e só o ícone com aria-hidden; o host não tem title nem label.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-07"
+   ],
+   "justificativa": "Medido: o br-button icon='eye' de cada linha renderiza <button aria-label=''> sem title (host também sem title), só <i aria-hidden>; nome '' na árvore do Chromium; axe button-name falha nos 10 botões de olho. Correto; a unidade que cabe é a B-07, não oferecida neste cartão (só B-03, que não cabe).",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-14": {
+   "id": "M-0198",
+   "grupo": "desacordo tela A data-invalida-normalizada",
+   "decisoes": [
+    {
+     "texto": "Data inexistente '31/02/2027' foi aceita sem erro e substituída silenciosamente por '03/03/2027' no campo; envio concluído com sucesso.",
+     "decisao": "incorreta",
+     "veredito": "false"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido: digitar 31/02/2027 em #data-preferencial e sair do campo => valor vira 03/03/2027 antes do envio; envio conclui. A troca silenciosa é feita pelo flatpickr do core.js do DS (allowInput + setDate no blur, rollover de Date), não pela página; quando o envio ocorre o valor já é uma data válida. Comportamento do DS, não defeito da página. Decisão difícil, para ratificação.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": true
+  },
+  "R-15": {
+   "id": "M-0729",
+   "grupo": "desacordo tela B paginacao-sem-aria-current",
+   "decisoes": [
+    {
+     "texto": "A página atual da paginação é indicada só visualmente (classe \"active\"), sem aria-current=\"page\".",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido: a.page.active da página atual com aria-current=null (nenhum link da paginação tem aria-current); href=javascript:void(0).",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-16": {
+   "id": "M-0127",
+   "grupo": "desacordo tela B abas-sem-estado-programatico",
+   "decisoes": [
+    {
+     "texto": "As abas Agendar/Tramitando/Concluídos são <button> sem role=\"tab\" e sem aria-selected/aria-current; a aba ativa só é indicada pela classe \"active\" no li (visual).",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido: abas são <button id=AGENDAR/TRAMITANDO/HISTORICO> em li.tab-item dentro de nav \"Abas de Navegação Simples\"; nenhum role=tab, aria-selected ou aria-current; a ativa só tem a classe \"active\" no <li>. A marcação é escrita pela página (DOM claro, segue o exemplo do br-tab), e o estado não é exposto. Sem unidade candidata.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "R-17": {
+   "id": "M-0319",
+   "grupo": "desacordo tela A label-title-only",
+   "decisoes": [
+    {
+     "texto": "Form elements should have a visible label",
+     "decisao": "duplicada",
+     "veredito": "reference"
+    }
+   ],
+   "specsCreditadas": [
+    "A-09"
+   ],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Mesma execução (linha de base), mesmo elemento #forma-presencial e mesmo estado do cartão C-beb72d8b955a (axe label). label-title-only diz o mesmo: o radio não tem rótulo associado (label sem for, sem aria-label/title). Medido: label do Presencial sem for; clique no texto não marca o radio. Mesma afirmação → duplicada (A-09).",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false
+  },
+  "N-01": {
+   "id": "S-105677517f",
+   "grupo": "amostra nível 3",
+   "decisoes": [
+    {
+     "texto": "O CPF '123' (3 dígitos) é aceito: o formulário foi enviado com a mensagem 'Solicitação enviada.', apesar do texto de apoio 'Somente números, 11 dígitos.'",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido: com CPF \"123\" e os demais campos válidos, o envio mostra \"Solicitação enviada. Acompanhe o andamento em Solicitações anteriores.\" e #cpf fica sem aria-invalid; não há validação dos 11 dígitos. Nenhuma unidade oferecida cabe (só P-02).",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "o cartão inteiro",
+      "classe": "erro-normativo",
+      "vinculo": "nenhum",
+      "origem": "pagina",
+      "nota": "Medido: CPF '123' com os demais campos válidos → 'Solicitação enviada.'; nenhum erro detectado → 3.3.1 não se aplica (P3 a)."
+     }
+    ],
+    "motivo": null
+   }
+  },
+  "N-02": {
+   "id": "M-0811",
+   "grupo": "desacordo tela A data-invalida-normalizada",
+   "decisoes": [
+    {
+     "texto": "Data '99/99/9999' foi aceita: nenhum erro de formato; envio concluído com sucesso, apesar da orientação 'Informe no formato dd/mm/aaaa.'",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido com Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html. Preenchi #data-preferencial com 99/99/9999: o datepicker do DS reescreveu o valor para 09/03/0007 e o envio foi aceito (\"Solicitação enviada...\"), sem aria-invalid nem erro. A página não valida a data (aceita ano 0007). Correto em substância, com ressalva: o valor enviado não é literalmente 99/99/9999 e sim a normalização do flatpickr.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "o cartão inteiro",
+      "classe": "erro-normativo",
+      "vinculo": "nenhum",
+      "origem": "pagina",
+      "nota": "Fato medido (99/99/9999 → 09/03/0007; 99/99/2020 → 08/03/2028; sem aria-invalid nem mensagem). 3.3.1 pressupõe erro detectado; nada é detectado → erro normativo (R11a, P3 a)."
+     }
+    ],
+    "motivo": "entrada diferente (99/99/…, fora de faixa, não 31/02); não alega a conversão, só o aceite"
+   }
+  },
+  "N-03": {
+   "id": "M-0441",
+   "grupo": "desacordo tela B abas-sem-estado-programatico",
+   "decisoes": [
+    {
+     "texto": "A aba ativa (\"Tramitando\"; também observado em \"Agendar\" e \"Concluídos\") só é indicada pela classe \"active\" no <li>; os botões não têm aria-selected, aria-current nem role=tab.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Medido no site congelado (Playwright headless, 1280x900). nav \"Abas de Navegação Simples\": <li class=\"tab-item active\"><button id=\"TRAMITANDO\">; nenhum botão tem role=tab, aria-selected nem aria-current. Estado só pela classe.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "o cartão inteiro",
+      "classe": "violacao-pagina",
+      "vinculo": "nenhum",
+      "origem": "pagina-copiando-exemplo-ds",
+      "nota": "Medido: depois de clicar em Agendar, só li.tab-item.active muda; nenhum aria-selected/aria-current/texto oculto (R6 b falha). Marcação do exemplo br-tab copiada na página."
+     }
+    ],
+    "motivo": "norma diferente (WCAG 1.3.1)"
+   }
+  },
+  "N-04": {
+   "id": "M-0809",
+   "grupo": "principal tela B B-01",
+   "decisoes": [
+    {
+     "texto": "Não há links de salto (\"Ir para o conteúdo\", \"Ir para o menu\" etc.): o primeiro Tab vai direto ao botão \"Menu\" do cabeçalho.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-01"
+   ],
+   "justificativa": "Medido: nenhum a[href^=\"#\"] nem .br-skiplink; o primeiro Tab vai ao botão Menu e o primeiro link é o \"Home\" (href=\"/portal-mpa\"). Corresponde à B-01, que não está entre as candidatas deste cartão.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "o cartão inteiro",
+      "classe": "violacao-pagina",
+      "vinculo": "B-01",
+      "origem": "pagina",
+      "nota": "Medido: nenhuma âncora interna nem .br-skiplink; 1º Tab = botão Menu (#navigation); 1º link alcançado = Home do breadcrumb."
+     }
+    ],
+    "motivo": "alegação, seletor (body) e receita diferentes: não fala do link Home; 1º Tab vai ao Menu"
+   }
+  },
+  "N-05": {
+   "id": "M-0427",
+   "grupo": "principal tela B B-05",
+   "decisoes": [
+    {
+     "texto": "Os dois campos de data (input type=date no shadow DOM) não têm label, aria-label nem aria-labelledby. \"Data da vistoria:\" e \"até\" são spans soltos, e a árvore de acessibilidade mostra textbox sem nome.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-05"
+   ],
+   "justificativa": "Medido: #br-input-8 e #br-input-9 (date) sem label/aria-label/aria-labelledby; \"Data da vistoria:\" e \"até\" não associados; axe label falha. A unidade que cabe é B-05, não oferecida neste cartão (sujeitos são os hospedeiros br-input).",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "o cartão inteiro",
+      "classe": "violacao-pagina",
+      "vinculo": "B-05",
+      "origem": "pagina",
+      "nota": "Medido: 'Data da vistoria:' e 'até' são <span> irmãos sem associação; os dois br-input type=date sem label."
+     }
+    ],
+    "motivo": "norma diferente (e-MAG 6.2)"
+   }
+  },
+  "N-06": {
+   "id": "M-0772",
+   "grupo": "linha de base/secundario tela B linha-de-base:axe B-02",
+   "decisoes": [
+    {
+     "texto": "Page should contain a level-one heading",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "B-02"
+   ],
+   "justificativa": "Medido na lista: o único título é <h2> 'Vistorias'; nenhum h1 no DOM claro nem shadow; axe page-has-heading-one falha. Correto; a unidade que cabe é a B-02, não oferecida neste cartão.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "o cartão inteiro",
+      "classe": "erro-normativo",
+      "vinculo": "nenhum",
+      "origem": null,
+      "nota": "Medido: único título H2 'Vistorias'. A regra invocada é best-practice do axe (R13). Nota de política: a referência B-02 sustenta o mesmo fato em e-MAG 1.3/WCAG 1.3.1; se a norma implícita for aceita, vira violação de origem página vinculada à B-02."
+     }
+    ],
+    "motivo": null
+   }
+  },
+  "N-07": {
+   "id": "M-0260",
+   "grupo": "linha de base/secundario tela B linha-de-base:axe B-16",
+   "decisoes": [
+    {
+     "texto": "Images must have alternative text",
+     "decisao": "evidencia-insuficiente",
+     "veredito": "unresolved"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Veredito real: correta para o ícone do Sair = B-16 (axe image-alt em detalhe-menu: <img src=\"../../../assets/images/exit-icon.png\"> sem atributo alt). O painel recusou defeito-do-gabarito com \"Unsupported subject\" porque o cartão também nomeia o logo do br-header (shadow, alt=\"logo\", interno do DS, não acusado na minha medição), que B-16 não cobre. Salvo como evidência insuficiente pela regra do painel.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "ícone do Sair (button>img sem alt)",
+      "classe": "violacao-pagina",
+      "vinculo": "B-16",
+      "origem": "pagina",
+      "nota": "Medido no menu do avatar aberto: <img src=exit-icon.png> sem alt."
+     },
+     {
+      "parte": "logo do br-header (shadow)",
+      "classe": "erro-factual",
+      "vinculo": null,
+      "origem": "ds-entregue",
+      "nota": "Medido: a img do br-header tem alt=\"logo\"; image-alt não falha nela. O seletor 'img' resolveu os dois elementos (R8)."
+     }
+    ],
+    "motivo": null
+   }
+  },
+  "N-08": {
+   "id": "M-0463",
+   "grupo": "principal tela B B-04",
+   "decisoes": [
+    {
+     "texto": "O campo de pesquisa só tem placeholder \"Pesquise aqui ...\" como rótulo; não há label visível nem aria-label.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [],
+   "justificativa": "Veredito real: defeito-do-gabarito B-04; o painel recusa (\"Unsupported subject\") porque o cartão nomeia também o host br-input#search/pnip-search; gravado como novo-correto pela regra do orquestrador. Medido: input#search no shadow do br-input#search sem <label>, aria-label ou aria-labelledby; o nome vem só do placeholder \"Pesquise aqui ...\".",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "o cartão inteiro",
+      "classe": "violacao-pagina",
+      "vinculo": "B-04",
+      "origem": "pagina",
+      "nota": "br-input#search sem atributo label, só placeholder; host e input interno são o mesmo sujeito funcional (R8). Origem página inferida: a página instancia o br-input sem rótulo."
+     }
+    ],
+    "motivo": "norma diferente (e-MAG 6.2 × WCAG 3.3.2) e sujeito diferente (host + input interno)"
+   }
+  },
+  "N-09": {
+   "id": "M-0051",
+   "grupo": "principal tela A A-01",
+   "decisoes": [
+    {
+     "texto": "Ao fechar o modal 'Descartar solicitação?' (por Escape ou por 'Continuar preenchendo'), o foco vai para o body, não volta ao botão Cancelar que abriu o modal.",
+     "decisao": "defeito-novo-correto",
+     "veredito": "novel"
+    }
+   ],
+   "specsCreditadas": [],
+   "specsNomeadasNaJustificativa": [
+    "A-01"
+   ],
+   "justificativa": "Medido com Playwright headless 1280x900 em http://127.0.0.1:3300/solicitacao.html. Cancelar → Esc: activeElement = BODY; Cancelar → \"Continuar preenchendo\": BODY. Foco não volta a Cancelar. Correto; a unidade que cabe é A-01 (fecha-sem-devolver), não oferecida neste cartão.",
+   "revisor": "revisor original (LLM, cego)",
+   "provenienciaDs": false,
+   "rodada": 2,
+   "revisorNovo": {
+    "atomos": [
+     {
+      "parte": "o cartão inteiro",
+      "classe": "violacao-pagina",
+      "vinculo": "A-01",
+      "origem": "pagina",
+      "nota": "Medido: depois de fechar o diálogo (Esc, Continuar preenchendo, X, Descartar) document.activeElement = BODY e o Tab seguinte não cai em nenhum controle da página."
+     }
+    ],
+    "motivo": "evidência diferente: medida document.activeElement=BODY (o representante só tem captura) — a evidência toca o campo decisivo (o fato)"
+   }
+  }
+ }
+}
