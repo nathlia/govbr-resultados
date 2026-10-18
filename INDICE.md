@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-18T08:56:01Z | ensaio | ensaio-trio-01 | solicitacao | com | — | passed | passed | used-adherent | accepted | — | confirmado · 19e3b6e03328 | `ensaios/ensaio-trio-01/2026-10-18T08-56-01Z__solicitacao__roteirizado__com__rep-01__20261018-085601-solicitacao-com-0979` |
+| 2026-10-18T08:54:54Z | linha de base | ensaio-trio-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-01/solicitacao/lb-20261018-085454-solicitacao-5ac6c6` |
 | 2026-10-18T08:52:07Z | ensaio | ensaio-trio-01 | solicitacao | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 3e34b9915345 | `ensaios/ensaio-trio-01/2026-10-18T08-52-07Z__solicitacao__roteirizado__sem__rep-01__20261018-085207-solicitacao-sem-1775` |
 | 2026-10-18T08:51:44Z | linha de base | ensaio-trio-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-01/solicitacao/lb-20261018-085144-solicitacao-c5ff53` |
 | 2026-10-12T14:30:09Z | execução | t7b-sonnet-tela-a-01 | solicitacao | com | claude-sonnet-5-5 | passed | passed | unverified | accepted | — | confirmado · 9cdd23b8f3c7 | `execucoes/t7b-sonnet-tela-a-01/2026-10-12T14-30-09Z__solicitacao__sonnet__com__rep-10__20261012-143009-solicitacao-com-b52e` |
