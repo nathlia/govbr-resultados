@@ -1,0 +1,280 @@
+{
+  "formato": "nat74-medidas-t2-1.0.0",
+  "ferramenta": {
+    "playwright": "1.61.1",
+    "chromium": "149.0.7827.55",
+    "node": "v25.2.1",
+    "headless": true,
+    "viewport": "1280x900"
+  },
+  "site": {
+    "sha256": "7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227",
+    "manifesto": "7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227"
+  },
+  "ds": {
+    "versao": "3.4.1",
+    "css": "pnip-mock/node_modules/@govbr-ds/core/dist/core.min.css",
+    "sha256": "cf176bd46bb3f8032991ef5c79ffe05997cd72d21951f287a6270fd05ed266aa"
+  },
+  "regras": {
+    "R2-alvo": "alegação de AUSÊNCIA de nome (regex fixa sobre o observado; papel/estado não contam) ligada a um alvo pelo próprio texto: #swal2-select → selectAtribuir; .br-tag + chip de filtro (painel/filtro aplicado/cidade) → chipFiltro; .br-tag + chip de data (Exibindo vistorias/data/período) → chipData",
+    "R2-fato": "nome calculado pelo Chromium (CDP Accessibility.getPartialAXTree), sem os caracteres de uso privado (Unicode Co, U+E000–U+F8FF) (glifo de fonte de ícone, ex.: fa-times sem aria-hidden dá U+F00D) e sem espaços, vazio em TODOS os elementos do alvo → fato verdadeiro e a norma de nome (4.1.2 / button-name / select-name) aplicável e violada; algum nome não vazio → erro normativo (R2, D-113); alvo não alcançado → sem decisão",
+    "R4-alvo": "regra de token citada + alvo pelo texto: token-radius + avatar-menu/Sair → sairRaio; token-spacing + Limpar/pnip-filter-panel → limparMargem; token-spacing + Buscar/search → buscarMargem",
+    "R4-fato": "o valor alegado (px) tem de ser o computado; diferente → erro factual (R1)",
+    "R10": "estado declarado: o raio do Sair só aparece com o menu do avatar aberto; cartão cuja cena não é a do menu aberto (detalhe-menu) → evidência indisponível (R10; é o exemplo da própria política, C-96b5c3b1)",
+    "R4-norma": "declaração vencedora (CDP) ou atributo style escrito literalmente nos bytes da página e ausente da folha oficial do DS → origem pagina e a regra de token se aplica (R4/D-52); valor fora da escala do DS 3.4.1 → violada; declaração da folha oficial do DS → ds-entregue e erro normativo (R4)",
+    "origem": "medir-origem.mjs (NAT-73) R2: escrito literalmente nos bytes da página → pagina (biblioteca de terceiros empacotada pela página conta como página: não é o DS); não achado → indeterminada",
+    "sem-decisao": "o que a medida não fecha (alegação que não é de nome ausente, alvo não identificado ou não alcançado) não ganha veredito: vai à T3"
+  },
+  "nomes": {
+    "chipFiltro": {
+      "receita": [
+        "abrir a tela",
+        "clicar no filtro \"Cidade\"",
+        "clicar na opção \"Barra Nova\""
+      ],
+      "seletor": "pnip-filter-panel .br-tag button",
+      "alcancado": true,
+      "elementos": [
+        {
+          "papel": "button",
+          "nome": "",
+          "codigos": [
+            "U+F00D"
+          ],
+          "nomeUtil": "",
+          "outer": "<button type=\"button\" class=\"br-button inverted circle\"><i class=\"fas fa-times\"></i></button>"
+        }
+      ],
+      "todosSemNome": true
+    },
+    "chipData": {
+      "receita": [
+        "abrir a tela",
+        "clicar no filtro \"Cidade\"",
+        "clicar na opção \"Barra Nova\"",
+        "preencher a primeira data com 2026-03-25",
+        "Tab"
+      ],
+      "seletor": "pnip-propesc-vistorias .br-tag.interaction:not(pnip-filter-panel .br-tag) button",
+      "alcancado": true,
+      "elementos": [
+        {
+          "papel": "button",
+          "nome": "",
+          "codigos": [],
+          "nomeUtil": "",
+          "outer": "<button type=\"button\" class=\"br-button inverted circle\"><i aria-hidden=\"true\" class=\"fas fa-times\"></i></button>"
+        }
+      ],
+      "todosSemNome": true
+    },
+    "selectAtribuir": {
+      "receita": [
+        "abrir a tela",
+        "clicar em \"Atribuir vistoriador\" da primeira linha"
+      ],
+      "seletor": "#swal2-select",
+      "alcancado": true,
+      "elementos": [
+        {
+          "papel": "combobox",
+          "nome": "",
+          "codigos": [],
+          "nomeUtil": "",
+          "outer": "<select id=\"swal2-select\" class=\"swal2-select\" style=\"display: flex;\"><option value=\"7002\">Elisa Guedes Amaral</option><option value=\"7004\">Heitor Quintela Nogueira</option><option value=\"7005\">Iara Sampaio Teixeira</opt"
+        }
+      ],
+      "todosSemNome": true
+    }
+  },
+  "estilos": {
+    "sairRaio": {
+      "receita": [
+        "abrir a tela",
+        "clicar no avatar (#avatar-dropdown-trigger)"
+      ],
+      "seletor": "#avatar-menu > button",
+      "propriedade": "border-radius",
+      "alcancado": true,
+      "computado": "20px",
+      "atributoStyle": null,
+      "vencedora": {
+        "seletor": ".dropdown-button[_ngcontent-%ID%-c16]",
+        "valor": "20px",
+        "origem": "regular",
+        "folha": ""
+      },
+      "literalNaPagina": [
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/main.f5ed857cd455b2d4.js",
+          "sha256": "54b559ea7c3459174d4d9d66a3ebd36d4c214bb00e9ec0da95ba5a51a4cc3eec",
+          "trecho": ".dropdown-email[_ngcontent-%COMP%]{font-size:12px;font-weight:500;color:#1351b4}.dropdown-button[_ngcontent-%COMP%]{width:120px;height:39px;border:1px solid #1351B4;border-radius:20px;padding:8px 24px;text-align:center;cursor:pointer;float:rig"
+        }
+      ],
+      "literalNoDS": 0,
+      "valorPx": 20,
+      "naEscala": false,
+      "escala": [
+        "0",
+        "16px",
+        "4px",
+        "8px",
+        "999em"
+      ],
+      "semReceita": {
+        "presente": true,
+        "visivel": false
+      }
+    },
+    "limparMargem": {
+      "receita": [
+        "abrir a tela"
+      ],
+      "seletor": "pnip-filter-panel button.br-button.secondary",
+      "propriedade": "margin-top",
+      "alcancado": true,
+      "computado": "-5px",
+      "atributoStyle": "margin-top: -5px;",
+      "vencedora": {
+        "seletor": "[atributo style]",
+        "valor": "-5px",
+        "origem": "inline",
+        "folha": null
+      },
+      "literalNaPagina": [
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/1543.da233086adb68f1b.js",
+          "sha256": "5b423cc216edcf5e2968d0bd66dd91307e926039ac76f8df441343d41c95b7b7",
+          "trecho": "[4,\"ngFor\",\"ngForOf\"],[1,\"col-auto\",\"mb-2\",\"ml-2\"],[1,\"br-button\",\"secondary\",2,\"margin-top\",\"-5px\",3,\"disabled\",\"click\"],[1,\"mb-2\"],[\"class\",\"col-auto px-1 mb"
+        },
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/styles.0756bc3ea9d8bc23.css",
+          "sha256": "22f6e21293d3374c6e57f6d2bc789a6cc560decd70bf733ac609ccc95bb9c8ac",
+          "trecho": "t .note-tooltip-arrow{border-right-color:#000;border-width:5px 5px 5px 0;left:0;margin-top:-5px;top:50%}.note-tooltip.left .note-tooltip-arrow{border-left-"
+        }
+      ],
+      "literalNoDS": 0,
+      "valorPx": -5,
+      "naEscala": false,
+      "escala": [
+        "0px",
+        "4px",
+        "8px",
+        "12px",
+        "16px",
+        "20px",
+        "24px",
+        "28px",
+        "32px",
+        "36px",
+        "40px",
+        "44px",
+        "48px",
+        "52px",
+        "56px",
+        "60px",
+        "64px",
+        "68px",
+        "72px",
+        "76px",
+        "80px",
+        "84px"
+      ]
+    },
+    "buscarMargem": {
+      "receita": [
+        "abrir a tela"
+      ],
+      "seletor": "pnip-search-table-utils button[aria-label=\"Buscar\"]",
+      "propriedade": "margin-top",
+      "alcancado": true,
+      "computado": "-38px",
+      "atributoStyle": "margin-top: -38px;",
+      "vencedora": {
+        "seletor": "[atributo style]",
+        "valor": "-38px",
+        "origem": "inline",
+        "folha": null
+      },
+      "literalNaPagina": [
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/main.f5ed857cd455b2d4.js",
+          "sha256": "54b559ea7c3459174d4d9d66a3ebd36d4c214bb00e9ec0da95ba5a51a4cc3eec",
+          "trecho": "6);function u(A,N){1&A&&(o.TgZ(0,\"button\",6),o._UZ(1,\"i\",7),o.qZA()),2&A&&o.Udp(\"margin-top\",\"-38px\")}function w(A,N){if(1&A){const G=o.EpF();o.TgZ(0,\"button\",8"
+        }
+      ],
+      "literalNoDS": 0,
+      "valorPx": -38,
+      "naEscala": false,
+      "escala": [
+        "0px",
+        "4px",
+        "8px",
+        "12px",
+        "16px",
+        "20px",
+        "24px",
+        "28px",
+        "32px",
+        "36px",
+        "40px",
+        "44px",
+        "48px",
+        "52px",
+        "56px",
+        "60px",
+        "64px",
+        "68px",
+        "72px",
+        "76px",
+        "80px",
+        "84px"
+      ]
+    }
+  },
+  "origem": {
+    "chips": {
+      "origem": "pagina",
+      "quemEscreve": "template da aplicação (Angular) escreve <button class=\"br-button inverted circle\"><i class=\"fas fa-times\"> sem nome",
+      "trechos": [
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/1543.da233086adb68f1b.js",
+          "sha256": "5b423cc216edcf5e2968d0bd66dd91307e926039ac76f8df441343d41c95b7b7",
+          "trecho": "eraction\",\"small\"],[1,\"text-truncate\",2,\"max-width\",\"150px\"],[\"type\",\"button\",1,\"br-button\",\"inverted\",\"circle\",3,\"click\"],[1,\"fas\",\"fa-times\"],[\"class\",\"col-auto mb-2\",4,"
+        },
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/3343.c8e1230df866be65.js",
+          "sha256": "dad206358a8594c0d4006139a0445ce0fc89d0231f5f0fc8567682987731abf4",
+          "trecho": "raction\",\"small\"],[\"aria-hidden\",\"true\"],[1,\"text-truncate\"],[\"type\",\"button\",1,\"br-button\",\"inverted\",\"circle\",3,\"click\"],[\"aria-hidden\",\"true\",1,\"fas\",\"fa-times\"],[1,\"br"
+        },
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/4929.62736bcca3182c7a.js",
+          "sha256": "60853f4673c0292bc108d2c5a87850c56092a5cc27231d3aa6e82e711f74bafd",
+          "trecho": "raction\",\"small\"],[\"aria-hidden\",\"true\"],[1,\"text-truncate\"],[\"type\",\"button\",1,\"br-button\",\"inverted\",\"circle\",3,\"click\"],[\"aria-hidden\",\"true\",1,\"fas\",\"fa-times\"],[1,\"br"
+        },
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/5945.4197e799b8b0c8b9.js",
+          "sha256": "10e14ffd69486644a6c0b5c7971a377f145f6ba0b97f3faed562915ddb60a161",
+          "trecho": "raction\",\"small\"],[\"aria-hidden\",\"true\"],[1,\"text-truncate\"],[\"type\",\"button\",1,\"br-button\",\"inverted\",\"circle\",3,\"click\"],[\"aria-hidden\",\"true\",1,\"fas\",\"fa-times\"],[1,\"br"
+        }
+      ]
+    },
+    "selectAtribuir": {
+      "origem": "pagina",
+      "quemEscreve": "SweetAlert2 empacotado no bundle da página cria o <select class=\"swal2-select\"> (biblioteca de terceiros, não o DS)",
+      "trechos": [
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/main.f5ed857cd455b2d4.js",
+          "sha256": "54b559ea7c3459174d4d9d66a3ebd36d4c214bb00e9ec0da95ba5a51a4cc3eec",
+          "trecho": "iner) textarea:where(.swal2-textarea),div:where(.swal2-container) select:where(.swal2-select),div:where(.swal2-container) div:where(.swal2-radio),div:wh"
+        },
+        {
+          "arquivo": "govbr-resultados/sites/7438081cbc1d27f7a591dbe6e85d0d745fe3b84658f1e8c268c03737d10f5227/site/pnip/styles.0756bc3ea9d8bc23.css",
+          "sha256": "22f6e21293d3374c6e57f6d2bc789a6cc560decd70bf733ac609ccc95bb9c8ac",
+          "trecho": "6em .3em!important;justify-content:left!important}.swal2-textarea,.swal2-input,.swal2-select,swal2-radio{margin:0 1.2em .3em!important}.swal2-close{colo"
+        }
+      ]
+    }
+  }
+}

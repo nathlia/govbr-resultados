@@ -2,7 +2,7 @@
   "formato": "nat74-t3-respostas-1.0.0",
   "lote": "lote-02",
   "loteSha256": "bf27b87aee4ab7ed9c73926986d1bd0f8c12bc253543872ff8bcb980677050c0",
-  "juiz": "assistente, subagente novo e cego (Opus 5.5)",
+  "juiz": "assistente, subagente novo e cego (Opus 5.5) · adjudicação informada E14 (15 resposta(s) substituída(s); ver desempate/sobrescritas.json)",
   "respostas": [
     {
       "id": "T3-22a797d676",
@@ -21,10 +21,10 @@
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
-        "A-01",
-        "NORMA"
+        "S1",
+        "A-01"
       ],
-      "justificativa": "OBS descreve o foco caindo em <body> ao fechar o diálogo de descarte com Esc, o mesmo fato medido que a A-01 registra (foco não volta a Cancelar). WCAG 2.4.3 (nível A) cobre a devolução do foco ao gatilho ao fechar um diálogo, e ela não ocorre."
+      "justificativa": "OBS descreve, com passos concretos, o foco indo ao body ao fechar o diálogo S1 por Esc ou Continuar preenchendo, em vez de voltar a Cancelar; A-01 registra exatamente esse fato como medido na tela (E1 e E2 ausentes, sem F). Pela leitura, isso viola 2.4.3, e o fato é o do defeito A-01 no mesmo diálogo e estado; a resposta anterior coincide."
     },
     {
       "id": "T3-231e95baeb",
@@ -83,13 +83,13 @@
         "naoViolaNormaObrigatoria": "sim",
         "qualidade": "valida"
       },
-      "forcaDoVeredito": "medido",
+      "forcaDoVeredito": "inferido",
       "evidencias": [
         "ESP",
         "F1",
-        "VR"
+        "S1"
       ],
-      "justificativa": "F1 mede os 42 dias com tabindex=1 (fato registrado no VR). ESP propõe retirar o tabindex positivo e usar roving tabindex (um dia com 0, demais -1), correção específica para a grade do calendário e que não viola norma obrigatória."
+      "justificativa": "ESP corrige o tabindex positivo dos dias medido em F1 com roving tabindex (um dia em 0, os demais em -1), correção específica do calendário que não viola norma obrigatória."
     },
     {
       "id": "T3-24b5a10e77",
@@ -145,13 +145,19 @@
         "violada": "nao"
       },
       "vinculo": "nenhum",
-      "sugestao": "nao-perguntado",
+      "sugestao": {
+        "trataOFato": "sim",
+        "especificaDoSujeito": "sim",
+        "naoViolaNormaObrigatoria": "sim",
+        "qualidade": "valida"
+      },
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
-        "S1"
+        "S1",
+        "B-01"
       ],
-      "justificativa": "OBS descreve um botão Menu de br-header (S1) cujo data-target #main-navigation não existe e que nada abre; nenhum fato medido contradiz, mas o cartão não traz evidência. Um botão inoperante sem alvo não implica norma pública (não há estado a expor), e nenhum defeito da lista B trata do botão Menu."
+      "justificativa": "OBS descreve que o botão Menu de S1 aponta para #main-navigation inexistente e o clique não abre menu; sem evidência própria, o fato é inferido do texto. Pela leitura, a alegação não implica norma pública de acessibilidade (controle sem função para todos os usuários), e nenhum defeito da lista descreve o botão Menu — B-01 é o salto para o conteúdo, outro fato."
     },
     {
       "id": "T3-257a85ee90",
@@ -214,13 +220,13 @@
         "naoViolaNormaObrigatoria": "sim",
         "qualidade": "valida"
       },
-      "forcaDoVeredito": "medido",
+      "forcaDoVeredito": "inferido",
       "evidencias": [
         "ESP",
         "F1",
         "VR"
       ],
-      "justificativa": "F1 mede os 42 dias com tabindex=1, o fato do VR. ESP pede tabindex não positivo com 0/-1 em roving tabindex, solução própria de uma grade de calendário (não só o texto de ajuda da regra) e que não viola norma obrigatória."
+      "justificativa": "ESP remove o tabindex positivo que F1 mede nos 42 dias e propõe o padrão próprio de grade de datas (0/-1 com roving tabindex), que mantém os dias operáveis por teclado; não é só o texto da regra."
     },
     {
       "id": "T3-2647eb60bf",
@@ -251,23 +257,31 @@
       "norma": {
         "id": "citada",
         "forca": "obrigatorio",
-        "aplicabilidade": "aplica",
-        "violada": "sim"
+        "aplicabilidade": "nao-aplica",
+        "violada": "nao"
       },
       "vinculo": {
         "spec": "B-07",
         "relacao": "direta"
       },
-      "sugestao": "nao-perguntado",
+      "sugestao": {
+        "trataOFato": "sim",
+        "especificaDoSujeito": "nao",
+        "naoViolaNormaObrigatoria": "sim",
+        "qualidade": "generica"
+      },
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
         "S1",
+        "NORMA",
+        "ESP",
         "B-07",
         "B-08",
-        "NORMA"
+        "B-11",
+        "B-19"
       ],
-      "justificativa": "S1 é o botão interno do segundo br-button da coluna de ações da linha 8; a B-08 confirma que as ações são só ícone e a B-07 que o segundo (abrir) tem aria-label vazio e nome \"\". NORMA (e-MAG 2.2) exige que elementos programáveis (o web component) permaneçam acessíveis, e um botão sem nome não é."
+      "justificativa": "OBS e S1 apontam o 2º br-button de ação (só ícone, sem aria-label) da linha 8; pela ordem da B-08 é o botão abrir, que a B-07 registra com aria-label vazio e sem title, então o fato é verdadeiro e liga-se diretamente à B-07. NORMA (e-MAG 2.2) cobre funções de script/conteúdo dinâmico que precisam continuar operáveis ou ter alternativa (como em B-11 e B-19), não o nome acessível de um botão nativo operável: não se aplica. ESP é texto fixo da regra, genérico. A leitura ampla da resposta anterior (todo botão de um componente programável sem nome viola a 2.2) não se sustenta: a própria referência funda este fato (B-07) em e-MAG 1.1/WCAG 4.1.2 e usa a 2.2 só para funções de script inoperáveis por teclado (B-11, B-19)."
     },
     {
       "id": "T3-27cf2d6ad7",
@@ -275,23 +289,31 @@
       "norma": {
         "id": "citada",
         "forca": "obrigatorio",
-        "aplicabilidade": "aplica",
-        "violada": "sim"
+        "aplicabilidade": "nao-aplica",
+        "violada": "nao"
       },
       "vinculo": {
         "spec": "B-07",
         "relacao": "direta"
       },
-      "sugestao": "nao-perguntado",
+      "sugestao": {
+        "trataOFato": "sim",
+        "especificaDoSujeito": "nao",
+        "naoViolaNormaObrigatoria": "sim",
+        "qualidade": "generica"
+      },
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
         "S1",
+        "NORMA",
+        "ESP",
         "B-07",
         "B-08",
-        "NORMA"
+        "B-11",
+        "B-19"
       ],
-      "justificativa": "S1 é o botão interno do segundo br-button das ações da linha 10; B-08 confirma só ícone e B-07 que o botão abrir tem aria-label vazio e nome \"\". NORMA (e-MAG 2.2) pede que objetos programáveis sejam acessíveis, o que um botão sem nome não cumpre."
+      "justificativa": "OBS e S1 apontam o 2º br-button de ação (só ícone, sem aria-label) da linha 10; pela ordem da B-08 é o botão abrir, que a B-07 registra com aria-label vazio e sem title, então o fato é verdadeiro e liga-se diretamente à B-07. NORMA (e-MAG 2.2) cobre funções de script/conteúdo dinâmico que precisam continuar operáveis ou ter alternativa (como em B-11 e B-19), não o nome acessível de um botão nativo operável: não se aplica. ESP é texto fixo da regra, genérico. A leitura ampla da resposta anterior (todo botão de um componente programável sem nome viola a 2.2) não se sustenta: a própria referência funda este fato (B-07) em e-MAG 1.1/WCAG 4.1.2 e usa a 2.2 só para funções de script inoperáveis por teclado (B-11, B-19)."
     },
     {
       "id": "T3-28e52dba10",
@@ -322,23 +344,31 @@
       "norma": {
         "id": "citada",
         "forca": "obrigatorio",
-        "aplicabilidade": "aplica",
-        "violada": "sim"
+        "aplicabilidade": "nao-aplica",
+        "violada": "nao"
       },
       "vinculo": {
         "spec": "B-07",
         "relacao": "direta"
       },
-      "sugestao": "nao-perguntado",
+      "sugestao": {
+        "trataOFato": "sim",
+        "especificaDoSujeito": "nao",
+        "naoViolaNormaObrigatoria": "sim",
+        "qualidade": "generica"
+      },
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
         "S1",
+        "NORMA",
+        "ESP",
         "B-07",
         "B-08",
-        "NORMA"
+        "B-11",
+        "B-19"
       ],
-      "justificativa": "S1 é o botão interno do segundo br-button das ações da linha 6; B-08 confirma só ícone e B-07 que esse botão (abrir) tem aria-label vazio e nome \"\". NORMA (e-MAG 2.2) exige acessibilidade dos objetos programáveis; botão sem nome a viola."
+      "justificativa": "OBS e S1 apontam o 2º br-button de ação (só ícone, sem aria-label) da linha 6; pela ordem da B-08 é o botão abrir, que a B-07 registra com aria-label vazio e sem title, então o fato é verdadeiro e liga-se diretamente à B-07. NORMA (e-MAG 2.2) cobre funções de script/conteúdo dinâmico que precisam continuar operáveis ou ter alternativa (como em B-11 e B-19), não o nome acessível de um botão nativo operável: não se aplica. ESP é texto fixo da regra, genérico. A leitura ampla da resposta anterior (todo botão de um componente programável sem nome viola a 2.2) não se sustenta: a própria referência funda este fato (B-07) em e-MAG 1.1/WCAG 4.1.2 e usa a 2.2 só para funções de script inoperáveis por teclado (B-11, B-19)."
     },
     {
       "id": "T3-2965130fef",
@@ -443,17 +473,18 @@
       "sugestao": {
         "trataOFato": "nao",
         "especificaDoSujeito": "nao",
-        "naoViolaNormaObrigatoria": "incerto",
+        "naoViolaNormaObrigatoria": "sim",
         "qualidade": "ausente"
       },
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
-        "NORMA",
         "S1",
-        "B-17"
+        "NORMA",
+        "B-17",
+        "B-01"
       ],
-      "justificativa": "OBS (axe region) aponta #avatar-menu (S1) fora de landmark; nada no lote contradiz. NORMA tem só a etiqueta best-practice, logo boa-prática; a B-17 trata do papel menu sem menuitem, outro fato. O cartão não tem esperado."
+      "justificativa": "OBS e S1 registram o axe region para o div#avatar-menu aberto em detalhe-menu, cuja chave (pnip-root>pnip-header>div) não passa por landmark; nada no lote contradiz. NORMA só tem a etiqueta best-practice: boa-pratica, aplica e violada. B-17 (papel menu) e B-01 (salto ao conteúdo) são outros fatos, sem vínculo; o cartão não tem esperado."
     },
     {
       "id": "T3-2f04f00bea",
@@ -493,11 +524,13 @@
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
+        "S1",
         "ESP",
         "NORMA",
-        "S1"
+        "B-17",
+        "B-01"
       ],
-      "justificativa": "OBS descreve o menu do usuário (S1) fora de qualquer landmark, com o banner só no shadow de br-header; nada contradiz. NORMA (axe region) é só best-practice, e nenhum defeito B trata de landmarks do menu (B-17 é papel). ESP propõe pôr o menu dentro do header/banner, específico e sem conflito normativo."
+      "justificativa": "OBS diz que o menu do usuário aberto (S1) e o gatilho em div.container-lg ficam fora de landmark, com o banner só no shadow do br-header; sem medida contrária, aceito. NORMA (best-practice) aplica e foi violada, força boa-pratica; B-17 e B-01 são outros fatos, sem vínculo. Diferente dos outros, ESP nomeia a correção para este sujeito (pôr o menu do usuário dentro do header/banner), o que trata o fato sem violar norma obrigatória: válida."
     },
     {
       "id": "T3-2fc9a4185f",
@@ -553,14 +586,20 @@
         "violada": "nao"
       },
       "vinculo": "nenhum",
-      "sugestao": "nao-perguntado",
+      "sugestao": {
+        "trataOFato": "sim",
+        "especificaDoSujeito": "sim",
+        "naoViolaNormaObrigatoria": "sim",
+        "qualidade": "valida"
+      },
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
+        "E1",
         "S1",
-        "E1"
+        "B-01"
       ],
-      "justificativa": "OBS, com E1 registrado, descreve o botão Menu de br-header (S1) apontando para #main-navigation inexistente e sem efeito ao clique; nada medido contradiz. Um botão sem alvo não implica norma pública (não há estado a expor), e nenhum defeito B trata do Menu."
+      "justificativa": "OBS e E1 (inspeção: #main-navigation e .br-menu ausentes) sustentam que o botão Menu de S1 não tem alvo e não abre nada. Pela leitura, a alegação não implica norma pública de acessibilidade (controle sem função para todos os usuários), e nenhum defeito da lista descreve o botão Menu — B-01 é o salto para o conteúdo, outro fato."
     },
     {
       "id": "T3-31a98e0771",
@@ -581,34 +620,34 @@
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
-        "ESP",
         "E1",
+        "ESP",
         "S1"
       ],
-      "justificativa": "OBS (com E1) diz que CPF '123' é aceito e enviado sem erro; nada no lote contradiz. A norma implicada é 3.3.1, mas ela pressupõe erro detectado e aceitar o valor sem detectar nada não a viola (R11). ESP propõe validar o CPF e mostrar erro, correção específica do campo S1 sem conflito normativo."
+      "justificativa": "E1 registra Solicitacao enviada com cpf.value=123 e OBS confirma que S1 nao tem validacao de formato. Sem deteccao de erro, 3.3.1 nao se aplica nem foi violada; nenhum defeito da referencia descreve esse fato. ESP pede rejeitar CPF invalido com mensagem identificando o problema, especifica do campo CPF e sem violar norma."
     },
     {
       "id": "T3-32d53e94eb",
       "verdadeFactual": "verdadeira",
       "norma": {
         "id": "citada",
-        "forca": "exemplo",
-        "aplicabilidade": "aplica",
-        "violada": "sim"
+        "forca": "obrigatorio",
+        "aplicabilidade": "incerta",
+        "violada": "incerto"
       },
       "vinculo": {
         "spec": "A-06",
         "relacao": "direta"
       },
       "sugestao": "nao-perguntado",
-      "forcaDoVeredito": "inferido",
+      "forcaDoVeredito": "incerto",
       "evidencias": [
         "OBS",
         "S1",
         "NORMA",
         "A-06"
       ],
-      "justificativa": "S1 é o Fechar a mensagem feito com <div>, fato registrado na A-06 (div role=button no lugar do <button> do exemplo oficial). A regra citada trata da anatomia de Design; a tag do elemento vem do exemplo oficial, então como base para a tag vale como exemplo, aplicada e violada."
+      "justificativa": "OBS (br-button aplicado a <div>) e S1 (<div> \"Fechar a mensagem\") sustentam o fato, que é o de A-06; os passos genéricos não nomeiam o estado, mas o sujeito é o mesmo. Se a NORMA citada abrange a tag raiz depende de a diretriz de Design tratá-la como anatomia (a glosa diz que sim, a regra da base não diz); com leituras incompatíveis plausíveis, aplicabilidade e violação ficam incertas."
     },
     {
       "id": "T3-3355e5b5ee",
@@ -620,14 +659,20 @@
         "violada": "nao"
       },
       "vinculo": "nenhum",
-      "sugestao": "nao-perguntado",
+      "sugestao": {
+        "trataOFato": "sim",
+        "especificaDoSujeito": "sim",
+        "naoViolaNormaObrigatoria": "sim",
+        "qualidade": "valida"
+      },
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
         "S1",
+        "ESP",
         "B-17"
       ],
-      "justificativa": "OBS descreve que Escape não fecha o menu do avatar (S1) com aria-expanded true; não há evidência, mas nada no lote contradiz. Fechar com Escape é prática do APG, não requisito WCAG/e-MAG (Tab sai do menu, sem armadilha), e a B-17 trata do papel menu, outro fato."
+      "justificativa": "OBS difere só no foco (em \"Sair\", dentro do S1) e relata aria-expanded=\"true\" após Escape; sem contraevidência, aceito. Mesmo dentro de role=menu, Esc vem do APG, não de WCAG/e-MAG; o role=menu sem menuitem é B-17, fato distinto; ESP é específica e válida."
     },
     {
       "id": "T3-34054a6c15",
@@ -686,37 +731,44 @@
         "violada": "nao"
       },
       "vinculo": "nenhum",
-      "sugestao": "nao-perguntado",
+      "sugestao": {
+        "trataOFato": "sim",
+        "especificaDoSujeito": "sim",
+        "naoViolaNormaObrigatoria": "sim",
+        "qualidade": "valida"
+      },
       "forcaDoVeredito": "inferido",
       "evidencias": [
         "OBS",
         "S1",
-        "B-17"
+        "ESP",
+        "B-17",
+        "B-19"
       ],
-      "justificativa": "OBS diz que Esc não fecha o painel do usuário (S1) e aria-expanded segue true; sem evidência, mas nada contradiz. Fechar com Esc é convenção de dropdown, não requisito WCAG/e-MAG (não há armadilha de foco), e a B-17 trata do papel menu, não do Esc."
+      "justificativa": "OBS relata o painel S1 visível com aria-expanded=\"true\" após Esc, com foco movido por Tab para dentro; sem contraevidência, aceito pelo texto. Nenhuma norma pública exige Esc aqui e nenhum defeito da lista (B-17, B-19) descreve esse fato; ESP é específica e válida."
     },
     {
       "id": "T3-36019bf511",
       "verdadeFactual": "verdadeira",
       "norma": {
         "id": "citada",
-        "forca": "exemplo",
-        "aplicabilidade": "aplica",
-        "violada": "sim"
+        "forca": "obrigatorio",
+        "aplicabilidade": "incerta",
+        "violada": "incerto"
       },
       "vinculo": {
         "spec": "A-06",
         "relacao": "direta"
       },
       "sugestao": "nao-perguntado",
-      "forcaDoVeredito": "inferido",
+      "forcaDoVeredito": "incerto",
       "evidencias": [
         "OBS",
         "S1",
         "NORMA",
         "A-06"
       ],
-      "justificativa": "S1 é o Fechar a mensagem como <div>, o fato da A-06 (div role=button em vez do <button> do exemplo oficial). A regra citada é de anatomia de Design; para a tag ela só tem força de exemplo, aplicada e violada."
+      "justificativa": "OBS (br-button aplicado a <div>) e S1 (<div> \"Fechar a mensagem\") sustentam o fato, que é o de A-06; os passos genéricos não nomeiam o estado, mas o sujeito é o mesmo. Se a NORMA citada abrange a tag raiz depende de a diretriz de Design tratá-la como anatomia (a glosa diz que sim, a regra da base não diz); com leituras incompatíveis plausíveis, aplicabilidade e violação ficam incertas."
     }
   ]
 }
