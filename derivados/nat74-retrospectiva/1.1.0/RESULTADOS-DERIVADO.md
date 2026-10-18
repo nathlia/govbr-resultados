@@ -2,18 +2,54 @@
 
 > **Retrospectiva · exploratória · mudança de medida.** O resultado oficial não muda: [RESULTADOS.md](../../../RESULTADOS.md), D-97, D-111 e D-112 (D-21).
 > Toda mudança de precisão aqui é mudança de medida, não melhora do detector. Política principal `politica-normativa-1.2.0`; a 1.1.0 vai ao lado (S1).
-> Os vereditos novos da fila T3 são de LLM (assistente, subagentes cegos por lote; D-130), salvo os materiais revistos pela autora.
+> **Reanálise histórica limitada.** A evidência principal é a avaliação nova; este derivado não a substitui.
+
+## Como os vereditos foram obtidos
+
+- Fila T3 = **primeira passada cega** (juízes LLM, um por lote; `govbr-resultados/derivados/nat74-retrospectiva/1.0.0/fila-t3/julgamentos-1a-passada.json` sha256 `9689c773b861…`) + **adjudicação informada** (115 respostas sobrescritas; classe mudou em 49, crédito em 6; `govbr-resultados/derivados/nat74-retrospectiva/1.0.0/fila-t3/desempate/sobrescritas.json` sha256 `c66dceaba87e…`) → `govbr-resultados/derivados/nat74-retrospectiva/1.0.0/fila-t3/julgamentos.json` sha256 `514b4a44456c…`.
+- Segunda leitura lote-d05: não resolvida (leituras plausíveis incompatíveis): os membros ficam incerta (evidência indisponível); sensibilidade: creditam 21/21 se a regra se aplica, 0/21 se não se aplica.
+- Materiais (P5 a; unidade na tela A, spec na B): 136 átomos decidem crédito não confirmado de outro jeito; **10 selecionados para a autora, ainda NÃO revistos por ela**; 126 "julgado só por LLM" (`govbr-resultados/derivados/nat74-retrospectiva/1.0.0/fila-t3/materiais.json` sha256 `6b83bf6f9182…`).
+- **FINAL-DERIVADO** quer dizer só que a pontuação daquela variante está completa (nenhum pendente nos braços). Não é validação humana nem de especialista: os vereditos novos são sobretudo de LLM.
 
 ## Variante principal, por campanha
 
-FINAL-DERIVADO: sem pendente nos braços; D é pontual, com IC 95% e p. PROVISÓRIO: D sai como **limites verdadeiros** por par ([mín, máx]: o
-mínimo do braço com contra o máximo do braço sem, e vice-versa); média, IC e p não são manchete.
+FINAL-DERIVADO: pontuação completa nos braços (nenhum pendente); D é pontual, com IC 95% e p. PROVISÓRIO: D sai como **envoltória conservadora**
+por par ([mín, máx]: o mínimo do braço com contra o máximo do braço sem, e vice-versa), feita da união das candidatas admissíveis dos pendentes;
+**não** são os extremos exatos atingíveis (ex.: A Opus p01, braço com, um sujeito não resolvido abre no máximo +1). Média, IC e p não são manchete.
 
 | Campanha | Estado | D por par | Média | IC 95% | p (permutação) | Oficial (média · IC · p) | Pendentes sem / com |
 |---|---|---|---|---|---|---|---|
 | A Opus (`t7-tela-a-01`, unidade) | PROVISORIO | [-1, 1], [1, 3], [-1, 1], [-1, 1], -1, [-1, 1], -1, [-3, -2], 1, 0 | -0,70 a 0,40 | — | — | 0,00 · -0,70 a 0,70 · 1,0000 | 1 / 6 |
 | A Sonnet (`t7b-sonnet-tela-a-01`, unidade) | FINAL-DERIVADO | 3, 2, 0, 0, -3, -3, -1, 2, -2, -2 | -0,40 | -1,70 a 0,90 | 0,6563 | -0,20 · -1,40 a 1,00 · 0,8828 | 0 / 0 |
 | B (`t7-tela-b-01`, spec) | PROVISORIO | [-2, -1], [-1, 1], -3, -1, 1, [0, 1], [-4, -1], [1, 3], -2, [2, 3] | -0,90 a 0,10 | — | — | -0,70 · -1,70 a 0,40 · 0,3125 | 10 / 10 |
+
+**A Sonnet: FINAL-DERIVADO na principal, mas PROVISORIO na S7** (sem-evidencia → pendente): envoltória da média -0,60 a -0,30. O D pontual da principal depende de fatos só de texto julgados verdadeiros por inferência.
+
+### Créditos decididos só por LLM (checagem de viés: S4)
+
+Átomos dos braços de agente cujo crédito mudou em relação ao arquivo por veredito **só de LLM**, por juiz; "com sinal" = cartão com sinal residual de braço (regra da base do DS mascarada ou id de regra do axe no cartão do agente). A **S4 (só humano)** reverte esses vereditos ao arquivo e é a checagem de viés.
+
+| Campanha | Braço | revisor novo (NAT-73, LLM) | T3 (LLM) | em cartão com sinal residual | S4 (só humano) |
+|---|---|---|---|---|---|
+| A Opus | sem | 1 | 0 | 0 | FINAL-DERIVADO, média -0,10 |
+| A Opus | com | 4 | 6 | 9 |  |
+| A Sonnet | sem | 1 | 0 | 0 | PROVISORIO, média -0,30 |
+| A Sonnet | com | 5 | 0 | 5 |  |
+| B | sem | 1 | 1 | 0 | PROVISORIO, média -0,50 |
+| B | com | 2 | 0 | 2 |  |
+
+### Pendências da maturidade, por tipo (átomos)
+
+Cada tipo é contado à parte e **não se soma**: a fila residual (abaixo) conta átomos que voltam a juízes; a decisão indisponível conta átomos que o scorer deixa `unresolved` (evidência indisponível, R9: julgados, mas sem fato decidível); a recusa conta átomos de cartões que a montagem ou a barreira do scorer recusou (lista de cartões em `trilha/recusas-do-scorer.json`).
+
+| Campanha | Braço | Triagem (fila T2/T3) | Decisão indisponível (unresolved) | Recusa da montagem/scorer |
+|---|---|---|---|---|
+| A Opus | sem | 0 | 1 | 0 |
+| A Opus | com | 0 | 6 | 0 |
+| A Sonnet | sem | 0 | 0 | 0 |
+| A Sonnet | com | 0 | 0 | 0 |
+| B | sem | 6 | 2 | 2 |
+| B | com | 2 | 2 | 6 |
 
 ### Átomos creditados no arquivo e ainda pendentes, por braço
 
@@ -59,6 +95,8 @@ Mudam os dois braços ao mesmo tempo; por isso o segundo pode baixar D (revisão
 | B | com 12, sem 7 | [-2, -1], [-1, 1], -3, -1, 1, [0, 1], [-4, -1], [1, 3], -2, [2, 3] | [-2, -1], [-1, 1], -3, [-1, 0], [0, 4], [0, 1], [-5, -1], [1, 3], [-2, -1], [2, 4] |
 
 ## Fila T3 residual desta versão (E6)
+
+Átomos que voltam a juízes (coluna T3); é o tipo "triagem" da tabela de pendências acima. Decisões indisponíveis e recusas não entram aqui.
 
 | Campanha | Braço | T1 | julgado | T2 | T3 | pendente |
 |---|---|---|---|---|---|---|
