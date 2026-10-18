@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-18T09:07:39Z | ensaio | ensaio-trio-duble-01 | solicitacao | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · b37548962cf5 | `ensaios/ensaio-trio-duble-01/2026-10-18T09-07-39Z__solicitacao__opus__ferramentas__rep-01__20261018-090739-solicitacao-ferramentas-a401` |
+| 2026-10-18T09:06:51Z | linha de base | ensaio-trio-duble-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-duble-01/solicitacao/lb-20261018-090651-solicitacao-9e7caa` |
 | 2026-10-18T09:03:47Z | ensaio | ensaio-trio-duble-01 | solicitacao | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 46f6bc76d761 | `ensaios/ensaio-trio-duble-01/2026-10-18T09-03-47Z__solicitacao__opus__sem__rep-01__20261018-090347-solicitacao-sem-b365` |
 | 2026-10-18T09:03:28Z | linha de base | ensaio-trio-duble-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-duble-01/solicitacao/lb-20261018-090328-solicitacao-bfe043` |
 | 2026-10-18T08:59:39Z | ensaio | ensaio-trio-01 | solicitacao | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 14a8f342454e | `ensaios/ensaio-trio-01/2026-10-18T08-59-39Z__solicitacao__roteirizado__ferramentas__rep-01__20261018-085939-solicitacao-ferramentas-7f43` |
