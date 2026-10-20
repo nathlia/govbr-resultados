@@ -1,0 +1,285 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "nat78-adjudicacao-respostas-a-1.0.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "formato",
+    "lote",
+    "loteSha256",
+    "juiz",
+    "etapa",
+    "grupo",
+    "leituraDaNorma",
+    "respostas"
+  ],
+  "properties": {
+    "formato": {
+      "const": "nat78-adjudicacao-respostas-a-1.0.0"
+    },
+    "lote": {
+      "type": "string",
+      "pattern": "^lote-d\\d{2}$"
+    },
+    "loteSha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "juiz": {
+      "type": "string",
+      "minLength": 3
+    },
+    "etapa": {
+      "const": "a"
+    },
+    "grupo": {
+      "type": "string",
+      "pattern": "^D-[0-9a-f]{10}$"
+    },
+    "leituraDaNorma": {
+      "oneOf": [
+        {
+          "const": "nao-perguntado"
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "norma",
+            "fonteEVersao",
+            "forca",
+            "antecedente",
+            "excecoes",
+            "evidenciaNecessaria",
+            "permiteConcluir"
+          ],
+          "properties": {
+            "norma": {
+              "type": "string",
+              "pattern": "^(citada|nenhuma|wcag:\\d+\\.\\d+\\.\\d+|emag:\\d+\\.\\d+)$"
+            },
+            "fonteEVersao": {
+              "type": "string",
+              "minLength": 10
+            },
+            "forca": {
+              "enum": [
+                "obrigatorio",
+                "recomendado",
+                "boa-pratica",
+                "exemplo",
+                "nenhuma",
+                "indeterminado"
+              ]
+            },
+            "antecedente": {
+              "type": "string",
+              "minLength": 10
+            },
+            "excecoes": {
+              "type": "string",
+              "minLength": 10
+            },
+            "evidenciaNecessaria": {
+              "type": "string",
+              "minLength": 10
+            },
+            "permiteConcluir": {
+              "type": "string",
+              "minLength": 10
+            }
+          }
+        }
+      ]
+    },
+    "respostas": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "id",
+          "verdadeFactual",
+          "norma",
+          "vinculo",
+          "sugestao",
+          "forcaDoVeredito",
+          "evidencias",
+          "justificativa",
+          "estadoAlcancado"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^T3-[0-9a-f]{10}$"
+          },
+          "verdadeFactual": {
+            "enum": [
+              "verdadeira",
+              "falsa",
+              "indisponivel",
+              "indeterminado",
+              "nao-perguntado"
+            ]
+          },
+          "norma": {
+            "oneOf": [
+              {
+                "const": "nao-perguntado"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "id",
+                  "forca",
+                  "aplicabilidade",
+                  "violada"
+                ],
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "pattern": "^(citada|nenhuma|wcag:\\d+\\.\\d+\\.\\d+|emag:\\d+\\.\\d+)$"
+                  },
+                  "forca": {
+                    "enum": [
+                      "obrigatorio",
+                      "recomendado",
+                      "boa-pratica",
+                      "exemplo",
+                      "nenhuma",
+                      "indeterminado"
+                    ]
+                  },
+                  "aplicabilidade": {
+                    "enum": [
+                      "aplica",
+                      "nao-aplica",
+                      "incerta",
+                      "nao-perguntado"
+                    ]
+                  },
+                  "violada": {
+                    "enum": [
+                      "sim",
+                      "nao",
+                      "incerto",
+                      "nao-perguntado"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "vinculo": {
+            "oneOf": [
+              {
+                "enum": [
+                  "nenhum",
+                  "indeterminado",
+                  "nao-perguntado"
+                ]
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "spec",
+                  "relacao"
+                ],
+                "properties": {
+                  "spec": {
+                    "type": "string",
+                    "pattern": "^[ABP]-\\d{2}$"
+                  },
+                  "relacao": {
+                    "enum": [
+                      "direta",
+                      "ausencia-global",
+                      "host-interno",
+                      "participante-relacionado"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "sugestao": {
+            "oneOf": [
+              {
+                "const": "nao-perguntado"
+              },
+              {
+                "type": "object",
+                "additionalProperties": false,
+                "required": [
+                  "trataOFato",
+                  "especificaDoSujeito",
+                  "naoViolaNormaObrigatoria",
+                  "qualidade"
+                ],
+                "properties": {
+                  "trataOFato": {
+                    "enum": [
+                      "sim",
+                      "nao",
+                      "incerto"
+                    ]
+                  },
+                  "especificaDoSujeito": {
+                    "enum": [
+                      "sim",
+                      "nao",
+                      "incerto"
+                    ]
+                  },
+                  "naoViolaNormaObrigatoria": {
+                    "enum": [
+                      "sim",
+                      "nao",
+                      "incerto"
+                    ]
+                  },
+                  "qualidade": {
+                    "enum": [
+                      "valida",
+                      "invalida",
+                      "generica",
+                      "ausente",
+                      "indeterminada"
+                    ]
+                  }
+                }
+              }
+            ]
+          },
+          "forcaDoVeredito": {
+            "enum": [
+              "medido",
+              "inferido",
+              "incerto"
+            ]
+          },
+          "evidencias": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string"
+            }
+          },
+          "justificativa": {
+            "type": "string",
+            "minLength": 30
+          },
+          "estadoAlcancado": {
+            "enum": [
+              "receita",
+              "nao-alcancado"
+            ]
+          }
+        }
+      }
+    }
+  }
+}
