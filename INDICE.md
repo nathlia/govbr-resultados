@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-21T15:14:55Z | execução | ensaio-trio-real-02 | solicitacao | sem | claude-opus-5-5 | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `execucoes/ensaio-trio-real-02/2026-10-21__solicitacao__sem__sem-pacote-gh-39623718046` |
 | 2026-10-21T15:12:40Z | execução | ensaio-trio-real-02 | solicitacao | sem | claude-opus-5-5 | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `execucoes/ensaio-trio-real-02/2026-10-21__solicitacao__sem__sem-pacote-gh-39623480867` |
 | 2026-10-19T08:41:10Z | execução | ensaio-trio-real-01 | solicitacao | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · f90a660ddf93 | `execucoes/ensaio-trio-real-01/2026-10-19T08-41-10Z__solicitacao__opus__com__rep-01__20261019-084110-solicitacao-com-c219` |
 | 2026-10-19T08:40:19Z | linha de base | ensaio-trio-real-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-real-01/solicitacao/lb-20261019-084019-solicitacao-9f8017` |
