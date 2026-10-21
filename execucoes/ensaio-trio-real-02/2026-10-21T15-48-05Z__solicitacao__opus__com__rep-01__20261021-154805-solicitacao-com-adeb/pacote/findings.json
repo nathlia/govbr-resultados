@@ -1,0 +1,1057 @@
+{
+  "contract": "findings.v2",
+  "fixture": false,
+  "campaignId": "ensaio-trio-real-02",
+  "runId": "20261021-154805-solicitacao-com-adeb",
+  "receivedAt": "2026-10-21T15:58:54Z",
+  "receipt": "r-64600478a41431f8",
+  "findingContract": "achado-2",
+  "inspectionContract": "inspection.v1",
+  "inspectionStatus": "valid",
+  "report": {
+    "timestamp": "2026-10-21T15:58:54.283Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skiplink, barra superior, breadcrumb, formulário (campos, selects, rádios, data/calendário, upload, checkboxes, ações), mensagens de erro e sucesso, diálogo de descarte, tabela de solicitações anteriores e paginação"
+    ],
+    "notes": "Viewport medido 1280x900 (innerWidth/innerHeight). Interações: Tab por toda a página; abertura/seleção nos selects por mouse e teclado (ArrowDown/Enter); clique em rótulos de rádio/checkbox; abertura do calendário pelo botão; envio vazio (8 erros); envio parcial (CPF '123' e data '31/02/2020' aceitos sem validação de formato — não reportado, pois nenhum erro é detectado/omitido); envio válido (mensagem de sucesso); fechar mensagem por Enter e Espaço; Cancelar -> diálogo, Tab (foco contido), Escape, 'Continuar preenchendo', 'Descartar'; paginação página 2. Ferramentas: scan_page S-page-001 (inicial), S-page-002 (diálogo), S-page-003 (erro), S-page-004 (sucesso); verify_finding V-001..V-007. V-004/V-006 (retorno de foco do diálogo) foram rejeitados pelo predicado com a justificativa de que 'a modal já estava aberta ao carregar', o que contradiz o próprio trace (passo -1 sem diálogo); o achado foi decidido pela inspeção no navegador (foco vai para BODY após Escape e após 'Continuar preenchendo'). V-002/V-003 rejeitaram a alegação de 3.3.1 porque aria-invalid identifica o item; o achado foi reformulado como falta de associação programática (1.3.1). Incertezas: perda de foco para BODY após escolher opção nos selects (comportamento idêntico nos dois selects, possivelmente do componente do DS) ficou incerta; links do logo/breadcrumb para /solicitacao retornam 404 (fora de critério normativo claro, não reportado). Os botões sem nome do calendário são gerados pelo componente datetimepicker (flatpickr) mas violam 4.1.2 na página renderizada.",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          "label:not([for])"
+        ],
+        "rule": "label",
+        "observed": "O rádio 'Presencial' não tem nome acessível: o <label>Presencial</label> não tem atributo for e não envolve o input; clicar no texto 'Presencial' não marca a opção (checked=false).",
+        "expected": "Rádio com rótulo associado (label for='forma-presencial'), com nome acessível e área de clique no texto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006",
+          "S-page-003",
+          "F-016",
+          "F-017"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "aria-hidden-focus",
+        "observed": "O botão 'Selecione o arquivo' tem aria-hidden='true' mas é focável (tabindex='1'); o input file #documentos está com display:none, então o único controle de upload fica oculto para tecnologias assistivas.",
+        "expected": "Controle de upload focável exposto na árvore de acessibilidade, com nome e papel (sem aria-hidden em elemento focável).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-005",
+          "S-page-003",
+          "F-015"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "relatedSelectors": [
+          ".br-skiplink a"
+        ],
+        "rule": "govbr-3.7.0-accessibility-skiplink-b0641993618f",
+        "observed": "O botão de upload tem tabindex='1'; o primeiro Tab após o carregamento leva o foco a ele, antes do skiplink 'Ir para o conteúdo' e de todos os campos anteriores.",
+        "expected": "Sem tabindex positivo; o skiplink deve ser o primeiro elemento a receber foco e a ordem de foco deve seguir a ordem visual.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "pressionar Tab uma vez"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Ao receber foco por teclado, os campos 'Tipo de serviço' e 'Unidade de atendimento' não exibem indicador: outline none e box-shadow none, por regra da página '.campo-servico .br-input input:focus(-visible), .campo-unidade ... { box-shadow:none; outline:none }'. Os demais inputs mostram anel de 2px na cor de foco.",
+        "expected": "Indicador de foco visível, como o padrão de foco do DS aplicado aos outros campos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em #cpf",
+            "pressionar Tab (foco em #servico)"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#servico, #unidade",
+        "relatedSelectors": [
+          ".campo-servico .retorno-campo",
+          ".campo-unidade .retorno-campo"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "Após envio vazio, #servico e #unidade recebem aria-invalid='true', mas as mensagens 'Selecione o tipo de serviço.' e 'Selecione a unidade de atendimento.' não têm id nem são referenciadas por aria-describedby (descrição acessível vazia), ao contrário dos demais campos (ex.: #nome -> nome-retorno).",
+        "expected": "Mensagem de erro de cada campo associada programaticamente ao campo (aria-describedby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em Enviar (.acao-enviar) com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "V-002",
+          "V-003"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno",
+        "rule": "govbr-3.7.0-accessibility-message-ad83724b777f",
+        "observed": "Ao exibir a mensagem (erro após envio vazio e também sucesso após envio válido), o foco vai para .content (role=alert, tabindex=-1), não para o botão Fechar.",
+        "expected": "No momento da exibição da mensagem, o foco deve estar no botão Fechar.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em Enviar (.acao-enviar) com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "V-001",
+          "V-007",
+          "S-page-003",
+          "S-page-004"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno .close [role=button]",
+        "rule": "ds-structure-button-tag",
+        "observed": "Na mensagem de erro, o botão Fechar é um <div class='br-button circle small' role='button' tabindex='0'>, enquanto o DS (e a própria mensagem de sucesso) usa <button type='button'>.",
+        "expected": "br-button aplicado a <button>.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em Enviar (.acao-enviar) com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-010"
+        ]
+      },
+      {
+        "selector": ".mensagem-retorno .close [role=button]",
+        "rule": "govbr-3.7.0-accessibility-message-18a75fe5583a",
+        "observed": "Ao fechar a mensagem de erro pelo botão Fechar (Enter), a mensagem é removida e o foco vai para BODY.",
+        "expected": "Após o fechamento, o foco deve voltar ao local original no fluxo de navegação.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em Enviar (.acao-enviar) com o formulário vazio",
+            "focar o botão 'Fechar a mensagem'",
+            "pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".dialogo-descarte",
+          ".acao-manter"
+        ],
+        "rule": "govbr-3.7.0-accessibility-modal-f36c91d7073c",
+        "observed": "Com o foco em Cancelar, Enter abre o diálogo 'Descartar solicitação?'; ao fechar com Escape ou 'Continuar preenchendo', o diálogo é removido e document.activeElement passa a ser BODY.",
+        "expected": "Ao fechar a modal, o foco deve voltar ao último elemento focado (botão Cancelar).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher #nome com 'Maria Teste'",
+            "focar Cancelar e pressionar Enter",
+            "pressionar Escape"
+          ]
+        },
+        "evidence": [
+          "V-004",
+          "V-006"
+        ]
+      },
+      {
+        "selector": ".dialogo-descarte",
+        "rule": "ds-token-color",
+        "observed": "Cor de texto do diálogo: rgb(51, 67, 51) (#334333), fora dos tokens de cor do DS (regra .dialogo-descarte { color: rgb(51,67,51) }).",
+        "expected": "Cor de texto de um token registrado do gov.br DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher #nome com 'Maria Teste'",
+            "clicar em Cancelar (.acao-cancelar)"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-007"
+        ]
+      },
+      {
+        "selector": ".flatpickr-prev-month button, .flatpickr-next-month button",
+        "rule": "emag-2.2",
+        "observed": "Os botões de mês anterior/seguinte do calendário contêm apenas ícone, sem aria-label, title ou texto: nome acessível vazio.",
+        "expected": "Nome acessível não vazio (ex.: 'Mês anterior', 'Próximo mês').",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão 'Abrir calendário' (#data-preferencial-btn)"
+          ]
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001",
+          "F-002"
+        ]
+      },
+      {
+        "selector": ".barra-superior",
+        "rule": "ds-page-header",
+        "observed": "O cabeçalho é um <header class='barra-superior'> próprio, só com o link 'gov.br'; não há .br-header nem <br-header> no documento.",
+        "expected": "Área de Cabeçalho do Template Base com o componente Header (.br-header).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-003"
+        ]
+      },
+      {
+        "selector": "body",
+        "rule": "ds-page-footer",
+        "observed": "Não há rodapé: nenhum .br-footer nem <br-footer> no documento, em nenhum estado.",
+        "expected": "Área de Rodapé do Template Base com o componente Footer (.br-footer).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-004"
+        ]
+      }
+    ],
+    "inspection": {
+      "completion": "complete",
+      "regions": [
+        {
+          "id": "r1",
+          "description": "Skiplink (.br-skiplink)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r2",
+          "description": "Barra superior (header.barra-superior)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r3",
+          "description": "Breadcrumb",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r4",
+          "description": "Formulário de solicitação",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s2",
+            "s3",
+            "s5",
+            "s6",
+            "s7"
+          ]
+        },
+        {
+          "id": "r5",
+          "description": "Mensagem de retorno (.retorno-envio)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s2",
+            "s5"
+          ]
+        },
+        {
+          "id": "r6",
+          "description": "Diálogo de descarte (.dialogo-descarte)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s3"
+          ]
+        },
+        {
+          "id": "r7",
+          "description": "Histórico: tabela e paginação",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s4"
+          ]
+        },
+        {
+          "id": "r8",
+          "description": "Calendário flatpickr",
+          "origin": "validation-tool",
+          "originRef": "S-page-001",
+          "status": "inspected",
+          "states": [
+            "s6"
+          ]
+        },
+        {
+          "id": "r9",
+          "description": "Rodapé (ausente)",
+          "origin": "validation-tool",
+          "originRef": "F-004",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "id": "s1",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-001",
+            "observables": [
+              "formulário vazio, nenhuma mensagem"
+            ]
+          },
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "s2",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "click",
+              "target": ".acao-enviar"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-003",
+            "observables": [
+              "mensagem danger 'Há 8 campo(s) obrigatório(s)'",
+              "8 mensagens de campo, aria-invalid"
+            ]
+          },
+          "evidence": [
+            "S-page-003",
+            "V-001"
+          ]
+        },
+        {
+          "id": "s3",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "fill",
+              "target": "#nome",
+              "value": "Maria Teste"
+            },
+            {
+              "action": "click",
+              "target": ".acao-cancelar"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-002",
+            "observables": [
+              "role=dialog aria-modal 'Descartar solicitação?'"
+            ]
+          },
+          "evidence": [
+            "S-page-002"
+          ]
+        },
+        {
+          "id": "s4",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "click",
+              "target": ".paginacao-anteriores a.page:nth-of-type(2)"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "data-current=2, linhas da página 2"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s5",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "fill",
+              "target": "#nome",
+              "value": "Maria Teste"
+            },
+            {
+              "action": "fill",
+              "target": "#cpf",
+              "value": "12345678909"
+            },
+            {
+              "action": "click",
+              "target": "#servico"
+            },
+            {
+              "action": "click",
+              "target": "label[for=servico-op0]"
+            },
+            {
+              "action": "click",
+              "target": "#unidade"
+            },
+            {
+              "action": "click",
+              "target": "label[for=unidade-op1]"
+            },
+            {
+              "action": "click",
+              "target": "label[for=forma-video]"
+            },
+            {
+              "action": "fill",
+              "target": "#data-preferencial",
+              "value": "02/02/2027"
+            },
+            {
+              "action": "fill",
+              "target": "#descricao",
+              "value": "Preciso de certidao."
+            },
+            {
+              "action": "click",
+              "target": "label[for=declaracao]"
+            },
+            {
+              "action": "click",
+              "target": ".acao-enviar"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-004",
+            "observables": [
+              "mensagem success 'Solicitação enviada.'"
+            ]
+          },
+          "evidence": [
+            "S-page-004",
+            "V-007"
+          ]
+        },
+        {
+          "id": "s6",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "click",
+              "target": "#data-preferencial-btn"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "flatpickr-calendar com classe open"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s7",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "click",
+              "target": "#servico"
+            },
+            {
+              "action": "press",
+              "target": "#servico",
+              "value": "ArrowDown"
+            },
+            {
+              "action": "press",
+              "target": ".br-item",
+              "value": "Enter"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "#servico com valor 'Emissão de certidão', lista fechada, foco em BODY"
+            ]
+          },
+          "evidence": []
+        }
+      ],
+      "items": [
+        {
+          "id": "i1",
+          "state": "s1",
+          "region": "r1",
+          "subject": ".br-skiplink a",
+          "check": "ordem de foco inicial e alvo #main-content",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i2",
+          "state": "s1",
+          "region": "r4",
+          "subject": "todos os focáveis",
+          "check": "ordem de Tab e indicador de foco (estilos calculados)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i3",
+          "state": "s1",
+          "subject": "documento",
+          "check": "axe, tokens, estrutura, regiões de página",
+          "status": "completed",
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "i4",
+          "state": "s2",
+          "region": "r5",
+          "subject": "mensagens de erro",
+          "check": "role, associação aria-describedby, foco, fechar por Enter/Espaço",
+          "status": "completed",
+          "evidence": [
+            "S-page-003",
+            "V-001",
+            "V-002",
+            "V-003"
+          ]
+        },
+        {
+          "id": "i5",
+          "state": "s3",
+          "region": "r6",
+          "subject": ".dialogo-descarte",
+          "check": "foco inicial, contenção de Tab, Escape, retorno de foco, tokens",
+          "status": "completed",
+          "evidence": [
+            "S-page-002",
+            "V-004",
+            "V-005",
+            "V-006"
+          ]
+        },
+        {
+          "id": "i6",
+          "state": "s4",
+          "region": "r7",
+          "subject": ".paginacao-anteriores",
+          "check": "troca de página, estado ativo, nomes",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i7",
+          "state": "s5",
+          "region": "r5",
+          "subject": ".br-message.success",
+          "check": "foco ao exibir, estrutura",
+          "status": "completed",
+          "evidence": [
+            "S-page-004",
+            "V-007"
+          ]
+        },
+        {
+          "id": "i8",
+          "state": "s6",
+          "region": "r8",
+          "subject": ".flatpickr-calendar",
+          "check": "nomes dos botões, abertura",
+          "status": "completed",
+          "evidence": [
+            "F-001",
+            "F-002"
+          ]
+        },
+        {
+          "id": "i9",
+          "state": "s7",
+          "region": "r4",
+          "subject": "#servico, #unidade",
+          "check": "operação por teclado do select",
+          "status": "completed",
+          "evidence": []
+        }
+      ],
+      "candidates": [
+        {
+          "id": "c1",
+          "state": "s1",
+          "origin": "validation-tool",
+          "originRef": "FAM-0bea50effa23",
+          "subject": "#forma-presencial",
+          "observation": "rádio sem rótulo",
+          "decision": "accepted",
+          "findings": [
+            0
+          ],
+          "evidence": [
+            "F-006"
+          ]
+        },
+        {
+          "id": "c1b",
+          "state": "s2",
+          "origin": "validation-tool",
+          "originRef": "FAM-21228df4630f",
+          "subject": "#forma-presencial",
+          "observation": "label-title-only no estado de erro (mesmo problema do rótulo)",
+          "decision": "accepted",
+          "findings": [
+            0
+          ],
+          "evidence": [
+            "F-016"
+          ]
+        },
+        {
+          "id": "c1c",
+          "state": "s2",
+          "origin": "validation-tool",
+          "originRef": "FAM-10f1ff6e44b0",
+          "subject": "#forma-presencial",
+          "observation": "rádio sem rótulo no estado de erro",
+          "decision": "accepted",
+          "findings": [
+            0
+          ],
+          "evidence": [
+            "F-017"
+          ]
+        },
+        {
+          "id": "c2",
+          "state": "s1",
+          "origin": "validation-tool",
+          "originRef": "FAM-77c5ecf84f88",
+          "subject": ".upload-button",
+          "observation": "aria-hidden em elemento focável",
+          "decision": "accepted",
+          "findings": [
+            1
+          ],
+          "evidence": [
+            "F-005"
+          ]
+        },
+        {
+          "id": "c2b",
+          "state": "s2",
+          "origin": "validation-tool",
+          "originRef": "FAM-3687a011dfea",
+          "subject": ".upload-button",
+          "observation": "aria-hidden em elemento focável (estado de erro)",
+          "decision": "accepted",
+          "findings": [
+            1
+          ],
+          "evidence": [
+            "F-015"
+          ]
+        },
+        {
+          "id": "c3",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".upload-button",
+          "observation": "tabindex=1 captura o primeiro Tab antes do skiplink",
+          "decision": "accepted",
+          "findings": [
+            2
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c4",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#servico, #unidade",
+          "observation": "foco sem indicador visível",
+          "decision": "accepted",
+          "findings": [
+            3
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c5",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "#servico, #unidade",
+          "observation": "erro não associado por aria-describedby",
+          "decision": "accepted",
+          "findings": [
+            4
+          ],
+          "evidence": [
+            "V-002",
+            "V-003"
+          ]
+        },
+        {
+          "id": "c6",
+          "state": "s2",
+          "origin": "validation-tool",
+          "originRef": "V-001",
+          "subject": ".mensagem-retorno",
+          "observation": "foco não vai ao botão fechar",
+          "decision": "accepted",
+          "findings": [
+            5
+          ],
+          "evidence": [
+            "V-001",
+            "V-007"
+          ]
+        },
+        {
+          "id": "c7",
+          "state": "s2",
+          "origin": "validation-tool",
+          "originRef": "FAM-160f5c2eb8d5",
+          "subject": ".mensagem-retorno .close [role=button]",
+          "observation": "br-button em div",
+          "decision": "accepted",
+          "findings": [
+            6
+          ],
+          "evidence": [
+            "F-010"
+          ]
+        },
+        {
+          "id": "c8",
+          "state": "s2",
+          "origin": "browser",
+          "subject": ".mensagem-retorno .close [role=button]",
+          "observation": "foco vai para BODY ao fechar a mensagem",
+          "decision": "accepted",
+          "findings": [
+            7
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c9",
+          "state": "s3",
+          "origin": "browser",
+          "subject": ".acao-cancelar",
+          "observation": "foco não retorna ao invocador ao fechar o diálogo",
+          "decision": "accepted",
+          "findings": [
+            8
+          ],
+          "evidence": [
+            "V-004",
+            "V-006"
+          ]
+        },
+        {
+          "id": "c10",
+          "state": "s3",
+          "origin": "validation-tool",
+          "originRef": "FAM-72baca81094d",
+          "subject": ".dialogo-descarte",
+          "observation": "cor #334333 fora dos tokens",
+          "decision": "accepted",
+          "findings": [
+            9
+          ],
+          "evidence": [
+            "F-007"
+          ]
+        },
+        {
+          "id": "c11",
+          "state": "s1",
+          "origin": "validation-tool",
+          "originRef": "FAM-4cb55712ecf8",
+          "subject": ".flatpickr-prev-month button, .flatpickr-next-month button",
+          "observation": "botões só com ícone sem nome",
+          "decision": "accepted",
+          "findings": [
+            10
+          ],
+          "evidence": [
+            "F-001",
+            "F-002"
+          ]
+        },
+        {
+          "id": "c11b",
+          "state": "s2",
+          "origin": "validation-tool",
+          "originRef": "FAM-03af85510219",
+          "subject": ".flatpickr-prev-month button, .flatpickr-next-month button",
+          "observation": "mesmos botões sem nome no estado de erro",
+          "decision": "accepted",
+          "findings": [
+            10
+          ],
+          "evidence": [
+            "F-011",
+            "F-012"
+          ]
+        },
+        {
+          "id": "c12",
+          "state": "s1",
+          "origin": "validation-tool",
+          "originRef": "FAM-7dfcf636d9dd",
+          "subject": ".barra-superior",
+          "observation": "sem br-header",
+          "decision": "accepted",
+          "findings": [
+            11
+          ],
+          "evidence": [
+            "F-003",
+            "F-008",
+            "F-013",
+            "F-018"
+          ]
+        },
+        {
+          "id": "c13",
+          "state": "s1",
+          "origin": "validation-tool",
+          "originRef": "FAM-7af4c495ce9a",
+          "subject": "body",
+          "observation": "sem br-footer",
+          "decision": "accepted",
+          "findings": [
+            12
+          ],
+          "evidence": [
+            "F-004",
+            "F-009",
+            "F-014",
+            "F-019"
+          ]
+        },
+        {
+          "id": "c14",
+          "state": "s3",
+          "origin": "validation-tool",
+          "originRef": "V-005",
+          "subject": ".dialogo-descarte",
+          "observation": "foco inicial em 'Continuar preenchendo' (secundário), não na ação primária",
+          "decision": "uncertain",
+          "reason": "Ação destrutiva: focar a opção segura é prática aceitável; o predicado ficou indeterminado (V-005).",
+          "evidence": [
+            "V-005"
+          ]
+        },
+        {
+          "id": "c15",
+          "state": "s7",
+          "origin": "browser",
+          "subject": "#servico, #unidade",
+          "observation": "após escolher opção com Enter, foco vai para BODY",
+          "decision": "uncertain",
+          "reason": "Comportamento idêntico nos dois selects, aparentemente do script do componente br-select do DS; não confirmado por ferramenta.",
+          "evidence": []
+        },
+        {
+          "id": "c16",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#data-preferencial-btn",
+          "observation": "botão do calendário com aria-hidden e tabindex=-1",
+          "decision": "rejected",
+          "reason": "Marcação canônica do datetimepicker do DS; a data pode ser digitada no campo.",
+          "evidence": []
+        },
+        {
+          "id": "c17",
+          "state": "s4",
+          "origin": "browser",
+          "subject": ".paginacao-anteriores a.page.active",
+          "observation": "página atual sem aria-current",
+          "decision": "rejected",
+          "reason": "Exemplos canônicos do DS também não usam aria-current; o aria-label e a classe active seguem o padrão.",
+          "evidence": []
+        },
+        {
+          "id": "c18",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".marca-govbr, .br-breadcrumb a",
+          "observation": "links para /solicitacao retornam 404",
+          "decision": "uncertain",
+          "reason": "Sem critério normativo claro de DS/e-MAG/WCAG; pode ser rota do ambiente de teste.",
+          "evidence": []
+        },
+        {
+          "id": "c19",
+          "state": "s2",
+          "origin": "browser",
+          "subject": ".mensagem-retorno",
+          "observation": "ordem DOM close/content/icon diferente da canônica icon/content/close",
+          "decision": "uncertain",
+          "reason": "Impacto pequeno na ordem de leitura; sem regra específica verificada.",
+          "evidence": []
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "tool-failure",
+          "detail": "verify_finding V-004/V-006 rejeitou a alegação de retorno de foco do diálogo dizendo que a modal já estava aberta ao carregar, o que contradiz o trace; decidido pela inspeção no navegador."
+        },
+        {
+          "kind": "out-of-scope",
+          "detail": "Outras larguras não avaliadas: o escopo cobre só a janela inicial 1280x900."
+        },
+        {
+          "kind": "other",
+          "detail": "O upload de arquivo real não foi exercitado (diálogo de arquivos do sistema operacional); só a estrutura e o foco do controle foram inspecionados."
+        }
+      ]
+    }
+  }
+}
