@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-29T13:50:38Z | execução | ensaio-trio-real-05 | solicitacao | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 094c74253fc7 | `execucoes/ensaio-trio-real-05/2026-10-29T13-50-38Z__solicitacao__opus__sem__rep-01__20261029-135038-solicitacao-sem-631b` |
+| 2026-10-29T13:50:20Z | linha de base | ensaio-trio-real-05 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-real-05/solicitacao/lb-20261029-135020-solicitacao-ff377a` |
 | 2026-10-29T13:14:56Z | execução | ensaio-trio-b-02 | vistorias | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 6aa2efa47706 | `execucoes/ensaio-trio-b-02/2026-10-29T13-14-56Z__vistorias__opus__com__rep-01__20261029-131456-vistorias-com-2485` |
 | 2026-10-29T13:14:02Z | linha de base | ensaio-trio-b-02 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-b-02/vistorias/lb-20261029-131402-vistorias-953c61` |
 | 2026-10-29T12:57:38Z | execução | ensaio-trio-b-02 | vistorias | ferramentas | claude-opus-5-5 | passed | failed | used-with-errors | accepted | — | confirmado · a252e2105ce2 | `execucoes/ensaio-trio-b-02/2026-10-29T12-57-38Z__vistorias__opus__ferramentas__rep-01__20261029-125738-vistorias-ferramentas-f683` |
