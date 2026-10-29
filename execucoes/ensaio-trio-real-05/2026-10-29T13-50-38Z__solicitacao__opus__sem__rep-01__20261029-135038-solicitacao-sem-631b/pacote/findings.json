@@ -1,0 +1,834 @@
+{
+  "contract": "findings.v2",
+  "fixture": false,
+  "campaignId": "ensaio-trio-real-05",
+  "runId": "20261029-135038-solicitacao-sem-631b",
+  "receivedAt": "2026-10-29T14:00:22Z",
+  "receipt": "r-1352a93f97adbf91",
+  "findingContract": "achado-2",
+  "inspectionContract": "inspection.v1",
+  "inspectionStatus": "valid",
+  "report": {
+    "timestamp": "2026-10-29T14:00:22.296Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/solicitacao.html",
+    "scope": [
+      "Tela inteira em 1280x900: skip link, cabeçalho, trilha, formulário (todos os campos, comboboxes, rádios, data, upload, checkboxes), mensagens de erro e sucesso, diálogo de descarte, tabela e paginação"
+    ],
+    "notes": "Interações: carregamento; Tab sequencial pela página toda com registro de foco e estilos; skip link focado; combobox Tipo de serviço (clique, ArrowDown, Enter); combobox Unidade (ArrowDown, Escape, ArrowDown x2, Enter); clique no label Presencial; envio vazio; fechar mensagem com Enter e com Espaço; preenchimento com CPF \"123\" e envio (aceito: defeito funcional sem critério WCAG aplicável); Página 2 da paginação; Cancelar -> diálogo (Tab x4, Escape; Continuar preenchendo; Descartar); data \"31/02/20\" convertida silenciosamente pelo flatpickr para 03/03/2026; upload por atribuição sintética de arquivo via DataTransfer (o seletor de arquivos nativo não é operável neste ambiente). Não havia ferramenta de validação automática (axe ou similar), só o navegador Playwright: todos os achados vêm de inspeção manual de DOM, árvore de acessibilidade, estilos calculados e comportamento, sem identificadores de ferramenta. Os ids das listas dos comboboxes mudam a cada carregamento. Outras observações funcionais fora de critério: Descartar não limpa os comboboxes; aria-describedby continua apontando para ids removidos depois da correção; cada mensagem de campo tem role=\"alert\" (8 alertas simultâneos, verbosos, mas não reprovados).",
+    "findings": [
+      {
+        "selector": "#forma-presencial",
+        "relatedSelectors": [
+          ".grupo-forma .br-radio:first-of-type label"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "O label \"Presencial\" não tem atributo for nem envolve o input, por isso o rádio #forma-presencial fica sem nome acessível (a árvore de acessibilidade mostra \"radio\" sem nome). Clicar no texto \"Presencial\" não marca a opção; o label cobre o input (elementFromPoint devolve LABEL), então essa opção não pode ser marcada com mouse.",
+        "expected": "Rótulo associado programaticamente (label for=\"forma-presencial\"), como nas opções \"Por videochamada\" e \"Por telefone\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "snapshot: radio [ref=e56] sem nome",
+          "click em \"Presencial\" -> checked=false"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão \"Selecione o arquivo\" tem aria-hidden=\"true\" mas é focável (tabindex=\"1\"). O input file #documentos tem display:none, então o único controle de upload que recebe foco fica oculto para tecnologias assistivas e é anunciado sem nome nem papel.",
+        "expected": "Um controle de upload focável exposto às tecnologias assistivas com papel e nome (sem aria-hidden em elemento focável).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "DOM: button.upload-button aria-hidden=\"true\" tabindex=\"1\"; input#documentos display:none"
+        ]
+      },
+      {
+        "selector": ".upload-button",
+        "rule": "wcag:2.4.3",
+        "observed": "tabindex=\"1\" no botão de upload: o primeiro Tab após o carregamento vai direto para o botão \"Selecione o arquivo\" (y≈948, no meio do formulário), antes do skip link, do cabeçalho, da trilha e dos campos anteriores.",
+        "expected": "Ordem de foco igual à ordem visual e de leitura (sem tabindex positivo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab"
+          ]
+        },
+        "evidence": [
+          "activeElement após 1º Tab: BUTTON.upload-button"
+        ]
+      },
+      {
+        "selector": "#servico, #unidade",
+        "rule": "wcag:2.4.7",
+        "observed": "Com foco por teclado, os inputs \"Tipo de serviço\" e \"Unidade de atendimento\" calculam outline-style:none e box-shadow:none, sem mudança de borda (fica rgb(136,136,136)), e os ancestrais .input-group, .br-input e .br-select também não mostram nada. Não há indicador visível de foco (confirmado em captura de tela). Os outros campos mostram box-shadow 0 0 0 2px rgb(194,133,12).",
+        "expected": "Indicador de foco visível, igual ao dos demais campos do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab x9 (até #servico)",
+            "Tab (até #unidade)"
+          ]
+        },
+        "evidence": [
+          "estilos calculados no focusin",
+          "screenshot page-2026-10-29T13-52-39-548Z.png"
+        ]
+      },
+      {
+        "selector": ".grupo-forma .br-radio label, .br-checkbox label",
+        "rule": "wcag:1.4.11",
+        "observed": "O círculo e o quadrado que delimitam rádios e checkboxes (label::before) têm borda de 1px rgb(204,204,204) sobre fundo branco: contraste de 1,61:1.",
+        "expected": "Contraste mínimo de 3:1 para a borda que identifica o componente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "getComputedStyle(label,\"::before\").borderColor = rgb(204,204,204)"
+        ]
+      },
+      {
+        "selector": ".campo-servico [role=\"option\"], .campo-unidade [role=\"option\"]",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao escolher uma opção da lista de \"Tipo de serviço\" ou de \"Unidade de atendimento\" (ArrowDown + Enter, ou clique), a lista fecha e document.activeElement passa a ser BODY: o foco não volta ao campo.",
+        "expected": "Depois da seleção, o foco volta ao input do combobox (como acontece com Escape).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #servico",
+            "ArrowDown",
+            "Enter"
+          ]
+        },
+        "evidence": [
+          "activeElement após Enter: BODY (nos dois comboboxes)"
+        ]
+      },
+      {
+        "selector": ".br-select > .br-input[role=\"combobox\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "O papel combobox está no div .br-input, que envolve label, input e botão. Esse div não tem aria-label nem aria-labelledby: a árvore de acessibilidade mostra \"combobox\" sem nome. O nome \"Tipo de serviço\"/\"Unidade de atendimento\" fica só no textbox interno.",
+        "expected": "O elemento com role=\"combobox\" tem nome acessível (de preferência o próprio input, rotulado pelo label).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "snapshot: combobox [ref=e37] e [ref=e46] sem nome"
+        ]
+      },
+      {
+        "selector": ".campo-servico .retorno-campo, .campo-unidade .retorno-campo",
+        "relatedSelectors": [
+          "#servico",
+          "#unidade"
+        ],
+        "rule": "wcag:1.3.1",
+        "observed": "No envio vazio, as mensagens \"Selecione o tipo de serviço.\" e \"Selecione a unidade de atendimento.\" aparecem sem id, e #servico/#unidade recebem aria-invalid=\"true\" sem aria-describedby. Os demais campos referenciam as mensagens (ex.: nome -> nome-retorno).",
+        "expected": "Mensagem de erro associada programaticamente ao campo (id + aria-describedby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click Enviar (formulário vazio)"
+          ]
+        },
+        "evidence": [
+          "DOM após envio: INPUT#servico inv=true db=null; SPAN.feedback sem id"
+        ]
+      },
+      {
+        "selector": ".acao-cancelar",
+        "relatedSelectors": [
+          ".acao-manter"
+        ],
+        "rule": "wcag:2.4.3",
+        "observed": "O botão Cancelar abre o diálogo \"Descartar solicitação?\". Ao fechá-lo com Escape, \"Continuar preenchendo\" ou \"Descartar\", o diálogo some e document.activeElement passa a ser BODY: o foco não volta ao botão que abriu o diálogo.",
+        "expected": "Ao fechar o diálogo, o foco volta ao botão Cancelar (ou a um ponto lógico).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click Cancelar",
+            "Escape"
+          ]
+        },
+        "evidence": [
+          "activeElement após Escape: BODY; após Enter em Continuar preenchendo: BODY"
+        ]
+      },
+      {
+        "selector": ".paginacao-anteriores a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação aparece só visualmente (classe active, fundo rgb(12,50,111)). O link não tem aria-current e o nome acessível é só \"Página 1\"/\"Página 2\", igual ao das outras páginas.",
+        "expected": "A página atual é determinável programaticamente (aria-current=\"page\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "DOM: a.page.active sem aria-current; após clicar Página 2, idem"
+        ]
+      },
+      {
+        "selector": ".br-skiplink[role=\"menubar\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "O contêiner do skip link é nav com role=\"menubar\", e o link \"Ir para o conteúdo\" tem role=\"menuitem\". O papel de link e o landmark de navegação somem; a árvore expõe menubar/menuitem, um widget composto com outra expectativa de interação.",
+        "expected": "Skip link exposto como link (sem role menubar/menuitem), conforme o br-skiplink do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "snapshot: menubar > menuitem \"Ir para o conteúdo\""
+        ]
+      },
+      {
+        "selector": ".br-message.danger .close",
+        "relatedSelectors": [
+          ".br-message.danger .icon"
+        ],
+        "rule": null,
+        "observed": "Na mensagem de erro do envio, o botão fechar fica à esquerda (x=201) e o ícone de status à direita (x=1019). A ordem no DOM é close, content, icon. A mensagem de sucesso da mesma tela segue icon, content, close.",
+        "expected": "Anatomia do br-message do DS: ícone à esquerda, conteúdo e botão fechar à direita.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click Enviar (formulário vazio)"
+          ]
+        },
+        "evidence": [
+          "getBoundingClientRect: .close x=201, .icon x=1019"
+        ]
+      }
+    ],
+    "inspection": {
+      "completion": "complete",
+      "regions": [
+        {
+          "id": "r1",
+          "description": "Skip link",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r2",
+          "description": "Cabeçalho com marca gov.br",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r3",
+          "description": "Trilha (breadcrumb)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r4",
+          "description": "Formulário de solicitação",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s2",
+            "s3",
+            "s4"
+          ]
+        },
+        {
+          "id": "r5",
+          "description": "Mensagem de retorno do envio (erro/sucesso)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s3",
+            "s4"
+          ]
+        },
+        {
+          "id": "r6",
+          "description": "Diálogo Descartar solicitação",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s5"
+          ]
+        },
+        {
+          "id": "r7",
+          "description": "Tabela de solicitações anteriores e paginação",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s6"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "id": "s1",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Formulário vazio, tabela página 1"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s2",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "click",
+              "target": "#servico"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Lista de opções aberta, aria-expanded=true"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s3",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "click",
+              "target": ".acao-enviar"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "br-message danger \"Não foi possível enviar. Há 8 campo(s)...\"",
+              "mensagens por campo"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s4",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "fill",
+              "target": "#nome",
+              "value": "Maria da Silva"
+            },
+            {
+              "action": "fill",
+              "target": "#cpf",
+              "value": "123"
+            },
+            {
+              "action": "select",
+              "target": "#servico",
+              "value": "Emissão de certidão"
+            },
+            {
+              "action": "select",
+              "target": "#unidade",
+              "value": "Agência Centro"
+            },
+            {
+              "action": "click",
+              "target": "label[for=\"forma-video\"]"
+            },
+            {
+              "action": "fill",
+              "target": "#data-preferencial",
+              "value": "10/12/2026"
+            },
+            {
+              "action": "fill",
+              "target": "#descricao",
+              "value": "Preciso de uma certidão."
+            },
+            {
+              "action": "click",
+              "target": "label[for=\"declaracao\"]"
+            },
+            {
+              "action": "click",
+              "target": ".acao-enviar"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "br-message success \"Solicitação enviada.\""
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s5",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "click",
+              "target": ".acao-cancelar"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "role=dialog \"Descartar solicitação?\" com foco em Continuar preenchendo"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s6",
+          "url": "http://screens:3300/solicitacao.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/solicitacao.html"
+            },
+            {
+              "action": "click",
+              "target": ".paginacao-anteriores a.page:nth-of-type(2)"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Tabela com página 2 (2026.0217.000731...)"
+            ]
+          },
+          "evidence": []
+        }
+      ],
+      "items": [
+        {
+          "id": "i1",
+          "state": "s1",
+          "region": "r1",
+          "subject": ".br-skiplink a",
+          "check": "visibilidade ao focar, papel",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i2",
+          "state": "s1",
+          "subject": "#root texto",
+          "check": "contraste de texto (mínimo 6,9:1)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i3",
+          "state": "s1",
+          "subject": "elementos focáveis",
+          "check": "ordem de foco e indicador visível",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i4",
+          "state": "s1",
+          "region": "r4",
+          "subject": "rótulos de campos",
+          "check": "nome acessível e associação",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i5",
+          "state": "s1",
+          "region": "r4",
+          "subject": "rádios/checkboxes",
+          "check": "contraste não textual",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i6",
+          "state": "s2",
+          "region": "r4",
+          "subject": "comboboxes",
+          "check": "abertura, teclado, Escape, seleção, foco",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i7",
+          "state": "s3",
+          "region": "r5",
+          "subject": "mensagens de erro",
+          "check": "anúncio, foco, associação, contraste, fechar",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i8",
+          "state": "s4",
+          "region": "r5",
+          "subject": "mensagem de sucesso",
+          "check": "estrutura e anúncio",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i9",
+          "state": "s5",
+          "region": "r6",
+          "subject": ".dialogo-descarte",
+          "check": "foco inicial, confinamento, Escape, retorno do foco",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i10",
+          "state": "s6",
+          "region": "r7",
+          "subject": "tabela e paginação",
+          "check": "cabeçalhos, página atual, foco",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i11",
+          "state": "s1",
+          "region": "r4",
+          "subject": "#documentos",
+          "check": "upload com arquivo real pelo seletor nativo",
+          "status": "not-available",
+          "reason": "seletor de arquivos nativo indisponível; testado só por DataTransfer sintético",
+          "evidence": []
+        },
+        {
+          "id": "i12",
+          "state": "s1",
+          "region": "r3",
+          "subject": "links da trilha",
+          "check": "tamanho de alvo (2.5.8 por exceção de espaçamento)",
+          "status": "completed",
+          "evidence": []
+        }
+      ],
+      "candidates": [
+        {
+          "id": "c1",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#forma-presencial",
+          "observation": "rádio sem nome; label sem for",
+          "decision": "accepted",
+          "findings": [
+            0
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c2",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".upload-button",
+          "observation": "aria-hidden em elemento focável",
+          "decision": "accepted",
+          "findings": [
+            1
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c3",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".upload-button",
+          "observation": "tabindex=1",
+          "decision": "accepted",
+          "findings": [
+            2
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c4",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#servico, #unidade",
+          "observation": "sem indicador de foco",
+          "decision": "accepted",
+          "findings": [
+            3
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c5",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "label::before de rádio/checkbox",
+          "observation": "borda #ccc 1,61:1",
+          "decision": "accepted",
+          "findings": [
+            4
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c6",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "opções do combobox",
+          "observation": "foco vai para BODY após a seleção",
+          "decision": "accepted",
+          "findings": [
+            5
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c7",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "[role=combobox]",
+          "observation": "combobox sem nome",
+          "decision": "accepted",
+          "findings": [
+            6
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c8",
+          "state": "s3",
+          "origin": "browser",
+          "subject": "erros de servico/unidade",
+          "observation": "sem aria-describedby",
+          "decision": "accepted",
+          "findings": [
+            7
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c9",
+          "state": "s5",
+          "origin": "browser",
+          "subject": "diálogo de descarte",
+          "observation": "foco não volta ao Cancelar",
+          "decision": "accepted",
+          "findings": [
+            8
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c10",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "a.page.active",
+          "observation": "sem aria-current",
+          "decision": "accepted",
+          "findings": [
+            9
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c11",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".br-skiplink",
+          "observation": "role menubar/menuitem",
+          "decision": "accepted",
+          "findings": [
+            10
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c12",
+          "state": "s3",
+          "origin": "browser",
+          "subject": ".br-message.danger",
+          "observation": "fechar à esquerda, ícone à direita",
+          "decision": "accepted",
+          "findings": [
+            11
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c13",
+          "state": "s3",
+          "origin": "browser",
+          "subject": ".br-message.danger .close [role=button]",
+          "observation": "div role=button em vez de button",
+          "decision": "rejected",
+          "reason": "funciona com Enter e Espaço e tem nome; sem falha mensurável",
+          "evidence": []
+        },
+        {
+          "id": "c14",
+          "state": "s4",
+          "origin": "browser",
+          "subject": "#cpf",
+          "observation": "CPF \"123\" aceito apesar da instrução de 11 dígitos",
+          "decision": "rejected",
+          "reason": "erro não detectado; 3.3.1/3.3.3 só se aplicam a erros detectados; defeito funcional",
+          "evidence": []
+        },
+        {
+          "id": "c15",
+          "state": "s3",
+          "origin": "browser",
+          "subject": ".retorno-campo",
+          "observation": "role=alert em cada mensagem de campo",
+          "decision": "rejected",
+          "reason": "verboso, mas sem violação de critério",
+          "evidence": []
+        },
+        {
+          "id": "c16",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#data-preferencial",
+          "observation": "\"31/02/20\" convertido silenciosamente para 03/03/2026",
+          "decision": "uncertain",
+          "reason": "nenhum critério WCAG/e-MAG cobre com clareza a correção automática sem aviso",
+          "evidence": []
+        },
+        {
+          "id": "c17",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".crumb span[aria-current]",
+          "observation": "span não interativo com tabindex=0",
+          "decision": "rejected",
+          "reason": "segue o markup do br-breadcrumb do DS",
+          "evidence": []
+        },
+        {
+          "id": "c18",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#data-preferencial-btn",
+          "observation": "botão de calendário aria-hidden",
+          "decision": "rejected",
+          "reason": "tabindex=-1, não focável; a data pode ser digitada",
+          "evidence": []
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "tool-failure",
+          "detail": "Não havia ferramenta de validação automática de acessibilidade; avaliação manual pelo navegador, sem identificadores de ferramenta."
+        },
+        {
+          "kind": "unreachable",
+          "detail": "Seletor de arquivos nativo não operável; o estado com arquivo anexado foi simulado com DataTransfer e não gerou achados."
+        },
+        {
+          "kind": "out-of-scope",
+          "detail": "Outras larguras e zoom não avaliados (escopo só 1280x900)."
+        }
+      ]
+    }
+  }
+}
