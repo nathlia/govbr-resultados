@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-29T11:44:09Z | ensaio | ensaio-trio-a-duble-04 | solicitacao | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 287bba86598f | `ensaios/ensaio-trio-a-duble-04/2026-10-29T11-44-09Z__solicitacao__opus__ferramentas__rep-01__20261029-114409-solicitacao-ferramentas-7472` |
+| 2026-10-29T11:43:12Z | linha de base | ensaio-trio-a-duble-04 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-a-duble-04/solicitacao/lb-20261029-114312-solicitacao-3caa31` |
 | 2026-10-29T11:40:53Z | ensaio | ensaio-trio-a-duble-04 | solicitacao | ferramentas | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-trio-a-duble-04/2026-10-29__solicitacao__ferramentas__sem-pacote-gh-40867083389` |
 | 2026-10-29T11:24:03Z | ensaio | ensaio-trio-a-duble-04 | solicitacao | ferramentas | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-trio-a-duble-04/2026-10-29__solicitacao__ferramentas__sem-pacote-gh-40864949253` |
 | 2026-10-22T20:39:29Z | ensaio | ensaio-trio-b-duble-01 | vistorias | com | — | passed | passed | used-adherent | accepted | — | confirmado · 86ed42c5ec03 | `ensaios/ensaio-trio-b-duble-01/2026-10-22T20-39-29Z__vistorias__opus__com__rep-01__20261022-203929-vistorias-com-6fcc` |
