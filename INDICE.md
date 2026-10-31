@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-31T00:49:48Z | execução | dev-350-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | passed | used-with-errors | accepted | — | confirmado · fd7d500dea44 | `execucoes/dev-350-b-01/2026-10-31T00-49-48Z__vistorias__opus__ferramentas__rep-02__20261031-004948-vistorias-ferramentas-0e88` |
+| 2026-10-31T00:48:51Z | linha de base | dev-350-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-350-b-01/vistorias/lb-20261031-004851-vistorias-a096f8` |
 | 2026-10-31T00:31:30Z | linha de base | dev-350-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-350-b-01/vistorias/lb-20261031-003130-vistorias-50020a` |
 | 2026-10-31T00:31:29Z | execução | dev-350-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · a80fac6ef4f4 | `execucoes/dev-350-b-01/2026-10-31T00-31-29Z__vistorias__opus__sem__rep-02__20261031-003129-vistorias-sem-9dbc` |
 | 2026-10-31T00:10:26Z | execução | dev-350-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | failed | used-adherent | accepted | — | confirmado · 9b17cc51c88b | `execucoes/dev-350-b-01/2026-10-31T00-10-26Z__vistorias__opus__ferramentas__rep-01__20261031-001026-vistorias-ferramentas-c552` |
