@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-10-31T02:37:10Z | ensaio | ensaio-trio-a-duble-360 | solicitacao | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 7d5479533bfc | `ensaios/ensaio-trio-a-duble-360/2026-10-31T02-37-10Z__solicitacao__opus__ferramentas__rep-01__20261031-023710-solicitacao-ferramentas-9463` |
+| 2026-10-31T02:36:13Z | linha de base | ensaio-trio-a-duble-360 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-a-duble-360/solicitacao/lb-20261031-023613-solicitacao-934245` |
 | 2026-10-31T02:32:34Z | ensaio | ensaio-dev-360-duble-01 | solicitacao | com | — | passed | passed | used-adherent | accepted | — | confirmado · dac8ca896fee | `ensaios/ensaio-dev-360-duble-01/2026-10-31T02-32-34Z__solicitacao__opus__com__rep-01__20261031-023234-solicitacao-com-5aab` |
 | 2026-10-31T02:31:27Z | linha de base | ensaio-dev-360-duble-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-dev-360-duble-01/solicitacao/lb-20261031-023127-solicitacao-4ffd64` |
 | 2026-10-31T02:29:39Z | ensaio | ensaio-dev-360-duble-01 | solicitacao | ferramentas | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-dev-360-duble-01/2026-10-31__solicitacao__ferramentas__sem-pacote-gh-41160156366` |
