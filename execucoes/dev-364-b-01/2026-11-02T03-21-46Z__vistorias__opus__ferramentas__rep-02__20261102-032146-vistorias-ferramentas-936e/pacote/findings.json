@@ -1,0 +1,2218 @@
+{
+  "contract": "findings.v2",
+  "fixture": false,
+  "campaignId": "dev-364-b-01",
+  "runId": "20261102-032146-vistorias-ferramentas-936e",
+  "receivedAt": "2026-11-02T03:37:07Z",
+  "receipt": "r-4fabc1c0b7f0c139",
+  "findingContract": "achado-2",
+  "inspectionContract": "inspection.v1",
+  "inspectionStatus": "valid",
+  "report": {
+    "timestamp": "2026-11-02T03:37:07.845Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+    "scope": [
+      "/pnip/portal-mpa/vistorias (abas Tramitando, Agendar, Concluídos; filtros; busca; datas; tabela; paginação; diálogos)",
+      "/pnip/portal-mpa/vistorias/agendar-vistoria/{id} e diálogo do PDF",
+      "/pnip/portal-mpa (destino de Voltar/Home, só varredura)",
+      "janela 1280x900"
+    ],
+    "notes": "Viewport medido: 1280x900. Interações: abas Agendar/Concluídos; filtro Cidade→Barra Nova; busca \"zzzzzz\"+Enter; datas 10/04/2026 e 01/03/2026 (intervalo invertido aceito sem aviso, mostra \"Exibindo vistorias de 10/04/2026 até 01/03/2026\"); menu do avatar (Esc não fecha); botão Menu (sem efeito visível); olho da linha 1 → detalhe; boleto.pdf → diálogo PDF; Atribuir/Excluir/Notificar/Exportar abertos e cancelados; selecionar tudo; paginação 2 e 3 via teclado; Exibir via teclado (escolher 25 estando na página 3 esvaziou a tabela e removeu a paginação, deixando o usuário sem como voltar: defeito funcional, não registrado como achado de acessibilidade); Voltar → /pnip/portal-mpa. Ferramentas: govbr-ds-validator scan_page S-page-001 a S-page-012, verify_finding V-001 e V-003 (confirmados, 4.1.3), V-002 (inverificável, 1.4.3). Indicadores de foco presentes nos controles conferidos. Incertezas: aplicabilidade do e-MAG 1.5 (link de salto) e do 4.1.2 para o combobox Exibir/Página, ambas por inspeção.",
+    "findings": [
+      {
+        "selector": "tbody br-button[icon=\"eye\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "Botão interno (shadow) do br-button com ícone fa-eye tem aria-label=\"\" e nenhum texto nem title: nome acessível vazio. 10 por página na aba Tramitando; o mesmo ocorre na aba Concluídos (F-082..F-091).",
+        "expected": "Cada botão de visualizar com nome acessível (ex.: \"Visualizar vistoria\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-c623d4d97c3a",
+          "F-001",
+          "S-page-006",
+          "FAM-a220ec5e8010"
+        ]
+      },
+      {
+        "selector": "br-input[type=\"date\"]",
+        "rule": "wcag:4.1.2",
+        "references": [
+          "wcag:1.3.1"
+        ],
+        "observed": "Os dois campos de data (#br-input-8 e #br-input-9 no shadow DOM) não têm label, aria-label nem aria-labelledby; os textos visíveis \"Data da vistoria:\" e \"até\" não estão associados.",
+        "expected": "Campos de data com rótulo associado programaticamente (ex.: \"Data inicial da vistoria\" / \"Data final da vistoria\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-9b0e07725662",
+          "F-024",
+          "F-025"
+        ]
+      },
+      {
+        "selector": "thead th:nth-child(2) > input[type=\"checkbox\"], tbody td:nth-child(2) > input[type=\"checkbox\"]",
+        "rule": "wcag:4.1.2",
+        "references": [
+          "wcag:1.3.1"
+        ],
+        "observed": "Checkbox de selecionar todas (cabeçalho) e checkboxes de cada linha sem label, aria-label ou aria-labelledby: nome acessível vazio.",
+        "expected": "Nome acessível que identifique a ação (ex.: \"Selecionar todas\", \"Selecionar vistoria Coral Mansa IV\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-9b0e07725662",
+          "F-026",
+          "F-027",
+          "F-036"
+        ]
+      },
+      {
+        "selector": "thead th:nth-child(9)",
+        "rule": "wcag:1.3.1",
+        "observed": "Cabeçalho da coluna de ações (th) vazio, sem texto acessível.",
+        "expected": "Cabeçalho com texto (ex.: \"Ações\"), mesmo que visualmente oculto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-e66cfc681b63",
+          "F-023"
+        ]
+      },
+      {
+        "selector": ".br-pagination li > li",
+        "rule": "wcag:1.3.1",
+        "observed": "Na paginação, cada <li> com o link da página está aninhado dentro de outro <li>, sem <ul>/<ol> como pai direto (estrutura de lista inválida).",
+        "expected": "Itens de lista como filhos diretos de ul/ol.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-d2e21ab1d9dc",
+          "F-037",
+          "F-038",
+          "F-039",
+          "F-040"
+        ]
+      },
+      {
+        "selector": "span.br-tag.primary-pastel-01",
+        "rule": "wcag:1.4.3",
+        "observed": "Etiqueta \"Nenhum filtro de data aplicado\": texto #ffffff sobre #c5d4eb, 14px normal, contraste 1,5:1.",
+        "expected": "Contraste mínimo de 4,5:1.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-0de0b0b6f15b",
+          "F-011"
+        ]
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-blue-40 .text-secondary-01",
+        "rule": "wcag:1.4.3",
+        "observed": "Rótulo de status \"Vistoria agendada\": texto #ffffff sobre #4f97d1, 14px normal, contraste 3,14:1.",
+        "expected": "Contraste mínimo de 4,5:1.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-5dae5cc6f34c",
+          "F-012",
+          "F-021"
+        ]
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-secondary-06 .text-secondary-01",
+        "rule": "wcag:1.4.3",
+        "observed": "Aba Agendar: rótulo de status \"Vistoria pré agendada\" com texto #ffffff sobre #888888, 14px normal, contraste 3,54:1.",
+        "expected": "Contraste mínimo de 4,5:1.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar na aba \"Agendar\" (#AGENDAR)"
+          ]
+        },
+        "evidence": [
+          "S-page-005",
+          "FAM-b0926480187c",
+          "F-066",
+          "F-075"
+        ]
+      },
+      {
+        "selector": ".bg-secondary-06 > .text-secondary-01",
+        "rule": "wcag:1.4.3",
+        "observed": "Página de detalhe da vistoria: status \"Aguarda preenchimento\" com texto #ffffff sobre #888888, 14px normal, contraste 3,54:1.",
+        "expected": "Contraste mínimo de 4,5:1.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão de olho (visualizar) da linha 1 → rota /pnip/portal-mpa/vistorias/agendar-vistoria/00000000-0000-4000-8a01-000000003028"
+          ]
+        },
+        "evidence": [
+          "S-page-007",
+          "FAM-6e7384973680",
+          "F-100"
+        ]
+      },
+      {
+        "selector": "#avatar-dropdown-trigger .br-avatar .content",
+        "rule": "wcag:1.4.3",
+        "observed": "Inicial \"U\" do avatar: #ffffff sobre #ff8c00 (bg-orange-vivid-30), 24,19px bold, contraste 2,33:1 (medido no navegador; axe deixou incompleto; o verificador não tem predicado para 1.4.3).",
+        "expected": "Contraste mínimo de 3:1 para texto grande.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "P-01",
+          "V-002"
+        ]
+      },
+      {
+        "selector": "pnip-propesc-vistorias h2",
+        "rule": "emag:1.3",
+        "observed": "A tela de Vistorias não tem h1; o primeiro e único título é h2 \"Vistorias\".",
+        "expected": "Hierarquia de cabeçalhos começando por h1 com o título principal da página.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-dd92dfa48b25",
+          "F-041"
+        ]
+      },
+      {
+        "selector": "main h3",
+        "rule": "emag:1.3",
+        "observed": "Página de detalhe (agendar-vistoria) começa no h3 \"Programa Nacional de Regularização de Embarcação de Pesca\" e segue com h4, sem h1 nem h2.",
+        "expected": "Hierarquia de cabeçalhos começando por h1, sem saltos de nível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão de olho (visualizar) da linha 1 → rota /pnip/portal-mpa/vistorias/agendar-vistoria/00000000-0000-4000-8a01-000000003028"
+          ]
+        },
+        "evidence": [
+          "S-page-007",
+          "FAM-86875c9f280e",
+          "F-101"
+        ]
+      },
+      {
+        "selector": "main h6",
+        "rule": "emag:1.3",
+        "observed": "Página inicial /pnip/portal-mpa (destino de \"Voltar\" e \"Home\"): os únicos cabeçalhos são h6 nos cartões (PROCESSOS, EMBARCAÇÕES...), sem h1 a h5.",
+        "expected": "Hierarquia de cabeçalhos começando por h1, sem saltos de nível.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em \"Voltar\" → /pnip/portal-mpa"
+          ]
+        },
+        "evidence": [
+          "S-page-012",
+          "FAM-4d9c639028e0",
+          "F-110"
+        ]
+      },
+      {
+        "selector": "pnip-filter-panel span.br-tag.interaction",
+        "rule": "wcag:2.1.1",
+        "observed": "Os filtros Cidade, Porto, Vistoriador e Status são <span> com cursor:pointer e handler de clique (abrem a lista de opções), mas sem tabindex nem papel: não recebem foco pelo Tab nem são acionáveis pelo teclado.",
+        "expected": "Gatilhos de filtro operáveis por teclado (ex.: <button> com aria-expanded).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "S-page-002"
+        ]
+      },
+      {
+        "selector": "pnip-filter-panel .br-select .br-radio label",
+        "rule": "wcag:4.1.2",
+        "references": [
+          "wcag:2.1.1"
+        ],
+        "observed": "As opções do filtro (ex.: Cidade → \"Barra Nova\") são <label> dentro de .br-radio sem <input type=radio> associado: sem papel, sem estado selecionado e sem foco; só funcionam por clique.",
+        "expected": "Opções com papel e estado expostos (radio/option) e operáveis por teclado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no filtro \"Cidade\""
+          ]
+        },
+        "evidence": [
+          "S-page-002"
+        ]
+      },
+      {
+        "selector": "pnip-filter-panel .br-tag button.inverted",
+        "rule": "wcag:4.1.2",
+        "observed": "Depois de aplicar o filtro Cidade=Barra Nova, o botão \"×\" que remove o filtro tem só o ícone fa-times, sem texto nem aria-label: nome acessível vazio.",
+        "expected": "Nome acessível (ex.: \"Remover filtro Barra Nova\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no filtro \"Cidade\"",
+            "clicar na opção \"Barra Nova\""
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "FAM-95e6d811310d",
+          "F-042"
+        ]
+      },
+      {
+        "selector": "div.col.align-content-center > span.br-tag > button.inverted",
+        "rule": "wcag:4.1.2",
+        "observed": "Com o filtro de datas aplicado, o botão \"×\" da etiqueta \"Exibindo vistorias de ... até ...\" tem só o ícone fa-times, sem nome acessível.",
+        "expected": "Nome acessível (ex.: \"Remover filtro de data\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher data inicial 2026-04-10",
+            "preencher data final 2026-03-01"
+          ]
+        },
+        "evidence": [
+          "S-page-011",
+          "FAM-9a0fbedc8b42",
+          "F-106"
+        ]
+      },
+      {
+        "selector": "#avatar-dropdown-trigger",
+        "rule": "wcag:2.5.3",
+        "observed": "O botão do usuário mostra o texto \"Olá, Usuária de Teste, SUPERVISOR\", mas o aria-label=\"Avatar com dropdown\" substitui o nome acessível, que não contém o texto visível.",
+        "expected": "Nome acessível que contenha o texto visível do rótulo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ]
+      },
+      {
+        "selector": "#avatar-menu",
+        "rule": "wcag:1.3.1",
+        "references": [
+          "wcag:4.1.2"
+        ],
+        "observed": "O container role=\"menu\" do avatar contém um <button> \"Sair\", divs e spans, sem nenhum elemento role=\"menuitem\".",
+        "expected": "Menu com filhos menuitem, ou sem role=\"menu\" se não implementar o padrão de menu.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão do avatar (#avatar-dropdown-trigger)"
+          ]
+        },
+        "evidence": [
+          "S-page-004",
+          "FAM-051c57542845",
+          "F-063"
+        ]
+      },
+      {
+        "selector": "#avatar-menu img",
+        "rule": "wcag:1.1.1",
+        "observed": "A imagem exit-icon.png do botão \"Sair\" não tem atributo alt.",
+        "expected": "alt=\"\" (decorativa, pois o botão já tem o texto \"Sair\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão do avatar (#avatar-dropdown-trigger)"
+          ]
+        },
+        "evidence": [
+          "S-page-004",
+          "FAM-90462b460ace",
+          "F-064"
+        ]
+      },
+      {
+        "selector": "#avatar-menu .text-center > span.text-blue-vivid-60",
+        "rule": "wcag:2.1.1",
+        "observed": "\"Trocar unidade\" no menu do avatar é um <span> com cursor:pointer e cor de link, sem tabindex nem papel: não alcançável pelo teclado (tabIndex -1).",
+        "expected": "Controle nativo (button ou link) focável e operável pelo teclado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão do avatar (#avatar-dropdown-trigger)"
+          ]
+        },
+        "evidence": [
+          "S-page-004"
+        ]
+      },
+      {
+        "selector": ".tab-nav .tab-item > button",
+        "rule": "wcag:1.3.1",
+        "references": [
+          "wcag:4.1.2"
+        ],
+        "observed": "A aba ativa (ex.: Tramitando; depois Agendar ou Concluídos) só é indicada pela classe visual \"active\" no li; os botões não têm aria-selected nem aria-current.",
+        "expected": "Estado da aba atual exposto programaticamente (aria-current ou o padrão tablist/tab com aria-selected).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "S-page-005",
+          "S-page-006"
+        ]
+      },
+      {
+        "selector": ".br-pagination a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual da paginação só é indicada pela classe \"active\"; o link não tem aria-current=\"page\".",
+        "expected": "aria-current=\"page\" na página atual.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ]
+      },
+      {
+        "selector": ".br-pagination a.page",
+        "rule": "wcag:2.4.3",
+        "observed": "Com o foco no link de página \"3\", pressionar Enter troca a página (21–30 de 34), mas o foco vai para o body: o link é re-renderizado e o foco se perde.",
+        "expected": "Foco mantido no controle de paginação (ou movido para o início dos resultados) depois da troca de página.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "focar o link de página \"3\" da paginação",
+            "pressionar Enter"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "tbody br-button[title=\"Atribuir vistoriador\"], tbody br-button[title=\"Excluir vistoria\"], tbody br-button[title=\"Notificar solicitante da vistoria\"]",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao abrir pelo teclado o diálogo \"Excluir Vistoria\" (foco no botão, Enter) e fechá-lo com Esc, o foco vai para o body em vez de voltar ao botão. O mesmo ocorre nos diálogos \"Atribuir Vistoriador\" e \"Notificar Vistoria(s)?\" (fechados com Cancelar).",
+        "expected": "Ao fechar o diálogo, o foco volta ao botão que o abriu.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "focar o botão \"Excluir vistoria\" da linha 1",
+            "pressionar Enter",
+            "pressionar Escape"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#swal2-select",
+        "rule": "wcag:4.1.2",
+        "references": [
+          "wcag:1.3.1"
+        ],
+        "observed": "No diálogo \"Atribuir Vistoriador\", o select com os vistoriadores não tem label nem aria-label; o texto \"Selecione um Vistoriador\" não está associado.",
+        "expected": "Select com rótulo associado programaticamente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar em \"Atribuir vistoriador\" na linha 1"
+          ]
+        },
+        "evidence": [
+          "S-page-009",
+          "FAM-e49e6e47e6ff",
+          "F-105"
+        ]
+      },
+      {
+        "selector": ".text-blue-vivid-60 > strong",
+        "rule": "wcag:2.1.1",
+        "observed": "\"boleto.pdf\" na página de detalhe é um <strong> com cursor:pointer e cor de link; o clique abre um diálogo com o PDF, mas o elemento não recebe foco nem tem papel: inacessível pelo teclado.",
+        "expected": "Link ou botão nativo focável e operável pelo teclado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão de olho (visualizar) da linha 1 → rota /pnip/portal-mpa/vistorias/agendar-vistoria/00000000-0000-4000-8a01-000000003028"
+          ]
+        },
+        "evidence": [
+          "S-page-007",
+          "S-page-008"
+        ]
+      },
+      {
+        "selector": ".swal2-popup",
+        "rule": "wcag:4.1.2",
+        "observed": "O diálogo do PDF (role=dialog, aria-modal) tem aria-labelledby=\"swal2-title\", mas o h2 está vazio e oculto: o diálogo fica sem nome acessível.",
+        "expected": "Diálogo com nome acessível (ex.: \"Boleto da ART\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão de olho (visualizar) da linha 1 → rota /pnip/portal-mpa/vistorias/agendar-vistoria/00000000-0000-4000-8a01-000000003028",
+            "clicar em \"boleto.pdf\""
+          ]
+        },
+        "evidence": [
+          "S-page-008",
+          "FAM-e0a02a56a2e5",
+          "F-102"
+        ]
+      },
+      {
+        "selector": "object[type=\"application/pdf\"]",
+        "rule": "wcag:1.1.1",
+        "observed": "O <object type=\"application/pdf\"> que exibe o boleto não tem title, aria-label nem conteúdo alternativo.",
+        "expected": "Alternativa textual ou nome acessível para o objeto embutido.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão de olho (visualizar) da linha 1 → rota /pnip/portal-mpa/vistorias/agendar-vistoria/00000000-0000-4000-8a01-000000003028",
+            "clicar em \"boleto.pdf\""
+          ]
+        },
+        "evidence": [
+          "S-page-008",
+          "FAM-9918edfa0cc4",
+          "F-104"
+        ]
+      },
+      {
+        "selector": ".swal2-close",
+        "rule": "wcag:1.4.11",
+        "references": [
+          "wcag:1.4.3"
+        ],
+        "observed": "Botão de fechar \"×\" do diálogo do PDF: cor #1351b4 sobre fundo próprio #676767, contraste 1,29:1 (medido no navegador, sem hover).",
+        "expected": "Contraste mínimo de 3:1 para o ícone/texto grande do controle.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clicar no botão de olho (visualizar) da linha 1 → rota /pnip/portal-mpa/vistorias/agendar-vistoria/00000000-0000-4000-8a01-000000003028",
+            "clicar em \"boleto.pdf\""
+          ]
+        },
+        "evidence": [
+          "S-page-008",
+          "P-01"
+        ]
+      },
+      {
+        "selector": "pnip-propesc-vistorias > .p-5 > .d-flex.flex-column",
+        "rule": "wcag:4.1.3",
+        "observed": "Depois de buscar \"zzzzzz\", aparece \"Não há vistorias para exibir.\" num <p> sem role=status nem aria-live; a única região aria-live (a da paginação) é removida.",
+        "expected": "Mensagem de resultado anunciada como status (role=status/aria-live) sem mover o foco.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher a busca com \"zzzzzz\"",
+            "pressionar Enter"
+          ]
+        },
+        "evidence": [
+          "V-001"
+        ]
+      },
+      {
+        "selector": "pnip-propesc-vistorias .p-5 > .mt-5.text-center",
+        "rule": "wcag:4.1.3",
+        "observed": "Depois de aplicar um período de datas sem resultados, aparece \"Não há vistorias para exibir nesse periodo selecionado.\" sem role=status nem aria-live.",
+        "expected": "Mensagem anunciada como status.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "preencher data inicial 2026-04-10",
+            "preencher data final 2026-03-01"
+          ]
+        },
+        "evidence": [
+          "S-page-011",
+          "V-003"
+        ]
+      },
+      {
+        "selector": "br-breadcrumb",
+        "rule": "wcag:4.1.2",
+        "observed": "No shadow DOM do breadcrumb, o item Home é <a href=\"/portal-mpa\"> que contém um <button aria-label=\"\"> (conteúdo interativo aninhado): gera duas paradas de Tab (\"link Home\" e \"botão Home\") para o mesmo destino.",
+        "expected": "Um único elemento interativo (link) para o item Home.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ]
+      },
+      {
+        "selector": "br-header",
+        "rule": "wcag:1.1.1",
+        "observed": "A imagem do logotipo do cabeçalho (shadow DOM do br-header, assets/images/govbr-logo.png) tem alt=\"logo\", que não identifica a marca.",
+        "expected": "Texto alternativo que identifique a marca (ex.: \"gov.br\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ]
+      },
+      {
+        "selector": "head > title",
+        "rule": "wcag:2.4.2",
+        "observed": "O título do documento é \"PNIP\" na lista de Vistorias, no detalhe da vistoria (/agendar-vistoria/...) e na página inicial: não descreve a página nem a distingue das outras.",
+        "expected": "Título único e descritivo por rota (ex.: \"Vistorias - PNIP\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "S-page-007",
+          "S-page-012"
+        ]
+      },
+      {
+        "selector": "br-select-pnip input[type=\"text\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "Os campos \"Exibir\" e \"Página\" abrem uma lista de opções com seta para baixo, mas o input não tem role=combobox, aria-expanded nem aria-controls, e o botão \"Exibir lista\" tem tabindex=-1 e nenhum aria-expanded.",
+        "expected": "Papel e estado expandido/recolhido expostos (padrão combobox).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "focar o campo \"Exibir\" (#total)",
+            "pressionar ArrowDown"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "pnip-header",
+        "rule": "emag:1.5",
+        "observed": "A página não tem link de salto (\"Ir para o conteúdo\") nem atalhos para blocos; o primeiro elemento focável é o botão Menu do cabeçalho.",
+        "expected": "Âncoras para ir direto ao conteúdo principal no início da página.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      }
+    ],
+    "inspection": {
+      "completion": "partial",
+      "regions": [
+        {
+          "id": "r1",
+          "description": "Cabeçalho (br-header: logo, Menu, título) e botão/menu do avatar",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s4"
+          ]
+        },
+        {
+          "id": "r2",
+          "description": "Breadcrumb",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s7"
+          ]
+        },
+        {
+          "id": "r3",
+          "description": "Título \"Vistorias\" + Exportar Vistorias",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s10"
+          ]
+        },
+        {
+          "id": "r4",
+          "description": "Abas Agendar/Tramitando/Concluídos",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s5",
+            "s6"
+          ]
+        },
+        {
+          "id": "r5",
+          "description": "Painel de filtros (Cidade, Porto, Vistoriador, Status, Limpar Filtro) e busca",
+          "origin": "browser",
+          "status": "partial",
+          "reason": "Abri só o filtro Cidade; Porto, Vistoriador e Status são o mesmo componente e não foram abertos um a um",
+          "states": [
+            "s1",
+            "s2",
+            "s3",
+            "s13"
+          ]
+        },
+        {
+          "id": "r6",
+          "description": "Filtro de datas e etiqueta de estado do filtro",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s11"
+          ]
+        },
+        {
+          "id": "r7",
+          "description": "Tabela de vistorias com checkboxes e ações por linha",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s5",
+            "s6",
+            "s16"
+          ]
+        },
+        {
+          "id": "r8",
+          "description": "Paginação e seletores Exibir/Página",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s14",
+            "s17"
+          ]
+        },
+        {
+          "id": "r9",
+          "description": "Diálogos SweetAlert (Atribuir, Excluir, Notificar, Exportar)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s9",
+            "s10",
+            "s15"
+          ]
+        },
+        {
+          "id": "r10",
+          "description": "Rota de detalhe agendar-vistoria/{id} e diálogo do PDF",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s7",
+            "s8"
+          ]
+        },
+        {
+          "id": "r11",
+          "description": "Página inicial /pnip/portal-mpa (destino de Voltar/Home)",
+          "origin": "browser",
+          "status": "partial",
+          "reason": "Só a varredura axe e a estrutura de cabeçalhos; os links dela levam a outros módulos, fora da tela avaliada",
+          "states": [
+            "s12"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "id": "s1",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-001",
+            "observables": [
+              "URL /pnip/portal-mpa/vistorias",
+              "aba Tramitando ativa",
+              "10 de 34 itens"
+            ]
+          },
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "s2",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "pnip-filter-panel .row > div:nth-of-type(1) > span.br-tag"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-002",
+            "observables": [
+              "lista de opções do filtro Cidade visível"
+            ]
+          },
+          "evidence": [
+            "S-page-002"
+          ]
+        },
+        {
+          "id": "s3",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "pnip-filter-panel .row > div:nth-of-type(1) > span.br-tag"
+            },
+            {
+              "action": "click",
+              "target": "pnip-filter-panel .br-select .br-item:nth-child(2) label"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-003",
+            "observables": [
+              "etiqueta \"Barra Nova\" com botão ×",
+              "6 itens"
+            ]
+          },
+          "evidence": [
+            "S-page-003"
+          ]
+        },
+        {
+          "id": "s4",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "#avatar-dropdown-trigger"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-004",
+            "observables": [
+              "#avatar-menu visível",
+              "aria-expanded=true"
+            ]
+          },
+          "evidence": [
+            "S-page-004"
+          ]
+        },
+        {
+          "id": "s5",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "#AGENDAR"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-005",
+            "observables": [
+              "aba Agendar ativa",
+              "status \"Vistoria pré agendada\""
+            ]
+          },
+          "evidence": [
+            "S-page-005"
+          ]
+        },
+        {
+          "id": "s6",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "#HISTORICO"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-006",
+            "observables": [
+              "aba Concluídos ativa"
+            ]
+          },
+          "evidence": [
+            "S-page-006"
+          ]
+        },
+        {
+          "id": "s7",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias/agendar-vistoria/00000000-0000-4000-8a01-000000003028",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "tbody tr:nth-child(1) br-button[icon=\"eye\"]"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-007",
+            "observables": [
+              "path /pnip/portal-mpa/vistorias/agendar-vistoria/...3028"
+            ]
+          },
+          "evidence": [
+            "S-page-007"
+          ]
+        },
+        {
+          "id": "s8",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias/agendar-vistoria/00000000-0000-4000-8a01-000000003028",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "tbody tr:nth-child(1) br-button[icon=\"eye\"]"
+            },
+            {
+              "action": "click",
+              "target": ".text-blue-vivid-60 > strong"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-008",
+            "observables": [
+              "diálogo modal com o PDF aberto"
+            ]
+          },
+          "evidence": [
+            "S-page-008"
+          ]
+        },
+        {
+          "id": "s9",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "tbody tr:nth-child(1) br-button[icon=\"user-plus\"]"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-009",
+            "observables": [
+              "diálogo Atribuir Vistoriador com #swal2-select"
+            ]
+          },
+          "evidence": [
+            "S-page-009"
+          ]
+        },
+        {
+          "id": "s10",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "br-button[type=\"primary\"]"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-010",
+            "observables": [
+              "diálogo Exportar Vistorias com checkboxes de status"
+            ]
+          },
+          "evidence": [
+            "S-page-010"
+          ]
+        },
+        {
+          "id": "s11",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "fill",
+              "target": "#br-input-8",
+              "value": "2026-04-10"
+            },
+            {
+              "action": "fill",
+              "target": "#br-input-9",
+              "value": "2026-03-01"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-011",
+            "observables": [
+              "\"Não há vistorias para exibir nesse periodo selecionado.\"",
+              "etiqueta \"Exibindo vistorias de 10/04/2026 até 01/03/2026\""
+            ]
+          },
+          "evidence": [
+            "S-page-011"
+          ]
+        },
+        {
+          "id": "s12",
+          "url": "http://screens:3300/pnip/portal-mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "br-button \"Voltar\""
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-012",
+            "observables": [
+              "path /pnip/portal-mpa",
+              "cartões de módulos"
+            ]
+          },
+          "evidence": [
+            "S-page-012"
+          ]
+        },
+        {
+          "id": "s13",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "fill",
+              "target": "#search input",
+              "value": "zzzzzz"
+            },
+            {
+              "action": "press",
+              "target": "#search input",
+              "value": "Enter"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "V-001",
+            "observables": [
+              "\"Não há vistorias para exibir.\""
+            ]
+          },
+          "evidence": [
+            "V-001"
+          ]
+        },
+        {
+          "id": "s14",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": ".br-pagination a.page (2)"
+            },
+            {
+              "action": "focus",
+              "target": ".br-pagination a.page (3)"
+            },
+            {
+              "action": "press",
+              "target": ".br-pagination a.page (3)",
+              "value": "Enter"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "21–30 de 34 itens",
+              "document.activeElement = body"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s15",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "focus",
+              "target": "tbody tr:nth-child(1) br-button[icon=\"trash\"]"
+            },
+            {
+              "action": "press",
+              "target": "tbody tr:nth-child(1) br-button[icon=\"trash\"]",
+              "value": "Enter"
+            },
+            {
+              "action": "press",
+              "target": ".swal2-popup",
+              "value": "Escape"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "diálogo Excluir Vistoria aberto e depois fechado",
+              "foco no body"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s16",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "thead th:nth-child(2) > input[type=\"checkbox\"]"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "10 linhas marcadas",
+              "botões \"Notificar Selecionadas\" e \"Alterar vistoriador em lote\""
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s17",
+          "url": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip/portal-mpa/vistorias?mock-perfil=mpa"
+            },
+            {
+              "action": "focus",
+              "target": "#total"
+            },
+            {
+              "action": "press",
+              "target": "#total",
+              "value": "ArrowDown"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "lista 10/25/50/100 visível",
+              "foco na opção 10"
+            ]
+          },
+          "evidence": []
+        }
+      ],
+      "items": [
+        {
+          "id": "i1",
+          "state": "s1",
+          "subject": "document",
+          "check": "axe-core na página inteira",
+          "status": "completed",
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "i2",
+          "state": "s1",
+          "region": "r1",
+          "subject": "#avatar-dropdown-trigger, br-header",
+          "check": "nome acessível, rótulo no nome, alt do logo, contraste do avatar",
+          "status": "completed",
+          "evidence": [
+            "S-page-001",
+            "V-002"
+          ]
+        },
+        {
+          "id": "i3",
+          "state": "s1",
+          "subject": "todos os focáveis (inclusive shadow DOM)",
+          "check": "ordem de Tab, alcance pelo teclado e indicador de foco (outline tracejado 4px #c2850c presente)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i4",
+          "state": "s2",
+          "region": "r5",
+          "subject": "pnip-filter-panel",
+          "check": "axe no escopo e semântica/teclado das opções",
+          "status": "completed",
+          "evidence": [
+            "S-page-002"
+          ]
+        },
+        {
+          "id": "i5",
+          "state": "s3",
+          "region": "r5",
+          "subject": "etiqueta de filtro aplicado",
+          "check": "axe e nome do botão remover",
+          "status": "completed",
+          "evidence": [
+            "S-page-003"
+          ]
+        },
+        {
+          "id": "i6",
+          "state": "s4",
+          "region": "r1",
+          "subject": "#avatar-menu",
+          "check": "axe, papel do menu, teclado em Trocar unidade, Esc",
+          "status": "completed",
+          "evidence": [
+            "S-page-004"
+          ]
+        },
+        {
+          "id": "i7",
+          "state": "s5",
+          "region": "r4",
+          "subject": "aba Agendar",
+          "check": "axe e estado da aba",
+          "status": "completed",
+          "evidence": [
+            "S-page-005"
+          ]
+        },
+        {
+          "id": "i8",
+          "state": "s6",
+          "region": "r4",
+          "subject": "aba Concluídos",
+          "check": "axe",
+          "status": "completed",
+          "evidence": [
+            "S-page-006"
+          ]
+        },
+        {
+          "id": "i9",
+          "state": "s7",
+          "region": "r10",
+          "subject": "rota de detalhe",
+          "check": "axe, cabeçalhos, boleto.pdf, título",
+          "status": "completed",
+          "evidence": [
+            "S-page-007"
+          ]
+        },
+        {
+          "id": "i10",
+          "state": "s8",
+          "region": "r10",
+          "subject": "diálogo do PDF",
+          "check": "axe, nome do diálogo, contraste do ×, Esc e retorno de foco",
+          "status": "completed",
+          "evidence": [
+            "S-page-008"
+          ]
+        },
+        {
+          "id": "i11",
+          "state": "s9",
+          "region": "r9",
+          "subject": "diálogo Atribuir",
+          "check": "axe e retorno de foco",
+          "status": "completed",
+          "evidence": [
+            "S-page-009"
+          ]
+        },
+        {
+          "id": "i12",
+          "state": "s10",
+          "region": "r9",
+          "subject": "diálogo Exportar",
+          "check": "axe",
+          "status": "completed",
+          "evidence": [
+            "S-page-010"
+          ]
+        },
+        {
+          "id": "i13",
+          "state": "s11",
+          "region": "r6",
+          "subject": "filtro de datas",
+          "check": "axe, intervalo invertido, mensagem de status",
+          "status": "completed",
+          "evidence": [
+            "S-page-011",
+            "V-003"
+          ]
+        },
+        {
+          "id": "i14",
+          "state": "s13",
+          "region": "r5",
+          "subject": "busca sem resultados",
+          "check": "mensagem de status",
+          "status": "completed",
+          "evidence": [
+            "V-001"
+          ]
+        },
+        {
+          "id": "i15",
+          "state": "s14",
+          "region": "r8",
+          "subject": ".br-pagination",
+          "check": "aria-current e foco após troca de página",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i16",
+          "state": "s15",
+          "region": "r9",
+          "subject": "diálogos de ação por linha",
+          "check": "retorno de foco ao fechar (Excluir via teclado; Atribuir e Notificar via script)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i17",
+          "state": "s17",
+          "region": "r8",
+          "subject": "br-select-pnip",
+          "check": "operação por teclado e semântica de combobox",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i18",
+          "state": "s16",
+          "region": "r7",
+          "subject": "botões de ação em lote",
+          "check": "nome acessível (texto visível; aria-label vazio ignorado)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i19",
+          "state": "s12",
+          "region": "r11",
+          "subject": "página inicial",
+          "check": "axe",
+          "status": "completed",
+          "evidence": [
+            "S-page-012"
+          ]
+        },
+        {
+          "id": "i20",
+          "state": "s1",
+          "region": "r1",
+          "subject": "botão Menu (#navigation)",
+          "check": "efeito ao acionar",
+          "status": "failed",
+          "reason": "O clique não abriu nenhum menu visível (data-target #main-navigation inexistente); não deu para avaliar o menu de navegação",
+          "evidence": []
+        }
+      ],
+      "candidates": [
+        {
+          "id": "c1",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "tbody br-button[icon=\"eye\"]",
+          "observation": "button-name",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001"
+          ],
+          "originRef": "FAM-c623d4d97c3a",
+          "findings": [
+            0
+          ]
+        },
+        {
+          "id": "c1b",
+          "state": "s6",
+          "origin": "validation-tool",
+          "subject": "tbody br-button[icon=\"eye\"]",
+          "observation": "button-name na aba Concluídos",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-006"
+          ],
+          "originRef": "FAM-a220ec5e8010",
+          "findings": [
+            0
+          ]
+        },
+        {
+          "id": "c2",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "campos de data e checkboxes",
+          "observation": "label (13 membros: 2 datas, 11 checkboxes)",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001"
+          ],
+          "originRef": "FAM-9b0e07725662",
+          "findings": [
+            1,
+            2
+          ]
+        },
+        {
+          "id": "c3",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "thead th:nth-child(9)",
+          "observation": "empty-table-header",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001"
+          ],
+          "originRef": "F-023",
+          "findings": [
+            3
+          ]
+        },
+        {
+          "id": "c4",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "thead th:nth-child(2)",
+          "observation": "empty-table-header na coluna do checkbox",
+          "decision": "uncertain",
+          "evidence": [
+            "S-page-001"
+          ],
+          "originRef": "F-022",
+          "reason": "A célula contém o checkbox sem rótulo; nomear o checkbox (achado de checkbox) provavelmente resolve, por isso não virou achado separado"
+        },
+        {
+          "id": "c5",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": ".br-pagination li > li",
+          "observation": "listitem",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001"
+          ],
+          "originRef": "FAM-d2e21ab1d9dc",
+          "findings": [
+            4
+          ]
+        },
+        {
+          "id": "c6",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "span.br-tag.primary-pastel-01",
+          "observation": "color-contrast 1,5:1",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001"
+          ],
+          "originRef": "FAM-0de0b0b6f15b",
+          "findings": [
+            5
+          ]
+        },
+        {
+          "id": "c7",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "status Vistoria agendada",
+          "observation": "color-contrast 3,14:1",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001"
+          ],
+          "originRef": "FAM-5dae5cc6f34c",
+          "findings": [
+            6
+          ]
+        },
+        {
+          "id": "c8",
+          "state": "s5",
+          "origin": "validation-tool",
+          "subject": "status Vistoria pré agendada",
+          "observation": "color-contrast 3,54:1",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-005"
+          ],
+          "originRef": "FAM-b0926480187c",
+          "findings": [
+            7
+          ]
+        },
+        {
+          "id": "c9",
+          "state": "s7",
+          "origin": "validation-tool",
+          "subject": "status Aguarda preenchimento",
+          "observation": "color-contrast 3,54:1",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-007"
+          ],
+          "originRef": "FAM-6e7384973680",
+          "findings": [
+            8
+          ]
+        },
+        {
+          "id": "c10",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "#avatar-dropdown-trigger .br-avatar .content",
+          "observation": "contraste incompleto 2,33:1; V-002 inverificável (sem predicado)",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001",
+            "V-002"
+          ],
+          "originRef": "P-01",
+          "findings": [
+            9
+          ]
+        },
+        {
+          "id": "c11",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "página Vistorias",
+          "observation": "page-has-heading-one",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001"
+          ],
+          "originRef": "FAM-dd92dfa48b25",
+          "findings": [
+            10
+          ]
+        },
+        {
+          "id": "c12",
+          "state": "s7",
+          "origin": "validation-tool",
+          "subject": "página de detalhe",
+          "observation": "page-has-heading-one",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-007"
+          ],
+          "originRef": "FAM-86875c9f280e",
+          "findings": [
+            11
+          ]
+        },
+        {
+          "id": "c13",
+          "state": "s12",
+          "origin": "validation-tool",
+          "subject": "página inicial",
+          "observation": "page-has-heading-one",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-012"
+          ],
+          "originRef": "FAM-4d9c639028e0",
+          "findings": [
+            12
+          ]
+        },
+        {
+          "id": "c14",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "filtros-chip",
+          "observation": "span clicável não focável",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            13
+          ]
+        },
+        {
+          "id": "c15",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "opções do filtro",
+          "observation": "label sem input radio",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-002"
+          ],
+          "findings": [
+            14
+          ]
+        },
+        {
+          "id": "c16",
+          "state": "s3",
+          "origin": "validation-tool",
+          "subject": "botão remover filtro",
+          "observation": "button-name",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-003"
+          ],
+          "originRef": "F-042",
+          "findings": [
+            15
+          ]
+        },
+        {
+          "id": "c17",
+          "state": "s11",
+          "origin": "validation-tool",
+          "subject": "botão remover filtro de data",
+          "observation": "button-name",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-011"
+          ],
+          "originRef": "F-106",
+          "findings": [
+            16
+          ]
+        },
+        {
+          "id": "c18",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#avatar-dropdown-trigger",
+          "observation": "aria-label sem o texto visível",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            17
+          ]
+        },
+        {
+          "id": "c19",
+          "state": "s4",
+          "origin": "validation-tool",
+          "subject": "#avatar-menu",
+          "observation": "aria-required-children",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-004"
+          ],
+          "originRef": "F-063",
+          "findings": [
+            18
+          ]
+        },
+        {
+          "id": "c20",
+          "state": "s4",
+          "origin": "validation-tool",
+          "subject": "#avatar-menu img",
+          "observation": "image-alt",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-004"
+          ],
+          "originRef": "F-064",
+          "findings": [
+            19
+          ]
+        },
+        {
+          "id": "c21",
+          "state": "s4",
+          "origin": "browser",
+          "subject": "Trocar unidade",
+          "observation": "span clicável não focável",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            20
+          ]
+        },
+        {
+          "id": "c22",
+          "state": "s4",
+          "origin": "browser",
+          "subject": "#avatar-menu",
+          "observation": "Esc não fecha o menu do avatar",
+          "decision": "rejected",
+          "evidence": [],
+          "reason": "Não há critério WCAG/e-MAG que exija Esc para fechar este menu; o botão continua alternando o menu"
+        },
+        {
+          "id": "c23",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".tab-nav button",
+          "observation": "estado ativo só visual",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            21
+          ]
+        },
+        {
+          "id": "c24",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".br-pagination a.page.active",
+          "observation": "sem aria-current",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            22
+          ]
+        },
+        {
+          "id": "c25",
+          "state": "s14",
+          "origin": "browser",
+          "subject": ".br-pagination a.page",
+          "observation": "foco perdido após troca de página",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            23
+          ]
+        },
+        {
+          "id": "c26",
+          "state": "s15",
+          "origin": "browser",
+          "subject": "gatilhos de diálogo por linha",
+          "observation": "foco não volta ao gatilho",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            24
+          ]
+        },
+        {
+          "id": "c27",
+          "state": "s9",
+          "origin": "validation-tool",
+          "subject": "#swal2-select",
+          "observation": "select-name",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-009"
+          ],
+          "originRef": "F-105",
+          "findings": [
+            25
+          ]
+        },
+        {
+          "id": "c28",
+          "state": "s7",
+          "origin": "browser",
+          "subject": "boleto.pdf",
+          "observation": "strong clicável não focável",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-008"
+          ],
+          "findings": [
+            26
+          ]
+        },
+        {
+          "id": "c29",
+          "state": "s8",
+          "origin": "validation-tool",
+          "subject": ".swal2-popup",
+          "observation": "aria-dialog-name",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-008"
+          ],
+          "originRef": "F-102",
+          "findings": [
+            27
+          ]
+        },
+        {
+          "id": "c30",
+          "state": "s8",
+          "origin": "validation-tool",
+          "subject": "object",
+          "observation": "object-alt",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-008"
+          ],
+          "originRef": "F-104",
+          "findings": [
+            28
+          ]
+        },
+        {
+          "id": "c31",
+          "state": "s8",
+          "origin": "validation-tool",
+          "subject": ".swal2-close",
+          "observation": "contraste incompleto 1,29:1, medido no navegador",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-008"
+          ],
+          "originRef": "P-01",
+          "findings": [
+            29
+          ]
+        },
+        {
+          "id": "c32",
+          "state": "s13",
+          "origin": "browser",
+          "subject": "mensagem de busca vazia",
+          "observation": "sem live region",
+          "decision": "accepted",
+          "evidence": [
+            "V-001"
+          ],
+          "findings": [
+            30
+          ]
+        },
+        {
+          "id": "c33",
+          "state": "s11",
+          "origin": "browser",
+          "subject": "mensagem de período vazio",
+          "observation": "sem live region",
+          "decision": "accepted",
+          "evidence": [
+            "V-003"
+          ],
+          "findings": [
+            31
+          ]
+        },
+        {
+          "id": "c34",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-breadcrumb",
+          "observation": "a contendo button",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            32
+          ]
+        },
+        {
+          "id": "c35",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "logo",
+          "observation": "alt=\"logo\"",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            33
+          ]
+        },
+        {
+          "id": "c36",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "title",
+          "observation": "\"PNIP\" em todas as rotas",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            34
+          ]
+        },
+        {
+          "id": "c37",
+          "state": "s17",
+          "origin": "browser",
+          "subject": "br-select-pnip input",
+          "observation": "sem semântica de combobox",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            35
+          ]
+        },
+        {
+          "id": "c38",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "página",
+          "observation": "sem link de salto",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            36
+          ]
+        },
+        {
+          "id": "c39",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "tbody br-button[icon=\"user-times\"]",
+          "observation": "title \"Atribuir vistoriador\" com ícone de remover",
+          "decision": "rejected",
+          "evidence": [],
+          "reason": "Abre o mesmo diálogo Atribuir Vistoriador (reatribuição): o nome corresponde à função"
+        },
+        {
+          "id": "c40",
+          "state": "s8",
+          "origin": "browser",
+          "subject": ".swal2-close",
+          "observation": "aria-label em inglês \"Close this dialog\" numa página pt-BR",
+          "decision": "uncertain",
+          "evidence": [],
+          "reason": "Não está claro se o 3.1.2 se aplica a um nome acessível curto; não virou achado"
+        },
+        {
+          "id": "c41",
+          "state": "s11",
+          "origin": "browser",
+          "subject": "filtro de datas",
+          "observation": "intervalo invertido aceito sem aviso",
+          "decision": "rejected",
+          "evidence": [
+            "S-page-011"
+          ],
+          "reason": "O sistema não detecta o erro, então o 3.3.1 não se aplica; anotado como observação funcional"
+        },
+        {
+          "id": "c42",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#search input",
+          "observation": "rótulo só por placeholder",
+          "decision": "uncertain",
+          "evidence": [],
+          "reason": "O nome acessível existe (placeholder); suficiência para o 3.3.2 discutível"
+        },
+        {
+          "id": "c43",
+          "state": "s10",
+          "origin": "browser",
+          "subject": "checkboxes do diálogo Exportar",
+          "observation": "grupo sem fieldset/legend",
+          "decision": "rejected",
+          "evidence": [
+            "S-page-010"
+          ],
+          "reason": "Cada checkbox tem label; o agrupamento por fieldset é técnica suficiente, não requisito"
+        },
+        {
+          "id": "c44",
+          "state": "s16",
+          "origin": "browser",
+          "subject": "botões de ação em lote",
+          "observation": "aria-label vazio",
+          "decision": "rejected",
+          "evidence": [],
+          "reason": "aria-label vazio é ignorado; o nome vem do texto visível"
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "other",
+          "detail": "O botão Menu do cabeçalho não abre nenhum menu (data-target #main-navigation inexistente na página); o menu de navegação não foi avaliado."
+        },
+        {
+          "kind": "out-of-scope",
+          "detail": "Os links da página inicial /pnip/portal-mpa (Processos, Embarcações etc.) levam a outros módulos e não foram percorridos; dela só foram feitas a varredura axe e a checagem de cabeçalhos."
+        },
+        {
+          "kind": "budget",
+          "detail": "Os filtros Porto, Vistoriador e Status não foram abertos um a um (mesmo componente do filtro Cidade); confirmar/OK de Excluir, Notificar, Atribuir e Exportar não foram enviados, para não alterar dados."
+        },
+        {
+          "kind": "tool-failure",
+          "detail": "O verify_finding não tem predicado para o 1.4.3 (V-002 inverificável); os contrastes do avatar e do botão × foram medidos no navegador."
+        },
+        {
+          "kind": "other",
+          "detail": "Os seletores br-header e br-breadcrumb apontam o host do web component porque o elemento afetado está em shadow DOM, fora do alcance de document.querySelectorAll."
+        }
+      ]
+    }
+  }
+}
