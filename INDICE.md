@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-02T10:49:23Z | ensaio | ensaio-trio-b-duble-365 | vistorias | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 88e36748126a | `ensaios/ensaio-trio-b-duble-365/2026-11-02T10-49-23Z__vistorias__opus__ferramentas__rep-01__20261102-104923-vistorias-ferramentas-4861` |
+| 2026-11-02T10:48:35Z | linha de base | ensaio-trio-b-duble-365 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-b-duble-365/vistorias/lb-20261102-104835-vistorias-3d0459` |
 | 2026-11-02T10:46:16Z | ensaio | ensaio-trio-b-duble-365 | vistorias | — | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-trio-b-duble-365/2026-11-02__vistorias__sem-braco__sem-pacote-gh-41431322754` |
 | 2026-11-02T06:39:17Z | execução | dev-364-a-01 | solicitacao | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 7357a2e95f13 | `execucoes/dev-364-a-01/2026-11-02T06-39-17Z__solicitacao__opus__ferramentas__rep-03__20261102-063917-solicitacao-ferramentas-982d` |
 | 2026-11-02T06:38:14Z | linha de base | dev-364-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-364-a-01/solicitacao/lb-20261102-063814-solicitacao-bff3c8` |
