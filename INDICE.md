@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-02T10:54:08Z | ensaio | ensaio-trio-b-duble-365 | vistorias | com | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-trio-b-duble-365/2026-11-02__vistorias__com__sem-pacote-gh-41432132379` |
 | 2026-11-02T10:49:23Z | ensaio | ensaio-trio-b-duble-365 | vistorias | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 88e36748126a | `ensaios/ensaio-trio-b-duble-365/2026-11-02T10-49-23Z__vistorias__opus__ferramentas__rep-01__20261102-104923-vistorias-ferramentas-4861` |
 | 2026-11-02T10:48:35Z | linha de base | ensaio-trio-b-duble-365 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-b-duble-365/vistorias/lb-20261102-104835-vistorias-3d0459` |
 | 2026-11-02T10:46:16Z | ensaio | ensaio-trio-b-duble-365 | vistorias | — | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-trio-b-duble-365/2026-11-02__vistorias__sem-braco__sem-pacote-gh-41431322754` |
