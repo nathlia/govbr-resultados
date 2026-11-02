@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-02T04:37:15Z | execução | dev-364-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | passed | used-with-errors | accepted | — | confirmado · b76f05c6fca2 | `execucoes/dev-364-b-01/2026-11-02T04-37-15Z__vistorias__opus__ferramentas__rep-03__20261102-043715-vistorias-ferramentas-3ee1` |
+| 2026-11-02T04:36:26Z | linha de base | dev-364-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-364-b-01/vistorias/lb-20261102-043626-vistorias-3c793b` |
 | 2026-11-02T04:18:18Z | execução | dev-364-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 4a8ddae31348 | `execucoes/dev-364-b-01/2026-11-02T04-18-18Z__vistorias__opus__sem__rep-03__20261102-041818-vistorias-sem-e7fa` |
 | 2026-11-02T04:18:04Z | linha de base | dev-364-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-364-b-01/vistorias/lb-20261102-041804-vistorias-5bf65e` |
 | 2026-11-02T04:00:09Z | execução | dev-364-b-01 | vistorias | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 4061f7aae2c1 | `execucoes/dev-364-b-01/2026-11-02T04-00-09Z__vistorias__opus__com__rep-03__20261102-040009-vistorias-com-b458` |
