@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-03T19:16:02Z | execução | dev-371-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | failed | used-with-errors | accepted | — | confirmado · bbd35899af6c | `execucoes/dev-371-b-01/2026-11-03T19-16-02Z__vistorias__opus__ferramentas__rep-03__20261103-191602-vistorias-ferramentas-9b75` |
+| 2026-11-03T19:15:30Z | linha de base | dev-371-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-371-b-01/vistorias/lb-20261103-191530-vistorias-8256bb` |
 | 2026-11-03T18:58:40Z | linha de base | dev-371-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-371-b-01/vistorias/lb-20261103-185840-vistorias-6c5177` |
 | 2026-11-03T18:58:29Z | execução | dev-371-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 432db1ff906a | `execucoes/dev-371-b-01/2026-11-03T18-58-29Z__vistorias__opus__ferramentas__rep-02__20261103-185829-vistorias-ferramentas-36c2` |
 | 2026-11-03T18:38:49Z | linha de base | dev-371-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-371-b-01/vistorias/lb-20261103-183849-vistorias-77b666` |
