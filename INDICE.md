@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-03T17:17:57Z | execução | dev-371-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · ccf5d4311a97 | `execucoes/dev-371-b-01/2026-11-03T17-17-57Z__vistorias__opus__sem__rep-01__20261103-171757-vistorias-sem-5431` |
+| 2026-11-03T17:17:28Z | linha de base | dev-371-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-371-b-01/vistorias/lb-20261103-171728-vistorias-3a16e3` |
 | 2026-11-03T17:11:49Z | ensaio | ensaio-trio-a-duble-371 | solicitacao | com | — | passed | passed | used-adherent | accepted | — | confirmado · ee29ce73b4c5 | `ensaios/ensaio-trio-a-duble-371/2026-11-03T17-11-49Z__solicitacao__opus__com__rep-01__20261103-171149-solicitacao-com-1e3a` |
 | 2026-11-03T17:11:07Z | linha de base | ensaio-trio-a-duble-371 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-a-duble-371/solicitacao/lb-20261103-171107-solicitacao-f1349c` |
 | 2026-11-03T17:06:16Z | ensaio | ensaio-trio-a-duble-371 | solicitacao | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 182ed691ba2a | `ensaios/ensaio-trio-a-duble-371/2026-11-03T17-06-16Z__solicitacao__opus__ferramentas__rep-01__20261103-170616-solicitacao-ferramentas-e1a3` |
