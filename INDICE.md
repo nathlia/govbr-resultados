@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-03T17:06:16Z | ensaio | ensaio-trio-a-duble-371 | solicitacao | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 182ed691ba2a | `ensaios/ensaio-trio-a-duble-371/2026-11-03T17-06-16Z__solicitacao__opus__ferramentas__rep-01__20261103-170616-solicitacao-ferramentas-e1a3` |
+| 2026-11-03T17:05:16Z | linha de base | ensaio-trio-a-duble-371 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-a-duble-371/solicitacao/lb-20261103-170516-solicitacao-7a08e9` |
 | 2026-11-03T17:01:05Z | ensaio | ensaio-trio-b-duble-371 | vistorias | com | — | passed | passed | used-adherent | accepted | — | confirmado · 7ee826727ace | `ensaios/ensaio-trio-b-duble-371/2026-11-03T17-01-05Z__vistorias__opus__com__rep-01__20261103-170105-vistorias-com-8dc4` |
 | 2026-11-03T17:00:06Z | linha de base | ensaio-trio-b-duble-371 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-b-duble-371/vistorias/lb-20261103-170006-vistorias-e5e31a` |
 | 2026-11-03T16:55:38Z | ensaio | ensaio-trio-b-duble-371 | vistorias | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 39c602fc9053 | `ensaios/ensaio-trio-b-duble-371/2026-11-03T16-55-38Z__vistorias__opus__ferramentas__rep-01__20261103-165538-vistorias-ferramentas-c9ad` |
