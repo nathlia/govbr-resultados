@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-03T22:37:22Z | execução | dev-371-a-01 | solicitacao | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · bc154a899fb9 | `execucoes/dev-371-a-01/2026-11-03T22-37-22Z__solicitacao__opus__sem__rep-02__20261103-223722-solicitacao-sem-214a` |
+| 2026-11-03T22:37:13Z | linha de base | dev-371-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-371-a-01/solicitacao/lb-20261103-223713-solicitacao-dc0451` |
 | 2026-11-03T22:24:48Z | execução | dev-371-a-01 | solicitacao | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 10f92a3700df | `execucoes/dev-371-a-01/2026-11-03T22-24-48Z__solicitacao__opus__com__rep-02__20261103-222448-solicitacao-com-11f3` |
 | 2026-11-03T22:23:57Z | linha de base | dev-371-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-371-a-01/solicitacao/lb-20261103-222357-solicitacao-2f2239` |
 | 2026-11-03T22:11:12Z | execução | dev-371-a-01 | solicitacao | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 9c2c17e14f2b | `execucoes/dev-371-a-01/2026-11-03T22-11-12Z__solicitacao__opus__ferramentas__rep-02__20261103-221112-solicitacao-ferramentas-8f70` |
