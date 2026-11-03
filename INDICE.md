@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-03T00:57:51Z | execução | dev-366-b-01 | vistorias | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · bf020304e660 | `execucoes/dev-366-b-01/2026-11-03T00-57-51Z__vistorias__opus__com__rep-03__20261103-005751-vistorias-com-939d` |
+| 2026-11-03T00:57:12Z | linha de base | dev-366-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-366-b-01/vistorias/lb-20261103-005712-vistorias-cbd36f` |
 | 2026-11-03T00:43:28Z | execução | dev-366-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 008153a6c13e | `execucoes/dev-366-b-01/2026-11-03T00-43-28Z__vistorias__opus__ferramentas__rep-03__20261103-004328-vistorias-ferramentas-93af` |
 | 2026-11-03T00:42:43Z | linha de base | dev-366-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-366-b-01/vistorias/lb-20261103-004243-vistorias-15c365` |
 | 2026-11-03T00:26:43Z | execução | dev-366-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | failed | used-adherent | accepted | — | confirmado · 35d5b2b8076d | `execucoes/dev-366-b-01/2026-11-03T00-26-43Z__vistorias__opus__ferramentas__rep-02__20261103-002643-vistorias-ferramentas-7dd5` |
