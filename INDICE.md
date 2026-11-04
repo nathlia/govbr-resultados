@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-04T02:55:52Z | execução | dev-371-a2-01 | acompanhamento | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · f4bdd4ed3e15 | `execucoes/dev-371-a2-01/2026-11-04T02-55-52Z__acompanhamento__opus__com__rep-01__20261104-025552-acompanhamento-com-9d64` |
+| 2026-11-04T02:55:09Z | linha de base | dev-371-a2-01 | acompanhamento | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-371-a2-01/acompanhamento/lb-20261104-025509-acompanhamento-d62395` |
 | 2026-11-04T02:51:19Z | ensaio | ensaio-trio-a2-01 | acompanhamento | sem | — | passed | passed | absent-verified | accepted | — | confirmado · c578af9a8f08 | `ensaios/ensaio-trio-a2-01/2026-11-04T02-51-19Z__acompanhamento__opus__sem__rep-01__20261104-025119-acompanhamento-sem-54b3` |
 | 2026-11-04T02:51:04Z | linha de base | ensaio-trio-a2-01 | acompanhamento | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-a2-01/acompanhamento/lb-20261104-025104-acompanhamento-fa25d1` |
 | 2026-11-03T23:15:13Z | execução | dev-371-a-01 | solicitacao | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · f45e7afd8595 | `execucoes/dev-371-a-01/2026-11-03T23-15-13Z__solicitacao__opus__com__rep-03__20261103-231513-solicitacao-com-2b60` |
