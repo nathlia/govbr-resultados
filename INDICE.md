@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-04T10:30:57Z | execução | dev-372-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · e64c5578f4bc | `execucoes/dev-372-b-01/2026-11-04T10-30-57Z__vistorias__opus__sem__rep-02__20261104-103057-vistorias-sem-d4e3` |
+| 2026-11-04T10:30:53Z | linha de base | dev-372-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-372-b-01/vistorias/lb-20261104-103053-vistorias-5ed3f9` |
 | 2026-11-04T10:08:15Z | execução | dev-372-b-01 | vistorias | com | claude-opus-5-5 | passed | passed | used-with-errors | accepted | — | confirmado · 58f6ac1e15b3 | `execucoes/dev-372-b-01/2026-11-04T10-08-15Z__vistorias__opus__com__rep-02__20261104-100815-vistorias-com-ce35` |
 | 2026-11-04T10:07:13Z | linha de base | dev-372-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-372-b-01/vistorias/lb-20261104-100713-vistorias-0c5709` |
 | 2026-11-04T09:49:33Z | execução | dev-372-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 349a9ca1a11a | `execucoes/dev-372-b-01/2026-11-04T09-49-33Z__vistorias__opus__sem__rep-01__20261104-094933-vistorias-sem-605d` |
