@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-09T22:15:21Z | execução | dev-374-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 87a382837fc3 | `execucoes/dev-374-b-01/2026-11-09T22-15-21Z__vistorias__opus__sem__rep-03__20261109-221521-vistorias-sem-b14d` |
+| 2026-11-09T22:15:03Z | linha de base | dev-374-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-374-b-01/vistorias/lb-20261109-221503-vistorias-9a1f9a` |
 | 2026-11-09T21:54:39Z | execução | dev-374-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 5b02569fe0d3 | `execucoes/dev-374-b-01/2026-11-09T21-54-39Z__vistorias__opus__ferramentas__rep-02__20261109-215439-vistorias-ferramentas-0c31` |
 | 2026-11-09T21:54:07Z | linha de base | dev-374-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-374-b-01/vistorias/lb-20261109-215407-vistorias-2d18cb` |
 | 2026-11-09T21:33:39Z | execução | dev-374-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · a19202cf21e6 | `execucoes/dev-374-b-01/2026-11-09T21-33-39Z__vistorias__opus__sem__rep-02__20261109-213339-vistorias-sem-09d8` |
