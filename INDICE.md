@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-09T20:43:58Z | execução | dev-374-b-01 | vistorias | com | claude-opus-5-5 | passed | passed | unverified | accepted | — | confirmado · 9bf830148517 | `execucoes/dev-374-b-01/2026-11-09T20-43-58Z__vistorias__opus__com__rep-01__20261109-204358-vistorias-com-f59a` |
+| 2026-11-09T20:43:10Z | linha de base | dev-374-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-374-b-01/vistorias/lb-20261109-204310-vistorias-1135b3` |
 | 2026-11-09T20:20:53Z | execução | dev-374-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | passed | used-with-errors | accepted | — | confirmado · d5d40e209fda | `execucoes/dev-374-b-01/2026-11-09T20-20-53Z__vistorias__opus__ferramentas__rep-01__20261109-202053-vistorias-ferramentas-d496` |
 | 2026-11-09T20:20:06Z | linha de base | dev-374-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-374-b-01/vistorias/lb-20261109-202006-vistorias-4e8b22` |
 | 2026-11-09T20:16:09Z | ensaio | ensaio-trio-a2-duble-374 | acompanhamento | com | — | passed | passed | used-adherent | accepted | — | confirmado · 6e800a7acf32 | `ensaios/ensaio-trio-a2-duble-374/2026-11-09T20-16-09Z__acompanhamento__opus__com__rep-01__20261109-201609-acompanhamento-com-c9de` |
