@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-10T19:29:13Z | execução | dev-375-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | failed | used-adherent | accepted | — | confirmado · 051cf838c80e | `execucoes/dev-375-b-01/2026-11-10T19-29-13Z__vistorias__opus__ferramentas__rep-01__20261110-192913-vistorias-ferramentas-d74c` |
+| 2026-11-10T19:28:13Z | linha de base | dev-375-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-375-b-01/vistorias/lb-20261110-192813-vistorias-18fc08` |
 | 2026-11-10T19:10:33Z | linha de base | dev-375-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-375-b-01/vistorias/lb-20261110-191033-vistorias-6446e8` |
 | 2026-11-10T19:10:31Z | execução | dev-375-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 3fba3b7592db | `execucoes/dev-375-b-01/2026-11-10T19-10-31Z__vistorias__opus__sem__rep-01__20261110-191031-vistorias-sem-faab` |
 | 2026-11-10T19:05:33Z | ensaio | ensaio-trio-a2-duble-375 | acompanhamento | com | — | passed | passed | used-adherent | accepted | — | confirmado · 703067788700 | `ensaios/ensaio-trio-a2-duble-375/2026-11-10T19-05-33Z__acompanhamento__opus__com__rep-01__20261110-190533-acompanhamento-com-a241` |
