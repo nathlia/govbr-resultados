@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-11T11:33:43Z | execução | dev-3710-a-01 | solicitacao | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 97cb1c68276a | `execucoes/dev-3710-a-01/2026-11-11T11-33-43Z__solicitacao__opus__ferramentas__rep-03__20261111-113343-solicitacao-ferramentas-a8f6` |
+| 2026-11-11T11:32:59Z | linha de base | dev-3710-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-3710-a-01/solicitacao/lb-20261111-113259-solicitacao-c320e5` |
 | 2026-11-11T11:18:02Z | execução | dev-3710-a-01 | solicitacao | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 2f89339a8cec | `execucoes/dev-3710-a-01/2026-11-11T11-18-02Z__solicitacao__opus__ferramentas__rep-02__20261111-111802-solicitacao-ferramentas-2764` |
 | 2026-11-11T11:17:07Z | linha de base | dev-3710-a-01 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-3710-a-01/solicitacao/lb-20261111-111707-solicitacao-08a229` |
 | 2026-11-11T11:05:06Z | execução | dev-3710-a-01 | solicitacao | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · a9197d20d163 | `execucoes/dev-3710-a-01/2026-11-11T11-05-06Z__solicitacao__opus__sem__rep-02__20261111-110506-solicitacao-sem-6a76` |
