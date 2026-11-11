@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-11T13:18:22Z | execução | dev-3710-b-01 | vistorias | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · d73b08f87d05 | `execucoes/dev-3710-b-01/2026-11-11T13-18-22Z__vistorias__opus__ferramentas__rep-01__20261111-131822-vistorias-ferramentas-e9da` |
+| 2026-11-11T13:17:38Z | linha de base | dev-3710-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-3710-b-01/vistorias/lb-20261111-131738-vistorias-182793` |
 | 2026-11-11T12:54:58Z | execução | dev-3710-b-01 | vistorias | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · ffc8f4d57466 | `execucoes/dev-3710-b-01/2026-11-11T12-54-58Z__vistorias__opus__sem__rep-01__20261111-125458-vistorias-sem-8f3a` |
 | 2026-11-11T12:54:42Z | linha de base | dev-3710-b-01 | vistorias | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-3710-b-01/vistorias/lb-20261111-125442-vistorias-f07954` |
 | 2026-11-11T12:01:33Z | execução | dev-3710-a-01 | solicitacao | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 2686251bc1bb | `execucoes/dev-3710-a-01/2026-11-11T12-01-33Z__solicitacao__opus__sem__rep-03__20261111-120133-solicitacao-sem-ba04` |
