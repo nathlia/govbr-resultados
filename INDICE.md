@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-11T09:09:20Z | execução | dev-3710-a2-01 | acompanhamento | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 5b187237327e | `execucoes/dev-3710-a2-01/2026-11-11T09-09-20Z__acompanhamento__opus__ferramentas__rep-02__20261111-090920-acompanhamento-ferramentas-c3ca` |
+| 2026-11-11T09:08:22Z | linha de base | dev-3710-a2-01 | acompanhamento | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-3710-a2-01/acompanhamento/lb-20261111-090822-acompanhamento-24dace` |
 | 2026-11-11T08:56:08Z | execução | dev-3710-a2-01 | acompanhamento | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 803fbc8cacd5 | `execucoes/dev-3710-a2-01/2026-11-11T08-56-08Z__acompanhamento__opus__sem__rep-02__20261111-085608-acompanhamento-sem-7973` |
 | 2026-11-11T08:55:51Z | linha de base | dev-3710-a2-01 | acompanhamento | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/dev-3710-a2-01/acompanhamento/lb-20261111-085551-acompanhamento-a9b788` |
 | 2026-11-11T08:38:53Z | execução | dev-3710-a2-01 | acompanhamento | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · b0baf9b33414 | `execucoes/dev-3710-a2-01/2026-11-11T08-38-53Z__acompanhamento__opus__com__rep-02__20261111-083853-acompanhamento-com-a27b` |
