@@ -1,0 +1,1209 @@
+{
+  "contract": "findings.v2",
+  "fixture": false,
+  "campaignId": "dev-3712-a2-01",
+  "runId": "20261112-184357-acompanhamento-ferramentas-ada2",
+  "receivedAt": "2026-11-12T18:53:27Z",
+  "receipt": "r-5aedde530850bf30",
+  "findingContract": "achado-2",
+  "inspectionContract": "inspection.v1",
+  "inspectionStatus": "valid",
+  "report": {
+    "timestamp": "2026-11-12T18:53:27.387Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/acompanhamento.html",
+    "scope": [
+      "Tela acompanhamento.html inteira em 1280×900: skip links, cabeçalho, trilha, mensagem de pendência, cartão resumo com tooltips, abas Andamento/Documentos, step, tabela, formulário de envio (select, upload, erros, sucesso), avisos (checkbox/switches), acordeão, rodapé"
+    ],
+    "notes": "Interações: carregamento; hover e Esc no tooltip do NUP; Tab/Shift+Tab pela página; abertura dos itens 1 e 2 do acordeão; fechar a mensagem de pendência; troca de abas; envio do formulário vazio (mouse e teclado); fechar a mensagem de erro com Enter e com Espaço; abrir a lista Tipo de documento e escolher por teclado; upload de .exe e de .pdf (DataTransfer) e envio; drop sintético; ligar os switches e o Todos os avisos. Validador: scans S-page-001..007; verificações V-001..V-006. O meta refresh recarregou a página durante a avaliação. Incertezas: hover real no tooltip (1.4.13); o aria-checked divergente é exposto pelo Chromium com o estado nativo.",
+    "findings": [
+      {
+        "selector": "meta[http-equiv=\"refresh\"]",
+        "rule": "wcag:2.2.1",
+        "references": [
+          "emag:2.3"
+        ],
+        "observed": "<meta http-equiv=\"refresh\" content=\"300\">: a página recarrega sozinha a cada 300 s sem aviso nem controle. Durante a avaliação o recarregamento ocorreu e desfez o estado (aba Documentos voltou para Andamento, mensagem fechada reapareceu, formulário limpo).",
+        "expected": "Sem atualização automática temporizada, ou com meio de desligar/ajustar/estender o limite de tempo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-006 (axe meta-refresh)",
+          "S-page-003 F-019"
+        ]
+      },
+      {
+        "selector": "#tab-requerimento .tab-item",
+        "relatedSelectors": [
+          "#tab-requerimento ul[role=\"tablist\"]",
+          "#aba-andamento",
+          "#aba-documentos"
+        ],
+        "rule": "wcag:1.3.1",
+        "references": [
+          "wcag:4.1.2"
+        ],
+        "observed": "ul[role=\"tablist\"] tem filhos li sem role (papel listitem); as abas role=\"tab\" ficam dentro de listitem, sem pai tablist válido (axe aria-required-children, aria-required-parent, listitem).",
+        "expected": "Os li entre tablist e tab com role=\"presentation\"/\"none\" (ou as abas como filhos diretos do tablist).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001",
+          "F-002",
+          "F-003",
+          "F-004",
+          "F-005",
+          "S-page-003 F-014..F-018"
+        ]
+      },
+      {
+        "selector": ".etapa-decisao",
+        "relatedSelectors": [
+          ".etapa-conclusao",
+          ".etapa-analise",
+          ".etapa-envio"
+        ],
+        "rule": null,
+        "observed": "No step (Andamento), o marcador numérico da etapa 3 \"Decisão\" (::before, content \"3\") tem visibility:hidden: não aparece círculo nem número, e a linha do conector passa direto. As demais etapas, inclusive a 4 (também desabilitada), mostram o círculo com o número (visibility:visible).",
+        "expected": "Todas as etapas do componente Step com o mesmo marcador visível (círculo numerado), como nas etapas 1, 2 e 4.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "medida getComputedStyle(.etapa-decisao,\"::before\").visibility=hidden vs .etapa-conclusao visible"
+        ]
+      },
+      {
+        "selector": ".ajuda-resumo",
+        "relatedSelectors": [
+          "#tip-protocolo",
+          "#tip-prazo"
+        ],
+        "rule": "wcag:2.5.3",
+        "observed": "Os botões de ajuda mostram o texto visível \"Ajuda sobre o NUP\" e \"Ajuda sobre o prazo\" (span.rotulo-botao visível), mas aria-labelledby aponta para o tooltip e o nome acessível vira \"Use o NUP para consultar\" e \"Prazo em dias corridos\". O aria-label com o texto visível é ignorado.",
+        "expected": "O nome acessível contém o texto visível do rótulo (por exemplo \"Ajuda sobre o NUP\"); o tooltip pode entrar como descrição (aria-describedby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "V-006 (no-predicate; fato medido na árvore de acessibilidade)"
+        ]
+      },
+      {
+        "selector": "#acc-duvidas .header",
+        "relatedSelectors": [
+          "#acc-duvidas-1",
+          "#acc-duvidas-2",
+          "#acc-duvidas-3"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "Ao abrir um item do acordeão Dúvidas Frequentes, o painel controlado fica visível (display:block) e o ícone muda para angle-up, mas o botão mantém aria-expanded=\"false\". Conferido nos itens 1 e 2.",
+        "expected": "aria-expanded=\"true\" no cabeçalho enquanto o painel está aberto, e \"false\" quando fechado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click button[aria-controls=\"acc-duvidas-1\"]"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "V-001 (no-predicate; fato medido)"
+        ]
+      },
+      {
+        "selector": "#upl-documento .upload-button",
+        "relatedSelectors": [
+          "#arquivo-documento"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "O botão \"Selecione o arquivo\" é focável (tabIndex 0, recebe foco por Tab) mas tem aria-hidden=\"true\". O input file real (#arquivo-documento) está com display:none, então o controle focado não expõe nome, papel nem o rótulo \"Envio de documento\" às tecnologias assistivas.",
+        "expected": "O controle focável de envio exposto com papel e nome (sem aria-hidden), associado ao rótulo e às instruções.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #aba-documentos (aba Documentos)"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-013 (axe aria-hidden-focus)",
+          "S-page-005 F-027",
+          "S-page-007 F-044"
+        ]
+      },
+      {
+        "selector": "#arquivo-documento",
+        "relatedSelectors": [
+          "#arquivo-apoio",
+          "#arquivo-retorno"
+        ],
+        "rule": "wcag:3.3.2",
+        "references": [
+          "emag:6.5"
+        ],
+        "observed": "Antes do envio, o campo informa só \"Envio de documento\" e \"Você também pode arrastar o arquivo até a área acima.\" (sem atributo accept). A restrição \"O arquivo deve estar em PDF, JPG ou PNG e ter até 5 MB.\" só aparece como erro depois de enviar um arquivo fora do padrão (programa.exe).",
+        "expected": "Formatos aceitos e tamanho máximo informados nas instruções do campo antes da entrada.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #aba-documentos",
+            "upload programa.exe em #arquivo-documento",
+            "click .acao-enviar"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "S-page-007",
+          "V-003 (P-02)"
+        ]
+      },
+      {
+        "selector": "#tipo-documento",
+        "relatedSelectors": [
+          "#sel-tipo-documento .br-input",
+          "#msg-retorno"
+        ],
+        "rule": "wcag:3.3.1",
+        "references": [
+          "wcag:1.4.1",
+          "emag:6.6"
+        ],
+        "observed": "Ao enviar o formulário vazio, o campo \"Tipo de documento\" só ganha borda vermelha (.br-input.danger; borda rgb(229,34,7)). Não há mensagem de erro em texto para o campo, nem aria-invalid ou aria-describedby; a mensagem geral diz \"Corrija os campos indicados\". O campo de arquivo, por sua vez, recebe texto de erro.",
+        "expected": "O erro do campo identificado e descrito em texto junto dele, associado programaticamente (aria-describedby/aria-invalid).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #aba-documentos",
+            "click .acao-enviar"
+          ]
+        },
+        "evidence": [
+          "S-page-004",
+          "V-002 (undetermined, fato não desmentido)"
+        ]
+      },
+      {
+        "selector": "#sel-tipo-documento .br-item[role=\"option\"]",
+        "relatedSelectors": [
+          "#sel-tipo-documento input[type=\"radio\"]"
+        ],
+        "rule": "wcag:4.1.2",
+        "observed": "Na lista aberta de \"Tipo de documento\", cada role=\"option\" contém um input radio focável (descendente interativo dentro de option).",
+        "expected": "As opções da listbox sem controles interativos aninhados (o estado selecionado exposto por aria-selected na própria option).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #aba-documentos",
+            "click #sel-tipo-documento button[data-trigger]"
+          ]
+        },
+        "evidence": [
+          "S-page-005",
+          "F-034",
+          "F-035",
+          "F-036 (axe nested-interactive)"
+        ]
+      },
+      {
+        "selector": "#fs-avisos",
+        "relatedSelectors": [
+          ".titulo-avisos"
+        ],
+        "rule": "wcag:1.3.1",
+        "references": [
+          "emag:6.7"
+        ],
+        "observed": "O fieldset dos avisos (checkbox \"Todos os avisos\" e os interruptores de e-mail e SMS) não tem legend nem nome acessível. O título visível \"Avisos sobre o requerimento\" é um <p> fora do fieldset, sem associação ao grupo.",
+        "expected": "O grupo nomeado pelo título visível (legend dentro do fieldset, ou aria-labelledby).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #aba-documentos (aba Documentos)"
+          ]
+        },
+        "evidence": [
+          "S-page-003"
+        ]
+      },
+      {
+        "selector": "#fs-avisos input[role=\"switch\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "Ao ligar os interruptores, input.checked=true mas o atributo aria-checked continua \"false\" (#aviso-email e #aviso-sms). O Chromium expõe o estado nativo, mas o atributo ARIA declarado contradiz o estado real.",
+        "expected": "aria-checked acompanhando o estado (ou removido, deixando o estado nativo do checkbox).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #aba-documentos",
+            "click label[for=\"aviso-email\"]"
+          ]
+        },
+        "evidence": [
+          "V-004",
+          "V-005 (P-05; divergência medida)"
+        ]
+      },
+      {
+        "selector": "#msg-pendencia font",
+        "relatedSelectors": [
+          "#msg-pendencia .content[align]"
+        ],
+        "rule": "emag:1.1",
+        "observed": "O conteúdo da mensagem de pendência usa marcação de apresentação obsoleta: <font color=\"#333333\"> envolvendo o texto e align=\"left\" no div.content.",
+        "expected": "Apresentação feita por CSS, sem elementos ou atributos obsoletos do HTML (separação conteúdo/apresentação, padrões W3C).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001 (DOM)"
+        ]
+      }
+    ],
+    "inspection": {
+      "completion": "complete",
+      "regions": [
+        {
+          "id": "r1",
+          "description": "Skip links (br-skiplink)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r2",
+          "description": "Cabeçalho (br-header)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r3",
+          "description": "Trilha de navegação (br-breadcrumb)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r4",
+          "description": "Mensagem de pendência (br-message warning)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s10"
+          ]
+        },
+        {
+          "id": "r5",
+          "description": "Cartão resumo com botões de ajuda e tooltips",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r6",
+          "description": "Abas (br-tab)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s3"
+          ]
+        },
+        {
+          "id": "r7",
+          "description": "Painel Andamento: step e tabela de movimentações",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r8",
+          "description": "Painel Documentos: formulário (select, upload, enviar) e mensagens de retorno",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s3",
+            "s4",
+            "s5",
+            "s6",
+            "s7",
+            "s9"
+          ]
+        },
+        {
+          "id": "r9",
+          "description": "Avisos: checkbox e switches, região aria-live",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s3",
+            "s8"
+          ]
+        },
+        {
+          "id": "r10",
+          "description": "Acordeão Dúvidas Frequentes",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s2"
+          ]
+        },
+        {
+          "id": "r11",
+          "description": "Botão Meus Requerimentos e rodapé (br-footer)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "id": "s1",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-001",
+            "observables": [
+              "aba Andamento selecionada",
+              "mensagem de pendência visível",
+              "step e tabela de movimentações"
+            ]
+          },
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "s2",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "button[aria-controls=\"acc-duvidas-1\"]"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-002",
+            "observables": [
+              "#acc-duvidas-1 visível"
+            ]
+          },
+          "evidence": [
+            "S-page-002"
+          ]
+        },
+        {
+          "id": "s3",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "#aba-documentos"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-003",
+            "observables": [
+              "#painel-documentos visível com formulário e avisos"
+            ]
+          },
+          "evidence": [
+            "S-page-003"
+          ]
+        },
+        {
+          "id": "s4",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "#aba-documentos"
+            },
+            {
+              "action": "click",
+              "target": ".acao-enviar"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-004",
+            "observables": [
+              "#msg-retorno de erro",
+              "#arquivo-retorno \"Selecione o arquivo do documento.\"",
+              "borda vermelha em Tipo de documento"
+            ]
+          },
+          "evidence": [
+            "S-page-004"
+          ]
+        },
+        {
+          "id": "s5",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "#aba-documentos"
+            },
+            {
+              "action": "click",
+              "target": "#sel-tipo-documento button[data-trigger]"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-005",
+            "observables": [
+              "lista de opções aberta, aria-expanded=true"
+            ]
+          },
+          "evidence": [
+            "S-page-005"
+          ]
+        },
+        {
+          "id": "s6",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "#aba-documentos"
+            },
+            {
+              "action": "upload",
+              "target": "#arquivo-documento",
+              "value": "programa.exe"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-006",
+            "observables": [
+              "arquivo listado no upload"
+            ]
+          },
+          "evidence": [
+            "S-page-006"
+          ]
+        },
+        {
+          "id": "s7",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "#aba-documentos"
+            },
+            {
+              "action": "upload",
+              "target": "#arquivo-documento",
+              "value": "programa.exe"
+            },
+            {
+              "action": "click",
+              "target": ".acao-enviar"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-007",
+            "observables": [
+              "#arquivo-retorno \"O arquivo deve estar em PDF, JPG ou PNG e ter até 5 MB.\""
+            ]
+          },
+          "evidence": [
+            "S-page-007"
+          ]
+        },
+        {
+          "id": "s8",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "#aba-documentos"
+            },
+            {
+              "action": "click",
+              "target": "label[for=\"aviso-email\"]"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "switch e-mail ligado, \"Preferência salva.\" no aria-live, Todos os avisos em estado misto"
+            ]
+          },
+          "evidence": [
+            "V-004"
+          ]
+        },
+        {
+          "id": "s9",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "#aba-documentos"
+            },
+            {
+              "action": "select",
+              "target": "#tipo-documento",
+              "value": "Comprovante de residência"
+            },
+            {
+              "action": "upload",
+              "target": "#arquivo-documento",
+              "value": "comprovante.pdf"
+            },
+            {
+              "action": "click",
+              "target": ".acao-enviar"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "mensagem de sucesso \"Documento enviado.\" com foco no botão Fechar"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s10",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "click",
+              "target": "#msg-pendencia .fechar-mensagem"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "mensagem de pendência removida, foco no h1"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s11",
+          "url": "http://screens:3300/acompanhamento.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/acompanhamento.html"
+            },
+            {
+              "action": "wait",
+              "target": "300 s"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "página recarregada pelo meta refresh; estado anterior perdido"
+            ]
+          },
+          "evidence": []
+        }
+      ],
+      "items": [
+        {
+          "id": "i1",
+          "state": "s1",
+          "subject": "document",
+          "check": "axe-core completo",
+          "status": "completed",
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "i2",
+          "state": "s1",
+          "region": "r1",
+          "subject": ".br-skiplink a",
+          "check": "destinos #main-content e #rodape existem",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i3",
+          "state": "s1",
+          "region": "r7",
+          "subject": ".step-progress-btn",
+          "check": "pseudo-elementos, visibilidade e contraste das etapas",
+          "status": "completed",
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "i4",
+          "state": "s1",
+          "region": "r5",
+          "subject": ".ajuda-resumo",
+          "check": "nome acessível × texto visível; tooltip ao passar o mouse e Esc",
+          "status": "completed",
+          "evidence": [
+            "V-006"
+          ]
+        },
+        {
+          "id": "i5",
+          "state": "s1",
+          "subject": "controles focáveis",
+          "check": "ordem de Tab e indicador de foco (contorno tracejado 4px; etapas com contorno no ::before)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i6",
+          "state": "s2",
+          "region": "r10",
+          "subject": "#acc-duvidas .header",
+          "check": "aria-expanded × painel visível",
+          "status": "completed",
+          "evidence": [
+            "S-page-002",
+            "V-001"
+          ]
+        },
+        {
+          "id": "i7",
+          "state": "s10",
+          "region": "r4",
+          "subject": ".fechar-mensagem",
+          "check": "fechar remove a mensagem e move o foco ao h1",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i8",
+          "state": "s3",
+          "region": "r6",
+          "subject": "[role=tab]",
+          "check": "aria-selected e painel exibido ao trocar de aba",
+          "status": "completed",
+          "evidence": [
+            "S-page-003"
+          ]
+        },
+        {
+          "id": "i9",
+          "state": "s4",
+          "region": "r8",
+          "subject": ".formulario-documento",
+          "check": "erros por campo, foco após envio, fechar com Enter/Espaço (div role=button)",
+          "status": "completed",
+          "evidence": [
+            "S-page-004",
+            "V-002"
+          ]
+        },
+        {
+          "id": "i10",
+          "state": "s5",
+          "region": "r8",
+          "subject": "#sel-tipo-documento",
+          "check": "abrir lista, seta para baixo, Enter seleciona, aria-expanded",
+          "status": "completed",
+          "evidence": [
+            "S-page-005"
+          ]
+        },
+        {
+          "id": "i11",
+          "state": "s7",
+          "region": "r8",
+          "subject": "#arquivo-documento",
+          "check": "upload fora do formato, instruções e drop sintético",
+          "status": "completed",
+          "evidence": [
+            "S-page-006",
+            "S-page-007",
+            "V-003"
+          ]
+        },
+        {
+          "id": "i12",
+          "state": "s8",
+          "region": "r9",
+          "subject": "#fs-avisos",
+          "check": "aria-checked × checked; estado misto do Todos; aria-live",
+          "status": "completed",
+          "evidence": [
+            "V-004",
+            "V-005"
+          ]
+        },
+        {
+          "id": "i13",
+          "state": "s3",
+          "subject": "textos",
+          "check": "contraste medido (mínimo 4,59:1 em .etapa-envio .step-info)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i14",
+          "state": "s9",
+          "region": "r8",
+          "subject": "#msg-retorno sucesso",
+          "check": "mensagem de sucesso role=alert e foco",
+          "status": "completed",
+          "evidence": []
+        }
+      ],
+      "candidates": [
+        {
+          "id": "c1",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "meta[http-equiv=\"refresh\"]",
+          "observation": "meta refresh 300 s",
+          "decision": "accepted",
+          "evidence": [
+            "F-006",
+            "S-page-001"
+          ],
+          "originRef": "FAM-006f736eb27e",
+          "findings": [
+            0
+          ]
+        },
+        {
+          "id": "c2",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "ul[role=tablist]",
+          "observation": "aria-required-children",
+          "decision": "accepted",
+          "evidence": [
+            "F-001"
+          ],
+          "originRef": "FAM-808fe18aed14",
+          "findings": [
+            1
+          ]
+        },
+        {
+          "id": "c3",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "#aba-andamento,#aba-documentos",
+          "observation": "aria-required-parent (mesma causa de c2)",
+          "decision": "accepted",
+          "evidence": [
+            "F-002",
+            "F-003"
+          ],
+          "originRef": "FAM-110075716c7a",
+          "findings": [
+            1
+          ]
+        },
+        {
+          "id": "c4",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": ".tab-item",
+          "observation": "listitem (mesma causa de c2)",
+          "decision": "accepted",
+          "evidence": [
+            "F-004",
+            "F-005"
+          ],
+          "originRef": "FAM-5e21e4847da0",
+          "findings": [
+            1
+          ]
+        },
+        {
+          "id": "c5",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".etapa-decisao",
+          "observation": "marcador da etapa 3 oculto",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            2
+          ]
+        },
+        {
+          "id": "c6",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".ajuda-resumo",
+          "observation": "aria-labelledby substitui o rótulo visível",
+          "decision": "accepted",
+          "evidence": [
+            "V-006"
+          ],
+          "findings": [
+            3
+          ]
+        },
+        {
+          "id": "c7",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "#acc-duvidas .header",
+          "observation": "aria-expanded não atualiza",
+          "decision": "accepted",
+          "evidence": [
+            "V-001"
+          ],
+          "findings": [
+            4
+          ]
+        },
+        {
+          "id": "c8",
+          "state": "s3",
+          "origin": "validation-tool",
+          "subject": ".upload-button",
+          "observation": "aria-hidden-focus",
+          "decision": "accepted",
+          "evidence": [
+            "F-013"
+          ],
+          "originRef": "FAM-9f83cc777c0b",
+          "findings": [
+            5
+          ]
+        },
+        {
+          "id": "c9",
+          "state": "s7",
+          "origin": "validation-tool",
+          "subject": "#arquivo-documento",
+          "observation": "formato/tamanho só revelados no erro",
+          "decision": "accepted",
+          "evidence": [
+            "V-003"
+          ],
+          "originRef": "P-02",
+          "findings": [
+            6
+          ]
+        },
+        {
+          "id": "c10",
+          "state": "s4",
+          "origin": "browser",
+          "subject": "#tipo-documento",
+          "observation": "erro só por cor",
+          "decision": "accepted",
+          "evidence": [
+            "V-002"
+          ],
+          "findings": [
+            7
+          ]
+        },
+        {
+          "id": "c11",
+          "state": "s5",
+          "origin": "validation-tool",
+          "subject": ".br-item[role=option]",
+          "observation": "nested-interactive",
+          "decision": "accepted",
+          "evidence": [
+            "F-034",
+            "F-035",
+            "F-036"
+          ],
+          "originRef": "FAM-ed25fd578afc",
+          "findings": [
+            8
+          ]
+        },
+        {
+          "id": "c12",
+          "state": "s3",
+          "origin": "browser",
+          "subject": "#fs-avisos",
+          "observation": "fieldset sem legend",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            9
+          ]
+        },
+        {
+          "id": "c13",
+          "state": "s8",
+          "origin": "validation-tool",
+          "subject": "#aviso-email,#aviso-sms",
+          "observation": "aria-checked divergente de checked",
+          "decision": "accepted",
+          "evidence": [
+            "V-004",
+            "V-005"
+          ],
+          "originRef": "P-05",
+          "findings": [
+            10
+          ]
+        },
+        {
+          "id": "c14",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#msg-pendencia font",
+          "observation": "font/align obsoletos",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            11
+          ]
+        },
+        {
+          "id": "c15",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": ".step-info, labels, abas",
+          "observation": "contraste incompleto no axe",
+          "decision": "rejected",
+          "evidence": [
+            "S-page-001",
+            "S-page-003",
+            "S-page-005"
+          ],
+          "originRef": "P-01",
+          "reason": "Medido no navegador: .etapa-envio 4,59:1; .etapa-analise/decisão 7,33:1; abas 12,34–12,63:1; labels dos switches e do upload 12,63:1; \"Selecione o arquivo\" 7,33:1. Todos ≥ 4,5:1."
+        },
+        {
+          "id": "c16",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#tip-prazo",
+          "observation": "tooltip some ao mover o ponteiro do botão para ele (1.4.13 hoverable)",
+          "decision": "uncertain",
+          "evidence": [],
+          "reason": "Medido só com eventos sintéticos de mouseleave/mouseenter; não foi possível mover o ponteiro real até o tooltip, e é o comportamento padrão do tooltip do DS. Esc fecha o tooltip."
+        },
+        {
+          "id": "c17",
+          "state": "s5",
+          "origin": "browser",
+          "subject": "#sel-tipo-documento .br-item",
+          "observation": "após Enter na opção, o foco vai para o body",
+          "decision": "rejected",
+          "evidence": [],
+          "reason": "O Tab seguinte continua da posição correta (botão de upload); a perda de foco não quebra a ordem."
+        },
+        {
+          "id": "c18",
+          "state": "s4",
+          "origin": "browser",
+          "subject": "#msg-retorno .fechar-mensagem",
+          "observation": "fechar é div role=button (a mensagem de sucesso usa <button>)",
+          "decision": "rejected",
+          "evidence": [
+            "S-page-004"
+          ],
+          "reason": "Tem nome, papel, tabindex=0 e responde a Enter e Espaço; a diferença de marcação não gera barreira."
+        },
+        {
+          "id": "c19",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#msg-pendencia .content[role=alert]",
+          "observation": "role=alert em mensagem estática no carregamento",
+          "decision": "rejected",
+          "evidence": [],
+          "reason": "Uso aceitável; não há critério violado."
+        },
+        {
+          "id": "c20",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".resumo-requerimento .card-header div",
+          "observation": "título do cartão não é heading",
+          "decision": "rejected",
+          "evidence": [],
+          "reason": "Marcação igual à do exemplo do componente Card do DS; sem exigência normativa clara."
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "other",
+          "detail": "P-01 (contrast-incomplete) fechado por medida no navegador, sem pendingResolved da ferramenta: menor razão 4,59:1 (.etapa-envio .step-info, #168821 sobre branco, 16,8px); demais ≥ 7,33:1."
+        },
+        {
+          "kind": "other",
+          "detail": "P-02 e P-05 fechados por verify_finding (V-003, V-004, V-005) com veredito unverifiable/undetermined; a decisão foi tomada pela medida (achados 6 e 10). P-03, P-04, P-06 e P-07 resolvidos pelos scans S-page-003, S-page-002 e S-page-005."
+        },
+        {
+          "kind": "tool-failure",
+          "detail": "O validador não tem predicado para WCAG 4.1.2 (sem condição estruturada), 2.5.3 e 3.3.2; V-001, V-006 e V-003 voltaram unverifiable. Para 3.3.1 (V-002), voltou undetermined por falta de sinal programático de erro, o que é justamente o problema."
+        },
+        {
+          "kind": "other",
+          "detail": "Hover real sobre tooltips (WCAG 1.4.13) não foi exercido com o ponteiro real; só com eventos sintéticos (c16, incerto)."
+        },
+        {
+          "kind": "out-of-scope",
+          "detail": "Somente a janela 1280×900; as páginas de destino (inicio.html, meus-requerimentos.html) não foram abertas."
+        },
+        {
+          "kind": "other",
+          "detail": "O meta refresh recarregou a tela durante a inspeção (cerca de 5 min após o carregamento); os estados seguintes foram reproduzidos de novo desde o carregamento."
+        }
+      ]
+    }
+  }
+}
