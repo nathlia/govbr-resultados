@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-14T23:51:07Z | ensaio | ensaio-emenda-a-duble-02 | solicitacao | com | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-emenda-a-duble-02/2026-11-14__solicitacao__com__sem-pacote-gh-43655214763` |
 | 2026-11-14T23:49:42Z | ensaio | ensaio-emenda-a-duble-02 | solicitacao | com | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-emenda-a-duble-02/2026-11-14__solicitacao__com__sem-pacote-gh-43655096159` |
 | 2026-11-14T23:46:44Z | ensaio | ensaio-emenda-a-duble-02 | solicitacao | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · ce9da5673097 | `ensaios/ensaio-emenda-a-duble-02/2026-11-14T23-46-44Z__solicitacao__opus__ferramentas__rep-01__20261114-234644-solicitacao-ferramentas-e864` |
 | 2026-11-14T23:43:13Z | linha de base | ensaio-emenda-a-duble-02 | solicitacao | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-emenda-a-duble-02/solicitacao/lb-20261114-234313-solicitacao-91b5e5` |
