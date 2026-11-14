@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-14T23:22:57Z | ensaio | ensaio-emenda-a-duble-01 | solicitacao | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 8ea12cc9f05a | `ensaios/ensaio-emenda-a-duble-01/2026-11-14T23-22-57Z__solicitacao__opus__sem__rep-02__20261114-232257-solicitacao-sem-5d11` |
 | 2026-11-14T23:14:21Z | ensaio | ensaio-emenda-a-duble-01 | solicitacao | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 981c61fbe66e | `ensaios/ensaio-emenda-a-duble-01/2026-11-14T23-14-21Z__solicitacao__opus__sem__rep-01__20261114-231421-solicitacao-sem-8732` |
 | 2026-11-14T23:10:23Z | ensaio | ensaio-emenda-a-duble-01 | solicitacao | com | — | passed | passed | used-adherent | accepted | — | confirmado · 815ff008b7ec | `ensaios/ensaio-emenda-a-duble-01/2026-11-14T23-10-23Z__solicitacao__opus__com__rep-01__20261114-231023-solicitacao-com-4262` |
 | 2026-11-14T23:06:18Z | ensaio | ensaio-emenda-a-duble-01 | solicitacao | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 273242221f69 | `ensaios/ensaio-emenda-a-duble-01/2026-11-14T23-06-18Z__solicitacao__opus__ferramentas__rep-01__20261114-230618-solicitacao-ferramentas-8a42` |
