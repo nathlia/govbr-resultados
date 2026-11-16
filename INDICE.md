@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-16T23:41:57Z | execução | nat78-tela-d-01 | processos | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 26c947d65c3b | `execucoes/nat78-tela-d-01/2026-11-16T23-41-57Z__processos__opus__com__rep-01__20261116-234157-processos-com-b23b` |
 | 2026-11-16T23:21:11Z | execução | nat78-tela-d-01 | processos | ferramentas | claude-opus-5-5 | passed | passed | used-with-errors | accepted | — | confirmado · 5d0da3b4e569 | `execucoes/nat78-tela-d-01/2026-11-16T23-21-11Z__processos__opus__ferramentas__rep-01__20261116-232111-processos-ferramentas-d8e5` |
 | 2026-11-16T23:10:04Z | linha de base | nat78-tela-e-01 | cadastro-pais | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/nat78-tela-e-01/cadastro-pais/lb-20261116-231004-cadastro-pais-30a1b1` |
 | 2026-11-16T19:51:44Z | ensaio | ensaio-trio-duble-e-01 | cadastro-pais | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · b21bcc4a8e27 | `ensaios/ensaio-trio-duble-e-01/2026-11-16T19-51-44Z__cadastro-pais__opus__ferramentas__rep-01__20261116-195144-cadastro-pais-ferramentas-7c8c` |
