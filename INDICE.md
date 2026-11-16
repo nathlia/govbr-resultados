@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-16T19:40:46Z | ensaio | ensaio-duble-e-01 | cadastro-pais | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 21a9501015a0 | `ensaios/ensaio-duble-e-01/2026-11-16T19-40-46Z__cadastro-pais__opus__sem__rep-01__20261116-194046-cadastro-pais-sem-c002` |
+| 2026-11-16T19:40:45Z | linha de base | ensaio-duble-e-01 | cadastro-pais | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-duble-e-01/cadastro-pais/lb-20261116-194045-cadastro-pais-703edf` |
 | 2026-11-16T18:43:36Z | linha de base | nat78-tela-d-01 | processos | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/nat78-tela-d-01/processos/lb-20261116-184336-processos-938e69` |
 | 2026-11-14T23:51:07Z | ensaio | ensaio-emenda-a-duble-02 | solicitacao | com | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-emenda-a-duble-02/2026-11-14__solicitacao__com__sem-pacote-gh-43655214763` |
 | 2026-11-14T23:49:42Z | ensaio | ensaio-emenda-a-duble-02 | solicitacao | com | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-emenda-a-duble-02/2026-11-14__solicitacao__com__sem-pacote-gh-43655096159` |
