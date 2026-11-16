@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-16T19:51:44Z | ensaio | ensaio-trio-duble-e-01 | cadastro-pais | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · b21bcc4a8e27 | `ensaios/ensaio-trio-duble-e-01/2026-11-16T19-51-44Z__cadastro-pais__opus__ferramentas__rep-01__20261116-195144-cadastro-pais-ferramentas-7c8c` |
+| 2026-11-16T19:51:18Z | linha de base | ensaio-trio-duble-e-01 | cadastro-pais | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-duble-e-01/cadastro-pais/lb-20261116-195118-cadastro-pais-93600d` |
 | 2026-11-16T19:46:21Z | ensaio | ensaio-duble-e-01 | cadastro-pais | com | — | passed | passed | used-adherent | accepted | — | confirmado · 0e0794b3c800 | `ensaios/ensaio-duble-e-01/2026-11-16T19-46-21Z__cadastro-pais__opus__com__rep-01__20261116-194621-cadastro-pais-com-b7f0` |
 | 2026-11-16T19:45:41Z | linha de base | ensaio-duble-e-01 | cadastro-pais | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-duble-e-01/cadastro-pais/lb-20261116-194541-cadastro-pais-25633b` |
 | 2026-11-16T19:43:53Z | ensaio | ensaio-duble-e-01 | cadastro-pais | ferramentas | — | sem-pacote (interrupted) | — | — | — | — | nao-se-aplica | `ensaios/ensaio-duble-e-01/2026-11-16__cadastro-pais__ferramentas__sem-pacote-gh-43942187180` |
