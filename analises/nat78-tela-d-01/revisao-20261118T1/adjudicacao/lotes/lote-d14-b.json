@@ -1,0 +1,1757 @@
+{
+  "formato": "nat78-adjudicacao-lote-b-1.0.0",
+  "lote": "lote-d14-b",
+  "etapa": "b",
+  "politica": "politica-normativa-1.3.0",
+  "instrucoes": {
+    "arquivo": "LEIAME-adjudicacao.md",
+    "sha256": "0a37d11d4a3bb5150c43ebfed25f18100894e171930922afc998cdd438948fc5"
+  },
+  "instrucoesDoJuiz": {
+    "arquivo": "LEIAME-juiz.md",
+    "sha256": "0d3726a5fb5d2bc8673845e4f6bc455d135fbf9e2e79431980cb1d61b69793b5"
+  },
+  "esquema": {
+    "arquivo": "esquema-adjudicacao-b.schema.json",
+    "sha256": "5581151eb89be084ebc3bec6afb65cd7a20a9144b4e77828059045b47eb83d09"
+  },
+  "respostaEm": "../respostas/lote-d14-b.json",
+  "etapaA": {
+    "lote": {
+      "arquivo": "lote-d14.json",
+      "sha256": "a1b81b562367ac9b8341b43847dc47d2aaf263d69c27759390df0dd2e3015bad"
+    },
+    "respostas": {
+      "arquivo": "respostas/lote-d14-a.json",
+      "sha256": "37f4093b90a079df4db6230b273415223b05c1f9c6ed1cdc8075256608aa76fd",
+      "congelada": true
+    }
+  },
+  "n": 9,
+  "grupo": {
+    "id": "D-813323040e",
+    "pedeLeituraDaNorma": true,
+    "normaUnica": true,
+    "descricao": "9 cartões reunidos por uma regra mecânica fixada antes dos resultados (mesmo elemento no mesmo estado, mesma norma sobre o mesmo tipo de elemento, ou ambos; tipo: não resolvido). Reunidos só por isso; cada cartão tem a sua resposta.",
+    "norma": {
+      "id": "axe:page-has-heading-one",
+      "fonte": "axe-core 4.11.4",
+      "titulo": "Page should contain a level-one heading",
+      "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+      "etiquetas": [
+        "best-practice",
+        "cat.semantics"
+      ],
+      "forcaDeclarada": "boa-pratica"
+    },
+    "membros": [
+      "T3-31cc710c8e",
+      "T3-698a18239d",
+      "T3-71116b45e2",
+      "T3-835d9a3116",
+      "T3-873a5d282d",
+      "T3-b3a4f5588c",
+      "T3-be1a72356b",
+      "T3-c2268d51cc",
+      "T3-cee623caca"
+    ]
+  },
+  "referencias": {
+    "processos": {
+      "nome": "Tela Processos",
+      "versao": "1.1.0",
+      "endereco": "/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+      "paradas": {
+        "inicial": {
+          "path": "/pnip-d/portal-mpa/processos",
+          "registro": null,
+          "receita": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`"
+          ],
+          "nota": "aba padrão \"Tramitando\" com \"Meus processos\" ligado — primeiro paint da lista paginada"
+        },
+        "lista-exibir": {
+          "path": "/pnip-d/portal-mpa/processos",
+          "registro": null,
+          "receita": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ],
+          "nota": "lista do seletor \"Exibir\" (itens por página) da paginação aberta — última parada"
+        }
+      },
+      "defeitos": [
+        {
+          "id": "D-01",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 18,
+          "descricao": "Botões de ação das linhas da tabela \"Ver processo\" (9) e \"Desassociar processo do analista responsável\" (9; 8 desabilitados): <br-button> sem `label` e sem `circle`. O <button> interno é br-button middle de 72×40 px com raio de pílula (não circular), sem nenhum texto visível — só o ícone projetado (eye, user-times) — e o nome acessível vem só do `title`. A norma exige rótulo visível em todo Button não circular. Na mesma coluna o \"Assinar\" tem texto visível. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "O rótulo é um elemento obrigatório",
+                  "texto": "O rótulo é um elemento obrigatório.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "D-02",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 9,
+          "descricao": "Números de processo da coluna \"Nº Processo\": <a role=\"button\" style=\"cursor:pointer\"> sem href nem tabindex. Não são focáveis (fora do Tab real; a árvore do Chromium não os marca focusable), mas o clique navega: nas linhas 2, 3, 4, 6, 7 e 9 abre a sub-rota …/documentos do processo, que o \"Ver processo\" da mesma linha não abre (ele vai à rota do processo sem /documentos). Nas linhas 1, 5 e 8 o destino cai em /login com recarga — artefato do mock (adendo § C) —, mas o controle é o mesmo e igualmente inalcançável por teclado. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                  "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:2.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Disponibilizar todas as funções da página via teclado",
+              "texto": "All interactive elements and JavaScript functions must be keyboard-operable. No keyboard traps. Focus must be managed correctly.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                  "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.1.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Keyboard",
+              "texto": null,
+              "nivel": "A"
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis",
+                  "texto": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:2.2",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Garantir que os objetos programáveis sejam acessíveis",
+              "texto": "Scripts and dynamic content must remain accessible. Provide alternatives when direct access is not possible.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis",
+                  "texto": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (excerto herdado da base anterior; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Componente utilizável somente com teclado",
+                  "texto": "Todo componente interativo deve ser completamente utilizável apenas com teclado.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "D-03",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 7,
+          "descricao": "Etiquetas interativas \"Meus processos\" e os seis filtros (\"Aberto há\", \"Tipo de processo\", \"Status\", \"Espécie alvo\", \"Método de pesca\", \"Petrecho\"): <span class=\"br-tag interaction\"> com cursor:pointer, sem role, sem tabindex (tabIndex -1), papel generic e nome \"\" na árvore. O clique liga/desliga o filtro \"Meus processos\" (a lista passa de 9 para 10 linhas) ou abre a lista de opções do filtro; nenhuma é alcançada por Tab nem acionável por teclado, e nenhuma expõe estado (aria-pressed/aria-expanded). Os exemplos oficiais da Tag 3.7.0 só usam button e input+label como elementos interativos. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                  "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:2.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Disponibilizar todas as funções da página via teclado",
+              "texto": "All interactive elements and JavaScript functions must be keyboard-operable. No keyboard traps. Focus must be managed correctly.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                  "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.1.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Keyboard",
+              "texto": null,
+              "nivel": "A"
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis",
+                  "texto": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:2.2",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Garantir que os objetos programáveis sejam acessíveis",
+              "texto": "Scripts and dynamic content must remain accessible. Provide alternatives when direct access is not possible.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis",
+                  "texto": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (excerto herdado da base anterior; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Componente utilizável somente com teclado",
+                  "texto": "Todo componente interativo deve ser completamente utilizável apenas com teclado.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Os autores precisam associar elementos no documento a um role WAI-ARIA e aos states e…",
+                  "texto": "Os autores precisam associar elementos no documento a um role WAI-ARIA e aos states e properties apropriados (aria- \\ attributes) durante o ciclo de vida dos elementos, a menos que os elementos já tenham a semântica WAI-ARIA implícita apropriada para os states e properties.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            },
+            {
+              "id": "wcag:4.1.2",
+              "fonte": "WCAG 2.2",
+              "titulo": "Name, Role, Value",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-04",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 7,
+          "descricao": "Checkboxes de seleção da tabela — um no cabeçalho (coluna sem texto) e um em cada uma das 6 linhas selecionáveis: <input type=\"checkbox\"> sem <label>, aria-label, aria-labelledby ou title; labels.length = 0 e nome \"\" na árvore. Estão no Tab (operáveis), sem nome. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                  "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:6.2",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Associar etiquetas aos seus campos",
+              "texto": "Every form input must have a programmatically associated label via: (a) <label> element with for attribute matching the input's id, (b) aria-label attribute, or (c) aria-labelledby pointing to a visible label element. Placeholder text is NOT a substitute for a label — it disappears on input and is not consistently announced by all screen readers.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                  "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            },
+            {
+              "id": "wcag:4.1.2",
+              "fonte": "WCAG 2.2",
+              "titulo": "Name, Role, Value",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-05",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Campo de pesquisa da lista: o <br-input> recebeu `placeholder=\"Pesquise aqui ...\"` mas não `label`, e o input interno (id search) fica com labels.length = 0, sem aria-label nem aria-labelledby; o nome acessível é o placeholder. Os seletores \"Exibir\" e \"Página\" da mesma tela têm rótulo associado. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                  "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:6.2",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Associar etiquetas aos seus campos",
+              "texto": "Every form input must have a programmatically associated label via: (a) <label> element with for attribute matching the input's id, (b) aria-label attribute, or (c) aria-labelledby pointing to a visible label element. Placeholder text is NOT a substitute for a label — it disappears on input and is not consistently announced by all screen readers.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                  "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-06",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 8,
+          "descricao": "Etiquetas de status da coluna \"Status\": texto branco (text-secondary-01, 14 px/500) sobre bg-orange-vivid-40 #e66f0e = 3,16:1 (5 linhas), bg-indigo-vivid-40 #8289ff = 3,01:1 (1) e bg-secondary-06 #888888 = 3,54:1 (2) — 8 de 9 abaixo de 4,5:1 (cores da paleta, combinação autoral). O status \"Em revisão analista\" sobre indigo-vivid-60 passa (6,49:1, controle K-08). O texto do status vem do mock; a combinação de cores é do componente da página. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                  "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:4.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+              "texto": "Text contrast ratio must be at least 4.5:1 (WCAG AA) for normal text and 3:1 for large text (18pt+ or 14pt bold). Gov.br recommends 7:1 for body text. Error states and icons used alone must also meet contrast requirements.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                  "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.4.3",
+              "fonte": "WCAG 2.2",
+              "titulo": "Contrast (Minimum)",
+              "texto": null,
+              "nivel": "AA"
+            }
+          ]
+        },
+        {
+          "id": "D-07",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "A tabela de processos não tem <caption> nem aria-label/aria-labelledby (nome \"\" na árvore); o h2 \"Processos\" fica fora do contêiner da tabela, sem associação. A norma pede caption que identifique a tabela (os exemplos oficiais da Table 3.7.0 trazem caption). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.9 – Em tabelas, utilizar títulos e resumos de forma apropriada",
+                  "texto": "Recomendação 3.9 – Em tabelas, utilizar títulos e resumos de forma apropriada.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:3.9",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Em tabelas, utilizar títulos e resumos de forma apropriada",
+              "texto": "Use <caption> and summary on tables. Headers via <th> with scope attribute.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.9 – Em tabelas, utilizar títulos e resumos de forma apropriada",
+                  "texto": "Recomendação 3.9 – Em tabelas, utilizar títulos e resumos de forma apropriada.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-08",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Cabeçalho da coluna de ações (Ver processo / Desassociar / Assinar): <th scope=\"col\"> vazio, columnheader sem nome na árvore — as células de ação ficam sem cabeçalho identificável. Precedente B-26 (D-61). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.10 – Associar células de dados às células de cabeçalho",
+                  "texto": "Recomendação 3.10 – Associar células de dados às células de cabeçalho.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:3.10",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Associar células de dados às células de cabeçalho",
+              "texto": "Use TH for headers and TD for data. Use id/headers or scope attributes for complex tables.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.10 – Associar células de dados às células de cabeçalho",
+                  "texto": "Recomendação 3.10 – Associar células de dados às células de cabeçalho.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-10",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "<iframe> vazio no fim do componente (sem src, documento about:blank sem conteúdo, 1160×500 px, sem title, name nem aria-label; papel Iframe com nome \"\" na árvore): é ponto de Tab depois do \"Voltar\" e, focado, nada muda na tela (outline none, sem sombra, :focus-visible falso). Depois dele o Tab real alterna iframe ↔ body (E-01); Shift+Tab sai para o \"Voltar\". Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.4 – Possibilitar que o elemento com foco seja visualmente evidente",
+                  "texto": "Recomendação 4.4 – Possibilitar que o elemento com foco seja visualmente evidente.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:4.4",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Possibilitar que o elemento com foco seja visualmente evidente",
+              "texto": "Focus indicator must be clearly visible on all interactive elements. Gov.br DS uses a dashed gold outline (#c2850c, 4px offset). Do not use outline: none or outline: 0 without a custom visible replacement.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.4 – Possibilitar que o elemento com foco seja visualmente evidente",
+                  "texto": "Recomendação 4.4 – Possibilitar que o elemento com foco seja visualmente evidente.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.4.7",
+              "fonte": "WCAG 2.2",
+              "titulo": "Focus Visible",
+              "texto": null,
+              "nivel": "AA"
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.1 – Respeitar os Padrões Web",
+                  "texto": "Recomendação 1.1 – Respeitar os Padrões Web.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:1.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Respeitar os padrões web",
+              "texto": "Follow W3C standards for HTML, XML, XHTML, and CSS. Code must be semantically correct and valid.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.1 – Respeitar os Padrões Web",
+                  "texto": "Recomendação 1.1 – Respeitar os Padrões Web.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:4.1.2",
+              "fonte": "WCAG 2.2",
+              "titulo": "Name, Role, Value",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-11",
+          "estado": "sempre",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Nenhum salto para o conteúdo: 0 âncoras \"#…\" e 0 .br-skiplink nas 2 paradas; o primeiro ponto de Tab é o botão Menu do cabeçalho. Casco da aplicação: **exposto** (adendo § E; C-04, B-01). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.5 – Fornecer âncoras para ir direto a um bloco de conteúdo",
+                  "texto": "Recomendação 1.5 – Fornecer âncoras para ir direto a um bloco de conteúdo.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:1.5",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Fornecer âncoras para ir direto a um bloco de conteúdo",
+              "texto": "Provide skip links in the accessibility bar. First link must jump to main content.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.5 – Fornecer âncoras para ir direto a um bloco de conteúdo",
+                  "texto": "Recomendação 1.5 – Fornecer âncoras para ir direto a um bloco de conteúdo.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.4.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Bypass Blocks",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-12",
+          "estado": "sempre",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Um só título visível na página, <h2> \"Processos\"; nenhum <h1> (light DOM e shadow roots), nas 2 paradas. Ausência global, ancorada na raiz. **exposto** (casco: ordem de títulos, como C-05). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho",
+                  "texto": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:1.3",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Utilizar corretamente os níveis de cabeçalho",
+              "texto": "Heading hierarchy (H1–H6) must be logical. H1 for primary content, subsequent levels for subordinate sections. Do not skip levels.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho",
+                  "texto": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-13",
+          "estado": "sempre",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "<title>PNIP</title> nas 2 paradas: nomeia só o sistema, não o conteúdo principal (\"Processos\"). **exposto** (casco; B-25, C-06). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.3 – Oferecer um título descritivo e informativo à página",
+                  "texto": "Recomendação 3.3 – Oferecer um título descritivo e informativo à página.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:3.3",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Oferecer um título descritivo e informativo à página",
+              "texto": "Page titles must follow the pattern: [page topic] – [site name]. Must represent primary content.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.3 – Oferecer um título descritivo e informativo à página",
+                  "texto": "Recomendação 3.3 – Oferecer um título descritivo e informativo à página.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.4.2",
+              "fonte": "WCAG 2.2",
+              "titulo": "Page Titled",
+              "texto": null,
+              "nivel": "A"
+            }
+          ]
+        },
+        {
+          "id": "D-14",
+          "estado": "sempre",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Inicial do avatar \"U\" branco sobre #ff8c00 = 2,33:1 (24,2 px/700). **exposto** (casco; B-14, C-07). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                  "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:4.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+              "texto": "Text contrast ratio must be at least 4.5:1 (WCAG AA) for normal text and 3:1 for large text (18pt+ or 14pt bold). Gov.br recommends 7:1 for body text. Error states and icons used alone must also meet contrast requirements.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                  "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.4.3",
+              "fonte": "WCAG 2.2",
+              "titulo": "Contrast (Minimum)",
+              "texto": null,
+              "nivel": "AA"
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "cartoes": [
+    {
+      "id": "T3-31cc710c8e",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    },
+    {
+      "id": "T3-698a18239d",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    },
+    {
+      "id": "T3-71116b45e2",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    },
+    {
+      "id": "T3-835d9a3116",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    },
+    {
+      "id": "T3-873a5d282d",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    },
+    {
+      "id": "T3-b3a4f5588c",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    },
+    {
+      "id": "T3-be1a72356b",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    },
+    {
+      "id": "T3-c2268d51cc",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    },
+    {
+      "id": "T3-cee623caca",
+      "tela": "processos",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "axe:page-has-heading-one",
+        "seletor": "iframe html",
+        "observado": "Page should contain a level-one heading",
+        "esperado": null,
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ]
+        },
+        "cena": "1280x900",
+        "sinais": [],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:iframe html",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "axe:page-has-heading-one",
+        "fonte": "axe-core 4.11.4",
+        "titulo": "Page should contain a level-one heading",
+        "texto": "Ensure that the page, or at least one of its frames contains a level-one heading",
+        "etiquetas": [
+          "best-practice",
+          "cat.semantics"
+        ],
+        "forcaDeclarada": "boa-pratica"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ],
+      "grupo": "D-813323040e"
+    }
+  ],
+  "leiturasAnteriores": [
+    {
+      "cartao": "T3-31cc710c8e",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-31cc710c8e",
+            "verdadeFactual": "verdadeira",
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "aplica",
+              "violada": "sim"
+            },
+            "vinculo": {
+              "spec": "D-12",
+              "relacao": "ausencia-global"
+            },
+            "sugestao": "nao-perguntado",
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "evidencias": [
+              "MEDIDA",
+              "NORMA",
+              "D-12"
+            ],
+            "justificativa": "MEDIDA na parada lista-exibir: 0 h1 na página e 0 h1 no documento do iframe (about:blank, body vazio), então nem a página nem os frames têm h1. A NORMA tem só a etiqueta best-practice; o fato é a ausência global de h1 da D-12."
+          }
+        }
+      ]
+    },
+    {
+      "cartao": "T3-698a18239d",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-698a18239d",
+            "verdadeFactual": "verdadeira",
+            "sugestao": "nao-perguntado",
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "aplica",
+              "violada": "sim"
+            },
+            "vinculo": {
+              "spec": "D-12",
+              "relacao": "ausencia-global"
+            },
+            "evidencias": [
+              "MEDIDA",
+              "S1",
+              "D-12"
+            ],
+            "justificativa": "MEDIDA: o documento do iframe (S1) é <html><head></head><body></body></html>, sem h1, e a página principal também só tem H2. A regra (best-practice) pede h1 na página ou num dos frames e falha; é a ausência global de h1 da D-12."
+          }
+        }
+      ]
+    },
+    {
+      "cartao": "T3-71116b45e2",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-71116b45e2",
+            "verdadeFactual": "verdadeira",
+            "sugestao": "nao-perguntado",
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "aplica",
+              "violada": "sim"
+            },
+            "vinculo": {
+              "spec": "D-12",
+              "relacao": "ausencia-global"
+            },
+            "evidencias": [
+              "MEDIDA",
+              "REGRA",
+              "D-12"
+            ],
+            "justificativa": "MEDIDA com a lista \"Exibir\" aberta: 0 h1 na página e 0 no único iframe (about:blank, corpo vazio). A REGRA do [ferramenta citada] é só best-practice; o fato é a ausência global de h1 da D-12."
+          }
+        }
+      ]
+    },
+    {
+      "cartao": "T3-835d9a3116",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-835d9a3116",
+            "verdadeFactual": "verdadeira",
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "aplica",
+              "violada": "sim"
+            },
+            "vinculo": {
+              "spec": "D-12",
+              "relacao": "ausencia-global"
+            },
+            "sugestao": "nao-perguntado",
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "evidencias": [
+              "MEDIDA",
+              "D-12",
+              "NORMA"
+            ],
+            "justificativa": "MEDIDA com a lista Exibir aberta: 0 h1 no documento (light DOM e shadow roots) e 0 h1 no documento about:blank do iframe; a página e seus frames não têm título de nível 1. É a ausência global de h1 da D-12; a NORMA ([ferramenta citada] page-has-heading-one) só tem a etiqueta best-practice."
+          }
+        }
+      ]
+    },
+    {
+      "cartao": "T3-873a5d282d",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-873a5d282d",
+            "verdadeFactual": "verdadeira",
+            "vinculo": {
+              "spec": "D-12",
+              "relacao": "ausencia-global"
+            },
+            "sugestao": "nao-perguntado",
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "aplica",
+              "violada": "sim"
+            },
+            "evidencias": [
+              "MEDIDA",
+              "NORMA",
+              "D-12"
+            ],
+            "justificativa": "MEDIDA no estado da lista \"Exibir\" aberta: 0 h1 no documento (DOM claro e shadow roots) e 0 h1 no iframe about:blank; a NORMA do [ferramenta citada] é só best-practice. É a ausência global de h1 que a D-12 descreve, válida em todas as paradas."
+          }
+        }
+      ]
+    },
+    {
+      "cartao": "T3-b3a4f5588c",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-b3a4f5588c",
+            "verdadeFactual": "verdadeira",
+            "sugestao": "nao-perguntado",
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "aplica",
+              "violada": "sim"
+            },
+            "vinculo": {
+              "spec": "D-12",
+              "relacao": "ausencia-global"
+            },
+            "evidencias": [
+              "MEDIDA",
+              "REGRA",
+              "D-12"
+            ],
+            "justificativa": "MEDIDA com a lista \"Exibir\" aberta: nenhum h1 na página nem no iframe vazio (about:blank). A REGRA do [ferramenta citada] é só best-practice; o fato é a ausência global de h1 descrita na D-12."
+          }
+        }
+      ]
+    },
+    {
+      "cartao": "T3-be1a72356b",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-be1a72356b",
+            "verdadeFactual": "verdadeira",
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "sugestao": {
+              "trataOFato": "nao",
+              "especificaDoSujeito": "nao",
+              "naoViolaNormaObrigatoria": "sim",
+              "qualidade": "ausente"
+            },
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "aplica",
+              "violada": "sim"
+            },
+            "vinculo": "nenhum",
+            "motivoSemVinculo": "sujeito",
+            "evidencias": [
+              "MEDIDA",
+              "S1",
+              "NORMA",
+              "D-12"
+            ],
+            "justificativa": "MEDIDA: com a lista \"Exibir\" aberta, o iframe tem documento about:blank vazio sem h1, e a página também tem 0 h1. A regra citada é só best-practice; o sujeito é o documento do iframe, não a raiz da página de D-12."
+          }
+        }
+      ]
+    },
+    {
+      "cartao": "T3-c2268d51cc",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-c2268d51cc",
+            "verdadeFactual": "verdadeira",
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "aplica",
+              "violada": "sim"
+            },
+            "vinculo": "nenhum",
+            "sugestao": {
+              "trataOFato": "nao",
+              "especificaDoSujeito": "nao",
+              "naoViolaNormaObrigatoria": "sim",
+              "qualidade": "ausente"
+            },
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "motivoSemVinculo": "sujeito",
+            "evidencias": [
+              "MEDIDA",
+              "S1",
+              "NORMA",
+              "D-12"
+            ],
+            "justificativa": "MEDIDA com a lista \"Exibir\" aberta: o documento do iframe (S1) é <html><head></head><body></body></html>, sem h1, e a página principal também não tem h1. A NORMA (page-has-heading-one) é só best-practice. O cartão aponta o documento do iframe, não a raiz da página que a D-12 descreve; não há esperado."
+          }
+        }
+      ]
+    },
+    {
+      "cartao": "T3-cee623caca",
+      "leituras": [
+        {
+          "leitura": "leitura 1",
+          "resposta": {
+            "id": "T3-cee623caca",
+            "verdadeFactual": "verdadeira",
+            "sugestao": {
+              "trataOFato": "nao",
+              "especificaDoSujeito": "nao",
+              "naoViolaNormaObrigatoria": "sim",
+              "qualidade": "ausente"
+            },
+            "forcaDoVeredito": "medido",
+            "estadoAlcancado": "receita",
+            "norma": {
+              "id": "citada",
+              "forca": "boa-pratica",
+              "aplicabilidade": "nao-aplica",
+              "violada": "nao"
+            },
+            "vinculo": "nenhum",
+            "motivoSemVinculo": "sujeito",
+            "evidencias": [
+              "OBS",
+              "S1",
+              "NORMA",
+              "MEDIDA",
+              "D-12"
+            ],
+            "justificativa": "A MEDIDA mostra que o documento do iframe é <html><head></head><body></body></html>, sem h1, então OBS é verdade. A NORMA é só best-practice e não se aplica a um documento vazio sem conteúdo a titular; D-12 trata do h1 da página, não do iframe. Não há sugestão."
+          }
+        }
+      ]
+    }
+  ]
+}

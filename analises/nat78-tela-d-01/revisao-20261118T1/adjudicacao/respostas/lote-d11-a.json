@@ -1,0 +1,91 @@
+{
+  "formato": "nat78-adjudicacao-respostas-a-1.0.0",
+  "lote": "lote-d11",
+  "loteSha256": "e9b24d9222f4223f07b037aa95cc4f94e704eb8f880779995f4f3c33506f3f1f",
+  "juiz": "adjudicador novo (opus), lote-d11",
+  "etapa": "a",
+  "grupo": "D-760df7ecc7",
+  "leituraDaNorma": {
+    "norma": "wcag:4.1.2",
+    "fonteEVersao": "WCAG 2.2, critério de sucesso 4.1.2 Name, Role, Value (nível A) — a única norma pública que alguma alegação do grupo implica (controles interativos aninhados no item Home da trilha).",
+    "forca": "obrigatorio",
+    "antecedente": "Um componente de interface (controle) no estado medido: o critério exige nome e papel determináveis programaticamente e estados/propriedades definíveis e notificados. Um controle dentro de outro (botão dentro de link) dá papel e nome aninhados e conflitantes e duplica a parada de foco; é a falha que a regra nested-interactive do axe-core associa ao 4.1.2.",
+    "excecoes": "Não alcança fatos que não são nome/papel/estado de um controle: o destino quebrado de um link que tem nome e papel corretos (404), a ausência de landmark nav em volta de uma lista, ou a falta de aria-current num item atual que é texto (span), não controle. Nesses o fato pode ser verdadeiro, mas a norma não se aplica.",
+    "evidenciaNecessaria": "Medida na página congelada (Playwright headless, 1280x900): marcação do shadow DOM do br-breadcrumb, snapshot ARIA (locator.ariaSnapshot), sequência real de Tab e, para o link, a navegação e o status HTTP da resposta.",
+    "permiteConcluir": "Violação (aplica + sim) só quando a medida mostra controle interativo dentro de outro controle no sujeito; nos demais cartões, fato medido verdadeiro sem relação com nome/papel/estado de controle dá nao-aplica e violada nao."
+  },
+  "respostas": [
+    {
+      "id": "T3-0c397b9a92",
+      "verdadeFactual": "verdadeira",
+      "norma": { "id": "wcag:4.1.2", "forca": "obrigatorio", "aplicabilidade": "nao-aplica", "violada": "nao" },
+      "vinculo": "nenhum",
+      "motivoSemVinculo": "fora-da-lista",
+      "sugestao": { "trataOFato": "sim", "especificaDoSujeito": "sim", "naoViolaNormaObrigatoria": "sim", "qualidade": "valida" },
+      "forcaDoVeredito": "medido",
+      "estadoAlcancado": "receita",
+      "evidencias": ["OBS", "S1", "MEDIDA", "ESP", "D-11", "D-12"],
+      "justificativa": "MEDIDA: o link do S1 tem href=\"/portal-mpa/\" e o clique navega para /portal-mpa/, que responde 404, como diz o OBS. O link tem nome \"Home\" e papel link, então o 4.1.2 não se aplica a um destino quebrado; D-11 e D-12 (skip link, h1) e nenhum outro defeito da lista tratam disso. ESP propõe corrigir o destino deste link."
+    },
+    {
+      "id": "T3-0f08bddaa6",
+      "verdadeFactual": "verdadeira",
+      "norma": { "id": "wcag:4.1.2", "forca": "obrigatorio", "aplicabilidade": "aplica", "violada": "sim" },
+      "vinculo": "nenhum",
+      "motivoSemVinculo": "fora-da-lista",
+      "sugestao": "nao-perguntado",
+      "forcaDoVeredito": "medido",
+      "estadoAlcancado": "receita",
+      "evidencias": ["OBS", "E1", "S1", "MEDIDA", "D-11", "D-12"],
+      "justificativa": "MEDIDA no shadow DOM do S1: li.crumb.home > a[href=\"/portal-mpa/\"] > button.br-button, e o Tab real para no link (parada 3) e depois no botão interno (parada 4), como dizem OBS e E1. Controle dentro de controle expõe papel e nome aninhados (snapshot ARIA: link \"Home\" > button \"Home\"), o que viola o 4.1.2; nenhum defeito da lista (D-11, D-12 ou outro) trata da trilha."
+    },
+    {
+      "id": "T3-1cb0b49737",
+      "verdadeFactual": "verdadeira",
+      "norma": { "id": "wcag:4.1.2", "forca": "obrigatorio", "aplicabilidade": "aplica", "violada": "sim" },
+      "vinculo": "nenhum",
+      "motivoSemVinculo": "fora-da-lista",
+      "sugestao": "nao-perguntado",
+      "forcaDoVeredito": "medido",
+      "estadoAlcancado": "receita",
+      "evidencias": ["OBS", "S1", "MEDIDA", "D-11", "D-12"],
+      "justificativa": "A receita só carrega a tela; a MEDIDA no S1 mostra a[href] contendo button e duas paradas de Tab seguidas (link e botão) para o mesmo destino, como diz o OBS. Controles aninhados com papel e nome duplicados violam o 4.1.2; nenhum defeito da lista (D-11, D-12 ou outro) descreve a trilha."
+    },
+    {
+      "id": "T3-a282d3efd6",
+      "verdadeFactual": "verdadeira",
+      "norma": { "id": "wcag:4.1.2", "forca": "obrigatorio", "aplicabilidade": "nao-aplica", "violada": "nao" },
+      "vinculo": "nenhum",
+      "motivoSemVinculo": "fora-da-lista",
+      "sugestao": { "trataOFato": "sim", "especificaDoSujeito": "sim", "naoViolaNormaObrigatoria": "sim", "qualidade": "valida" },
+      "forcaDoVeredito": "medido",
+      "estadoAlcancado": "receita",
+      "evidencias": ["OBS", "S1", "MEDIDA", "ESP", "D-11", "D-12"],
+      "justificativa": "MEDIDA: o shadow DOM do S1 é div.br-breadcrumb > ul.crumb-list, sem nav nem aria-label (host sem role), e o item \"Processos\" é um span sem aria-current, como diz o OBS. Ausência de landmark e de aria-current num item de texto não é nome/papel/estado de controle, então o 4.1.2 não se aplica; nenhum defeito da lista (D-11, D-12 ou outro) trata da trilha. ESP propõe nav rotulado e aria-current para esta trilha."
+    },
+    {
+      "id": "T3-c1a5a18ff0",
+      "verdadeFactual": "verdadeira",
+      "norma": { "id": "wcag:4.1.2", "forca": "obrigatorio", "aplicabilidade": "nao-aplica", "violada": "nao" },
+      "vinculo": "nenhum",
+      "motivoSemVinculo": "fora-da-lista",
+      "sugestao": { "trataOFato": "sim", "especificaDoSujeito": "sim", "naoViolaNormaObrigatoria": "sim", "qualidade": "valida" },
+      "forcaDoVeredito": "medido",
+      "estadoAlcancado": "receita",
+      "evidencias": ["OBS", "S1", "MEDIDA", "ESP", "D-11", "D-12"],
+      "justificativa": "MEDIDA: ul.crumb-list fica no shadow DOM do S1 dentro de div.br-breadcrumb, sem nav nem landmark rotulado (snapshot ARIA: list sem navigation), e \"Processos\" não tem aria-current, como diz o OBS. Esses fatos não são nome/papel/estado de controle, então o 4.1.2 não se aplica; nenhum defeito da lista (D-11, D-12 ou outro) trata da trilha. ESP é a correção específica desta trilha."
+    },
+    {
+      "id": "T3-fdb8323689",
+      "verdadeFactual": "verdadeira",
+      "norma": { "id": "wcag:4.1.2", "forca": "obrigatorio", "aplicabilidade": "nao-aplica", "violada": "nao" },
+      "vinculo": "nenhum",
+      "motivoSemVinculo": "fora-da-lista",
+      "sugestao": { "trataOFato": "sim", "especificaDoSujeito": "sim", "naoViolaNormaObrigatoria": "sim", "qualidade": "valida" },
+      "forcaDoVeredito": "medido",
+      "estadoAlcancado": "receita",
+      "evidencias": ["OBS", "S1", "MEDIDA", "ESP", "D-11", "D-12"],
+      "justificativa": "A receita só carrega a tela; a MEDIDA no S1 mostra div.br-breadcrumb > ul sem nav e sem aria-label, e o item atual \"Processos\" sem aria-current, como diz o OBS. Não é nome/papel/estado de controle, então o 4.1.2 não se aplica; nenhum defeito da lista (D-11, D-12 ou outro) trata da trilha. ESP propõe nav rotulado e item atual marcado nesta trilha."
+    }
+  ]
+}
