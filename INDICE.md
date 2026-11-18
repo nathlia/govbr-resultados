@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-18T22:02:55Z | execução | nat78-tela-e-01 | cadastro-pais | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 8b44e0d24cda | `execucoes/nat78-tela-e-01/2026-11-18T22-02-55Z__cadastro-pais__opus__com__rep-08__20261118-220255-cadastro-pais-com-81f6` |
 | 2026-11-18T21:51:56Z | execução | nat78-tela-e-01 | cadastro-pais | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · ce012a9180d9 | `execucoes/nat78-tela-e-01/2026-11-18T21-51-56Z__cadastro-pais__opus__ferramentas__rep-08__20261118-215156-cadastro-pais-ferramentas-5e29` |
 | 2026-11-18T20:37:47Z | execução | nat78-tela-e-01 | cadastro-pais | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 228da1f2d98c | `execucoes/nat78-tela-e-01/2026-11-18T20-37-47Z__cadastro-pais__opus__ferramentas__rep-07__20261118-203747-cadastro-pais-ferramentas-2e74` |
 | 2026-11-18T20:25:17Z | execução | nat78-tela-e-01 | cadastro-pais | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · f6957b0d190c | `execucoes/nat78-tela-e-01/2026-11-18T20-25-17Z__cadastro-pais__opus__sem__rep-07__20261118-202517-cadastro-pais-sem-a29e` |
