@@ -1,0 +1,2278 @@
+{
+  "contract": "findings.v2",
+  "fixture": false,
+  "campaignId": "nat78-tela-d-01",
+  "runId": "20261118-010202-processos-com-3e39",
+  "receivedAt": "2026-11-18T01:14:31Z",
+  "receipt": "r-75e0aa6b233437c2",
+  "findingContract": "achado-2",
+  "inspectionContract": "inspection.v1",
+  "inspectionStatus": "valid",
+  "report": {
+    "timestamp": "2026-11-18T01:14:31.837Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+    "scope": [
+      "Tela /pnip-d/portal-mpa/processos em 1280×900: cabeçalho, avatar, breadcrumb, abas Aguardando análise/Tramitando/Concluídos, filtros, pesquisa, tabela, seleção, ordenação, paginação, diálogos Assinar e Desassociar"
+    ],
+    "notes": "Interações: carregamento; Tab x12 com registro de foco; avatar abrir/Escape/fechar; abas Aguardando análise, Concluídos (página 2) e Tramitando; Ver processo (navega para detalhe, voltei); filtro Aberto há aberto e Últimos 7 dias aplicado; Tipo de processo/Status/Petrecho abertos; Meus processos alternado; Exportar (navega, voltei); Menu (sem efeito); ordenação Aberto há; checkbox selecionar todos; Assinar (diálogo com PDF, Escape fecha, foco vai para BODY); Desassociar (confirmação, Não); pesquisa (mock não filtra); select Exibir. Validador: scans S-page-001..009, V-002, V-003. Seletores em shadow DOM usam o host (br-tab, br-tab-item, br-input). Incertezas: retorno de foco não decidido pelo oráculo; Menu sem efeito pode ser do mock.",
+    "findings": [
+      {
+        "selector": "body",
+        "rule": "govbr-3.7.0-accessibility-global-538e57855252",
+        "observed": "Não há link de salto para o conteúdo: o primeiro link da página é o \"Home\" do breadcrumb (href=\"/portal-mpa/\"), e a ordem de tabulação começa no botão Menu do cabeçalho.",
+        "expected": "Primeiro link da página deve ser âncora interna \"Ir para o conteúdo\" apontando para o main.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-008",
+          "S-page-009",
+          "F-175"
+        ],
+        "references": [
+          "emag:1.5",
+          "wcag:2.4.1"
+        ]
+      },
+      {
+        "selector": "body",
+        "rule": "govbr-3.7.0-template-global-79cf9ea963ee",
+        "observed": "Nenhum .br-footer nem <br-footer> no documento (DOM claro e shadow roots).",
+        "expected": "Template Base com região de rodapé (footer) obrigatória.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-007"
+        ]
+      },
+      {
+        "selector": "main h2",
+        "rule": "govbr-3.7.0-accessibility-global-88d6a1a5da75",
+        "observed": "A página não tem h1; o título principal \"Processos\" é h2 (único heading da página).",
+        "expected": "Título principal da página marcado como h1, iniciando a hierarquia.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-029"
+        ],
+        "references": [
+          "emag:1.3"
+        ]
+      },
+      {
+        "selector": "head > title",
+        "rule": "govbr-3.7.0-accessibility-global-9a6edd7d551e",
+        "observed": "document.title = \"PNIP\" — não identifica a página (Processos); o mesmo título é usado na rota de detalhe.",
+        "expected": "Título do documento descritivo da página, ex.: \"Processos - PNIP\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "P-01",
+          "S-page-009"
+        ],
+        "references": [
+          "wcag:2.4.2",
+          "emag:3.3"
+        ]
+      },
+      {
+        "selector": "pnip-search-table-utils br-input",
+        "rule": "emag-6.2",
+        "observed": "Campo de pesquisa (input#search no shadow do br-input) tem apenas placeholder \"Pesquise aqui ...\"; sem label, aria-label ou aria-labelledby.",
+        "expected": "Rótulo associado ao campo; placeholder não substitui o rótulo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-009",
+          "V-003"
+        ],
+        "references": [
+          "wcag:3.3.2"
+        ]
+      },
+      {
+        "selector": ".bg-orange-vivid-40 > .text-secondary-01",
+        "rule": "wcag:1.4.3",
+        "observed": "Tags de status (\"Em análise analista/supervisor/diretor\"): texto #ffffff sobre #e66f0e, 14px normal = 3.16:1.",
+        "expected": "Contraste mínimo 4.5:1 para texto normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-409bdd382fe8",
+          "F-010"
+        ],
+        "references": [
+          "emag:4.1"
+        ]
+      },
+      {
+        "selector": ".bg-indigo-vivid-40 > .text-secondary-01",
+        "rule": "wcag:1.4.3",
+        "observed": "Tag de status \"Aguarda complementos\": texto #ffffff sobre #8289ff, 14px normal = 3.01:1.",
+        "expected": "Contraste mínimo 4.5:1.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-012"
+        ],
+        "references": [
+          "emag:4.1"
+        ]
+      },
+      {
+        "selector": ".bg-secondary-06 > .text-secondary-01",
+        "rule": "wcag:1.4.3",
+        "observed": "Tags de status cinza (\"Aguardando plano de ação\", \"Aguardando SFPA\"; também as 9 tags \"Aguardando análise\" da aba Aguardando análise): #ffffff sobre #888888, 14px = 3.54:1.",
+        "expected": "Contraste mínimo 4.5:1.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-8ca4e6c1ccf1",
+          "S-page-003",
+          "FAM-bdde35afd807"
+        ],
+        "references": [
+          "emag:4.1"
+        ]
+      },
+      {
+        "selector": ".br-avatar .content",
+        "rule": "govbr-3.7.0-accessibility-global-9068b253efd7",
+        "observed": "Inicial \"U\" do avatar: #ffffff sobre #ff8c00, 24.19px bold = 2.33:1.",
+        "expected": "Contraste mínimo 3:1 para texto grande.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "P-05",
+          "S-page-009"
+        ],
+        "references": [
+          "wcag:1.4.3",
+          "emag:4.1"
+        ]
+      },
+      {
+        "selector": "table input[type='checkbox']",
+        "rule": "wcag:4.1.2",
+        "observed": "Os 7 checkboxes da tabela (selecionar todos no cabeçalho e 6 de linha) não têm nome acessível (sem label, aria-label ou aria-labelledby).",
+        "expected": "Cada checkbox com nome acessível (ex.: \"Selecionar todos\", \"Selecionar processo 00000.000011/2026-00\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-aa92a64c3c90",
+          "F-021"
+        ],
+        "references": [
+          "emag:6.2",
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "table thead th:nth-child(2), table thead th:nth-child(9)",
+        "rule": "emag:3.10",
+        "observed": "Cabeçalhos de coluna vazios: coluna de seleção (contém só o checkbox) e coluna de ações (sem texto).",
+        "expected": "Cada th com texto acessível que identifique a coluna (ex.: \"Selecionar\", \"Ações\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "FAM-248f7b3fa69f",
+          "F-018",
+          "F-019"
+        ],
+        "references": [
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "iframe",
+        "rule": "wcag:4.1.2",
+        "observed": "iframe (500px de altura, sem borda) sem title, aria-label ou aria-labelledby.",
+        "expected": "iframe com title descritivo, ou removido/oculto se não tiver conteúdo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-020"
+        ]
+      },
+      {
+        "selector": "nav.br-pagination.small li > li",
+        "rule": "wcag:1.3.1",
+        "observed": "Na paginação, o item de página é <li> aninhado diretamente dentro de outro <li> (sem ul/ol).",
+        "expected": "Itens de lista com pai ul/ol válido.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-028",
+          "S-page-004",
+          "FAM-6aceabe8b307"
+        ]
+      },
+      {
+        "selector": "nav.br-pagination.small a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual (link \"1\", class \"page active\", href=\"javascript:void(0)\") não tem aria-current; o estado atual só é transmitido visualmente. Igual na aba Concluídos ao ir para a página 2.",
+        "expected": "Identificador da página atual com aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ],
+        "references": [
+          "wcag:4.1.2"
+        ]
+      },
+      {
+        "selector": "table",
+        "rule": "govbr-3.7.0-accessibility-global-29bd6bf04fc5",
+        "observed": "Tabela de dados de processos sem caption, aria-label, aria-labelledby ou title.",
+        "expected": "Tabela com título (caption) que descreva seu conteúdo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "P-02",
+          "S-page-009"
+        ],
+        "references": [
+          "emag:3.9",
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "br-tab-item",
+        "rule": "wcag:2.5.3",
+        "observed": "Botões das abas (shadow do br-tab) com aria-label \"AGUARDANDO_ANALISE\", \"TRAMITANDO\", \"HISTORICO\", enquanto o texto visível é \"Aguardando análise\", \"Tramitando\", \"Concluídos\" — o nome acessível não contém o rótulo visível (ex.: \"Concluídos\" ≠ \"HISTORICO\").",
+        "expected": "Nome acessível que contenha o texto visível (remover aria-label ou igualá-lo ao rótulo).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ],
+        "references": [
+          "wcag:4.1.2"
+        ]
+      },
+      {
+        "selector": "br-tab",
+        "rule": "wcag:4.1.2",
+        "observed": "A aba ativa (Tramitando, li.tab-item.active) só é indicada visualmente (borda 4px #0c326f); os botões não têm role=\"tab\", aria-selected nem aria-current.",
+        "expected": "Estado selecionado da aba exposto programaticamente (role tab + aria-selected=\"true\", ou aria-current).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ],
+        "references": [
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "br-tab",
+        "rule": "govbr-3.7.0-accessibility-tab-14789c5ef831",
+        "observed": "Com foco na aba \"Aguardando análise\", ArrowRight não move o foco nem muda a aba (foco permaneceu em AGUARDANDO_ANALISE; aba ativa continuou TRAMITANDO).",
+        "expected": "Navegação entre abas pelas setas esquerda/direita além de Tab.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "focus aba Aguardando análise",
+            "press ArrowRight"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "span.br-tag.interaction",
+        "rule": "wcag:2.1.1",
+        "observed": "\"Meus processos\" (alterna filtro) e os 6 filtros (Aberto há, Tipo de processo, Status, Espécie alvo, Método de pesca, Petrecho) são <span class=\"br-tag interaction\"> com click e cursor:pointer, sem tabindex nem role; span.focus() não recebe foco e a tabulação passa de Abas direto para a pesquisa. O estado ativo de \"Meus processos\" também não é exposto (sem aria-pressed).",
+        "expected": "Controles operáveis por teclado, como button com nome e estado (aria-expanded nos filtros, aria-pressed no alternador).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ],
+        "references": [
+          "wcag:4.1.2",
+          "emag:2.1"
+        ]
+      },
+      {
+        "selector": ".br-select > .br-list.d-block .br-radio > label",
+        "rule": "wcag:4.1.2",
+        "observed": "As opções dos filtros (ex.: \"Últimos 7 dias\"…\"Últimos 90 dias\"; o mesmo em Tipo de processo, Status, Petrecho) são só <label> dentro de .br-radio, sem input radio associado, sem role/estado e sem foco; só funcionam por clique. O select de paginação usa input type=radio corretamente.",
+        "expected": "Cada opção com input radio (ou role option) rotulado, selecionável pelo teclado e com estado exposto, como no padrão br-select/br-radio.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click span.br-tag.interaction 'Aberto há'"
+          ]
+        },
+        "evidence": [
+          "S-page-005"
+        ],
+        "references": [
+          "wcag:2.1.1",
+          "govbr-3.7.0-component-radio-bef23088d752"
+        ]
+      },
+      {
+        "selector": "span.br-tag.interaction button.br-button.inverted",
+        "rule": "wcag:4.1.2",
+        "observed": "Após aplicar o filtro, a tag \"Últimos 7 dias\" tem botão de remover só com ícone fa-times (aria-hidden) e sem aria-label/title: botão sem nome.",
+        "expected": "Botão de remover com nome acessível (ex.: \"Remover filtro Últimos 7 dias\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click span.br-tag.interaction 'Aberto há'",
+            "click .br-select .br-radio label 'Últimos 7 dias'"
+          ]
+        },
+        "evidence": [
+          "S-page-006",
+          "F-088"
+        ]
+      },
+      {
+        "selector": "table tbody a[role='button']",
+        "rule": "wcag:2.1.1",
+        "observed": "Os 9 números de processo são <a role=\"button\"> sem href e sem tabindex: não recebem foco (a.focus() não altera activeElement) e não entram na ordem de tabulação.",
+        "expected": "Controle focalizável e acionável por teclado (button nativo ou link com href).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ]
+      },
+      {
+        "selector": "table thead th:first-child br-icon-base",
+        "rule": "wcag:2.1.1",
+        "observed": "A ordenação da coluna \"Aberto há\" é acionada por clique no ícone (sort-down→sort-up), que não é focalizável; o th não tem aria-sort.",
+        "expected": "Controle de ordenação como botão focalizável, com estado de ordenação exposto (aria-sort no th).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ],
+        "references": [
+          "wcag:4.1.2"
+        ]
+      },
+      {
+        "selector": "#avatar-menu",
+        "rule": "wcag:4.1.2",
+        "observed": "Menu do avatar tem role=\"menu\" mas seus filhos são div/span/button sem role=\"menuitem\".",
+        "expected": "role=\"menu\" só com itens menuitem, ou remover o role menu.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-036",
+          "S-page-009",
+          "F-177"
+        ],
+        "references": [
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "#avatar-menu > button > img",
+        "rule": "wcag:1.1.1",
+        "observed": "Imagem do botão \"Sair\" (exit-icon.png) sem atributo alt.",
+        "expected": "alt=\"\" (decorativa, o botão já tem texto \"Sair\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-037",
+          "S-page-009",
+          "F-189"
+        ],
+        "references": [
+          "emag:3.6"
+        ]
+      },
+      {
+        "selector": "#avatar-menu .text-center > span",
+        "rule": "wcag:2.1.1",
+        "observed": "\"Trocar unidade\" é um <span> com cursor:pointer, sem tabindex nem role (tabIndex -1): inacessível por teclado.",
+        "expected": "Ação como button ou link focalizável.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-002"
+        ]
+      },
+      {
+        "selector": "#avatar-menu",
+        "rule": "govbr-3.7.0-accessibility-global-c760d556bf14",
+        "observed": "O menu do avatar aberto fica fora de qualquer landmark (o banner está no shadow do br-header; o avatar está fora dele).",
+        "expected": "Todo conteúdo dentro de landmarks (ex.: área do usuário dentro do header/banner).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-009",
+          "F-199"
+        ],
+        "references": [
+          "emag:1.8"
+        ]
+      },
+      {
+        "selector": "#avatar-menu > button",
+        "rule": "govbr-3.7.0-accessibility-global-f12b1bae5784",
+        "observed": "Botão \"Sair\" com atributo href (não permitido em button) e filho <p> (conteúdo não fraseado).",
+        "expected": "Marcação HTML válida: button só com conteúdo fraseado e atributos admitidos.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "P-08",
+          "S-page-009"
+        ]
+      },
+      {
+        "selector": "#avatar-menu > div:nth-of-type(2) > hr",
+        "rule": "govbr-3.7.0-foundation-global-21b1a2733f7b",
+        "observed": "Separador do menu do avatar com border-top-color #bbbbbb, que não é token do DS.",
+        "expected": "Cor de borda de token do DS (divider).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-031",
+          "S-page-009",
+          "F-172"
+        ]
+      },
+      {
+        "selector": "#avatar-menu > button",
+        "rule": "govbr-3.7.0-development-global-137c50bea6ca",
+        "observed": "Botão \"Sair\" (br-item) com border-radius 20px, fora da escala do DS.",
+        "expected": "Raio da escala do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-032",
+          "S-page-009",
+          "F-168"
+        ]
+      },
+      {
+        "selector": "pnip-search-table-utils button[aria-label='Buscar']",
+        "rule": "govbr-3.7.0-development-global-137c50bea6ca",
+        "observed": "Botão de busca posicionado com margin -38px 4px 0 0 (inline), fora da escala de espaçamento.",
+        "expected": "Espaçamentos da escala do DS (usar o padrão br-input com ação interna).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-001"
+        ]
+      },
+      {
+        "selector": "table thead th:nth-child(2) > input",
+        "rule": "govbr-3.7.0-development-global-137c50bea6ca",
+        "observed": "Checkbox de cabeçalho com margin 0 0 4px 5px (5px fora da escala) e transform scale(1.5) inline.",
+        "expected": "Espaçamentos da escala do DS (componente br-checkbox).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "F-002"
+        ]
+      },
+      {
+        "selector": ".swal2-popup",
+        "rule": "wcag:4.1.2",
+        "observed": "Diálogo de assinatura (SweetAlert2, role=dialog, aria-modal) com aria-labelledby=\"swal2-title\" apontando para h2 vazio e oculto: diálogo sem nome acessível.",
+        "expected": "Diálogo com título visível referenciado por aria-labelledby.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click table tbody tr:nth-child(2) br-button[title='Assinar'] (botão interno)"
+          ]
+        },
+        "evidence": [
+          "S-page-007",
+          "F-124"
+        ]
+      },
+      {
+        "selector": ".swal2-popup object",
+        "rule": "wcag:1.1.1",
+        "observed": "PDF exibido em <object type=\"application/pdf\"> sem title, aria-label ou conteúdo alternativo.",
+        "expected": "object com nome/alternativa textual (ex.: title \"Documento para assinatura\" e link de download como fallback).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click table tbody tr:nth-child(2) br-button[title='Assinar'] (botão interno)"
+          ]
+        },
+        "evidence": [
+          "S-page-007",
+          "F-133"
+        ]
+      },
+      {
+        "selector": ".swal2-popup",
+        "rule": "wcag:4.1.2",
+        "observed": "Diálogo de confirmação \"Tem certeza que deseja desassociar…\" com aria-labelledby apontando para h2#swal2-title vazio e oculto: sem nome acessível.",
+        "expected": "Diálogo com título visível referenciado por aria-labelledby.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click table tbody tr:nth-child(1) br-button[title^='Desassociar'] (botão interno)"
+          ]
+        },
+        "evidence": [
+          "S-page-008",
+          "F-167"
+        ]
+      },
+      {
+        "selector": "table tbody tr:nth-child(2) br-button[title='Assinar']",
+        "rule": "wcag:2.4.3",
+        "observed": "Ao fechar o diálogo de assinatura com Escape, o foco vai para BODY e não volta ao botão Assinar que o abriu.",
+        "expected": "Foco devolvido ao controle que abriu o diálogo.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click table tbody tr:nth-child(2) br-button[title='Assinar'] (botão interno)",
+            "press Escape"
+          ]
+        },
+        "evidence": [
+          "V-002"
+        ],
+        "references": [
+          "govbr-3.7.0-accessibility-modal-f36c91d7073c"
+        ]
+      },
+      {
+        "selector": ".swal2-close",
+        "rule": "wcag:3.1.2",
+        "observed": "Botão fechar dos diálogos com aria-label em inglês \"Close this dialog\" numa página lang=\"pt-br\", sem lang próprio.",
+        "expected": "Nome em português (ex.: \"Fechar\") ou parte marcada com lang=\"en\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click table tbody tr:nth-child(1) br-button[title^='Desassociar'] (botão interno)"
+          ]
+        },
+        "evidence": [
+          "S-page-008"
+        ]
+      },
+      {
+        "selector": ".swal2-popup",
+        "rule": "govbr-3.7.0-development-global-137c50bea6ca",
+        "observed": "Diálogos usam SweetAlert2 com estilos fora dos tokens do DS: texto #545454, ícone de alerta #f8bb86/#facea8, padding 10px, botões com radius 20px, botão fechar com fonte monospace.",
+        "expected": "Diálogos com o componente br-modal / tokens de cor, espaçamento, raio e tipografia do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click table tbody tr:nth-child(1) br-button[title^='Desassociar'] (botão interno)"
+          ]
+        },
+        "evidence": [
+          "S-page-008",
+          "F-134",
+          "F-135",
+          "F-136",
+          "F-137",
+          "F-138",
+          "F-139",
+          "S-page-007",
+          "F-100",
+          "F-101"
+        ]
+      },
+      {
+        "selector": "#avatar-menu > button > img",
+        "rule": "govbr-3.7.0-development-global-137c50bea6ca",
+        "observed": "Ícone do botão Sair com margin 0 0 10px (10px fora da escala de espaçamento).",
+        "expected": "Espaçamento da escala do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #avatar-dropdown-trigger"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "F-033"
+        ]
+      }
+    ],
+    "inspection": {
+      "completion": "partial",
+      "regions": [
+        {
+          "id": "r1",
+          "description": "Cabeçalho br-header (logo, Menu, título) e área do usuário/avatar",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s2",
+            "s12"
+          ]
+        },
+        {
+          "id": "r2",
+          "description": "Breadcrumb br-breadcrumb",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r3",
+          "description": "Título Processos, Exportar e abas br-tab",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s3",
+            "s4"
+          ]
+        },
+        {
+          "id": "r4",
+          "description": "Barra de filtros (tags) e pesquisa",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s5",
+            "s6",
+            "s9"
+          ]
+        },
+        {
+          "id": "r5",
+          "description": "Tabela de processos e ações por linha",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s3",
+            "s4",
+            "s10"
+          ]
+        },
+        {
+          "id": "r6",
+          "description": "Paginação (navegação e Exibir/Página)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s4",
+            "s11"
+          ]
+        },
+        {
+          "id": "r7",
+          "description": "Diálogos SweetAlert2 (Assinar, Desassociar)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s7",
+            "s8"
+          ]
+        },
+        {
+          "id": "r8",
+          "description": "iframe vazio no fim do main",
+          "origin": "validation-tool",
+          "originRef": "F-020",
+          "status": "partial",
+          "reason": "iframe sem conteúdo visível; só o nome foi medido",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r9",
+          "description": "Rodapé (ausente)",
+          "origin": "validation-tool",
+          "originRef": "F-007",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "id": "s1",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-001",
+            "observables": [
+              "Aba Tramitando ativa, 9 processos, filtros e pesquisa"
+            ]
+          },
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "s2",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "#avatar-dropdown-trigger"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-002",
+            "observables": [
+              "#avatar-menu visível, aria-expanded=true"
+            ]
+          },
+          "evidence": [
+            "S-page-002",
+            "S-page-009"
+          ]
+        },
+        {
+          "id": "s3",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "button[data-panel='AGUARDANDO_ANALISE']"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-003",
+            "observables": [
+              "9 processos Aguardando análise com Assumir desabilitado"
+            ]
+          },
+          "evidence": [
+            "S-page-003"
+          ]
+        },
+        {
+          "id": "s4",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "button[data-panel='HISTORICO']"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-004",
+            "observables": [
+              "Aba Concluídos, 10 de 14 itens, paginação com 2 páginas"
+            ]
+          },
+          "evidence": [
+            "S-page-004"
+          ]
+        },
+        {
+          "id": "s5",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "span.br-tag.interaction 'Aberto há'"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-005",
+            "observables": [
+              "Lista de opções Últimos 7/30/60/90 dias aberta"
+            ]
+          },
+          "evidence": [
+            "S-page-005"
+          ]
+        },
+        {
+          "id": "s6",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "span.br-tag.interaction 'Aberto há'"
+            },
+            {
+              "action": "click",
+              "target": "label 'Últimos 7 dias'"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-006",
+            "observables": [
+              "Tag Últimos 7 dias com botão remover; 2 linhas"
+            ]
+          },
+          "evidence": [
+            "S-page-006"
+          ]
+        },
+        {
+          "id": "s7",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "table tbody tr:nth-child(2) br-button[title='Assinar'] button"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-007",
+            "observables": [
+              "Diálogo swal2 com PDF e botões Solicitar Revisão / Assinar com gov.br"
+            ]
+          },
+          "evidence": [
+            "S-page-007"
+          ]
+        },
+        {
+          "id": "s8",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "table tbody tr:nth-child(1) br-button[title^='Desassociar'] button"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-008",
+            "observables": [
+              "Diálogo de confirmação Sim/Não"
+            ]
+          },
+          "evidence": [
+            "S-page-008"
+          ]
+        },
+        {
+          "id": "s9",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "span.br-tag.interaction 'Meus processos'"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Tag alterna aparência; 10 linhas; sem aria-pressed"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s10",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "table thead input[type='checkbox']"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "7 checkboxes marcados; botão Assinar selecionados"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s11",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "button[data-panel='HISTORICO']"
+            },
+            {
+              "action": "click",
+              "target": "nav.br-pagination.small a.page '2'"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Itens 11–14 de 14"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s12",
+          "url": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-d/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "#navigation"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Nenhuma mudança visível; #main-navigation não existe"
+            ]
+          },
+          "evidence": []
+        }
+      ],
+      "items": [
+        {
+          "id": "i1",
+          "state": "s1",
+          "region": "r1",
+          "subject": "#navigation, #avatar-dropdown-trigger",
+          "check": "Ordem de tabulação e foco visível (outline dashed 4px #c2850c)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i2",
+          "state": "s1",
+          "region": "r3",
+          "subject": "br-tab botões",
+          "check": "aria-label vs texto visível, estado selecionado, setas",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i3",
+          "state": "s1",
+          "region": "r4",
+          "subject": "span.br-tag.interaction",
+          "check": "Focabilidade, role, estado",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i4",
+          "state": "s1",
+          "region": "r5",
+          "subject": "table a[role='button'], checkboxes, th",
+          "check": "Foco, nome, cabeçalhos",
+          "status": "completed",
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "i5",
+          "state": "s1",
+          "region": "r6",
+          "subject": "nav.br-pagination",
+          "check": "aria-current, estrutura de lista, selects",
+          "status": "completed",
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "i6",
+          "state": "s2",
+          "region": "r1",
+          "subject": "#avatar-menu",
+          "check": "Papel, itens, imagem, teclado, Escape",
+          "status": "completed",
+          "evidence": [
+            "S-page-002",
+            "S-page-009"
+          ]
+        },
+        {
+          "id": "i7",
+          "state": "s5",
+          "region": "r4",
+          "subject": ".br-select .br-list",
+          "check": "Semântica das opções de filtro",
+          "status": "completed",
+          "evidence": [
+            "S-page-005"
+          ]
+        },
+        {
+          "id": "i8",
+          "state": "s6",
+          "region": "r4",
+          "subject": "tag aplicada",
+          "check": "Nome do botão remover",
+          "status": "completed",
+          "evidence": [
+            "S-page-006"
+          ]
+        },
+        {
+          "id": "i9",
+          "state": "s7",
+          "region": "r7",
+          "subject": ".swal2-popup",
+          "check": "Nome, foco inicial, Escape, retorno de foco",
+          "status": "completed",
+          "evidence": [
+            "S-page-007",
+            "V-002"
+          ]
+        },
+        {
+          "id": "i10",
+          "state": "s8",
+          "region": "r7",
+          "subject": ".swal2-popup",
+          "check": "Nome, idioma do botão fechar",
+          "status": "completed",
+          "evidence": [
+            "S-page-008"
+          ]
+        },
+        {
+          "id": "i11",
+          "state": "s1",
+          "region": "r4",
+          "subject": "pesquisa",
+          "check": "Busca por texto",
+          "status": "failed",
+          "evidence": [],
+          "reason": "Mock não filtra (erro de console); estado de resultado/sem resultado não alcançado"
+        },
+        {
+          "id": "i12",
+          "state": "s12",
+          "region": "r1",
+          "subject": "#navigation",
+          "check": "Abertura do menu principal",
+          "status": "failed",
+          "evidence": [],
+          "reason": "Clique não abre nada; alvo #main-navigation inexistente"
+        },
+        {
+          "id": "i13",
+          "state": "s1",
+          "region": "r2",
+          "subject": "br-breadcrumb",
+          "check": "Posição no topo, página atual não-link, teclado",
+          "status": "completed",
+          "evidence": [
+            "S-page-004"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "id": "c1",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "html",
+          "observation": "Sem link de salto",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-001",
+            "F-008"
+          ],
+          "originRef": "FAM-efe7320c78f5",
+          "findings": [
+            0
+          ]
+        },
+        {
+          "id": "c2",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "html",
+          "observation": "Sem rodapé",
+          "decision": "accepted",
+          "evidence": [
+            "F-007"
+          ],
+          "originRef": "FAM-eef38e34185f",
+          "findings": [
+            1
+          ]
+        },
+        {
+          "id": "c3",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "html",
+          "observation": "Sem h1",
+          "decision": "accepted",
+          "evidence": [
+            "F-029"
+          ],
+          "originRef": "FAM-c4ee0bf872a9",
+          "findings": [
+            2
+          ]
+        },
+        {
+          "id": "c4",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "title",
+          "observation": "Título PNIP",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-009"
+          ],
+          "originRef": "P-01",
+          "findings": [
+            3
+          ]
+        },
+        {
+          "id": "c5",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "#search",
+          "observation": "Placeholder como rótulo",
+          "decision": "accepted",
+          "evidence": [
+            "F-009",
+            "V-003"
+          ],
+          "originRef": "FAM-bbe3a6cbbf09",
+          "findings": [
+            4
+          ]
+        },
+        {
+          "id": "c6",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "tags laranja",
+          "observation": "Contraste 3.16",
+          "decision": "accepted",
+          "evidence": [
+            "F-010",
+            "F-011",
+            "F-013",
+            "F-015",
+            "F-016"
+          ],
+          "originRef": "FAM-409bdd382fe8",
+          "findings": [
+            5
+          ]
+        },
+        {
+          "id": "c7",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "tag índigo",
+          "observation": "Contraste 3.01",
+          "decision": "accepted",
+          "evidence": [
+            "F-012"
+          ],
+          "originRef": "FAM-d254c0e5b25c",
+          "findings": [
+            6
+          ]
+        },
+        {
+          "id": "c8",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "tags cinza",
+          "observation": "Contraste 3.54",
+          "decision": "accepted",
+          "evidence": [
+            "F-014",
+            "F-017"
+          ],
+          "originRef": "FAM-8ca4e6c1ccf1",
+          "findings": [
+            7
+          ]
+        },
+        {
+          "id": "c9",
+          "state": "s3",
+          "origin": "validation-tool",
+          "subject": "tags cinza Aguardando análise",
+          "observation": "Contraste 3.54 (mesma cor, mesma correção do achado 7)",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-003"
+          ],
+          "originRef": "FAM-bdde35afd807",
+          "findings": [
+            7
+          ]
+        },
+        {
+          "id": "c10",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": ".br-avatar .content",
+          "observation": "Contraste 2.33",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-009"
+          ],
+          "originRef": "P-05",
+          "findings": [
+            8
+          ]
+        },
+        {
+          "id": "c11",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "checkboxes",
+          "observation": "Sem rótulo",
+          "decision": "accepted",
+          "evidence": [
+            "F-021",
+            "F-022",
+            "F-023",
+            "F-024",
+            "F-025",
+            "F-026",
+            "F-027"
+          ],
+          "originRef": "FAM-aa92a64c3c90",
+          "findings": [
+            9
+          ]
+        },
+        {
+          "id": "c12",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "th vazios",
+          "observation": "Cabeçalho vazio",
+          "decision": "accepted",
+          "evidence": [
+            "F-018",
+            "F-019"
+          ],
+          "originRef": "FAM-248f7b3fa69f",
+          "findings": [
+            10
+          ]
+        },
+        {
+          "id": "c13",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "iframe",
+          "observation": "Sem título",
+          "decision": "accepted",
+          "evidence": [
+            "F-020"
+          ],
+          "originRef": "FAM-d7bad261d0f1",
+          "findings": [
+            11
+          ]
+        },
+        {
+          "id": "c14",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "li > li",
+          "observation": "Lista inválida",
+          "decision": "accepted",
+          "evidence": [
+            "F-028"
+          ],
+          "originRef": "FAM-26c25c272b67",
+          "findings": [
+            12
+          ]
+        },
+        {
+          "id": "c15",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "a.page.active",
+          "observation": "Sem aria-current",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            13
+          ]
+        },
+        {
+          "id": "c16",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "table",
+          "observation": "Sem caption",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-009"
+          ],
+          "originRef": "P-02",
+          "findings": [
+            14
+          ]
+        },
+        {
+          "id": "c17",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "tabs",
+          "observation": "aria-label difere do texto",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            15
+          ]
+        },
+        {
+          "id": "c18",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "tabs",
+          "observation": "Sem estado selecionado",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            16
+          ]
+        },
+        {
+          "id": "c19",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "tabs",
+          "observation": "Setas não funcionam",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            17
+          ]
+        },
+        {
+          "id": "c20",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "tags de filtro",
+          "observation": "Não focalizáveis",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            18
+          ]
+        },
+        {
+          "id": "c21",
+          "state": "s5",
+          "origin": "browser",
+          "subject": "opções de filtro",
+          "observation": "Labels sem input",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-005"
+          ],
+          "findings": [
+            19
+          ]
+        },
+        {
+          "id": "c22",
+          "state": "s6",
+          "origin": "validation-tool",
+          "subject": ".inverted",
+          "observation": "Botão sem nome",
+          "decision": "accepted",
+          "evidence": [
+            "F-088"
+          ],
+          "originRef": "FAM-da3165bc7b91",
+          "findings": [
+            20
+          ]
+        },
+        {
+          "id": "c23",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "a[role='button']",
+          "observation": "Não focalizável",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            21
+          ]
+        },
+        {
+          "id": "c24",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "ícone de ordenação",
+          "observation": "Não focalizável",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            22
+          ]
+        },
+        {
+          "id": "c25",
+          "state": "s2",
+          "origin": "validation-tool",
+          "subject": "#avatar-menu",
+          "observation": "aria-required-children",
+          "decision": "accepted",
+          "evidence": [
+            "F-036",
+            "F-177"
+          ],
+          "originRef": "FAM-946ec75078a7",
+          "findings": [
+            23
+          ]
+        },
+        {
+          "id": "c26",
+          "state": "s2",
+          "origin": "validation-tool",
+          "subject": "img Sair",
+          "observation": "Sem alt",
+          "decision": "accepted",
+          "evidence": [
+            "F-037",
+            "F-189"
+          ],
+          "originRef": "FAM-634dc8ae95b2",
+          "findings": [
+            24
+          ]
+        },
+        {
+          "id": "c27",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "Trocar unidade",
+          "observation": "Span clicável",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            25
+          ]
+        },
+        {
+          "id": "c28",
+          "state": "s2",
+          "origin": "validation-tool",
+          "subject": "#avatar-menu",
+          "observation": "Fora de landmark",
+          "decision": "accepted",
+          "evidence": [
+            "F-199"
+          ],
+          "originRef": "FAM-06568f4d13c8",
+          "findings": [
+            26
+          ]
+        },
+        {
+          "id": "c29",
+          "state": "s2",
+          "origin": "validation-tool",
+          "subject": "#avatar-menu > button",
+          "observation": "HTML inválido em button",
+          "decision": "accepted",
+          "evidence": [
+            "S-page-009"
+          ],
+          "originRef": "P-08",
+          "findings": [
+            27
+          ]
+        },
+        {
+          "id": "c30",
+          "state": "s2",
+          "origin": "validation-tool",
+          "subject": "hr",
+          "observation": "Cor fora de token",
+          "decision": "accepted",
+          "evidence": [
+            "F-031",
+            "F-172"
+          ],
+          "originRef": "FAM-e178ec1622b0",
+          "findings": [
+            28
+          ]
+        },
+        {
+          "id": "c31",
+          "state": "s2",
+          "origin": "validation-tool",
+          "subject": "botão Sair",
+          "observation": "Radius 20px",
+          "decision": "accepted",
+          "evidence": [
+            "F-032",
+            "F-168"
+          ],
+          "originRef": "FAM-52608d160b41",
+          "findings": [
+            29
+          ]
+        },
+        {
+          "id": "c32",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "botão Buscar",
+          "observation": "margin -38px",
+          "decision": "accepted",
+          "evidence": [
+            "F-001"
+          ],
+          "originRef": "FAM-3b4aff31992b",
+          "findings": [
+            30
+          ]
+        },
+        {
+          "id": "c33",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "checkbox th",
+          "observation": "margin 5px",
+          "decision": "accepted",
+          "evidence": [
+            "F-002"
+          ],
+          "originRef": "FAM-83fafe36bb6a",
+          "findings": [
+            31
+          ]
+        },
+        {
+          "id": "c34",
+          "state": "s7",
+          "origin": "validation-tool",
+          "subject": ".swal2-popup",
+          "observation": "Diálogo sem nome",
+          "decision": "accepted",
+          "evidence": [
+            "F-124"
+          ],
+          "originRef": "FAM-ce61ca1e86b6",
+          "findings": [
+            32
+          ]
+        },
+        {
+          "id": "c35",
+          "state": "s7",
+          "origin": "validation-tool",
+          "subject": "object",
+          "observation": "Sem alternativa",
+          "decision": "accepted",
+          "evidence": [
+            "F-133"
+          ],
+          "originRef": "FAM-dac0164830d7",
+          "findings": [
+            33
+          ]
+        },
+        {
+          "id": "c36",
+          "state": "s8",
+          "origin": "validation-tool",
+          "subject": ".swal2-popup",
+          "observation": "Diálogo sem nome",
+          "decision": "accepted",
+          "evidence": [
+            "F-167"
+          ],
+          "originRef": "FAM-85895717f1d6",
+          "findings": [
+            34
+          ]
+        },
+        {
+          "id": "c37",
+          "state": "s7",
+          "origin": "browser",
+          "subject": "foco após fechar",
+          "observation": "Foco vai para BODY",
+          "decision": "accepted",
+          "evidence": [
+            "V-002"
+          ],
+          "findings": [
+            35
+          ]
+        },
+        {
+          "id": "c38",
+          "state": "s8",
+          "origin": "browser",
+          "subject": ".swal2-close",
+          "observation": "aria-label em inglês",
+          "decision": "accepted",
+          "evidence": [],
+          "findings": [
+            36
+          ]
+        },
+        {
+          "id": "c39",
+          "state": "s8",
+          "origin": "validation-tool",
+          "subject": "swal2",
+          "observation": "Tokens fora do DS",
+          "decision": "accepted",
+          "evidence": [
+            "F-134",
+            "F-135",
+            "F-136",
+            "F-137",
+            "F-138",
+            "F-139"
+          ],
+          "originRef": "FAM-240c654a9c69",
+          "findings": [
+            37
+          ]
+        },
+        {
+          "id": "c40",
+          "state": "s2",
+          "origin": "validation-tool",
+          "subject": "img Sair",
+          "observation": "margin 10px",
+          "decision": "accepted",
+          "evidence": [
+            "F-033"
+          ],
+          "originRef": "FAM-6f5618d88966",
+          "findings": [
+            38
+          ]
+        },
+        {
+          "id": "c41",
+          "state": "s2",
+          "origin": "validation-tool",
+          "subject": "ícone Font Awesome",
+          "observation": "font-family Font Awesome fora de Rawline",
+          "decision": "rejected",
+          "evidence": [
+            "F-030",
+            "F-072"
+          ],
+          "originRef": "FAM-6c7724899e88",
+          "reason": "Fonte de ícones (Font Awesome é a iconografia do DS), não tipografia de texto"
+        },
+        {
+          "id": "c42",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "botões só ícone",
+          "observation": "Nome acessível",
+          "decision": "rejected",
+          "evidence": [
+            "S-page-009"
+          ],
+          "originRef": "P-06",
+          "reason": "Buscar e Exibir lista têm aria-label"
+        },
+        {
+          "id": "c43",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "#avatar-menu",
+          "observation": "Escape não fecha o menu do avatar",
+          "decision": "uncertain",
+          "evidence": [],
+          "reason": "Nenhum critério WCAG exige Escape em menu clicado; padrão APG apenas"
+        },
+        {
+          "id": "c44",
+          "state": "s12",
+          "origin": "browser",
+          "subject": "#navigation",
+          "observation": "Botão Menu não abre nada e não tem aria-expanded",
+          "decision": "uncertain",
+          "evidence": [],
+          "reason": "Pode ser limitação do mock; sem critério normativo claro"
+        },
+        {
+          "id": "c45",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-breadcrumb",
+          "observation": "Breadcrumb sem landmark nav e com button dentro de link",
+          "decision": "uncertain",
+          "evidence": [],
+          "reason": "Nome e operação funcionam; sem cláusula específica medida"
+        },
+        {
+          "id": "c46",
+          "state": "s1",
+          "origin": "validation-tool",
+          "subject": "input file swal",
+          "observation": "Upload sem accept",
+          "decision": "rejected",
+          "evidence": [
+            "S-page-007"
+          ],
+          "originRef": "P-09",
+          "reason": "input file do SweetAlert fica display:none"
+        },
+        {
+          "id": "c47",
+          "state": "s8",
+          "origin": "validation-tool",
+          "subject": "swal/avatar textos 16px",
+          "observation": "Fonte fora da escala (16px vs 16.8px)",
+          "decision": "uncertain",
+          "evidence": [
+            "S-page-008",
+            "S-page-009"
+          ],
+          "originRef": "O-02",
+          "reason": "Diferença pequena; não verificado por elemento"
+        },
+        {
+          "id": "c48",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "rota de detalhe",
+          "observation": "Detalhe mostra \"NaN/NaN/NaN\" e campos vazios",
+          "decision": "uncertain",
+          "evidence": [],
+          "reason": "Outra rota (fora do escopo) e possivelmente dados de mock incompletos"
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "out-of-scope",
+          "detail": "Rotas de detalhe (Ver processo → /processos/alteracao-certificado/...) e Exportar (/processos/exportar) são outras telas; apenas abertas uma vez, não avaliadas. A de detalhe mostrou \"NaN/NaN/NaN\" e campos vazios."
+        },
+        {
+          "kind": "unreachable",
+          "detail": "Pesquisa por texto não filtra no mock (erro de console); estados de resultado e de lista vazia não alcançados."
+        },
+        {
+          "kind": "unreachable",
+          "detail": "Botão Menu do cabeçalho não abre menu (data-target #main-navigation inexistente); menu lateral não avaliado."
+        },
+        {
+          "kind": "budget",
+          "detail": "Filtros Espécie alvo e Método de pesca não abertos individualmente (Aberto há, Tipo de processo, Status e Petrecho abertos: mesmo padrão). Assinar selecionados e o fluxo Sim/Solicitar revisão/Assinar com gov.br não executados para não alterar dados."
+        },
+        {
+          "kind": "budget",
+          "detail": "Cláusulas das checklists de tab (P-13..P-28), pagination (P-29..P-34 e restantes), breadcrumb (P-39, P-41 e itens de julgamento) e das famílias radio/select/button/avatar/divider/table/header adiadas pelo scan (deferred) não medidas individualmente."
+        },
+        {
+          "kind": "other",
+          "detail": "Observações de token (O-02..O-17) em elementos ocultos do template SweetAlert2 (inputs/select/textarea display:none) não decididas por elemento; o achado 37 cobre os estilos visíveis do diálogo."
+        },
+        {
+          "kind": "other",
+          "detail": "Retorno de foco após fechar diálogo: verify_finding V-002 ficou unverifiable (undetermined); o trace mostra active=null após Escape, coerente com a medida no navegador (BODY)."
+        }
+      ],
+      "clauses": [
+        {
+          "ref": "govbr-3.7.0-component-table-54d5095fb447",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "thead com 9 th presente e visível"
+        },
+        {
+          "ref": "govbr-3.7.0-component-list-ca8054947d88",
+          "state": "s2",
+          "status": "medida",
+          "measurement": "#avatar-menu.br-list contém button.br-item \"Sair\""
+        },
+        {
+          "ref": "govbr-3.7.0-component-item-f5ef182cb289",
+          "state": "s2",
+          "status": "medida",
+          "measurement": "br-item Sair com superfície visível"
+        },
+        {
+          "ref": "govbr-3.7.0-component-list-4358446c3587",
+          "state": "s2",
+          "status": "medida",
+          "measurement": "#avatar-menu com superfície (display block, fundo)"
+        },
+        {
+          "ref": "govbr-3.7.0-component-item-e3c7c972fb5f",
+          "state": "s2",
+          "status": "medida",
+          "measurement": "br-item com conteúdo (img + p Sair)"
+        },
+        {
+          "ref": "govbr-3.7.0-component-tag-60344762a4ac",
+          "state": "s3",
+          "status": "medida",
+          "measurement": ".br-tag com superfície/borda visível"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-breadcrumb-7e348f84b5b6",
+          "state": "s4",
+          "status": "medida",
+          "measurement": "breadcrumb em y=139, logo abaixo do header, antes do conteúdo"
+        },
+        {
+          "ref": "govbr-3.7.0-component-tab-7ce162b3416f",
+          "state": "s4",
+          "status": "medida",
+          "measurement": "3 li.tab-item visíveis"
+        },
+        {
+          "ref": "govbr-3.7.0-component-radio-bef23088d752",
+          "state": "s5",
+          "status": "violada",
+          "measurement": ".br-radio das opções de filtro não tem caixa de opção (sem input); só o texto",
+          "findings": [
+            19
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-component-select-9484a812fe9f",
+          "state": "s5",
+          "status": "violada",
+          "measurement": ".br-select do filtro contém só .br-list, sem input",
+          "findings": [
+            19
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-component-select-a0222f08c249",
+          "state": "s5",
+          "status": "violada",
+          "measurement": ".br-select do filtro sem componente button",
+          "findings": [
+            19
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-button-23e3cfbf49f3",
+          "state": "s5",
+          "status": "nao-se-aplica",
+          "measurement": "No escopo .br-select só há botões só-ícone (Exibir lista); nenhum botão com rótulo e ícone decorativo"
+        },
+        {
+          "ref": "govbr-3.7.0-component-input-f20d6d45078d",
+          "state": "s5",
+          "status": "medida",
+          "measurement": "br-input dos selects de paginação com input#total/#page visível"
+        },
+        {
+          "ref": "govbr-3.7.0-component-radio-d23d670b1bae",
+          "state": "s5",
+          "status": "nao-se-aplica",
+          "measurement": "Sem cabeçalho de opções"
+        },
+        {
+          "ref": "govbr-3.7.0-development-button-cce88702f880",
+          "state": "s5",
+          "status": "medida",
+          "measurement": "Ícones dos botões Exibir lista com aria-hidden=\"true\""
+        },
+        {
+          "ref": "govbr-3.7.0-component-header-296a09e0ff45",
+          "state": "s6",
+          "status": "medida",
+          "measurement": "Título \"Plataforma Nacional da Indústria do Pescado\" visível no br-header"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-global-362451854ed6",
+          "state": "s8",
+          "status": "nao-se-aplica",
+          "measurement": "Não há âncoras internas na página (ausência do salto registrada no achado 0)"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-tab-14789c5ef831",
+          "state": "s1",
+          "status": "violada",
+          "measurement": "ArrowRight na aba focada não move foco",
+          "findings": [
+            17
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-tab-0ceb168206ca",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "Tab após Exportar foca a primeira aba (Aguardando análise)"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-tab-e282c450c32d",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "Foco nas abas com outline dashed 4px rgb(194,133,12)"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-breadcrumb-1fff147d3cfd",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "Link Home recebe foco por Tab (outline 4px)"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-breadcrumb-a532cd44b675",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "Único elemento interativo (Home) percorrido"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-breadcrumb-c252cce23b3b",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "Chevrons são <i aria-hidden> não focalizáveis"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-breadcrumb-53db61fa81f9",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "Página atual \"Processos\" é <span>, não link"
+        },
+        {
+          "ref": "govbr-3.7.0-component-breadcrumb-478cffdbb111",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "Título da página atual \"Processos\" presente"
+        },
+        {
+          "ref": "govbr-3.7.0-component-pagination-01f1635e6054",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "Botões Página anterior/seguinte presentes"
+        },
+        {
+          "ref": "govbr-3.7.0-component-pagination-4898b445aa74",
+          "state": "s4",
+          "status": "medida",
+          "measurement": "Identificadores 1 e 2 presentes"
+        }
+      ]
+    }
+  }
+}
