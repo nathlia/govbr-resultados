@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-18T00:07:38Z | execução | nat78-tela-d-01 | processos | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 6dc3aa2cca7d | `execucoes/nat78-tela-d-01/2026-11-18T00-07-38Z__processos__opus__com__rep-08__20261118-000738-processos-com-c565` |
 | 2026-11-17T23:49:32Z | execução | nat78-tela-d-01 | processos | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 1c47e58f9aee | `execucoes/nat78-tela-d-01/2026-11-17T23-49-32Z__processos__opus__ferramentas__rep-08__20261117-234932-processos-ferramentas-e464` |
 | 2026-11-17T23:34:00Z | execução | nat78-tela-d-01 | processos | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 4e152dbce9ef | `execucoes/nat78-tela-d-01/2026-11-17T23-34-00Z__processos__opus__sem__rep-08__20261117-233400-processos-sem-a749` |
 | 2026-11-17T20:01:51Z | execução | nat78-tela-d-01 | processos | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · ce31389c6013 | `execucoes/nat78-tela-d-01/2026-11-17T20-01-51Z__processos__opus__ferramentas__rep-07__20261117-200151-processos-ferramentas-766b` |
