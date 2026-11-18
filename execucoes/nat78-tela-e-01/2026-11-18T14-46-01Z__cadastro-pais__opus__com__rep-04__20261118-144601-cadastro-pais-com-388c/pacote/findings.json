@@ -1,0 +1,1183 @@
+{
+  "contract": "findings.v2",
+  "fixture": false,
+  "campaignId": "nat78-tela-e-01",
+  "runId": "20261118-144601-cadastro-pais-com-388c",
+  "receivedAt": "2026-11-18T14:54:58Z",
+  "receipt": "r-56622ed0688abc76",
+  "findingContract": "achado-2",
+  "inspectionContract": "inspection.v1",
+  "inspectionStatus": "valid",
+  "report": {
+    "timestamp": "2026-11-18T14:54:58.339Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/cadastro-pais.html",
+    "scope": [
+      "tela cadastro-pais.html inteira a 1280x900",
+      "estados: inicial, erro de envio, lista do continente aberta, envio com sucesso, switch ligado, mensagem informativa fechada",
+      "teclado (Tab, Shift+Tab, Enter, Space, setas) e mouse"
+    ],
+    "notes": "Interações: carregamento; Tab por toda a página; skip link Enter; clique em Nome do país (readonly removido no foco); Salvar vazio (erro); abrir lista Continente, ArrowDown, Enter (seleciona África); preencher Marrocos/África/Habilitado e Salvar (sucesso role=status); switch Space liga/desliga; fechar mensagem informativa (foco vai ao h1); Ajuda (sem efeito visível, foco foi para Fechar da mensagem); Limpar Campos; Cancelar (navega para fora). Ferramentas: scan_page S-page-001..005, verify_finding V-001 (confirmed), V-002 (confirmed), V-003 (unverifiable, sem predicado). Incertezas: nested-interactive nas opções do select (marcação canônica do DS) e foco indo ao body após escolher opção. Horário de início 2026-11-18T14:46:35Z; decorrido 502s.",
+    "findings": [
+      {
+        "selector": "#btn-limpar",
+        "relatedSelectors": [
+          "#btn-salvar",
+          "#btn-cancelar"
+        ],
+        "rule": "wcag:2.4.3",
+        "references": [
+          "wcag:1.3.2",
+          "emag:1.4"
+        ],
+        "observed": "#btn-limpar tem CSS order:1 dentro do flex .acoes-formulario: a ordem visual é Cancelar (x=239) → Salvar País (x=376) → Limpar Campos (x=525), mas a ordem do DOM e do Tab é Cancelar → Limpar Campos → Salvar País; o foco salta para a direita (Limpar) e volta para a esquerda (Salvar).",
+        "expected": "A sequência de foco por teclado acompanha a ordem visual dos botões (ordem do DOM igual à disposição na tela, sem reordenação por CSS order).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "Tab x14 a partir do carregamento até os botões de ação"
+          ]
+        },
+        "evidence": [
+          "S-page-001",
+          "inspeção: focusin registrado Cancelar(239)→Limpar(525)→Salvar(376)"
+        ]
+      },
+      {
+        "selector": "#btn-salvar",
+        "relatedSelectors": [
+          "#btn-limpar",
+          "#btn-cancelar"
+        ],
+        "rule": "govbr-3.7.0-pattern-global-a0e5ee1b1a71",
+        "observed": "O botão primário 'Salvar País' (x=376..509) fica entre os secundários, com o secundário 'Limpar Campos' (x=525..700) à sua direita.",
+        "expected": "Com mais de um botão, o de ênfase primária fica posicionado à direita dos botões de ênfase secundária.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "getBoundingClientRect dos três botões"
+        ]
+      },
+      {
+        "selector": "#btn-ajuda",
+        "rule": "govbr-3.7.0-component-button-627dd3089562",
+        "observed": "button.br-button.circle 'Ajuda sobre o cadastro' (40x40 ao lado do h1) não tem ícone: único filho é span.sr-only (1x1px), ::before/::after com content none, fundo transparente e sem borda — a área é visualmente vazia; o controle é invisível para quem enxerga.",
+        "expected": "Botão do tipo circular com ícone visível que transmita a ação (o ícone é obrigatório no tipo circular).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "V-003 (unverifiable: sem predicado; fato medido no navegador)"
+        ]
+      },
+      {
+        "selector": ".rotulo-situacao",
+        "relatedSelectors": [
+          "#rad-situacao"
+        ],
+        "rule": "govbr-3.7.0-component-radio-331797975ce6",
+        "observed": "A legend 'Situação do cadastro' tem text-align:center numa caixa de 636px; o texto começa em x=296, enquanto o grupo e as opções começam em x=62 e os demais rótulos do formulário em x=60.",
+        "expected": "Rótulo do grupo de opções no topo do componente, alinhado à esquerda.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001",
+          "computed text-align center; Range rect x=296"
+        ]
+      },
+      {
+        "selector": "#inp-codigo",
+        "relatedSelectors": [
+          "#codigo-pais",
+          "#codigo-pais-apoio"
+        ],
+        "rule": "govbr-3.7.0-development-global-406774b1cb87",
+        "observed": "O campo 'Código do país (opcional)' usa font-family Arial, Helvetica, sans-serif (rótulo, input e texto auxiliar), diferente dos demais campos (Rawline).",
+        "expected": "Tipografia do DS: família Rawline (Raleway como alternativa).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "F-001",
+          "V-001 confirmed",
+          "S-page-001",
+          "F-002",
+          "F-003",
+          "F-016"
+        ]
+      },
+      {
+        "selector": "#sel-continente .br-item label",
+        "rule": "govbr-3.7.0-accessibility-global-9068b253efd7",
+        "references": [
+          "wcag:1.4.3",
+          "emag:4.1"
+        ],
+        "observed": "Rótulos das 6 opções da lista de Continente em #aaaaaa sobre #ffffff, 14px normal: contraste 2,32:1.",
+        "expected": "Contraste mínimo de 4,5:1 para texto normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click no botão 'Exibir lista' do Continente"
+          ]
+        },
+        "evidence": [
+          "S-page-003",
+          "F-004",
+          "F-005",
+          "F-006",
+          "F-007",
+          "F-008",
+          "F-009",
+          "V-002 confirmed"
+        ]
+      },
+      {
+        "selector": "#msg-erro",
+        "rule": "govbr-3.7.0-accessibility-message-93c05fd29fb4",
+        "references": [
+          "ds:govbr-3.7.0-component-message-b4508b9480a6"
+        ],
+        "observed": "A mensagem de erro (br-message danger) é exibida com fundo rgb(38,112,232) = --blue-warm-vivid-50 (cor de informação/seleção) e título, texto e ícone brancos; a mensagem de sucesso da mesma tela usa o fundo verde claro do tipo.",
+        "expected": "Cores semânticas do tipo erro: superfície --red-vivid-10 (#fde0db), ícone --red-vivid-50, título e texto --gray-80.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #btn-salvar (Salvar País) com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002",
+          "get_design_tokens #2670e8 → --blue-warm-vivid-50"
+        ]
+      },
+      {
+        "selector": "#msg-erro .marca-retorno",
+        "relatedSelectors": [
+          "#msg-erro .icon i"
+        ],
+        "rule": "govbr-3.7.0-component-message-004b6c544036",
+        "observed": "Dentro do conteúdo da mensagem de erro há um ícone visível fas fa-check (marca de sucesso) antes do título 'Não foi possível salvar o país.', além do ícone de erro times-circle à esquerda: ícones de semântica contraditória na mesma mensagem.",
+        "expected": "Mensagem de erro com o ícone de erro (times-circle) como único ícone semântico, sem ícone de confirmação/sucesso.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "click #btn-salvar (Salvar País) com o formulário vazio"
+          ]
+        },
+        "evidence": [
+          "S-page-002"
+        ]
+      },
+      {
+        "selector": "#msg-orientacao .message-body",
+        "rule": "govbr-3.7.0-pattern-global-d035b0a7d3ea",
+        "observed": "A mensagem 'Como cadastrar.' diz 'Os dados do país são persistidos no banco após o commit da transação, e a listagem abaixo é renderizada a partir do cache do endpoint de consulta.' — jargão técnico (persistidos, commit, transação, cache, endpoint) e nenhuma orientação de como cadastrar.",
+        "expected": "Texto em linguagem simples, com palavras do dia a dia, orientando a pessoa sobre o cadastro; termos técnicos evitados ou explicados.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [
+          "S-page-001"
+        ]
+      }
+    ],
+    "inspection": {
+      "completion": "complete",
+      "regions": [
+        {
+          "id": "r1",
+          "description": "Skip links (.br-skiplink)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r2",
+          "description": "Cabeçalho br-header com logo, assinatura, conta (avatar) e título do serviço",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r3",
+          "description": "Mensagem informativa #msg-orientacao",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s6"
+          ]
+        },
+        {
+          "id": "r4",
+          "description": "Breadcrumb #brd-trilha",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r5",
+          "description": "Título h1 e botão de ajuda #btn-ajuda",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r6",
+          "description": "Formulário #form-pais (nome, código, select continente, radios situação, botões, mensagens de retorno)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s2",
+            "s3",
+            "s4"
+          ]
+        },
+        {
+          "id": "r7",
+          "description": "Seção Configuração do Serviço com switch #certificado-automatico",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s5"
+          ]
+        },
+        {
+          "id": "r8",
+          "description": "Lista Países Cadastrados #lst-paises (itens sem detalhe/sem interação)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r9",
+          "description": "Rodapé br-footer #rodape",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "id": "s1",
+          "url": "http://screens:3300/cadastro-pais.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/cadastro-pais.html"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-001",
+            "observables": [
+              "formulário vazio",
+              "mensagem informativa visível",
+              "lista com 4 países"
+            ]
+          },
+          "evidence": [
+            "S-page-001",
+            "S-page-005"
+          ]
+        },
+        {
+          "id": "s2",
+          "url": "http://screens:3300/cadastro-pais.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/cadastro-pais.html"
+            },
+            {
+              "action": "click",
+              "target": "#btn-salvar"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-002",
+            "observables": [
+              "#msg-erro visível com role=alert",
+              "aria-invalid=true em #nome-pais, #continente e radios de situação",
+              "feedbacks de erro por campo"
+            ]
+          },
+          "evidence": [
+            "S-page-002"
+          ]
+        },
+        {
+          "id": "s3",
+          "url": "http://screens:3300/cadastro-pais.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/cadastro-pais.html"
+            },
+            {
+              "action": "click",
+              "target": "#sel-continente > div:nth-of-type(1) > button"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-003",
+            "observables": [
+              "aria-expanded=true no botão Exibir lista",
+              "listbox com 6 opções visível"
+            ]
+          },
+          "evidence": [
+            "S-page-003"
+          ]
+        },
+        {
+          "id": "s4",
+          "url": "http://screens:3300/cadastro-pais.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/cadastro-pais.html"
+            },
+            {
+              "action": "click",
+              "target": "#nome-pais"
+            },
+            {
+              "action": "fill",
+              "target": "#nome-pais",
+              "value": "Marrocos"
+            },
+            {
+              "action": "click",
+              "target": "#sel-continente > div:nth-of-type(1) > button"
+            },
+            {
+              "action": "click",
+              "target": "label[for=\"continente-op0\"]"
+            },
+            {
+              "action": "click",
+              "target": "label[for=\"situacao-habilitado\"]"
+            },
+            {
+              "action": "click",
+              "target": "#btn-salvar"
+            }
+          ],
+          "arrival": {
+            "status": "confirmed",
+            "originRef": "S-page-004",
+            "observables": [
+              ".confirmacao-envio (role=status) 'País salvo.' visível",
+              "sem erros"
+            ]
+          },
+          "evidence": [
+            "S-page-004"
+          ]
+        },
+        {
+          "id": "s5",
+          "url": "http://screens:3300/cadastro-pais.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/cadastro-pais.html"
+            },
+            {
+              "action": "press",
+              "target": "#certificado-automatico",
+              "value": "Space"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "switch checked=true, aria-checked=true",
+              "texto 'Emissão automática ligada.' em região aria-live"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s6",
+          "url": "http://screens:3300/cadastro-pais.html",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/cadastro-pais.html"
+            },
+            {
+              "action": "click",
+              "target": "#msg-orientacao .fechar-mensagem"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "#msg-orientacao removida",
+              "foco no h1"
+            ]
+          },
+          "evidence": []
+        }
+      ],
+      "items": [
+        {
+          "id": "i1",
+          "state": "s1",
+          "region": "r6",
+          "subject": "#form-pais .acoes-formulario button",
+          "check": "ordem de foco x geometria dos botões",
+          "status": "completed",
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "i2",
+          "state": "s1",
+          "subject": "documento",
+          "check": "ordem de Tab completa e foco visível (outline/box-shadow) em cada parada",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i3",
+          "state": "s1",
+          "region": "r1",
+          "subject": ".br-skiplink a",
+          "check": "skip link visível ao foco (y=0) e Enter leva a #main-content",
+          "status": "completed",
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "i4",
+          "state": "s1",
+          "region": "r5",
+          "subject": "#btn-ajuda",
+          "check": "conteúdo visível, pseudo-elementos, comportamento ao clicar",
+          "status": "completed",
+          "evidence": [
+            "V-003"
+          ]
+        },
+        {
+          "id": "i5",
+          "state": "s1",
+          "region": "r6",
+          "subject": "#inp-codigo",
+          "check": "font-family calculada",
+          "status": "completed",
+          "evidence": [
+            "F-001",
+            "V-001"
+          ]
+        },
+        {
+          "id": "i6",
+          "state": "s1",
+          "region": "r6",
+          "subject": ".rotulo-situacao",
+          "check": "alinhamento do rótulo do grupo de radio",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i7",
+          "state": "s2",
+          "region": "r6",
+          "subject": "#msg-erro e feedbacks de campo",
+          "check": "cores, ícones, role=alert, aria-invalid, aria-describedby",
+          "status": "completed",
+          "evidence": [
+            "S-page-002"
+          ]
+        },
+        {
+          "id": "i8",
+          "state": "s3",
+          "region": "r6",
+          "subject": "#sel-continente",
+          "check": "abertura, aria-expanded, navegação por setas, seleção por Enter, contraste das opções",
+          "status": "completed",
+          "evidence": [
+            "S-page-003",
+            "V-002"
+          ]
+        },
+        {
+          "id": "i9",
+          "state": "s4",
+          "region": "r6",
+          "subject": ".confirmacao-envio",
+          "check": "mensagem de sucesso role=status, cores",
+          "status": "completed",
+          "evidence": [
+            "S-page-004"
+          ]
+        },
+        {
+          "id": "i10",
+          "state": "s5",
+          "region": "r7",
+          "subject": "#certificado-automatico",
+          "check": "aria-checked acompanha checked e anúncio em aria-live",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i11",
+          "state": "s6",
+          "region": "r3",
+          "subject": ".fechar-mensagem",
+          "check": "fechar mensagem remove e devolve foco ao h1",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i12",
+          "state": "s1",
+          "region": "r6",
+          "subject": "#btn-limpar, #btn-cancelar",
+          "check": "Limpar zera campos; Cancelar navega para paises-importadores.html",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i13",
+          "state": "s1",
+          "region": "r3",
+          "subject": "#msg-orientacao",
+          "check": "clareza do texto",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i14",
+          "state": "s1",
+          "subject": "observações structure-unknown-classes (18-19)",
+          "check": "revisão das observações fora da pontuação",
+          "status": "omitted",
+          "reason": "sinais de classes não reconhecidas (classes próprias), fora da pontuação; não lidos individualmente",
+          "evidence": [
+            "S-page-001"
+          ]
+        }
+      ],
+      "candidates": [
+        {
+          "id": "c1",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#btn-limpar",
+          "observation": "order:1 faz a ordem de foco divergir da visual",
+          "decision": "accepted",
+          "findings": [
+            0
+          ],
+          "evidence": [
+            "S-page-001"
+          ]
+        },
+        {
+          "id": "c2",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#btn-salvar",
+          "observation": "primário não está à direita dos secundários",
+          "decision": "accepted",
+          "findings": [
+            1
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c3",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#btn-ajuda",
+          "observation": "botão circular sem ícone, visualmente vazio",
+          "decision": "accepted",
+          "findings": [
+            2
+          ],
+          "evidence": [
+            "V-003"
+          ]
+        },
+        {
+          "id": "c4",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".rotulo-situacao",
+          "observation": "legend centralizada",
+          "decision": "accepted",
+          "findings": [
+            3
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c5",
+          "state": "s1",
+          "origin": "validation-tool",
+          "originRef": "FAM-4c13fe4b35ba",
+          "subject": "#inp-codigo",
+          "observation": "font-family Arial",
+          "decision": "accepted",
+          "findings": [
+            4
+          ],
+          "evidence": [
+            "F-001",
+            "V-001"
+          ]
+        },
+        {
+          "id": "c5b",
+          "state": "s2",
+          "origin": "validation-tool",
+          "originRef": "FAM-f7654ae7bc37",
+          "subject": "#inp-codigo",
+          "observation": "font-family Arial (mesmo fato no estado de erro)",
+          "decision": "accepted",
+          "findings": [
+            4
+          ],
+          "evidence": [
+            "F-002"
+          ]
+        },
+        {
+          "id": "c5c",
+          "state": "s3",
+          "origin": "validation-tool",
+          "originRef": "FAM-2e054f1761d2",
+          "subject": "#inp-codigo",
+          "observation": "font-family Arial (lista aberta)",
+          "decision": "accepted",
+          "findings": [
+            4
+          ],
+          "evidence": [
+            "F-003"
+          ]
+        },
+        {
+          "id": "c5d",
+          "state": "s4",
+          "origin": "validation-tool",
+          "originRef": "FAM-ef69ca3ab344",
+          "subject": "#inp-codigo",
+          "observation": "font-family Arial (sucesso)",
+          "decision": "accepted",
+          "findings": [
+            4
+          ],
+          "evidence": [
+            "F-016"
+          ]
+        },
+        {
+          "id": "c6",
+          "state": "s3",
+          "origin": "validation-tool",
+          "originRef": "FAM-a1a0c3eb4cac",
+          "subject": "#sel-continente .br-item label",
+          "observation": "contraste 2,32:1",
+          "decision": "accepted",
+          "findings": [
+            5
+          ],
+          "evidence": [
+            "V-002"
+          ]
+        },
+        {
+          "id": "c7",
+          "state": "s3",
+          "origin": "validation-tool",
+          "originRef": "FAM-deca0af124a2",
+          "subject": ".br-item[role=option]",
+          "observation": "axe nested-interactive: option contém input radio focável",
+          "decision": "uncertain",
+          "reason": "marcação igual à do select canônico do gov.br DS core; o input radio não entra na sequência de Tab e a opção é operável por setas/Enter; não decidido se é defeito da tela",
+          "evidence": [
+            "F-010",
+            "F-011",
+            "F-012",
+            "F-013",
+            "F-014",
+            "F-015"
+          ]
+        },
+        {
+          "id": "c8",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "#msg-erro",
+          "observation": "fundo azul em mensagem de erro",
+          "decision": "accepted",
+          "findings": [
+            6
+          ],
+          "evidence": [
+            "S-page-002"
+          ]
+        },
+        {
+          "id": "c9",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "#msg-erro .marca-retorno",
+          "observation": "ícone de check na mensagem de erro",
+          "decision": "accepted",
+          "findings": [
+            7
+          ],
+          "evidence": [
+            "S-page-002"
+          ]
+        },
+        {
+          "id": "c10",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#msg-orientacao .message-body",
+          "observation": "jargão técnico",
+          "decision": "accepted",
+          "findings": [
+            8
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c11",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#nome-pais",
+          "observation": "atributo readonly no carregamento",
+          "decision": "rejected",
+          "reason": "readonly é removido ao focar; o campo aceita digitação por clique e por teclado",
+          "evidence": []
+        },
+        {
+          "id": "c12",
+          "state": "s3",
+          "origin": "browser",
+          "subject": "#sel-continente",
+          "observation": "após Enter numa opção o foco vai para body",
+          "decision": "uncertain",
+          "reason": "o próximo Tab continua no radio seguinte (ponto de navegação preservado); comportamento do script do select do DS; impacto não determinado",
+          "evidence": []
+        },
+        {
+          "id": "c13",
+          "state": "s1",
+          "origin": "browser",
+          "subject": ".acoes-formulario button",
+          "observation": "rótulos de botão com iniciais maiúsculas",
+          "decision": "rejected",
+          "reason": "govbr-3.7.0-pattern-global-9ac14bf357d4: 'Buttons são as exceções'",
+          "evidence": []
+        },
+        {
+          "id": "c14",
+          "state": "s4",
+          "origin": "browser",
+          "subject": ".confirmacao-envio",
+          "observation": "mensagem de sucesso fora da área visível após rolar até o botão",
+          "decision": "rejected",
+          "reason": "role=status anuncia; fica no topo do formulário; posição dependia da rolagem da interação",
+          "evidence": [
+            "S-page-004"
+          ]
+        },
+        {
+          "id": "c15",
+          "state": "s5",
+          "origin": "validation-tool",
+          "originRef": "P-05",
+          "subject": "#certificado-automatico",
+          "observation": "aria-checked possivelmente estático",
+          "decision": "rejected",
+          "reason": "medido: aria-checked acompanha checked nos dois sentidos",
+          "evidence": []
+        },
+        {
+          "id": "c16",
+          "state": "s3",
+          "origin": "validation-tool",
+          "originRef": "P-07",
+          "subject": "label[for=situacao-habilitado], #btn-salvar",
+          "observation": "contraste incompleto no axe",
+          "decision": "rejected",
+          "reason": "medido #333/#fff ≈12,6:1 e #fff/#1351b4 ≈7:1",
+          "evidence": [
+            "S-page-005"
+          ]
+        },
+        {
+          "id": "c17",
+          "state": "s1",
+          "origin": "validation-tool",
+          "originRef": "P-04",
+          "subject": "#sel-continente > div:nth-of-type(1) > button",
+          "observation": "botão só com ícone embutido",
+          "decision": "rejected",
+          "reason": "parte 'Componente button' da anatomia do select, com nome acessível 'Exibir lista'",
+          "evidence": [
+            "S-page-005"
+          ]
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "other",
+          "detail": "Na resolução de P-07 em S-page-004 marquei 'violada' por engano (referindo-me às opções do continente); corrigido para 'conforme' em S-page-005 após medir os itens da pendência."
+        },
+        {
+          "kind": "out-of-scope",
+          "detail": "Cancelar navega para paises-importadores.html; links do breadcrumb e Conta de Helena levam a outras páginas, não avaliadas."
+        },
+        {
+          "kind": "other",
+          "detail": "Lista de países não abre detalhe (itens sem link/controle); nenhum detalhe por situação a abrir."
+        },
+        {
+          "kind": "truncated",
+          "detail": "Cláusulas adiadas pela ferramenta (deferred 24-40 por componente: radio, select, footer, breadcrumb, header etc. via get_component_spec checklist e get_page_rules checklist) não foram buscadas nem medidas por orçamento de tempo."
+        },
+        {
+          "kind": "other",
+          "detail": "Somente 1280x900; nenhuma outra largura no escopo."
+        }
+      ],
+      "clauses": [
+        {
+          "ref": "govbr-3.7.0-component-radio-bef23088d752",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "texto dos radios começa em x=94 (padding-left 32px) à direita da caixa em x=62"
+        },
+        {
+          "ref": "govbr-3.7.0-component-select-9484a812fe9f",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "#continente presente e visível 400x40"
+        },
+        {
+          "ref": "govbr-3.7.0-component-footer-6dce32688f49",
+          "state": "s1",
+          "status": "medida",
+          "measurement": ".br-footer 1280x195, fundo #071d41"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-breadcrumb-7e348f84b5b6",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "breadcrumb visível em y=228, antes do h1 (y=284), após cabeçalho e mensagem"
+        },
+        {
+          "ref": "govbr-3.7.0-component-header-296a09e0ff45",
+          "state": "s1",
+          "status": "medida",
+          "measurement": ".header-title 'Cadastro de Países Importadores' visível 370x35"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-skiplink-410f86810464",
+          "state": "s1",
+          "status": "medida",
+          "measurement": ".br-skiplink é o primeiro filho do body; ao focar aparece em y=0"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-button-23e3cfbf49f3",
+          "state": "s2",
+          "status": "medida",
+          "measurement": "nenhum .br-button/button com atributo title"
+        },
+        {
+          "ref": "govbr-3.7.0-component-list-ca8054947d88",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "#lst-paises com 4 .br-item visíveis 1160x74"
+        },
+        {
+          "ref": "govbr-3.7.0-component-message-add10093ae9f",
+          "state": "s2",
+          "status": "medida",
+          "measurement": "ícone semântico das mensagens à esquerda (#msg-orientacao .icon x=60; #msg-erro .icon x=60)"
+        },
+        {
+          "ref": "govbr-3.7.0-component-input-f20d6d45078d",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "inputs #nome-pais e #codigo-pais presentes e visíveis"
+        },
+        {
+          "ref": "govbr-3.7.0-component-switch-58bafaddd0a7",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "#swt-certificado presente 590x30; chave 52x30"
+        },
+        {
+          "ref": "govbr-3.7.0-component-divider-c7e96a24a522",
+          "state": "s3",
+          "status": "medida",
+          "measurement": ".br-divider horizontais com border-top 1px solid #ccc"
+        },
+        {
+          "ref": "govbr-3.7.0-component-item-f5ef182cb289",
+          "state": "s3",
+          "status": "medida",
+          "measurement": ".item-pais com superfície 1160x74"
+        },
+        {
+          "ref": "govbr-3.7.0-component-avatar-f025c9e3cc43",
+          "state": "s3",
+          "status": "medida",
+          "measurement": ".br-avatar .content border-radius 50%, 40x40"
+        },
+        {
+          "ref": "govbr-3.7.0-component-radio-d23d670b1bae",
+          "state": "s3",
+          "status": "medida",
+          "measurement": "legend do grupo (y=814) acima da 1ª opção (y=849)"
+        },
+        {
+          "ref": "govbr-3.7.0-component-select-a0222f08c249",
+          "state": "s3",
+          "status": "medida",
+          "measurement": "botão Exibir lista presente e visível 32x32"
+        },
+        {
+          "ref": "govbr-3.7.0-component-breadcrumb-dad867cfc7f2",
+          "state": "s3",
+          "status": "medida",
+          "measurement": "botão Início (br-button circle) 40x40 visível"
+        },
+        {
+          "ref": "govbr-3.7.0-component-header-85b52544095a",
+          "state": "s4",
+          "status": "medida",
+          "measurement": ".br-header fundo #fff com sombra"
+        },
+        {
+          "ref": "govbr-3.7.0-component-skiplink-7e0a659e413b",
+          "state": "s4",
+          "status": "medida",
+          "measurement": "superfície do skiplink visível ao foco (fundo #fff, 300x36)"
+        },
+        {
+          "ref": "govbr-3.7.0-development-button-cce88702f880",
+          "state": "s4",
+          "status": "medida",
+          "measurement": "ícones em botões (fa-times, fa-home, fa-angle-down) com aria-hidden=true"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-global-362451854ed6",
+          "state": "s1",
+          "status": "nao-se-aplica",
+          "measurement": "destinos dos saltos são main#main-content e footer#rodape (não âncoras <a>); id presente; atributo name não existe para esses elementos em HTML"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-global-9a6edd7d551e",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "title 'Cadastrar país importador — Defesa Agropecuária gov.br' corresponde ao h1"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-global-8170ddf527be",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "lang=pt-BR, conteúdo em português"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-global-de4271a11af7",
+          "state": "s1",
+          "status": "medida",
+          "measurement": "banner, navs, main, 2 sections nomeadas, contentinfo"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-switch-364149c5aea4",
+          "state": "s5",
+          "status": "medida",
+          "measurement": "Space: checked=true/aria-checked=true; Space: false/false"
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-global-9068b253efd7",
+          "state": "s3",
+          "status": "violada",
+          "measurement": "#sel-continente .br-item label #aaaaaa/#ffffff 2,32:1",
+          "findings": [
+            5
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-component-button-7ef75d42ac65",
+          "state": "s1",
+          "status": "nao-se-aplica",
+          "measurement": "botão Exibir lista é parte da anatomia do select (P-04)"
+        },
+        {
+          "ref": "govbr-3.7.0-pattern-global-a0e5ee1b1a71",
+          "state": "s1",
+          "status": "violada",
+          "measurement": "primário x=376 com secundário Limpar em x=525 à direita",
+          "findings": [
+            1
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-component-button-627dd3089562",
+          "state": "s1",
+          "status": "violada",
+          "measurement": "#btn-ajuda circle sem ícone",
+          "findings": [
+            2
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-component-radio-331797975ce6",
+          "state": "s1",
+          "status": "violada",
+          "measurement": "legend text-align center, texto em x=296 vs grupo x=62",
+          "findings": [
+            3
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-development-global-406774b1cb87",
+          "state": "s1",
+          "status": "violada",
+          "measurement": "#inp-codigo font-family Arial",
+          "findings": [
+            4
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-accessibility-message-93c05fd29fb4",
+          "state": "s2",
+          "status": "violada",
+          "measurement": "#msg-erro fundo #2670e8 (--blue-warm-vivid-50)",
+          "findings": [
+            6
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-component-message-b4508b9480a6",
+          "state": "s2",
+          "status": "violada",
+          "measurement": "fundo esperado --red-vivid-10 #fde0db; medido #2670e8",
+          "findings": [
+            6
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-component-message-004b6c544036",
+          "state": "s2",
+          "status": "violada",
+          "measurement": "ícone times-circle presente, mas há fa-check adicional no conteúdo",
+          "findings": [
+            7
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-pattern-global-d035b0a7d3ea",
+          "state": "s1",
+          "status": "violada",
+          "measurement": "texto com commit, transação, cache, endpoint",
+          "findings": [
+            8
+          ]
+        },
+        {
+          "ref": "govbr-3.7.0-pattern-global-9ac14bf357d4",
+          "state": "s1",
+          "status": "nao-se-aplica",
+          "measurement": "regra exclui botões ('Buttons são as exceções'); demais rótulos com só a 1ª maiúscula"
+        }
+      ]
+    }
+  }
+}
