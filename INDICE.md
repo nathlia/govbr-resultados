@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-26T17:07:54Z | execução | portao-teto-f-01 | processos-f | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · f48a2ebf87dc | `execucoes/portao-teto-f-01/2026-11-26T17-07-54Z__processos-f__opus__sem__rep-01__20261126-170754-processos-f-sem-b696` |
 | 2026-11-26T17:03:29Z | ensaio | ensaio-portao-f-02 | processos-f | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 66141daf242f | `ensaios/ensaio-portao-f-02/2026-11-26T17-03-29Z__processos-f__opus__sem__rep-01__20261126-170329-processos-f-sem-392d` |
 | 2026-11-26T16:59:15Z | ensaio | ensaio-portao-f-02 | processos-f | sem | — | passed | passed | absent-verified | accepted | — | confirmado · ddd11b08f6b1 | `ensaios/ensaio-portao-f-02/2026-11-26T16-59-15Z__processos-f__opus__sem__rep-01__20261126-165915-processos-f-sem-f9ed` |
 | 2026-11-26T16:55:32Z | ensaio | ensaio-portao-f-02 | processos-f | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 66af551d9cd6 | `ensaios/ensaio-portao-f-02/2026-11-26T16-55-32Z__processos-f__opus__sem__rep-01__20261126-165532-processos-f-sem-2ab4` |
