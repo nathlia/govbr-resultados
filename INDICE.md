@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-26T23:26:54Z | ensaio | ensaio-portao-f2-01 | processos-f2 | sem | — | passed | passed | absent-verified | accepted | — | confirmado · a6a0811e9164 | `ensaios/ensaio-portao-f2-01/2026-11-26T23-26-54Z__processos-f2__opus__sem__rep-01__20261126-232654-processos-f2-sem-b97c` |
 | 2026-11-26T23:23:27Z | ensaio | ensaio-portao-f2-01 | processos-f2 | sem | — | passed | passed | absent-verified | accepted | — | confirmado · d03cf00a9692 | `ensaios/ensaio-portao-f2-01/2026-11-26T23-23-27Z__processos-f2__opus__sem__rep-01__20261126-232327-processos-f2-sem-33d7` |
 | 2026-11-26T19:42:24Z | execução | ensaio-trio-real-06 | solicitacao | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 5fd02a5f9d0c | `execucoes/ensaio-trio-real-06/2026-11-26T19-42-24Z__solicitacao__opus__com__rep-01__20261126-194224-solicitacao-com-3c79` |
 | 2026-11-26T19:28:10Z | execução | ensaio-trio-real-06 | solicitacao | ferramentas | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · c4fea4391039 | `execucoes/ensaio-trio-real-06/2026-11-26T19-28-10Z__solicitacao__opus__ferramentas__rep-01__20261126-192810-solicitacao-ferramentas-949a` |
