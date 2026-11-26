@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-26T17:03:29Z | ensaio | ensaio-portao-f-02 | processos-f | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 66141daf242f | `ensaios/ensaio-portao-f-02/2026-11-26T17-03-29Z__processos-f__opus__sem__rep-01__20261126-170329-processos-f-sem-392d` |
 | 2026-11-26T16:59:15Z | ensaio | ensaio-portao-f-02 | processos-f | sem | — | passed | passed | absent-verified | accepted | — | confirmado · ddd11b08f6b1 | `ensaios/ensaio-portao-f-02/2026-11-26T16-59-15Z__processos-f__opus__sem__rep-01__20261126-165915-processos-f-sem-f9ed` |
 | 2026-11-26T16:55:32Z | ensaio | ensaio-portao-f-02 | processos-f | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 66af551d9cd6 | `ensaios/ensaio-portao-f-02/2026-11-26T16-55-32Z__processos-f__opus__sem__rep-01__20261126-165532-processos-f-sem-2ab4` |
 | 2026-11-18T22:49:45Z | execução | nat78-tela-e-01 | cadastro-pais | com | claude-opus-5-5 | passed | passed | used-adherent | accepted | — | confirmado · 77e951dd1521 | `execucoes/nat78-tela-e-01/2026-11-18T22-49-45Z__cadastro-pais__opus__com__rep-09__20261118-224945-cadastro-pais-com-d7aa` |
