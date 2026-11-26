@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-26T19:03:10Z | ensaio | ensaio-trio-f-01 | processos-f | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · e39649a2ed9d | `ensaios/ensaio-trio-f-01/2026-11-26T19-03-10Z__processos-f__opus__ferramentas__rep-01__20261126-190310-processos-f-ferramentas-2f9f` |
+| 2026-11-26T19:02:55Z | linha de base | ensaio-trio-f-01 | processos-f | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-f-01/processos-f/lb-20261126-190255-processos-f-852664` |
 | 2026-11-26T18:58:32Z | ensaio | ensaio-trio-f-01 | processos-f | sem | — | passed | passed | absent-verified | accepted | — | confirmado · e167063dca5f | `ensaios/ensaio-trio-f-01/2026-11-26T18-58-32Z__processos-f__opus__sem__rep-01__20261126-185832-processos-f-sem-4338` |
 | 2026-11-26T18:58:31Z | linha de base | ensaio-trio-f-01 | processos-f | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-f-01/processos-f/lb-20261126-185831-processos-f-8f4be3` |
 | 2026-11-26T17:40:16Z | execução | portao-teto-f-01 | processos-f | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · d747baaba0e5 | `execucoes/portao-teto-f-01/2026-11-26T17-40-16Z__processos-f__opus__sem__rep-01__20261126-174016-processos-f-sem-75a6` |
