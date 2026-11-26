@@ -1,0 +1,6 @@
+- execuções: 20261126-170754-processos-f-sem-b696, 20261126-172403-processos-f-sem-beb3, 20261126-174016-processos-f-sem-75a6
+- specs semeadas confirmadas por execução: 0 [≤4], 0 [≤6], 0 [≤4]
+- mediana: 0 [com os pendentes: 4; o portão lê esta]
+- n: 12
+- limiar: 6 (⌊n/2⌋)
+- veredito: passa
