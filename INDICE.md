@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-27T01:03:17Z | ensaio | ensaio-portao-ferramentas-f2-01 | processos-f2 | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 89eac6d01752 | `ensaios/ensaio-portao-ferramentas-f2-01/2026-11-27T01-03-17Z__processos-f2__opus__ferramentas__rep-01__20261127-010317-processos-f2-ferramentas-e0f9` |
 | 2026-11-27T00:59:22Z | ensaio | ensaio-portao-ferramentas-f2-01 | processos-f2 | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · d5ba1f388254 | `ensaios/ensaio-portao-ferramentas-f2-01/2026-11-27T00-59-22Z__processos-f2__opus__ferramentas__rep-01__20261127-005922-processos-f2-ferramentas-9567` |
 | 2026-11-27T00:55:20Z | ensaio | ensaio-portao-ferramentas-f2-01 | processos-f2 | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · d8d995165cf0 | `ensaios/ensaio-portao-ferramentas-f2-01/2026-11-27T00-55-20Z__processos-f2__opus__ferramentas__rep-01__20261127-005520-processos-f2-ferramentas-ee90` |
 | 2026-11-27T00:51:01Z | ensaio | ensaio-trio-f2-01 | processos-f2 | com | — | passed | passed | used-adherent | accepted | — | confirmado · 3b92a20aca1d | `ensaios/ensaio-trio-f2-01/2026-11-27T00-51-01Z__processos-f2__opus__com__rep-01__20261127-005101-processos-f2-com-fc98` |
