@@ -1,0 +1,4668 @@
+{
+  "formato": "nat74-t3-lote-1.0.0",
+  "lote": "lote-02",
+  "politica": "politica-normativa-1.3.0",
+  "instrucoes": {
+    "arquivo": "LEIAME-juiz.md",
+    "sha256": "d37005e1470d5ca50557fa7da9ff89f6361f72aee0f607f0b1a5e9d6238e0a6d"
+  },
+  "esquema": {
+    "arquivo": "esquema-respostas.schema.json",
+    "sha256": "98535e29339c8dc1278e2318163873deb6c1e6d5676819ff768222dc9bd29f28"
+  },
+  "respostaEm": "../respostas/lote-02.json",
+  "n": 33,
+  "referencias": {
+    "processos-f2": {
+      "nome": "Tela Processos",
+      "versao": "1.0.0",
+      "endereco": "/pnip-f2/portal-mpa/processos?mock-perfil=mpa",
+      "paradas": {
+        "inicial": {
+          "path": "/pnip-f2/portal-mpa/processos",
+          "registro": null,
+          "receita": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`"
+          ],
+          "nota": "carga da rota, sem clicar em nenhuma aba: a lista paginada de processos em tramitação, com \"Meus processos\" ligado — primeiro paint (nota da D reescrita sem nomear a aba marcada: tela-f2/congelamento-1.0.0.md)"
+        },
+        "lista-exibir": {
+          "path": "/pnip-f2/portal-mpa/processos",
+          "registro": null,
+          "receita": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer"
+          ],
+          "nota": "lista do seletor \"Exibir\" (itens por página) da paginação aberta — última parada do segmento 0"
+        },
+        "filtro-escolhido": {
+          "path": "/pnip-f2/portal-mpa/processos",
+          "registro": null,
+          "receita": [
+            "abrir o endereço da tela e esperar `main .br-table tbody tr`",
+            "clicar em `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip input#total`",
+            "esperar `govbr-custom-pagination nav > div:nth-of-type(1) br-select-pnip .br-list .br-item` aparecer",
+            "navegar para `/pnip-f2/portal-mpa/vistorias` (mesma página, sem recarregar) e esperar `pnip-propesc-vistorias`",
+            "navegar para `/pnip-f2/portal-mpa/processos` (mesma página, sem recarregar) e esperar `pnip-mpa-processos .br-table tbody tr`",
+            "clicar em `pnip-multiple-search-table-utils div.row.align-items-center > div.col-auto.px-1:first-child > span.br-tag`",
+            "esperar `pnip-multiple-search-table-utils div.br-select > div.br-list > div.br-item` aparecer",
+            "clicar em `pnip-multiple-search-table-utils div.br-select > div.br-list > div.br-item:nth-child(3) .br-radio`",
+            "esperar `pnip-multiple-search-table-utils div.row.pl-2:not(.align-items-center) span.br-tag.interaction` aparecer",
+            "{\"action\":\"wait\",\"ms\":1000}"
+          ],
+          "nota": "segmento 2 (depois de ida e volta por navegação, a rota recomeça): filtro \"Aberto há\" aberto e a opção \"Últimos 60 dias\" escolhida — a tag do filtro escolhido aparece; a lista continua com as mesmas 9 linhas; última parada do segmento 2"
+        }
+      },
+      "criteriosComuns": [
+        {
+          "id": "C-1",
+          "texto": "A unidade é (elemento × defeito) no estado aplicável; acerto = a alegação afirma o defeito daquela unidade, naquele elemento (ou composição declarada), num estado em que a unidade foi medida."
+        },
+        {
+          "id": "C-2",
+          "texto": "Citar uma norma de `rules` (ou a cláusula de uma spec sem id) sem mostrar o defeito daquela unidade (o observável, no elemento e no estado) não dá crédito: a norma só fundamenta uma alegação que já detectou o defeito."
+        },
+        {
+          "id": "C-3",
+          "texto": "Detecção não depende de id. Uma spec sem id mapeado (`_meta.semIdMapeado`) é detectada pela alegação que afirma o defeito; a coluna fundamentada só credita por id as specs com id."
+        },
+        {
+          "id": "C-4",
+          "texto": "Alegação sobre condição listada em `_meta.fundo` ou `_meta.fora_de_escopo` não é acerto de spec: alegação correta ali vira descoberta."
+        },
+        {
+          "id": "C-5",
+          "texto": "Sem predicado (`nao-implementado`) não é aceitação nem recusa e nunca recai em 'casou por elemento, logo está certo': o juiz lê a afirmação; com evidência faltando, evidência insuficiente."
+        },
+        {
+          "id": "C-6",
+          "texto": "Um elemento pode ter mais de uma spec, com defeitos diferentes (ex.: a mesma tag ou o mesmo avatar em duas specs). A alegação credita a spec cujo defeito ela afirma; afirmar o defeito de uma não credita a outra."
+        }
+      ],
+      "defeitos": [
+        {
+          "id": "F2-01",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Paginação no rodapé da tabela: só existe a seta \"Página seguinte\" (botão circular à direita do número da página); a seta \"Página anterior\" não existe — a lista da paginação tem 2 itens, a página \"1\" e a seta seguinte, e a página fica encostada à esquerda, sem seta antes dela. A Pagination tem duas setas de navegação obrigatórias, um botão para a esquerda e outro para a direita.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Constituem um Botão para esquerda e outro para direita",
+                  "texto": "Constituem um Botão para esquerda e outro para direita.",
+                  "forcaDeclarada": "especificação (descreve o componente)",
+                  "forcaNoVocabulario": null
+                }
+              ]
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "A cada clique, o usuário poderá navegar página por página de forma crescente ou…",
+                  "texto": "A cada clique, o usuário poderá navegar página por página de forma crescente ou decrescente (direita / esquerda).",
+                  "forcaDeclarada": "especificação (descreve o componente)",
+                  "forcaNoVocabulario": null
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "a paginação no rodapé da tabela (setas de navegação e número da página). Localizador: govbr-custom-pagination nav.br-pagination > ul (scope unico, expectedCount 1). O que se olha: quantas setas de navegação a paginação tem: só existe a seta \"Página seguinte\" (botão circular à direita do número \"1\"); não há a seta \"Página anterior\" à esquerda. A lista da paginação tem 2 itens (a página e a seta seguinte).",
+            "estado": "inicial (e lista-exibir, a parada seguinte do mesmo segmento). na carga da rota, rolar até o rodapé da tabela; a paginação fica abaixo da lista. Com uma página só, a seta seguinte aparece desabilitada; o que conta é a falta da anterior.",
+            "decisao": "Acerto = A alegação afirma que a paginação não tem a seta/botão de página anterior (voltar), ou que só tem uma das duas setas de navegação (só a de avançar), na paginação do rodapé desta lista. Não conta: afirmar só que as setas estão desabilitadas ou que há uma página só (é o estado dos dados, não o defeito) falar dos seletores \"Exibir\" e \"Página\" da paginação (outros elementos) citar a anatomia da Pagination sem dizer que falta a seta anterior nesta paginação (C-2)"
+          }
+        },
+        {
+          "id": "F2-02",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Avatar de letra no cabeçalho (\"U\"): o conteúdo interno do avatar não tem a classe `content` (o span tem só bg-orange-vivid-30 e text-pure-0). Sem ela, o avatar vira um retângulo laranja estreito (cerca de 18×40 px, border-radius 0, display block) com a letra encostada, em vez da superfície circular de 40×40 com a letra centralizada. No Avatar, a classe `content` é propriedade obrigatória do conteúdo interno.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Class | string | content | Aplicado no conteúdo interno. Pode conter imagem, ícone ou…",
+                  "texto": "Class | string | content | Aplicado no conteúdo interno. Pode conter imagem, ícone ou letra.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "avatar de letra do cabeçalho (\"U\"): conteúdo interno sem a classe content, deformado num retângulo estreito (≈18×40, cantos retos) em vez do círculo de 40×40.",
+            "estado": "inicial (e lista-exibir).",
+            "decisao": "Acerto = afirmar que o avatar do cabeçalho não é circular / está deformado (retângulo estreito, letra encostada) ou que o conteúdo interno do avatar não tem a classe/estrutura prevista (content). Não conta: só o contraste da letra (outra spec, C-6), ou citar a anatomia do Avatar sem mostrar a deformação neste avatar (C-2)."
+          }
+        },
+        {
+          "id": "F2-03",
+          "estado": "filtro-escolhido",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Tag do filtro escolhido (aparece depois de abrir um filtro e escolher uma opção, aqui \"Aberto há\" → \"Últimos 60 dias\"): o botão de remover (×) é um <button> sem a classe `br-button` (só `inverted circle`) e aparece como botão nativo do navegador — fundo cinza rgb(240, 240, 240), borda outset de 2 px, cantos retos, cerca de 40×30 px, ícone preto — em vez do botão circular azul de 28×28. O botão continua removendo o filtro. O Button exige a classe `br-button` no contêiner do componente.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Class | string | br-button | Container do componente",
+                  "texto": "Class | string | br-button | Container do componente.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "botão × da tag do filtro escolhido: botão nativo do navegador (cinza, borda outset, cantos retos, ≈40×30) sem a classe br-button, em vez do botão circular azul de 28×28.",
+            "estado": "filtro-escolhido (depois de escolher uma opção de um filtro).",
+            "decisao": "Acerto = afirmar que o botão de remover/fechar da tag do filtro escolhido não é o Button do DS (sem a classe br-button, aparência de botão nativo, não circular). Não conta: só nome acessível ou teclado desse botão (outro defeito), falar das tags de filtro da barra ou de \"Meus processos\", ou citar a norma sem mostrar este botão (C-2)."
+          }
+        },
+        {
+          "id": "F2-04",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Título da página, h2 \"Processos\": font-size 32px (2rem), valor fora da escala tipográfica (os degraus vizinhos são 29,036 px e 34,832 px). O título H2 usa --font-size-scale-up-05 (34,832 px nesta janela).",
+          "normas": [],
+          "criterio": {
+            "observavel": "título h2 \"Processos\": font-size 32px, fora da escala (vizinhos 29,036 e 34,832 px).",
+            "estado": "inicial (e lista-exibir).",
+            "decisao": "Acerto = afirmar que o tamanho da fonte do título h2 da página está fora da escala tipográfica / não é o do H2 (32px em vez de 34,832px / --font-size-scale-up-05). Não conta: só o peso ou a cor do título, a falta de h1 (outra spec), ou citar a escala sem mostrar o valor deste título (C-2)."
+          }
+        },
+        {
+          "id": "F2-05",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Tag de interação \"Meus processos\": o rótulo tem font-size 15px, menor que o das tags de filtro da mesma barra (16,8 px) e fora da escala tipográfica (os degraus vizinhos são 14 px e 16,8 px). O label da Tag de interação usa --font-size-scale-up-01.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Label | size | --font-size-scale-up-01",
+                  "texto": "Label | size | --font-size-scale-up-01.",
+                  "forcaDeclarada": "especificação (descreve o componente)",
+                  "forcaNoVocabulario": null
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "rótulo da tag \"Meus processos\": font-size 15px, menor que o das tags de filtro vizinhas (16,8px).",
+            "estado": "inicial (e lista-exibir).",
+            "decisao": "Acerto = afirmar que o texto da tag \"Meus processos\" tem tamanho de fonte fora da escala / diferente do previsto para a Tag (15px em vez de 16,8px) ou menor que o das tags vizinhas. Não conta: teclado/papel da tag (outra spec, C-6), a forma da tag, ou citar a norma sem mostrar o valor nesta tag (C-2)."
+          }
+        },
+        {
+          "id": "F2-06",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Divider logo abaixo do breadcrumb: a linha (2 px) tem cor rgb(214, 214, 214) (#d6d6d6), que não é cor da paleta (os cinzas vizinhos são #e6e6e6 e #ccc). O Divider sobre fundo claro usa --gray-20 (#ccc).",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Divider (fundo claro) | background | --gray-20",
+                  "texto": "Divider (fundo claro) | background | --gray-20.",
+                  "forcaDeclarada": "especificação (descreve o componente)",
+                  "forcaNoVocabulario": null
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "divider abaixo do breadcrumb: cor rgb(214, 214, 214) (#d6d6d6), fora da paleta.",
+            "estado": "inicial (e lista-exibir).",
+            "decisao": "Acerto = afirmar que a linha divisória abaixo do breadcrumb tem cor fora da paleta / diferente da prevista (#d6d6d6 em vez de --gray-20 #ccc). Não conta: espessura ou posição do divider, foco/teclado, ou citar a cor do Divider sem mostrar o valor medido (C-2)."
+          }
+        },
+        {
+          "id": "F2-07",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Breadcrumb, botão Home: o ícone da casa está em rgb(0, 94, 162) (#005ea2, --blue-vivid-60), outro azul da paleta, diferente do azul de interação usado pelos demais elementos interativos da página (#1351b4, o do botão \"Exportar\"). O ícone do Botão Terciário Home do Breadcrumb usa --blue-warm-vivid-70.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Botão Terciário Home | icon | --blue-warm-vivid-70",
+                  "texto": "Botão Terciário Home | icon | --blue-warm-vivid-70.",
+                  "forcaDeclarada": "especificação (descreve o componente)",
+                  "forcaNoVocabulario": null
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "ícone Home do breadcrumb: cor rgb(0, 94, 162) (#005ea2) em vez do azul de interação #1351b4.",
+            "estado": "inicial (e lista-exibir).",
+            "decisao": "Acerto = afirmar que o ícone (ou o botão) Home do breadcrumb tem um azul diferente do previsto (#005ea2 em vez de --blue-warm-vivid-70 #1351b4) ou diferente do azul dos demais elementos interativos. Não conta: o link do breadcrumb recarregar, aria-current, tamanho do botão Home (fundo), ou citar a norma sem mostrar a cor deste ícone (C-2)."
+          }
+        },
+        {
+          "id": "F2-08",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Rótulos das três abas (\"Aguardando análise\", \"Tramitando\", \"Concluídos\"): font-size 16,8 px (--font-size-scale-up-01, o tamanho do texto dos botões), um degrau abaixo do previsto; o peso continua medium. O rótulo da Tab usa --font-size-scale-up-02 (20,16 px) com --font-weight-medium. Um único estilo no componente define os três rótulos: uma unidade para o conjunto.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Rótulo da Tab | --font-size-scale-up-02 | --font-weight-medium",
+                  "texto": "Rótulo da Tab | --font-size-scale-up-02 | --font-weight-medium.",
+                  "forcaDeclarada": "especificação (descreve o componente)",
+                  "forcaNoVocabulario": null
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "rótulos das três abas: font-size 16,8px em vez de 20,16px (um único estilo para os três: uma unidade).",
+            "estado": "inicial (e lista-exibir).",
+            "decisao": "Acerto = afirmar que o texto das abas é menor que o previsto para a Tab (16,8px em vez de 20,16px / --font-size-scale-up-02) ou está num degrau errado da escala. Não conta: qual aba está ativa (outra spec, C-6), teclado ou aria das abas, ou citar a norma sem mostrar o tamanho medido (C-2)."
+          }
+        },
+        {
+          "id": "F2-09",
+          "estado": "lista-exibir",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Lista do seletor \"Exibir\" da paginação, aberta: a superfície da lista tem sombra rgba(0, 0, 0, 0.16) 0 6px 6px (--surface-shadow-lg), mais deslocada para baixo que a prevista. A superfície do Select usa --surface-shadow-md (0 3px 6px).",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Superfície | --surface-shadow-md",
+                  "texto": "Superfície | --surface-shadow-md.",
+                  "forcaDeclarada": "especificação (descreve o componente)",
+                  "forcaNoVocabulario": null
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "lista aberta do seletor \"Exibir\": sombra 0 6px 6px (--surface-shadow-lg) em vez de 0 3px 6px.",
+            "estado": "lista-exibir.",
+            "decisao": "Acerto = afirmar que a sombra da lista suspensa do \"Exibir\" não é a prevista para o Select (deslocamento 6px em vez de 3px / --surface-shadow-lg em vez de --surface-shadow-md). Não conta: o item selecionado da lista, o foco da lista (fundo), ou citar a sombra do Select sem mostrar o valor medido (C-2)."
+          }
+        },
+        {
+          "id": "F2-10",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Botões \"Desassociar processo do analista responsável\" desabilitados na coluna de ações (8): opacidade 1, iguais ao habilitado da 1ª linha (ícone vermelho cheio); só o cursor not-allowed indica o estado. O botão \"Limpar filtros\", também desabilitado, tem opacidade 0,45. No estado desabilitado, fundo e primeiro plano têm opacidade --surface-opacity-md. Uma única regra define os oito: uma unidade para o conjunto.",
+          "normas": [],
+          "criterio": {
+            "observavel": "botões \"Desassociar\" desabilitados (8): opacidade 1, iguais ao habilitado; só o cursor indica o estado (um único estilo para os oito: uma unidade).",
+            "estado": "inicial (e lista-exibir).",
+            "decisao": "Acerto = afirmar que os botões desabilitados da coluna de ações não têm o tratamento visual do estado desabilitado (opacidade 1 em vez de 0,45 / --surface-opacity-md) ou que não se distinguem do habilitado. Não conta: falta de rótulo visível desses botões (D-01, C-6), ou citar o estado desabilitado sem mostrar a opacidade medida (C-2)."
+          }
+        },
+        {
+          "id": "F2-11",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Abas: o item \"Aguardando análise\" aparece como aba ativa (marca de item ativo, texto destacado), mas o conteúdo exibido é o da aba \"Tramitando\" (tag \"Meus processos\", colunas Analista e Téc. Adm., processos em tramitação); o item \"Tramitando\" aparece como inativo. O item ativo da Tab mostra ao usuário em qual aba ele se encontra.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "A - O Item da Tab Ativo tem a finalidade de mostrar ao usuário em qual aba ele se encontra",
+                  "texto": "A - O Item da Tab Ativo tem a finalidade de mostrar ao usuário em qual aba ele se encontra.",
+                  "forcaDeclarada": "especificação (descreve o componente)",
+                  "forcaNoVocabulario": null
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "abas: \"Aguardando análise\" marcada como ativa enquanto o conteúdo exibido é o de \"Tramitando\".",
+            "estado": "inicial (e lista-exibir).",
+            "decisao": "Acerto = afirmar que a aba marcada como ativa não corresponde ao conteúdo exibido (\"Aguardando análise\" ativa com o conteúdo de \"Tramitando\") ou que a aba atual não está indicada como ativa. Não conta: tamanho do texto das abas (outra spec, C-6), aria-selected ausente (fundo), ou citar a norma sem dizer qual aba aparece ativa (C-2)."
+          }
+        },
+        {
+          "id": "F2-12",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Botão secundário \"Voltar\", no fim da página: com o mouse em cima, o botão não muda — o overlay de hover tem opacidade 0 (background-image linear-gradient(rgba(19, 81, 180, 0), rgba(19, 81, 180, 0)) no botão interno) —, enquanto o \"Exportar\", do mesmo tipo, escurece (overlay com opacidade 0,16). O estado hover sobre fundo claro aplica o overlay com --surface-opacity-xs.",
+          "normas": [],
+          "criterio": {
+            "observavel": "botão \"Voltar\": sem mudança visual no hover (overlay com opacidade 0), enquanto o \"Exportar\" escurece.",
+            "estado": "inicial, com o mouse sobre o \"Voltar\" (rolar até o fim da página).",
+            "decisao": "Acerto = afirmar que o botão \"Voltar\" não tem o realce de hover previsto (nenhuma mudança ao passar o mouse; overlay com opacidade 0 em vez de --surface-opacity-xs). Não conta: foco por teclado do Voltar, falar do \"Exportar\", ou citar o estado hover sem dizer que o Voltar não reage (C-2)."
+          }
+        },
+        {
+          "id": "D-01",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 18,
+          "descricao": "Botões de ação das linhas da tabela \"Ver processo\" (9) e \"Desassociar processo do analista responsável\" (9; 8 desabilitados): <br-button> sem `label` e sem `circle`. O <button> interno é br-button middle de 72×40 px com raio de pílula (não circular), sem nenhum texto visível — só o ícone projetado (eye, user-times) — e o nome acessível vem só do `title`. A norma exige rótulo visível em todo Button não circular. Na mesma coluna o \"Assinar\" tem texto visível. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "O rótulo é um elemento obrigatório",
+                  "texto": "O rótulo é um elemento obrigatório.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "botões de ação das linhas da tabela \"Ver processo\" (9) e \"Desassociar processo do analista responsável\" (9; 8 desabilitados). Localizador: pnip-mpa-processos table tbody td:nth-of-type(9) br-button:nth-of-type(-n+2) (scope todos, expectedCount 18). O que se olha: <br-button> sem `label` e sem `circle`: o <button> interno é br-button middle de 72×40 px com raio de pílula (não circular), sem nenhum texto visível — só o ícone projetado (eye, user-times) — e o nome acessível vem só do `title`. A norma exige rótulo visível em todo Button não circular. Na mesma coluna o \"Assinar\" tem texto visível.",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre botões de ação das linhas da tabela \"Ver processo\" (9) e \"Desassociar processo do analista responsável\" (9; 8 desabilitados), que esses botões de ação das linhas não têm rótulo visível (só ícone) sem serem botões circulares, num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-02",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 9,
+          "descricao": "Números de processo da coluna \"Nº Processo\": <a role=\"button\" style=\"cursor:pointer\"> sem href nem tabindex. Não são focáveis (fora do Tab real; a árvore do Chromium não os marca focusable), mas o clique navega: nas linhas 2, 3, 4, 6, 7 e 9 abre a sub-rota …/documentos do processo, que o \"Ver processo\" da mesma linha não abre (ele vai à rota do processo sem /documentos). Nas linhas 1, 5 e 8 o destino cai em /login com recarga — artefato do mock (adendo § C) —, mas o controle é o mesmo e igualmente inalcançável por teclado. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                  "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:2.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Disponibilizar todas as funções da página via teclado",
+              "texto": "All interactive elements and JavaScript functions must be keyboard-operable. No keyboard traps. Focus must be managed correctly.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                  "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.1.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Keyboard",
+              "texto": null,
+              "nivel": "A"
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis",
+                  "texto": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:2.2",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Garantir que os objetos programáveis sejam acessíveis",
+              "texto": "Scripts and dynamic content must remain accessible. Provide alternatives when direct access is not possible.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis",
+                  "texto": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (excerto herdado da base anterior; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Componente utilizável somente com teclado",
+                  "texto": "Todo componente interativo deve ser completamente utilizável apenas com teclado.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            }
+          ],
+          "criterio": {
+            "observavel": "números de processo da coluna \"Nº Processo\". Localizador: pnip-mpa-processos table tbody td:nth-of-type(3) a (scope todos, expectedCount 9). O que se olha: <a role=\"button\" style=\"cursor:pointer\"> sem href nem tabindex: não são focáveis (fora do Tab real), mas o clique navega (nas linhas 2, 3, 4, 6, 7 e 9 abre a sub-rota …/documentos do processo, que o \"Ver processo\" da mesma linha não abre; nas linhas 1, 5 e 8 o destino recarrega em /login); o controle é o mesmo e igualmente inalcançável por teclado.",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre números de processo da coluna \"Nº Processo\", que os números de processo são controles clicáveis que não se alcançam nem se acionam por teclado (sem href nem tabindex), num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-03",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 7,
+          "descricao": "Etiquetas interativas \"Meus processos\" e os seis filtros (\"Aberto há\", \"Tipo de processo\", \"Status\", \"Espécie alvo\", \"Método de pesca\", \"Petrecho\"): <span class=\"br-tag interaction\"> com cursor:pointer, sem role, sem tabindex (tabIndex -1), papel generic e nome \"\" na árvore. O clique liga/desliga o filtro \"Meus processos\" (a lista passa de 9 para 10 linhas) ou abre a lista de opções do filtro; nenhuma é alcançada por Tab nem acionável por teclado, e nenhuma expõe estado (aria-pressed/aria-expanded). Os exemplos oficiais da Tag 3.7.0 só usam button e input+label como elementos interativos. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                  "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:2.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Disponibilizar todas as funções da página via teclado",
+              "texto": "All interactive elements and JavaScript functions must be keyboard-operable. No keyboard traps. Focus must be managed correctly.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                  "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.1.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Keyboard",
+              "texto": null,
+              "nivel": "A"
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis",
+                  "texto": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:2.2",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Garantir que os objetos programáveis sejam acessíveis",
+              "texto": "Scripts and dynamic content must remain accessible. Provide alternatives when direct access is not possible.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis",
+                  "texto": "Recomendação 2.2 – Garantir que os objetos programáveis sejam acessíveis.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (excerto herdado da base anterior; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Componente utilizável somente com teclado",
+                  "texto": "Todo componente interativo deve ser completamente utilizável apenas com teclado.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Os autores precisam associar elementos no documento a um role WAI-ARIA e aos states e…",
+                  "texto": "Os autores precisam associar elementos no documento a um role WAI-ARIA e aos states e properties apropriados (aria- \\ attributes) durante o ciclo de vida dos elementos, a menos que os elementos já tenham a semântica WAI-ARIA implícita apropriada para os states e properties.",
+                  "forcaDeclarada": "obrigatorio",
+                  "forcaNoVocabulario": "obrigatorio"
+                }
+              ]
+            },
+            {
+              "id": "wcag:4.1.2",
+              "fonte": "WCAG 2.2",
+              "titulo": "Name, Role, Value",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "etiquetas interativas \"Meus processos\" e os seis filtros (\"Aberto há\", \"Tipo de processo\", \"Status\", \"Espécie alvo\", \"Método de pesca\", \"Petrecho\"). Localizador: pnip-mpa-processos .br-tag.interaction (scope todos, expectedCount 7). O que se olha: <span class=\"br-tag interaction\"> com cursor:pointer, sem role, sem tabindex (tabIndex -1), papel generic e nome \"\" na árvore. O clique liga/desliga \"Meus processos\" (a lista passa de 9 para 10 linhas) ou abre a lista de opções do filtro; nenhuma é alcançada por Tab nem acionável por teclado, e nenhuma expõe estado (aria-pressed/aria-expanded). Os exemplos oficiais da Tag 3.7.0 só usam button e input+label como elementos interativos.",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre etiquetas interativas \"Meus processos\" e os seis filtros (\"Aberto há\", \"Tipo de processo\", \"Status\", \"Espécie alvo\", \"Método de pesca\", \"Petrecho\"), que essas etiquetas clicáveis não são alcançáveis/acionáveis por teclado, ou não têm papel, nome ou estado acessível, num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-04",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 7,
+          "descricao": "Checkboxes de seleção da tabela — um no cabeçalho (coluna sem texto) e um em cada uma das 6 linhas selecionáveis: <input type=\"checkbox\"> sem <label>, aria-label, aria-labelledby ou title; labels.length = 0 e nome \"\" na árvore. Estão no Tab (operáveis), sem nome. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                  "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:6.2",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Associar etiquetas aos seus campos",
+              "texto": "Every form input must have a programmatically associated label via: (a) <label> element with for attribute matching the input's id, (b) aria-label attribute, or (c) aria-labelledby pointing to a visible label element. Placeholder text is NOT a substitute for a label — it disappears on input and is not consistently announced by all screen readers.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                  "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            },
+            {
+              "id": "wcag:4.1.2",
+              "fonte": "WCAG 2.2",
+              "titulo": "Name, Role, Value",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "caixas de seleção da tabela (uma no cabeçalho, uma em cada uma das 6 linhas selecionáveis). Localizador: pnip-mpa-processos table input[type=checkbox] (scope todos, expectedCount 7). O que se olha: <input type=\"checkbox\"> sem <label>, aria-label, aria-labelledby ou title; labels.length = 0 e nome \"\" na árvore. Estão no Tab (operáveis), sem nome.",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre caixas de seleção da tabela (uma no cabeçalho, uma em cada uma das 6 linhas selecionáveis), que essas caixas de seleção não têm rótulo/nome acessível, num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-05",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Campo de pesquisa da lista: o <br-input> recebeu `placeholder=\"Pesquise aqui ...\"` mas não `label`, e o input interno (id search) fica com labels.length = 0, sem aria-label nem aria-labelledby; o nome acessível é o placeholder. Os seletores \"Exibir\" e \"Página\" da mesma tela têm rótulo associado. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                  "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:6.2",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Associar etiquetas aos seus campos",
+              "texto": "Every form input must have a programmatically associated label via: (a) <label> element with for attribute matching the input's id, (b) aria-label attribute, or (c) aria-labelledby pointing to a visible label element. Placeholder text is NOT a substitute for a label — it disappears on input and is not consistently announced by all screen readers.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                  "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "campo de pesquisa da lista. Localizador: pnip-search-table-utils br-input >>> input (scope unico, expectedCount 1). O que se olha: o <br-input> recebeu `placeholder=\"Pesquise aqui ...\"` mas não `label`; o input interno (id search) tem labels.length = 0, sem aria-label nem aria-labelledby; o nome acessível é o placeholder. Os seletores \"Exibir\" e \"Página\" da mesma tela têm rótulo associado.",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre campo de pesquisa da lista, que o campo de pesquisa não tem rótulo associado (o placeholder é o único nome), num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-06",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 8,
+          "descricao": "Etiquetas de status da coluna \"Status\": texto branco (text-secondary-01, 14 px/500) sobre bg-orange-vivid-40 #e66f0e = 3,16:1 (5 linhas), bg-indigo-vivid-40 #8289ff = 3,01:1 (1) e bg-secondary-06 #888888 = 3,54:1 (2) — 8 de 9 abaixo de 4,5:1 (cores da paleta, combinação autoral). O status \"Em revisão analista\" sobre indigo-vivid-60 passa (6,49:1, controle K-08). O texto do status vem do mock; a combinação de cores é do componente da página. Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                  "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:4.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+              "texto": "Text contrast ratio must be at least 4.5:1 (WCAG AA) for normal text and 3:1 for large text (18pt+ or 14pt bold). Gov.br recommends 7:1 for body text. Error states and icons used alone must also meet contrast requirements.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                  "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.4.3",
+              "fonte": "WCAG 2.2",
+              "titulo": "Contrast (Minimum)",
+              "texto": null,
+              "nivel": "AA"
+            }
+          ],
+          "criterio": {
+            "observavel": "etiquetas de status da coluna \"Status\". Localizador: pnip-status-solicitacao-utils div[class*=bg-]:not(.bg-indigo-vivid-60) > div (scope todos, expectedCount 8). O que se olha: texto branco (text-secondary-01, 14 px/500) sobre bg-orange-vivid-40 #e66f0e = 3,16:1 (5 linhas), bg-indigo-vivid-40 #8289ff = 3,01:1 (1) e bg-secondary-06 #888888 = 3,54:1 (2) — 8 de 9 abaixo de 4,5:1. O status \"Em revisão analista\" sobre indigo-vivid-60 passa (6,49:1).",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre etiquetas de status da coluna \"Status\", que o texto dessas etiquetas de status tem contraste insuficiente (abaixo de 4,5:1), num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-07",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "A tabela de processos não tem <caption> nem aria-label/aria-labelledby (nome \"\" na árvore); o h2 \"Processos\" fica fora do contêiner da tabela, sem associação. A norma pede caption que identifique a tabela (os exemplos oficiais da Table 3.7.0 trazem caption). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.9 – Em tabelas, utilizar títulos e resumos de forma apropriada",
+                  "texto": "Recomendação 3.9 – Em tabelas, utilizar títulos e resumos de forma apropriada.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:3.9",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Em tabelas, utilizar títulos e resumos de forma apropriada",
+              "texto": "Use <caption> and summary on tables. Headers via <th> with scope attribute.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.9 – Em tabelas, utilizar títulos e resumos de forma apropriada",
+                  "texto": "Recomendação 3.9 – Em tabelas, utilizar títulos e resumos de forma apropriada.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "tabela de processos. Localizador: pnip-mpa-processos table (scope unico, expectedCount 1). O que se olha: a tabela não tem <caption> nem aria-label/aria-labelledby (nome \"\" na árvore); o h2 \"Processos\" fica fora do contêiner da tabela, sem associação. A norma pede caption que identifique a tabela (os exemplos oficiais da Table 3.7.0 trazem caption).",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre tabela de processos, que a tabela não tem legenda (caption) nem nome acessível que a identifique, num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-08",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Cabeçalho da coluna de ações (Ver processo / Desassociar / Assinar): <th scope=\"col\"> vazio, columnheader sem nome na árvore — as células de ação ficam sem cabeçalho identificável. Precedente B-26 (D-61). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.10 – Associar células de dados às células de cabeçalho",
+                  "texto": "Recomendação 3.10 – Associar células de dados às células de cabeçalho.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:3.10",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Associar células de dados às células de cabeçalho",
+              "texto": "Use TH for headers and TD for data. Use id/headers or scope attributes for complex tables.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.10 – Associar células de dados às células de cabeçalho",
+                  "texto": "Recomendação 3.10 – Associar células de dados às células de cabeçalho.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "cabeçalho da coluna de ações (Ver processo / Desassociar / Assinar). Localizador: pnip-mpa-processos table thead th:last-child (scope unico, expectedCount 1). O que se olha: <th scope=\"col\"> vazio, columnheader sem nome na árvore — as células de ação ficam sem cabeçalho identificável.",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre cabeçalho da coluna de ações (Ver processo / Desassociar / Assinar), que o cabeçalho da coluna de ações está vazio / sem nome, num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-10",
+          "estado": "inicial",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "<iframe> vazio no fim do componente (sem src, documento about:blank sem conteúdo, 1160×500 px, sem title, name nem aria-label; papel Iframe com nome \"\" na árvore): é ponto de Tab depois do \"Voltar\" e, focado, nada muda na tela (outline none, sem sombra, :focus-visible falso). Depois dele o Tab real alterna iframe ↔ body (E-01); Shift+Tab sai para o \"Voltar\". Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.4 – Possibilitar que o elemento com foco seja visualmente evidente",
+                  "texto": "Recomendação 4.4 – Possibilitar que o elemento com foco seja visualmente evidente.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:4.4",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Possibilitar que o elemento com foco seja visualmente evidente",
+              "texto": "Focus indicator must be clearly visible on all interactive elements. Gov.br DS uses a dashed gold outline (#c2850c, 4px offset). Do not use outline: none or outline: 0 without a custom visible replacement.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.4 – Possibilitar que o elemento com foco seja visualmente evidente",
+                  "texto": "Recomendação 4.4 – Possibilitar que o elemento com foco seja visualmente evidente.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.4.7",
+              "fonte": "WCAG 2.2",
+              "titulo": "Focus Visible",
+              "texto": null,
+              "nivel": "AA"
+            },
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.1 – Respeitar os Padrões Web",
+                  "texto": "Recomendação 1.1 – Respeitar os Padrões Web.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:1.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Respeitar os padrões web",
+              "texto": "Follow W3C standards for HTML, XML, XHTML, and CSS. Code must be semantically correct and valid.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.1 – Respeitar os Padrões Web",
+                  "texto": "Recomendação 1.1 – Respeitar os Padrões Web.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:4.1.2",
+              "fonte": "WCAG 2.2",
+              "titulo": "Name, Role, Value",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "<iframe> vazio no fim do componente. Localizador: pnip-mpa-processos > iframe (scope unico, expectedCount 1). O que se olha: sem src, documento about:blank sem conteúdo, 1160×500 px, sem title, name nem aria-label (papel Iframe com nome \"\" na árvore): é ponto de Tab depois do \"Voltar\" e, focado, nada muda na tela (outline none, sem sombra, :focus-visible falso). Depois dele o Tab real alterna iframe ↔ body; Shift+Tab sai para o \"Voltar\".",
+            "estado": "inicial. na carga da rota, sem clicar em nenhuma aba (lista paginada de processos em tramitação); presente também na parada seguinte do mesmo segmento",
+            "decisao": "Acerto = A alegação afirma, sobre <iframe> vazio no fim do componente, que o iframe vazio recebe foco por Tab sem nenhuma indicação visível de foco, ou é um iframe sem título/nome, num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-11",
+          "estado": "sempre",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Nenhum salto para o conteúdo: 0 âncoras \"#…\" e 0 .br-skiplink nas 2 paradas; o primeiro ponto de Tab é o botão Menu do cabeçalho. Casco da aplicação: **exposto** (adendo § E; C-04, B-01). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.5 – Fornecer âncoras para ir direto a um bloco de conteúdo",
+                  "texto": "Recomendação 1.5 – Fornecer âncoras para ir direto a um bloco de conteúdo.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:1.5",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Fornecer âncoras para ir direto a um bloco de conteúdo",
+              "texto": "Provide skip links in the accessibility bar. First link must jump to main content.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.5 – Fornecer âncoras para ir direto a um bloco de conteúdo",
+                  "texto": "Recomendação 1.5 – Fornecer âncoras para ir direto a um bloco de conteúdo.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.4.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Bypass Blocks",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "a página inteira (ausência de salto para o conteúdo). Localizador: pnip-root (scope unico, expectedCount 1). O que se olha: nenhum salto para o conteúdo: 0 âncoras \"#…\" e 0 .br-skiplink em todas as paradas; o primeiro ponto de Tab é o botão Menu do cabeçalho.",
+            "estado": "sempre. em todas as paradas (desde a carga da rota)",
+            "decisao": "Acerto = A alegação afirma, sobre a página inteira (ausência de salto para o conteúdo), que a página não tem link de salto para o conteúdo principal (skip link), num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-12",
+          "estado": "sempre",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Um só título visível na página, <h2> \"Processos\"; nenhum <h1> (light DOM e shadow roots), nas 2 paradas. Ausência global, ancorada na raiz. **exposto** (casco: ordem de títulos, como C-05). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho",
+                  "texto": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:1.3",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Utilizar corretamente os níveis de cabeçalho",
+              "texto": "Heading hierarchy (H1–H6) must be logical. H1 for primary content, subsequent levels for subordinate sections. Do not skip levels.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho",
+                  "texto": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.3.1",
+              "fonte": "WCAG 2.2",
+              "titulo": "Info and Relationships",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "a página inteira (títulos). Localizador: pnip-root (scope unico, expectedCount 1). O que se olha: um só título visível na página, <h2> \"Processos\"; nenhum <h1> (light DOM e shadow roots), em todas as paradas. Ausência global, ancorada na raiz.",
+            "estado": "sempre. em todas as paradas (desde a carga da rota)",
+            "decisao": "Acerto = A alegação afirma, sobre a página inteira (títulos), que a página não tem h1 / a hierarquia de títulos começa no h2, num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-13",
+          "estado": "sempre",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "<title>PNIP</title> nas 2 paradas: nomeia só o sistema, não o conteúdo principal (\"Processos\"). **exposto** (casco; B-25, C-06). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.3 – Oferecer um título descritivo e informativo à página",
+                  "texto": "Recomendação 3.3 – Oferecer um título descritivo e informativo à página.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:3.3",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Oferecer um título descritivo e informativo à página",
+              "texto": "Page titles must follow the pattern: [page topic] – [site name]. Must represent primary content.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 3.3 – Oferecer um título descritivo e informativo à página",
+                  "texto": "Recomendação 3.3 – Oferecer um título descritivo e informativo à página.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:2.4.2",
+              "fonte": "WCAG 2.2",
+              "titulo": "Page Titled",
+              "texto": null,
+              "nivel": "A"
+            }
+          ],
+          "criterio": {
+            "observavel": "<title> do documento. Localizador: head > title (scope unico, expectedCount 1). O que se olha: <title>PNIP</title> em todas as paradas: nomeia só o sistema, não o conteúdo principal (\"Processos\").",
+            "estado": "sempre. em todas as paradas (desde a carga da rota)",
+            "decisao": "Acerto = A alegação afirma, sobre <title> do documento, que o título do documento não descreve a página (só o nome do sistema), num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        },
+        {
+          "id": "D-14",
+          "estado": "sempre",
+          "registro": null,
+          "unidades": 1,
+          "descricao": "Inicial do avatar \"U\" branco sobre #ff8c00 = 2,33:1 (24,2 px/700). **exposto** (casco; B-14, C-07). Sem predicado na referência; medido em tela-d/conferir-auditoria.mjs.",
+          "normas": [
+            {
+              "id": "[regra citada]",
+              "fonte": "base de regras do DS 3.7.0 (texto literal; id mascarado, D-87)",
+              "titulo": null,
+              "texto": null,
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                  "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "emag:4.1",
+              "fonte": "e-MAG 3.1",
+              "titulo": "Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+              "texto": "Text contrast ratio must be at least 4.5:1 (WCAG AA) for normal text and 3:1 for large text (18pt+ or 14pt bold). Gov.br recommends 7:1 for body text. Error states and icons used alone must also meet contrast requirements.",
+              "regrasDaBase": [
+                {
+                  "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                  "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                  "forcaDeclarada": "recomendado",
+                  "forcaNoVocabulario": "recomendado"
+                }
+              ]
+            },
+            {
+              "id": "wcag:1.4.3",
+              "fonte": "WCAG 2.2",
+              "titulo": "Contrast (Minimum)",
+              "texto": null,
+              "nivel": "AA"
+            }
+          ],
+          "criterio": {
+            "observavel": "inicial do avatar no cabeçalho (\"U\"). Localizador: pnip-header .br-avatar > span (scope unico, expectedCount 1). O que se olha: texto branco sobre #ff8c00 = 2,33:1 (24,2 px/700).",
+            "estado": "sempre. em todas as paradas (desde a carga da rota)",
+            "decisao": "Acerto = A alegação afirma, sobre inicial do avatar no cabeçalho (\"U\"), que a letra do avatar tem contraste insuficiente com o fundo, num estado em que a spec vale. Não conta: citar a norma da spec sem mostrar o fato neste elemento e estado (C-2) afirmar outro defeito do mesmo elemento (C-6)"
+          }
+        }
+      ]
+    }
+  },
+  "cartoes": [
+    {
+      "id": "T3-4959fbe7dc",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:4.1.2",
+        "seletor": "br-breadcrumb",
+        "observado": "O item Home do breadcrumb (shadow DOM) é um <a href=\"/portal-mpa/\"> que contém um <button class=\"br-button\" aria-label=\"\">: dois controles interativos aninhados, que geram duas paradas de Tab consecutivas (A e BUTTON) para o mesmo destino.",
+        "esperado": "Um único controle interativo (link) para Home, sem botão dentro do link.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>br-breadcrumb",
+            "rotulo": "<br-breadcrumb>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:4.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Name, Role, Value",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-4a0028aed8",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.4.3",
+        "seletor": "tbody tr:nth-child(2) br-button[title=\"Assinar\"]",
+        "observado": "O diálogo foi aberto pelo teclado (foco no botão \"Assinar\" da linha 2 e Enter). Depois de fechado pelo botão ×, o foco vai para BODY em vez de voltar ao botão que o abriu.",
+        "esperado": "Ao fechar o diálogo, o foco volta ao botão \"Assinar\" que o abriu.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "focus botão \"Assinar\" da linha 2 (00000.000011/2026-00)",
+            "press Enter",
+            "click .swal2-close"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(2)>td:nth-of-type(9)>br-button:nth-of-type(3)",
+            "rotulo": "<br-button> \"Assinar\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.4.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Focus Order",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-4ab38288fd",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.1.1",
+        "seletor": ".swal2-html-container object",
+        "observado": "A prévia do documento é um <object type=\"application/pdf\" data=\"blob:...\"> sem title, aria-label nem conteúdo alternativo. Ao abrir o diálogo, o foco vai para esse objeto.",
+        "esperado": "O objeto tem um nome/alternativa (title ou aria-label, e conteúdo alternativo ou link para o PDF).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "focus botão \"Assinar\" da linha 2 (00000.000011/2026-00)",
+            "press Enter"
+          ]
+        },
+        "cena": "1280x900@lista-exibir",
+        "sinais": [
+          "segmento-nao-resolvido: o seletor não resolve em nenhuma cena da janela (1280x900@lista-exibir, 1280x900@filtro-escolhido)"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:.swal2-html-container object",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.1.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Non-text Content",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-4bbaff2158",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.4.3",
+        "seletor": "td br-button[title^=\"Desassociar\"]:not([disabled]), td br-button[title=\"Assinar\"]",
+        "observado": "Abrindo o diálogo 'Desassociar' ou 'Assinar' pelo teclado (Enter) e fechando com Esc, o foco vai para o body em vez de voltar ao botão que abriu o diálogo.",
+        "esperado": "O foco deve voltar ao controle que abriu o diálogo.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "focar 'Desassociar' (linha 00000.000010/2026-00)",
+            "Enter",
+            "Esc",
+            "(repetido com 'Assinar' da linha 00000.000011/2026-00: Enter, Esc)"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(1)>td:nth-of-type(9)>br-button:nth-of-type(2)",
+            "rotulo": "<br-button>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(2)>td:nth-of-type(9)>br-button:nth-of-type(3)",
+            "rotulo": "<br-button> \"Assinar\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S3",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(5)>td:nth-of-type(9)>br-button:nth-of-type(3)",
+            "rotulo": "<br-button> \"Assinar\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S4",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(7)>td:nth-of-type(9)>br-button:nth-of-type(3)",
+            "rotulo": "<br-button> \"Assinar\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.4.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Focus Order",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-01",
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-4d029b89c9",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.4.3",
+        "seletor": "tbody tr:nth-child(1) br-button[title=\"Desassociar processo do analista responsável\"]",
+        "observado": "Após abrir o diálogo pelo teclado e fechá-lo com Escape, o foco vai para o <body> em vez de voltar ao botão que o abriu; o mesmo ocorre ao fechar o modal de \"Assinar\".",
+        "esperado": "Foco retorna ao botão que abriu o diálogo.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa",
+            "focar o botão \"Desassociar processo do analista responsável\" da linha 00000.000010/2026-00",
+            "pressionar Enter",
+            "pressionar Escape"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-13-51-198Z.png",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(1)>td:nth-of-type(9)>br-button:nth-of-type(2)",
+            "rotulo": "<br-button>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.4.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Focus Order",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-01",
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-4f0df13d17",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.4.3",
+        "seletor": "pnip-status-solicitacao-utils .bg-indigo-vivid-40 > div",
+        "observado": "Texto branco sobre rgb(130,137,255), 14px peso 500: contraste 3,01:1 (\"Aguarda complementos\").",
+        "esperado": "Contraste mínimo de 4,5:1.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-07-51-165Z.png",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "page-2026-11-27T00-07-38-667Z.yml",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(3)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Aguarda complementos\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.4.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Contrast (Minimum)",
+        "texto": null,
+        "nivel": "AA"
+      },
+      "candidatas": [
+        "D-06",
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-584ac88310",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:4.1.2",
+        "seletor": "pnip-mpa-processos iframe",
+        "observado": "Há um <iframe> vazio (sem src, 1160×500 px) após o botão \"Voltar\", sem title, que recebe foco na sequência de Tab (tabIndex 0) e ocupa área em branco de 500 px.",
+        "esperado": "Iframe com title descritivo ou, se não usado, removido/oculto da sequência de foco.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-07-51-165Z.png",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "page-2026-11-27T00-07-38-667Z.yml",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>iframe",
+            "rotulo": "<iframe>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:4.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Name, Role, Value",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-10",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-599b38d662",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:3.3.2",
+        "seletor": "br-input#search",
+        "observado": "O campo de pesquisa (input#search no shadow DOM de br-input) não tem <label> nem aria-label; o único rótulo é o placeholder \"Pesquise aqui ...\", que some ao digitar.",
+        "esperado": "O campo tem um rótulo persistente associado (label for/aria-label), por exemplo \"Pesquisar processos\".",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(2)>pnip-search-table-utils>div>div>div>br-input",
+            "rotulo": "<br-input#search> \"Pesquise aqui ...\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:3.3.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Labels or Instructions",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "REF1",
+        "MEDIDA"
+      ],
+      "referencias": [
+        {
+          "id": "REF1",
+          "regra": "emag:6.2",
+          "norma": {
+            "id": "emag:6.2",
+            "fonte": "e-MAG 3.1",
+            "titulo": "Associar etiquetas aos seus campos",
+            "texto": "Every form input must have a programmatically associated label via: (a) <label> element with for attribute matching the input's id, (b) aria-label attribute, or (c) aria-labelledby pointing to a visible label element. Placeholder text is NOT a substitute for a label — it disappears on input and is not consistently announced by all screen readers.",
+            "regrasDaBase": [
+              {
+                "titulo": "Recomendação 6.2 – Associar etiquetas aos seus campos",
+                "texto": "Recomendação 6.2 – Associar etiquetas aos seus campos.",
+                "forcaDeclarada": "recomendado",
+                "forcaNoVocabulario": "recomendado"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T3-5d5d014ff3",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.1.1",
+        "seletor": ".swal2-html-container object",
+        "observado": "O documento é incorporado com <object type=\"application/pdf\"> sem title, aria-label nem conteúdo alternativo; recebe o foco ao abrir o modal.",
+        "esperado": "Objeto com nome acessível e alternativa (p.ex. link para baixar o PDF).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa",
+            "clicar \"Assinar\" na linha 00000.000011/2026-00"
+          ]
+        },
+        "cena": "1280x900@lista-exibir",
+        "sinais": [
+          "segmento-nao-resolvido: o seletor não resolve em nenhuma cena da janela (1280x900@lista-exibir, 1280x900@filtro-escolhido)"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-13-11-405Z.png",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:.swal2-html-container object",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.1.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Non-text Content",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-5ede307b2e",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.4.3",
+        "seletor": "pnip-status-solicitacao-utils .bg-indigo-vivid-40 > .text-center",
+        "observado": "No selo 'Aguarda complementos', o texto é rgb(255,255,255) sobre rgb(130,137,255), com 14px: contraste de 3,01:1.",
+        "esperado": "Contraste mínimo de 4,5:1.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(3)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Aguarda complementos\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.4.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Contrast (Minimum)",
+        "texto": null,
+        "nivel": "AA"
+      },
+      "candidatas": [
+        "D-06",
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "REF1",
+        "MEDIDA"
+      ],
+      "referencias": [
+        {
+          "id": "REF1",
+          "regra": "emag:4.1",
+          "norma": {
+            "id": "emag:4.1",
+            "fonte": "e-MAG 3.1",
+            "titulo": "Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+            "texto": "Text contrast ratio must be at least 4.5:1 (WCAG AA) for normal text and 3:1 for large text (18pt+ or 14pt bold). Gov.br recommends 7:1 for body text. Error states and icons used alone must also meet contrast requirements.",
+            "regrasDaBase": [
+              {
+                "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                "forcaDeclarada": "recomendado",
+                "forcaNoVocabulario": "recomendado"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T3-5f343c297a",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:4.1.2",
+        "seletor": "br-tab",
+        "observado": "A aba ativa só é indicada pela classe CSS li.tab-item.active. Os botões não têm aria-selected nem aria-current nem role=\"tab\"; conferido nas três abas depois de ativar cada uma.",
+        "esperado": "O estado de aba selecionada é exposto programaticamente (role tab/tablist com aria-selected, ou aria-current).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>br-tab",
+            "rotulo": "<br-tab>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:4.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Name, Role, Value",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "REF1",
+        "MEDIDA"
+      ],
+      "referencias": [
+        {
+          "id": "REF1",
+          "regra": "wcag:1.3.1",
+          "norma": {
+            "id": "wcag:1.3.1",
+            "fonte": "WCAG 2.2",
+            "titulo": "Info and Relationships",
+            "texto": null,
+            "nivel": "A"
+          }
+        }
+      ]
+    },
+    {
+      "id": "T3-618120bae7",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.5.3",
+        "seletor": "br-tab",
+        "observado": "Os botões das abas no shadow root de br-tab têm aria-label com o identificador interno (\"AGUARDANDO_ANALISE\", \"TRAMITANDO\", \"HISTORICO\"), que substitui o texto visível \"Aguardando análise\", \"Tramitando\", \"Concluídos\".",
+        "esperado": "O nome acessível de cada aba deve conter o texto visível (ou o aria-label deve ser removido).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-07-51-165Z.png",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "page-2026-11-27T00-07-38-667Z.yml",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>br-tab",
+            "rotulo": "<br-tab>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.5.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Label in Name",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-62fd9b8eed",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.1.1",
+        "seletor": "thead th:first-child br-icon-base",
+        "observado": "O ícone de ordenação da coluna 'Aberto há' (br-icon-base, tabIndex=-1, glifo com aria-hidden) inverte a ordem da tabela ao ser clicado, mas não recebe foco e não tem nome acessível.",
+        "esperado": "Botão de ordenação focável, operável pelo teclado e com nome acessível.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "clicar no ícone de ordenação do cabeçalho 'Aberto há'"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>thead>tr>th:nth-of-type(1)>br-icon-base",
+            "rotulo": "<br-icon-base>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.1.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Keyboard",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-631e2fe8b6",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:4.1.2",
+        "seletor": "span.br-tag.interaction[style*=\"cursor\"]",
+        "observado": "Os mesmos <span> não têm role (button), nem aria-pressed (\"Meus processos\", que alterna entre ativo/inativo) nem aria-expanded (filtros que abrem lista de opções); a árvore de acessibilidade os expõe como \"generic\".",
+        "esperado": "Papel de botão e estado (aria-pressed/aria-expanded) programaticamente determináveis.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-07-51-165Z.png",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "page-2026-11-27T00-07-38-667Z.yml",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(1)>div>span",
+            "rotulo": "<span> \"Meus processos\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(1)>span",
+            "rotulo": "<span> \"Aberto há\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S3",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(2)>span",
+            "rotulo": "<span> \"Tipo de processo\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S4",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(3)>span",
+            "rotulo": "<span> \"Status\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S5",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(4)>span",
+            "rotulo": "<span> \"Espécie alvo\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S6",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(5)>span",
+            "rotulo": "<span> \"Método de pesca\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S7",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(6)>span",
+            "rotulo": "<span> \"Petrecho\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:4.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Name, Role, Value",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-03",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-6495366b2b",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.1.1",
+        "seletor": "br-header",
+        "observado": "A imagem do logotipo dentro do shadow DOM de br-header (img src=assets/images/govbr-logo.png) tem alt=\"logo\", que descreve o tipo de elemento e não a marca.",
+        "esperado": "Texto alternativo que identifique a marca (por exemplo, \"gov.br\").",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>pnip-header>br-header",
+            "rotulo": "<br-header>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.1.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Non-text Content",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "REF1",
+        "MEDIDA"
+      ],
+      "referencias": [
+        {
+          "id": "REF1",
+          "regra": "emag:3.6",
+          "norma": {
+            "id": "emag:3.6",
+            "fonte": "e-MAG 3.1",
+            "titulo": "Fornecer alternativa em texto para as imagens do sítio",
+            "texto": "All images must have alt text. Decorative images: alt=''. Meaningful images: alt describes the content. Complex images: use figure/figcaption.",
+            "regrasDaBase": [
+              {
+                "titulo": "Recomendação 3.6 – Fornecer alternativa em texto para as imagens do sítio",
+                "texto": "Recomendação 3.6 – Fornecer alternativa em texto para as imagens do sítio.",
+                "forcaDeclarada": "recomendado",
+                "forcaNoVocabulario": "recomendado"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T3-65a7eaaa91",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.4.3",
+        "seletor": "pnip-status-solicitacao-utils .bg-orange-vivid-40 > .text-center",
+        "observado": "Nos selos de status laranja ('Em análise analista', 'Em análise supervisor', 'Em análise diretor'), o texto é rgb(255,255,255) sobre rgb(230,111,14), com 14px e peso 500: contraste de 3,16:1.",
+        "esperado": "Contraste mínimo de 4,5:1.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(1)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise analista\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(2)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise supervisor\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S3",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(5)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise supervisor\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S4",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(7)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise supervisor\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S5",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(8)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise diretor\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.4.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Contrast (Minimum)",
+        "texto": null,
+        "nivel": "AA"
+      },
+      "candidatas": [
+        "D-06",
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "REF1",
+        "MEDIDA"
+      ],
+      "referencias": [
+        {
+          "id": "REF1",
+          "regra": "emag:4.1",
+          "norma": {
+            "id": "emag:4.1",
+            "fonte": "e-MAG 3.1",
+            "titulo": "Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+            "texto": "Text contrast ratio must be at least 4.5:1 (WCAG AA) for normal text and 3:1 for large text (18pt+ or 14pt bold). Gov.br recommends 7:1 for body text. Error states and icons used alone must also meet contrast requirements.",
+            "regrasDaBase": [
+              {
+                "titulo": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano",
+                "texto": "Recomendação 4.1 - Oferecer contraste mínimo entre plano de fundo e primeiro plano.",
+                "forcaDeclarada": "recomendado",
+                "forcaNoVocabulario": "recomendado"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T3-67b83ca4e8",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": null,
+        "seletor": "div.br-table > table",
+        "observado": "Com a coluna de seleção exibida, a tabela termina em x=1242 px, enquanto o contêiner .br-table e o botão \"Exportar\" terminam em 1188 px (overflow visível de 54 px; o botão \"Assinar\" ultrapassa a margem). Sem a coluna (Meus processos desativado) a tabela cabe em 1188 px.",
+        "esperado": "Tabela contida na largura do contêiner (ou com rolagem horizontal própria).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "regra-incerta",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-07-51-165Z.png",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "page-2026-11-27T00-07-38-667Z.yml",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table",
+            "rotulo": "<table> \"Aberto há Nº Processo Tipo de Processo Solicitan\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": null,
+      "candidatas": [
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-6834434e21",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:4.1.2",
+        "seletor": ".swal2-popup",
+        "observado": "O diálogo de confirmação 'Tem certeza que deseja desassociar...' (SweetAlert2, role=dialog) usa aria-labelledby=\"swal2-title\", mas o h2#swal2-title está vazio e com display:none: o diálogo não tem nome acessível.",
+        "esperado": "Diálogo com nome acessível (título visível referenciado ou aria-label).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "focar o botão 'Desassociar processo do analista responsável' habilitado (linha 00000.000010/2026-00)",
+            "pressionar Enter"
+          ]
+        },
+        "cena": "1280x900@lista-exibir",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-nao-resolvido: o seletor não resolve em nenhuma cena da janela (1280x900@lista-exibir, 1280x900@filtro-escolhido)"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:.swal2-popup",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:4.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Name, Role, Value",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-68aab06b25",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.4.3",
+        "seletor": "pnip-status-solicitacao-utils .bg-indigo-vivid-40 > .text-secondary-01",
+        "observado": "O selo de status \"Aguarda complementos\" tem texto branco sobre rgb(130,137,255), com 14px e peso 500. Contraste medido: 3,01:1.",
+        "esperado": "Contraste mínimo de 4,5:1 para texto normal.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(3)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Aguarda complementos\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.4.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Contrast (Minimum)",
+        "texto": null,
+        "nivel": "AA"
+      },
+      "candidatas": [
+        "D-06",
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-6985a1bcc0",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.4.3",
+        "seletor": "pnip-status-solicitacao-utils .bg-orange-vivid-40 > div",
+        "observado": "Texto branco (#FFFFFF) sobre laranja rgb(230,111,14), 14px peso 500: contraste 3,16:1 (\"Em análise analista\", \"Em análise supervisor\", \"Em análise diretor\").",
+        "esperado": "Contraste mínimo de 4,5:1 para texto normal.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-07-51-165Z.png",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "page-2026-11-27T00-07-38-667Z.yml",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(1)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise analista\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(2)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise supervisor\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S3",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(5)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise supervisor\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S4",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(7)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise supervisor\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S5",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(8)>td:nth-of-type(8)>pnip-status-solicitacao-utils>div>div>div",
+            "rotulo": "<div> \"Em análise diretor\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.4.3",
+        "fonte": "WCAG 2.2",
+        "titulo": "Contrast (Minimum)",
+        "texto": null,
+        "nivel": "AA"
+      },
+      "candidatas": [
+        "D-06",
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-6acce353ca",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.4.2",
+        "seletor": "title",
+        "observado": "O título do documento é só \"PNIP\", igual em todas as rotas visitadas (lista, detalhe, login), e não indica a página \"Processos\".",
+        "esperado": "O título descreve a página, por exemplo \"Processos - Plataforma Nacional da Indústria do Pescado\".",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "head>title",
+            "rotulo": "<title> \"PNIP\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.4.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Page Titled",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-13"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-6c36f7d3c7",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.1.1",
+        "seletor": ".col-auto.mb-1 > .br-tag.interaction",
+        "observado": "O alternador \"Meus processos\" é uma <span class=\"br-tag interaction\"> com cursor:pointer e tabIndex -1. O clique muda a lista (de 2 para 3 itens com o filtro de 7 dias), mas o teclado não alcança o controle.",
+        "esperado": "\"Meus processos\" é um controle focável e acionável por teclado.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(1)>div>span",
+            "rotulo": "<span> \"Meus processos\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(1)>div>span",
+            "rotulo": "<span> \"Últimos 60 dias\"",
+            "cena": "1280x900@filtro-escolhido"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.1.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Keyboard",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-03",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "S2",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-6ef04bd3da",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": null,
+        "seletor": "nav[aria-label=\"Paginação de resultados\"]",
+        "observado": "A paginação tem só o botão \"Página seguinte\"; não há \"Página anterior\". Na página 2 de Concluídos, só dá para voltar pelo link numérico \"1\".",
+        "esperado": "A paginação oferece os controles \"Página anterior\" e \"Página seguinte\", como no componente Pagination do DS.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "click aba \"Concluídos\" (br-tab button[data-panel=HISTORICO])",
+            "click link de página \"2\" (.br-pagination a.page)"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "regra-incerta",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>govbr-custom-pagination>div>div:nth-of-type(2)>nav",
+            "rotulo": "<nav> \"Paginação de resultados\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": null,
+      "candidatas": [
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-6fd533f7eb",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.1.1",
+        "seletor": "#searchTableUtils span.br-tag > i:not([aria-hidden]), #searchTableUtils span.br-tag > span.fas",
+        "observado": "Os ícones decorativos dos filtros (i.fa-clock, fa-chart-bar, fa-hourglass-start, fa-fish, fa-anchor, fa-network-wired e os span.fa-caret-down) não têm aria-hidden, e o glifo de uso privado aparece como texto na árvore de acessibilidade.",
+        "esperado": "Ícones decorativos ocultos da tecnologia assistiva (aria-hidden=\"true\").",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(1)>span>i",
+            "rotulo": "<i>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(1)>span>span:nth-of-type(2)",
+            "rotulo": "<span>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S3",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(2)>span>i",
+            "rotulo": "<i>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S4",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(2)>span>span:nth-of-type(2)",
+            "rotulo": "<span>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S5",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(3)>span>i",
+            "rotulo": "<i>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S6",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(3)>span>span:nth-of-type(2)",
+            "rotulo": "<span>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S7",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(4)>span>i",
+            "rotulo": "<i>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S8",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(4)>span>span:nth-of-type(2)",
+            "rotulo": "<span>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S9",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(5)>span>i",
+            "rotulo": "<i>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S10",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(5)>span>span:nth-of-type(2)",
+            "rotulo": "<span>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S11",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(6)>span>i",
+            "rotulo": "<i>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S12",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(6)>span>span:nth-of-type(2)",
+            "rotulo": "<span>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.1.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Non-text Content",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-03",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "S7",
+        "S8",
+        "S9",
+        "S10",
+        "S11",
+        "S12",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-705663734b",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.1.1",
+        "seletor": "#searchTableUtils .row.align-items-center span.br-tag",
+        "observado": "Os 6 acionadores de filtro ('Aberto há', 'Tipo de processo', 'Status', 'Espécie alvo', 'Método de pesca', 'Petrecho') são span com cursor:pointer, tabIndex=-1, e só abrem a lista com o mouse.",
+        "esperado": "Acionadores focáveis e operáveis pelo teclado.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(1)>span",
+            "rotulo": "<span> \"Aberto há\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(2)>span",
+            "rotulo": "<span> \"Tipo de processo\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S3",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(3)>span",
+            "rotulo": "<span> \"Status\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S4",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(4)>span",
+            "rotulo": "<span> \"Espécie alvo\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S5",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(5)>span",
+            "rotulo": "<span> \"Método de pesca\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S6",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(2)>div:nth-of-type(6)>span",
+            "rotulo": "<span> \"Petrecho\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.1.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Keyboard",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-03",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "REF1",
+        "MEDIDA"
+      ],
+      "referencias": [
+        {
+          "id": "REF1",
+          "regra": "emag:2.1",
+          "norma": {
+            "id": "emag:2.1",
+            "fonte": "e-MAG 3.1",
+            "titulo": "Disponibilizar todas as funções da página via teclado",
+            "texto": "All interactive elements and JavaScript functions must be keyboard-operable. No keyboard traps. Focus must be managed correctly.",
+            "regrasDaBase": [
+              {
+                "titulo": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado",
+                "texto": "Recomendação 2.1 - Disponibilizar todas as funções da página via teclado.",
+                "forcaDeclarada": "recomendado",
+                "forcaNoVocabulario": "recomendado"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "T3-722e2418d2",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:4.1.2",
+        "seletor": "tbody input[type=checkbox]",
+        "observado": "As caixas de seleção das linhas (6 na aba Aguardando análise) não têm label, aria-label nem title; o nome acessível fica vazio.",
+        "esperado": "Cada caixa tem um nome que identifica o processo, por exemplo \"Selecionar processo 00000.000011/2026-00\".",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(2)>td:nth-of-type(2)>input",
+            "rotulo": "<input>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(3)>td:nth-of-type(2)>input",
+            "rotulo": "<input>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S3",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(4)>td:nth-of-type(2)>input",
+            "rotulo": "<input>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S4",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(6)>td:nth-of-type(2)>input",
+            "rotulo": "<input>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S5",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(7)>td:nth-of-type(2)>input",
+            "rotulo": "<input>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S6",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(3)>div:nth-of-type(2)>table>tbody>tr:nth-of-type(9)>td:nth-of-type(2)>input",
+            "rotulo": "<input>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:4.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Name, Role, Value",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-04",
+        "D-07",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "S2",
+        "S3",
+        "S4",
+        "S5",
+        "S6",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-73066237cc",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "emag:1.3",
+        "seletor": "main h4",
+        "observado": "No detalhe do processo de Alteração de Certificado, o título é h2 (\"Alteração de Certificado\") e as seções (\"1. Dados da embarcação\" etc.) são h4, sem h3 entre eles.",
+        "esperado": "As seções usam o nível seguinte ao título (h3, ou h2 se o título passar a h1).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "click botão \"Ver processo\" da linha 1 (00000.000010/2026-00)"
+          ]
+        },
+        "cena": "1280x900@lista-exibir",
+        "sinais": [
+          "segmento-nao-resolvido: o seletor não resolve em nenhuma cena da janela (1280x900@lista-exibir, 1280x900@filtro-escolhido)"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:main h4",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "emag:1.3",
+        "fonte": "e-MAG 3.1",
+        "titulo": "Utilizar corretamente os níveis de cabeçalho",
+        "texto": "Heading hierarchy (H1–H6) must be logical. H1 for primary content, subsequent levels for subordinate sections. Do not skip levels.",
+        "regrasDaBase": [
+          {
+            "titulo": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho",
+            "texto": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho.",
+            "forcaDeclarada": "recomendado",
+            "forcaNoVocabulario": "recomendado"
+          }
+        ]
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-73b7832f1b",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:4.1.2",
+        "seletor": ".col-auto.mb-1 > .br-tag.interaction",
+        "observado": "O estado ligado/desligado de \"Meus processos\" aparece só pela cor: fundo rgb(19,81,180) quando ligado, branco com borda quando desligado. Não há role nem aria-pressed.",
+        "esperado": "O alternador expõe role button e o estado com aria-pressed (ou equivalente).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "../..[arquivo local]",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(1)>div>span",
+            "rotulo": "<span> \"Meus processos\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          },
+          {
+            "id": "S2",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(2)>div>div:nth-of-type(2)>div:nth-of-type(1)>pnip-multiple-search-table-utils>div>div:nth-of-type(1)>div>span",
+            "rotulo": "<span> \"Últimos 60 dias\"",
+            "cena": "1280x900@filtro-escolhido"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:4.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Name, Role, Value",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-03",
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "S2",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-74cc329e7f",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:4.1.2",
+        "seletor": "br-tab",
+        "observado": "A aba ativa só é indicada pela classe li.tab-item.active e pela borda inferior. Os botões não têm aria-selected, aria-current nem papel tab/tablist; o estado selecionado não é exposto.",
+        "esperado": "Expor programaticamente a aba ativa (por exemplo, role=tab com aria-selected=true, ou aria-current).",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "clicar na aba 'Concluídos'"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>br-tab",
+            "rotulo": "<br-tab>",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:4.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Name, Role, Value",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-11",
+        "D-12"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-7659686bc0",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:1.3.1",
+        "seletor": "nav.br-pagination.small > ul > li > li",
+        "observado": "Na paginação, cada número de página é um <li> aninhado diretamente em outro <li> (ul > li > li > a): a estrutura de lista é inválida.",
+        "esperado": "Cada item de página como li filho direto da ul.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": []
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "sem-evidencia",
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>govbr-custom-pagination>div>div:nth-of-type(2)>nav>ul>li:nth-of-type(1)>li",
+            "rotulo": "<li> \"1\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:1.3.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Info and Relationships",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [
+        "D-11",
+        "D-12",
+        "F2-01"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-7a1c378175",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:2.1.1",
+        "seletor": ".br-list.d-block .br-radio label",
+        "observado": "As opções da lista de filtro aberta (\"Últimos 7 dias\" etc.) são só <label> dentro de div.br-radio, sem input radio, sem tabindex e sem role: o teclado não alcança nem seleciona nenhuma delas.",
+        "esperado": "As opções são controles focáveis (radio/option) e selecionáveis pelo teclado.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "click .br-tag.interaction.bg-pure-0 \"Aberto há\""
+          ]
+        },
+        "cena": "1280x900@lista-exibir",
+        "sinais": [
+          "segmento-nao-resolvido: o seletor não resolve em nenhuma cena da janela (1280x900@lista-exibir, 1280x900@filtro-escolhido)"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "playwright [ferramenta citada] (DOM/shadow DOM/estilos calculados)",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:.br-list.d-block .br-radio label",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:2.1.1",
+        "fonte": "WCAG 2.2",
+        "titulo": "Keyboard",
+        "texto": null,
+        "nivel": "A"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-7c8c524979",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "wcag:3.1.2",
+        "seletor": ".swal2-close",
+        "observado": "O botão de fechar do modal tem aria-label em inglês \"Close this dialog\" numa página lang=\"pt-br\", sem marcação de idioma.",
+        "esperado": "Rótulo em português, p.ex. \"Fechar\".",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa",
+            "clicar \"Assinar\" na linha 00000.000011/2026-00"
+          ]
+        },
+        "cena": "1280x900@lista-exibir",
+        "sinais": [
+          "segmento-nao-resolvido: o seletor não resolve em nenhuma cena da janela (1280x900@lista-exibir, 1280x900@filtro-escolhido)"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-13-11-405Z.png",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "unresolved:.swal2-close",
+            "rotulo": "Seletor não resolvido",
+            "cena": "1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "wcag:3.1.2",
+        "fonte": "WCAG 2.2",
+        "titulo": "Language of Parts",
+        "texto": null,
+        "nivel": "AA"
+      },
+      "candidatas": [],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "MEDIDA"
+      ]
+    },
+    {
+      "id": "T3-7df125a256",
+      "tela": "processos-f2",
+      "telaNome": "Tela Processos",
+      "alegacao": {
+        "regra": "emag:1.3",
+        "seletor": "pnip-mpa-processos h2",
+        "observado": "A página não tem <h1>; o único cabeçalho da tela é o <h2> \"Processos\".",
+        "esperado": "Hierarquia de cabeçalhos iniciando por h1 com o título da página.",
+        "estado": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "passos": [
+            "carregar http://screens:3300/pnip-f2/portal-mpa/processos?mock-perfil=mpa"
+          ]
+        },
+        "cena": "a-decidir:1280x900",
+        "sinais": [
+          "segmento-a-decidir: o seletor resolve em 1280x900@lista-exibir, 1280x900@filtro-escolhido; escolha em \"cena\" de qual a alegação fala — só os sujeitos dela contam"
+        ],
+        "evidencias": [
+          {
+            "id": "E1",
+            "ref": "page-2026-11-27T00-07-51-165Z.png",
+            "status": "ausente"
+          },
+          {
+            "id": "E2",
+            "ref": "page-2026-11-27T00-07-38-667Z.yml",
+            "status": "ausente"
+          }
+        ],
+        "sujeitos": [
+          {
+            "id": "S1",
+            "chave": "body>pnip-root>main>pnip-mpa>pnip-mpa-processos>div>div:nth-of-type(1)>div:nth-of-type(1)>h2",
+            "rotulo": "<h2> \"Processos\"",
+            "cena": "1280x900@filtro-escolhido · 1280x900@lista-exibir"
+          }
+        ],
+        "sujeitosNaoListados": 0
+      },
+      "normaCitada": {
+        "id": "emag:1.3",
+        "fonte": "e-MAG 3.1",
+        "titulo": "Utilizar corretamente os níveis de cabeçalho",
+        "texto": "Heading hierarchy (H1–H6) must be logical. H1 for primary content, subsequent levels for subordinate sections. Do not skip levels.",
+        "regrasDaBase": [
+          {
+            "titulo": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho",
+            "texto": "Recomendação 1.3 – Utilizar corretamente os níveis de cabeçalho.",
+            "forcaDeclarada": "recomendado",
+            "forcaNoVocabulario": "recomendado"
+          }
+        ]
+      },
+      "candidatas": [
+        "D-11",
+        "D-12",
+        "F2-04"
+      ],
+      "fatosMedidos": [],
+      "vereditoRegistrado": null,
+      "perguntas": [
+        "fato",
+        "norma",
+        "vinculo",
+        "sugestao-se-erro-normativo"
+      ],
+      "citaveis": [
+        "OBS",
+        "ESP",
+        "REGRA",
+        "NORMA",
+        "E1",
+        "E2",
+        "S1",
+        "F2-01",
+        "F2-02",
+        "F2-03",
+        "F2-04",
+        "F2-05",
+        "F2-06",
+        "F2-07",
+        "F2-08",
+        "F2-09",
+        "F2-10",
+        "F2-11",
+        "F2-12",
+        "D-01",
+        "D-02",
+        "D-03",
+        "D-04",
+        "D-05",
+        "D-06",
+        "D-07",
+        "D-08",
+        "D-10",
+        "D-11",
+        "D-12",
+        "D-13",
+        "D-14",
+        "REF1",
+        "MEDIDA"
+      ],
+      "referencias": [
+        {
+          "id": "REF1",
+          "regra": "wcag:1.3.1",
+          "norma": {
+            "id": "wcag:1.3.1",
+            "fonte": "WCAG 2.2",
+            "titulo": "Info and Relationships",
+            "texto": null,
+            "nivel": "A"
+          }
+        }
+      ]
+    }
+  ]
+}
