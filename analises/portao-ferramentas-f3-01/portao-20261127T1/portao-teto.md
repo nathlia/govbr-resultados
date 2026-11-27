@@ -1,0 +1,7 @@
+- braço: ferramentas
+- execuções: 20261127-061622-processos-f3-ferramentas-ea42, 20261127-063732-processos-f3-ferramentas-cf1b, 20261127-065713-processos-f3-ferramentas-298d
+- specs semeadas confirmadas por execução: 0 [≤4], 0 [≤2], 0 [≤1]
+- mediana: 0 [com os pendentes: 2; o portão lê esta]
+- n: 12
+- limiar: 10 (n − 2)
+- veredito: passa
