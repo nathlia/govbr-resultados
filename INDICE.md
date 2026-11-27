@@ -7,6 +7,8 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-27T00:47:20Z | ensaio | ensaio-trio-f2-01 | processos-f2 | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 26d1b8769744 | `ensaios/ensaio-trio-f2-01/2026-11-27T00-47-20Z__processos-f2__opus__ferramentas__rep-01__20261127-004720-processos-f2-ferramentas-4a92` |
+| 2026-11-27T00:46:41Z | linha de base | ensaio-trio-f2-01 | processos-f2 | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-f2-01/processos-f2/lb-20261127-004641-processos-f2-7cb74d` |
 | 2026-11-27T00:42:56Z | ensaio | ensaio-trio-f2-01 | processos-f2 | sem | — | passed | passed | absent-verified | accepted | — | confirmado · 0c1713f639ae | `ensaios/ensaio-trio-f2-01/2026-11-27T00-42-56Z__processos-f2__opus__sem__rep-01__20261127-004256-processos-f2-sem-cb82` |
 | 2026-11-27T00:42:46Z | linha de base | ensaio-trio-f2-01 | processos-f2 | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-f2-01/processos-f2/lb-20261127-004246-processos-f2-71e21e` |
 | 2026-11-27T00:07:06Z | execução | portao-teto-f2-01 | processos-f2 | sem | claude-opus-5-5 | passed | passed | absent-verified | accepted | — | confirmado · 3e4eeacfb384 | `execucoes/portao-teto-f2-01/2026-11-27T00-07-06Z__processos-f2__opus__sem__rep-01__20261127-000706-processos-f2-sem-4c3f` |
