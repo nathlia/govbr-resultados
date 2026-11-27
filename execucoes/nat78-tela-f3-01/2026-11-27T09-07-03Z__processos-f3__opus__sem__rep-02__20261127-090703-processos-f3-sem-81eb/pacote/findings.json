@@ -1,0 +1,1716 @@
+{
+  "contract": "findings.v2",
+  "fixture": false,
+  "campaignId": "nat78-tela-f3-01",
+  "runId": "20261127-090703-processos-f3-sem-81eb",
+  "receivedAt": "2026-11-27T09:22:29Z",
+  "receipt": "r-a4ab58bf0a1163b4",
+  "findingContract": "achado-2",
+  "inspectionContract": "inspection.v1",
+  "inspectionStatus": "valid",
+  "report": {
+    "timestamp": "2026-11-27T09:22:29Z",
+    "model": "claude-opus-5-5",
+    "appUrl": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa",
+    "scope": [
+      "Tela /portal-mpa/processos (perfil mpa) em 1280×900: cabeçalho, área do usuário, trilha, abas (Aguardando análise, Tramitando, Concluídos), filtros, busca, tabela, paginação (incluindo página 2 de Concluídos), diálogos Assinar e Desassociar, atualização automática",
+      "Abertura do detalhe de um registro de cada status listado (rotas de detalhe só registradas, não avaliadas)"
+    ],
+    "notes": "Não havia ferramenta de validação; toda a medição foi feita pelo navegador (árvore de acessibilidade, DOM incluindo shadow roots, estilos calculados, contraste calculado, Tab/Enter/Escape/setas). Como os seletores precisam funcionar com document.querySelectorAll, elementos dentro de shadow DOM (abas, trilha, logo, campo de busca) são citados pelo host. Ordem das interações: carregamento; clique em \"Aberto há\"; \"Últimos 7 dias\"; remover a tag (por script, por Enter e por clique; não funcionou); \"Limpar filtros\"; abas Tramitando e Concluídos; Página seguinte; \"Ver processo\" num registro de Concluídos e em cada um dos 9 registros de Aguardando análise (rotas de detalhe com dados não simulados: NaN/NaN/NaN e campos vazios); observação da atualização automática (~60 s); menu do avatar (Escape, Tab); botão Menu; recarga limpa; botão Menu de novo; Exportar (navega para /processos/exportar); Assinar (diálogo com PDF, fechado pelo ×); Desassociar (Escape); sequência de Tab; links da trilha (GET /portal-mpa/ = 404); seletor Exibir por setas. Depois de visitar os detalhes não simulados, a tela ficou presa em \"Carregando ...\" (main com display:none); atribuí isso aos erros de backend simulado provocados por essas rotas, por isso recarreguei a tela e não registrei achado. Incertezas: a periodicidade da atualização foi medida com o relógio da página (que pode estar alterado); o retorno de foco depois do diálogo Desassociar foi medido com o foco posto por script no botão interno do br-button.",
+    "findings": [
+      {
+        "selector": "br-tab",
+        "rule": "wcag:2.5.3",
+        "observed": "Os botões das abas (shadow DOM de br-tab) têm aria-label \"AGUARDANDO_ANALISE\", \"TRAMITANDO\" e \"HISTORICO\", que substituem os rótulos visíveis \"Aguardando análise\", \"Tramitando\" e \"Concluídos\"; o nome acessível é um código interno que não contém o texto visível.",
+        "expected": "O nome acessível de cada aba deve conter o rótulo visível (ex.: \"Aguardando análise\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "wcag:4.1.2"
+        ]
+      },
+      {
+        "selector": "br-tab",
+        "rule": "wcag:4.1.2",
+        "observed": "A aba ativa só é indicada pela classe \"active\" no li; os botões não têm role=\"tab\", aria-selected nem aria-current, e a lista não tem role=\"tablist\". A seleção não é exposta às tecnologias assistivas (conferido nas três abas).",
+        "expected": "O estado selecionado da aba deve ser exposto programaticamente (role=\"tab\" com aria-selected=\"true\", ou aria-current).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique na aba \"Tramitando\""
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "td a[role=\"button\"]",
+        "rule": "wcag:2.1.1",
+        "observed": "Os números de processo são <a role=\"button\"> sem href nem tabindex; focus() não os focaliza e a navegação por Tab passa do checkbox direto para \"Ver processo\", pulando esses elementos, embora eles tenham cursor pointer e sejam clicáveis.",
+        "expected": "Os controles clicáveis do número do processo devem ser alcançáveis e acionáveis pelo teclado (button nativo, ou link com href).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:2.1"
+        ]
+      },
+      {
+        "selector": "pnip-multiple-search-table-utils .row.align-items-center span.br-tag.interaction",
+        "rule": "wcag:2.1.1",
+        "observed": "Os seis acionadores de filtro (\"Aberto há\", \"Tipo de processo\", \"Status\", \"Espécie alvo\", \"Método de pesca\", \"Petrecho\") são <span> com cursor:pointer, sem tabindex (tabIndex -1), sem role e sem aria-expanded; abrem a lista de opções só com o mouse.",
+        "expected": "Os acionadores de filtro devem ser focalizáveis e operáveis pelo teclado, com papel de botão e estado expandido/recolhido.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:2.1",
+          "wcag:4.1.2"
+        ]
+      },
+      {
+        "selector": "pnip-mpa-processos .tab-panel > .col > .row > .col-auto > span.br-tag.interaction",
+        "rule": "wcag:2.1.1",
+        "observed": "O filtro \"Meus processos\" é um <span> clicável (cursor:pointer) sem tabindex nem role; não recebe foco pelo teclado.",
+        "expected": "O filtro \"Meus processos\" deve ser um controle focalizável e operável pelo teclado, com papel e estado (ex.: aria-pressed).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:2.1"
+        ]
+      },
+      {
+        "selector": "pnip-multiple-search-table-utils .br-select .br-list .br-item",
+        "rule": "wcag:2.1.1",
+        "observed": "As opções do filtro aberto (\"Últimos 7 dias\", \"Últimos 30 dias\", \"Últimos 60 dias\", \"Últimos 90 dias\") são div/label sem input, sem tabindex e sem role (option/radio); só podem ser escolhidas com o mouse e não expõem seleção.",
+        "expected": "As opções devem ser alcançáveis e selecionáveis pelo teclado e expor papel e estado (ex.: radio ou option com aria-selected).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique no filtro \"Aberto há\" (span.br-tag)"
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "wcag:4.1.2"
+        ]
+      },
+      {
+        "selector": "pnip-multiple-search-table-utils .br-tag button.br-button.inverted.circle",
+        "rule": "wcag:4.1.2",
+        "observed": "O botão de remover o filtro aplicado (\"Últimos 7 dias\") contém só o ícone fa-times (aria-hidden) e não tem aria-label, title nem texto: nome acessível vazio.",
+        "expected": "O botão deve ter um nome acessível, por exemplo \"Remover filtro Últimos 7 dias\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique no filtro \"Aberto há\"",
+            "clique na opção \"Últimos 7 dias\""
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "emag:6.1"
+        ]
+      },
+      {
+        "selector": "pnip-multiple-search-table-utils .br-tag button.br-button.inverted.circle",
+        "rule": null,
+        "observed": "Acionar o botão de remover do filtro \"Últimos 7 dias\", por clique de mouse ou Enter com foco, não remove o filtro: a tag continua na tela e a tabela continua com 2 itens. Só \"Limpar filtros\" remove o filtro.",
+        "expected": "Acionar o botão de remover deve retirar o filtro e restaurar a listagem.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique no filtro \"Aberto há\"",
+            "clique na opção \"Últimos 7 dias\""
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "table input[type=\"checkbox\"]",
+        "rule": "wcag:4.1.2",
+        "observed": "Os 7 checkboxes (1 no cabeçalho, 6 nas linhas) não têm label, aria-label nem aria-labelledby; o nome acessível está vazio (a árvore de acessibilidade mostra só \"checkbox\").",
+        "expected": "Cada checkbox deve ter um nome que identifique a finalidade (ex.: \"Selecionar todos\", \"Selecionar processo 00000.000011/2026-00\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:6.2",
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-orange-vivid-40 > div",
+        "rule": "wcag:1.4.3",
+        "observed": "Texto branco (#FFFFFF) sobre laranja rgb(230,111,14) em 14px, peso 500 (\"Em análise analista\", \"Em análise supervisor\", \"Em análise diretor\"): contraste medido de 3,16:1.",
+        "expected": "Contraste mínimo de 4,5:1 para texto normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:4.1"
+        ]
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-indigo-vivid-40 > div",
+        "rule": "wcag:1.4.3",
+        "observed": "Texto branco sobre rgb(130,137,255) em 14px, peso 500 (\"Aguarda complementos\"): contraste medido de 3,01:1.",
+        "expected": "Contraste mínimo de 4,5:1 para texto normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:4.1"
+        ]
+      },
+      {
+        "selector": "pnip-status-solicitacao-utils .bg-secondary-06 > div",
+        "rule": "wcag:1.4.3",
+        "observed": "Texto branco sobre cinza rgb(136,136,136) em 14px, peso 500 (\"Aguardando plano de ação\", \"Aguardando SFPA\"): contraste medido de 3,54:1.",
+        "expected": "Contraste mínimo de 4,5:1 para texto normal.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:4.1"
+        ]
+      },
+      {
+        "selector": "br-input#search",
+        "rule": "wcag:3.3.2",
+        "observed": "O campo de busca (input#search no shadow DOM de br-input) não tem label nem aria-label; a única identificação é o placeholder \"Pesquise aqui ...\", que some ao digitar.",
+        "expected": "O campo deve ter um rótulo persistente associado programaticamente (label ou aria-label), conforme o componente de busca do DS.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:6.2"
+        ]
+      },
+      {
+        "selector": "#avatar-dropdown-trigger",
+        "rule": "wcag:2.5.3",
+        "observed": "O botão do usuário tem aria-label=\"Avatar com dropdown\", que substitui o texto visível \"Olá, Usuária de Teste, SUPERVISOR\"; o nome acessível não contém o rótulo visível nem descreve a função.",
+        "expected": "O nome acessível deve conter o texto visível e indicar a função (ex.: \"Olá, Usuária de Teste, SUPERVISOR – menu do usuário\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#avatar-menu",
+        "rule": "wcag:4.1.2",
+        "observed": "O painel aberto tem role=\"menu\", mas nenhum descendente tem role=\"menuitem\"; contém texto solto, um span clicável (\"Trocar unidade\") e um button comum (\"Sair\"), com Tab normal e sem navegação por setas.",
+        "expected": "Usar role=\"menu\" só com itens menuitem e o comportamento de menu correspondente, ou remover o role=\"menu\" e usar uma lista/grupo de controles comuns.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique no botão do avatar (#avatar-dropdown-trigger)"
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "#avatar-menu .text-center > span.text-blue-vivid-60",
+        "rule": "wcag:2.1.1",
+        "observed": "\"Trocar unidade\" é um <span> com cursor:pointer, sem tabindex nem role; com o menu aberto, o Tab vai do acionador direto para \"Sair\", sem passar por ele.",
+        "expected": "A ação \"Trocar unidade\" deve ser um controle focalizável e operável pelo teclado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique no botão do avatar (#avatar-dropdown-trigger)"
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "emag:2.1"
+        ]
+      },
+      {
+        "selector": "#avatar-menu button.dropdown-button img",
+        "rule": "wcag:1.1.1",
+        "observed": "A imagem exit-icon.png no botão \"Sair\" não tem atributo alt.",
+        "expected": "Imagem decorativa com alt=\"\" (o botão já tem o texto \"Sair\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique no botão do avatar (#avatar-dropdown-trigger)"
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "emag:3.6"
+        ]
+      },
+      {
+        "selector": "br-header",
+        "rule": "wcag:1.1.1",
+        "observed": "A imagem do logotipo gov.br (img no shadow DOM de br-header, src assets/images/govbr-logo.png) tem alt=\"logo\", que não identifica o conteúdo.",
+        "expected": "Texto alternativo que identifique o logotipo (ex.: \"gov.br\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:3.6"
+        ]
+      },
+      {
+        "selector": "br-header",
+        "rule": null,
+        "observed": "O botão \"Menu\" do cabeçalho (#navigation, data-target=\"#main-navigation\") não abre nada ao ser clicado: não existe #main-navigation no documento nem no shadow DOM, e a tela não muda.",
+        "expected": "O botão de menu do cabeçalho deve abrir o menu principal ao qual se refere, ou não ser exibido.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": "br-breadcrumb",
+        "rule": null,
+        "observed": "O link \"Home\" da trilha aponta para \"/portal-mpa/\" (resolve para http://screens:3300/portal-mpa/, fora da base /pnip-f3/); um GET nesse endereço devolve HTTP 404.",
+        "expected": "O link de início da trilha deve levar a uma página existente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": "br-breadcrumb",
+        "rule": "wcag:4.1.2",
+        "observed": "No shadow DOM de br-breadcrumb, o link \"Home\" (<a href>) contém um <button> \"Home\": um controle interativo dentro de outro. São dois pontos de Tab consecutivos para o mesmo destino (foco no A, depois no BUTTON).",
+        "expected": "O item Home deve ser um único elemento interativo (link), sem botão aninhado.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": "pnip-mpa-processos h2",
+        "rule": "emag:1.3",
+        "observed": "O primeiro e único título da tela é o h2 \"Processos\"; não há h1 no documento nem no shadow DOM do cabeçalho (o título \"Plataforma Nacional...\" é um div).",
+        "expected": "A tela deve ter um h1 que identifique o conteúdo principal, com a hierarquia de títulos a partir dele.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "wcag:1.3.1"
+        ]
+      },
+      {
+        "selector": "title",
+        "rule": "wcag:2.4.2",
+        "observed": "O título do documento é só \"PNIP\" nesta tela e continua igual nas rotas de detalhe e de exportação.",
+        "expected": "Título descritivo e único da página (ex.: \"Processos – Plataforma Nacional da Indústria do Pescado\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "emag:3.3"
+        ]
+      },
+      {
+        "selector": "pnip-mpa-processos > iframe",
+        "rule": "wcag:4.1.2",
+        "observed": "Há um <iframe> sem title, sem src e sem conteúdo, com 1160×500 px, focalizável (tabIndex 0), no fim do conteúdo principal.",
+        "expected": "Um iframe precisa de title que descreva o conteúdo; se não tem função, deve ser removido ou ocultado das tecnologias assistivas e da ordem de foco.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": [],
+        "references": [
+          "wcag:2.4.3"
+        ]
+      },
+      {
+        "selector": "pnip-mpa-processos thead th:first-child",
+        "rule": "wcag:1.3.1",
+        "observed": "A coluna \"Aberto há\" (e \"Data/Hora\" em Concluídos) mostra o ícone sort-down indicando ordenação, mas o th não tem aria-sort; o ícone é aria-hidden.",
+        "expected": "A ordenação aplicada deve ser exposta programaticamente (aria-sort=\"descending\" no th).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"] > ul > li > li",
+        "rule": "wcag:1.3.1",
+        "observed": "Na paginação, cada número de página fica num <li> aninhado diretamente dentro de outro <li> (li > li), estrutura de lista inválida.",
+        "expected": "Cada item de página deve ser um li filho direto do ul.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": []
+        },
+        "evidence": []
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"] a.page.active",
+        "rule": "wcag:1.3.1",
+        "observed": "A página atual só é indicada pela classe \"active\"; o link não tem aria-current=\"page\" (e todos os números usam href=\"javascript:void(0)\").",
+        "expected": "A página atual deve ser exposta programaticamente com aria-current=\"page\".",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique na aba \"Concluídos\"",
+            "clique em \"Página seguinte\""
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "nav[aria-label=\"Paginação de resultados\"]",
+        "rule": null,
+        "observed": "Na página 2 de Concluídos (11–14 de 14), a paginação mostra só os números e o botão \"Página seguinte\" (desativado); não há botão \"Página anterior\".",
+        "expected": "O componente de paginação do DS gov.br tem botões de página anterior e seguinte.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique na aba \"Concluídos\"",
+            "clique em \"Página seguinte\""
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "#page",
+        "rule": null,
+        "observed": "Depois de ir para a página 2 com \"Página seguinte\", o seletor \"Página\" continua mostrando o valor \"1\", embora a listagem mostre os itens 11–14 e o link \"2\" esteja ativo.",
+        "expected": "O seletor \"Página\" deve refletir a página exibida.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique na aba \"Concluídos\"",
+            "clique em \"Página seguinte\""
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "pnip-mpa-processos table tbody",
+        "rule": "wcag:2.2.2",
+        "observed": "A tabela se atualiza sozinha cerca de uma vez por minuto (linhas recriadas a 49,8 s e 109,8 s de observação, e \"Última atualização\" muda de 09:39 para 09:40), sem nenhum controle para pausar, parar ou ajustar a atualização.",
+        "expected": "Oferecer um mecanismo para pausar, parar ou controlar a frequência da atualização automática.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "foco num checkbox da tabela",
+            "espera de ~60 s sem interação"
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "emag:2.3"
+        ]
+      },
+      {
+        "selector": "pnip-mpa-processos table tbody",
+        "rule": "wcag:2.4.3",
+        "observed": "Quando a atualização automática recria as linhas, o elemento com foco (checkbox da linha) é removido e o foco vai para o BODY (document.activeElement = BODY depois da atualização).",
+        "expected": "A atualização não deve tirar o foco do usuário; o foco deve ser preservado no elemento equivalente.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "foco num checkbox da tabela",
+            "espera de ~60 s sem interação"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".swal2-popup",
+        "rule": "wcag:4.1.2",
+        "observed": "O diálogo de assinatura (role=\"dialog\", aria-modal=\"true\") tem aria-labelledby=\"swal2-title\", mas h2#swal2-title está vazio e com display:none; o diálogo fica sem nome acessível.",
+        "expected": "O diálogo deve ter um nome acessível com título visível (ex.: \"Assinar documento\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique em \"Assinar\" na linha 00000.000011/2026-00"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": ".swal2-close",
+        "rule": "wcag:3.1.2",
+        "observed": "O botão de fechar o diálogo de assinatura tem aria-label=\"Close this dialog\", em inglês, numa página lang=\"pt-br\", sem lang=\"en\".",
+        "expected": "Rótulo em português (ex.: \"Fechar\"), ou trecho marcado com o idioma correto.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique em \"Assinar\" na linha 00000.000011/2026-00"
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "emag:3.2"
+        ]
+      },
+      {
+        "selector": ".swal2-html-container object",
+        "rule": "wcag:1.1.1",
+        "observed": "O documento PDF exibido no diálogo de assinatura é um <object type=\"application/pdf\"> sem title, aria-label nem conteúdo alternativo; foi ele que recebeu o foco ao abrir o diálogo.",
+        "expected": "O objeto deve ter nome acessível e conteúdo alternativo (ex.: link para baixar o PDF).",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique em \"Assinar\" na linha 00000.000011/2026-00"
+          ]
+        },
+        "evidence": [],
+        "references": [
+          "emag:3.6"
+        ]
+      },
+      {
+        "selector": ".swal2-popup",
+        "rule": "wcag:4.1.2",
+        "observed": "O diálogo de confirmação \"Tem certeza que deseja desassociar esse processo...?\" (role=\"dialog\") referencia por aria-labelledby o h2#swal2-title vazio e oculto, e fica sem nome acessível.",
+        "expected": "O diálogo de confirmação deve ter um título que lhe dê nome acessível (ex.: \"Desassociar processo\").",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique em \"Desassociar processo do analista responsável\" na linha 00000.000010/2026-00"
+          ]
+        },
+        "evidence": []
+      },
+      {
+        "selector": "br-button[title=\"Desassociar processo do analista responsável\"]:not([disabled])",
+        "rule": "wcag:2.4.3",
+        "observed": "Com o foco no botão Desassociar, ao abrir o diálogo e fechá-lo com Escape, o foco foi para o BODY, não voltou ao botão que o abriu.",
+        "expected": "Ao fechar o diálogo, o foco deve voltar ao controle que o abriu.",
+        "state": {
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "steps": [
+            "clique em \"Desassociar processo do analista responsável\" na linha 00000.000010/2026-00"
+          ]
+        },
+        "evidence": []
+      }
+    ],
+    "inspection": {
+      "completion": "complete",
+      "regions": [
+        {
+          "id": "r1",
+          "description": "Cabeçalho gov.br (br-header: logo, assinatura, botão Menu, título)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r2",
+          "description": "Área do usuário (botão avatar e menu suspenso)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s7"
+          ]
+        },
+        {
+          "id": "r3",
+          "description": "Trilha de navegação (br-breadcrumb)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r4",
+          "description": "Título \"Processos\" e botão Exportar",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r5",
+          "description": "Abas (br-tab) Aguardando análise/Tramitando/Concluídos",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s4",
+            "s5"
+          ]
+        },
+        {
+          "id": "r6",
+          "description": "Filtros (Meus processos, tags de filtro, listas de opções, tag aplicada, Limpar filtros) e busca",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s2",
+            "s3"
+          ]
+        },
+        {
+          "id": "r7",
+          "description": "Tabela de processos (cabeçalhos, checkboxes, links, status, ações)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s4",
+            "s5",
+            "s6",
+            "s10"
+          ]
+        },
+        {
+          "id": "r8",
+          "description": "Paginação (números, página seguinte, seletores Exibir/Página)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1",
+            "s5",
+            "s6"
+          ]
+        },
+        {
+          "id": "r9",
+          "description": "Botão Voltar e iframe vazio no fim do conteúdo",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s1"
+          ]
+        },
+        {
+          "id": "r10",
+          "description": "Diálogos SweetAlert (Assinar com PDF; confirmação de Desassociar)",
+          "origin": "browser",
+          "status": "inspected",
+          "states": [
+            "s8",
+            "s9"
+          ]
+        }
+      ],
+      "states": [
+        {
+          "id": "s1",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Aba Aguardando análise ativa, 9 processos, 7 checkboxes"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s2",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "span.br-tag \"Aberto há\""
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Lista de opções do filtro Aberto há aberta (4 opções)"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s3",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "span.br-tag \"Aberto há\""
+            },
+            {
+              "action": "click",
+              "target": ".br-item \"Últimos 7 dias\""
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Tag \"Últimos 7 dias\" aplicada, 2 itens, Limpar filtros ativado"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s4",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "br-tab botão TRAMITANDO"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Aba Tramitando ativa, 9 itens, sem checkboxes"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s5",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "br-tab botão HISTORICO"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Aba Concluídos, coluna Data/Hora, 1–10 de 14 itens, status Deferida/Indeferida/Cancelada/Concluído"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s6",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "br-tab botão HISTORICO"
+            },
+            {
+              "action": "click",
+              "target": "button[aria-label=\"Página seguinte\"]"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Página 2: 11–14 de 14, Página seguinte desativado, seletor Página = 1"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s7",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "#avatar-dropdown-trigger"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Menu do avatar visível, aria-expanded=true"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s8",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "br-button[title=\"Assinar\"] (linha 2)"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Diálogo com PDF, botões Solicitar Revisão / Assinar com gov.br / fechar"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s9",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "click",
+              "target": "br-button[title=\"Desassociar processo do analista responsável\"]:not([disabled])"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Diálogo de confirmação Não/Sim"
+            ]
+          },
+          "evidence": []
+        },
+        {
+          "id": "s10",
+          "url": "http://screens:3300/pnip-f3/portal-mpa/processos",
+          "viewport": {
+            "width": 1280,
+            "height": 900
+          },
+          "recipe": [
+            {
+              "action": "load",
+              "target": "http://screens:3300/pnip-f3/portal-mpa/processos?mock-perfil=mpa"
+            },
+            {
+              "action": "focus",
+              "target": "tbody input[type=checkbox]"
+            },
+            {
+              "action": "wait",
+              "target": "página",
+              "value": "60 s"
+            }
+          ],
+          "arrival": {
+            "status": "declared",
+            "observables": [
+              "Linhas recriadas, Última atualização mudou de 09:39 para 09:40"
+            ]
+          },
+          "evidence": []
+        }
+      ],
+      "items": [
+        {
+          "id": "i1",
+          "state": "s1",
+          "region": "r7",
+          "subject": "table td/th",
+          "check": "contraste do texto de status, cabeçalhos e links",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i2",
+          "state": "s1",
+          "region": "r7",
+          "subject": "td a[role=button]",
+          "check": "foco por teclado",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i3",
+          "state": "s1",
+          "region": "r6",
+          "subject": "span.br-tag.interaction",
+          "check": "foco e papel",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i4",
+          "state": "s1",
+          "region": "r7",
+          "subject": "input[type=checkbox]",
+          "check": "nome acessível",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i5",
+          "state": "s1",
+          "region": "r1",
+          "subject": "br-header img",
+          "check": "alt do logo",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i6",
+          "state": "s1",
+          "region": "r1",
+          "subject": "botão Menu",
+          "check": "funcionamento",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i7",
+          "state": "s1",
+          "region": "r3",
+          "subject": "br-breadcrumb",
+          "check": "links, destino e aninhamento",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i8",
+          "state": "s1",
+          "region": "r5",
+          "subject": "br-tab",
+          "check": "nome e estado das abas",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i9",
+          "state": "s1",
+          "region": "r6",
+          "subject": "br-input#search",
+          "check": "rótulo",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i10",
+          "state": "s1",
+          "region": "r4",
+          "subject": "h2",
+          "check": "hierarquia de títulos e título do documento",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i11",
+          "state": "s1",
+          "region": "r9",
+          "subject": "iframe",
+          "check": "title e foco",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i12",
+          "state": "s1",
+          "subject": "página",
+          "check": "sequência de Tab e indicador de foco (contorno tracejado de 4px nos botões; contorno padrão nos checkboxes)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i13",
+          "state": "s2",
+          "region": "r6",
+          "subject": "opções de filtro",
+          "check": "papel e foco",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i14",
+          "state": "s3",
+          "region": "r6",
+          "subject": "botão de remover filtro",
+          "check": "nome e funcionamento (mouse e Enter)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i15",
+          "state": "s3",
+          "region": "r6",
+          "subject": "Limpar filtros",
+          "check": "funcionamento (remove o filtro; o foco vai para o BODY)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i16",
+          "state": "s5",
+          "region": "r7",
+          "subject": "status em Concluídos",
+          "check": "contraste (4,59–4,60:1, cumpre)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i17",
+          "state": "s6",
+          "region": "r8",
+          "subject": "paginação",
+          "check": "estrutura e estado",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i18",
+          "state": "s6",
+          "region": "r8",
+          "subject": "#total (Exibir)",
+          "check": "operação por setas (abre a lista)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i19",
+          "state": "s7",
+          "region": "r2",
+          "subject": "#avatar-menu",
+          "check": "papéis, foco, Escape e alt",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i20",
+          "state": "s8",
+          "region": "r10",
+          "subject": ".swal2-popup",
+          "check": "nome, idioma do rótulo, objeto PDF e contraste dos botões (7,33:1)",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i21",
+          "state": "s9",
+          "region": "r10",
+          "subject": ".swal2-popup",
+          "check": "nome e retorno do foco",
+          "status": "completed",
+          "evidence": []
+        },
+        {
+          "id": "i22",
+          "state": "s10",
+          "region": "r7",
+          "subject": "tbody",
+          "check": "atualização automática e foco",
+          "status": "completed",
+          "evidence": []
+        }
+      ],
+      "candidates": [
+        {
+          "id": "c1",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-tab",
+          "observation": "Os botões das abas (shadow DOM de br-tab) têm aria-label \"AGUARDANDO_ANALISE\", \"TRAMITANDO\" e \"HISTORICO\", que substituem os rótulos visíveis \"Aguardando análise\", \"Tramitando\" e \"Concluídos\"; o nome acessível é um código interno que não contém o texto visível.",
+          "decision": "accepted",
+          "findings": [
+            0
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c2",
+          "state": "s4",
+          "origin": "browser",
+          "subject": "br-tab",
+          "observation": "A aba ativa só é indicada pela classe \"active\" no li; os botões não têm role=\"tab\", aria-selected nem aria-current, e a lista não tem role=\"tablist\". A seleção não é exposta às tecnologias assistivas (conferido nas três abas).",
+          "decision": "accepted",
+          "findings": [
+            1
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c3",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "td a[role=\"button\"]",
+          "observation": "Os números de processo são <a role=\"button\"> sem href nem tabindex; focus() não os focaliza e a navegação por Tab passa do checkbox direto para \"Ver processo\", pulando esses elementos, embora eles tenham cursor pointer e sejam clicáveis.",
+          "decision": "accepted",
+          "findings": [
+            2
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c4",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "pnip-multiple-search-table-utils .row.align-items-center span.br-tag.interaction",
+          "observation": "Os seis acionadores de filtro (\"Aberto há\", \"Tipo de processo\", \"Status\", \"Espécie alvo\", \"Método de pesca\", \"Petrecho\") são <span> com cursor:pointer, sem tabindex (tabIndex -1), sem role e sem aria-expanded; abrem a lista de opções só com o mouse.",
+          "decision": "accepted",
+          "findings": [
+            3
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c5",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "pnip-mpa-processos .tab-panel > .col > .row > .col-auto > span.br-tag.interaction",
+          "observation": "O filtro \"Meus processos\" é um <span> clicável (cursor:pointer) sem tabindex nem role; não recebe foco pelo teclado.",
+          "decision": "accepted",
+          "findings": [
+            4
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c6",
+          "state": "s2",
+          "origin": "browser",
+          "subject": "pnip-multiple-search-table-utils .br-select .br-list .br-item",
+          "observation": "As opções do filtro aberto (\"Últimos 7 dias\", \"Últimos 30 dias\", \"Últimos 60 dias\", \"Últimos 90 dias\") são div/label sem input, sem tabindex e sem role (option/radio); só podem ser escolhidas com o mouse e não expõem seleção.",
+          "decision": "accepted",
+          "findings": [
+            5
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c7",
+          "state": "s3",
+          "origin": "browser",
+          "subject": "pnip-multiple-search-table-utils .br-tag button.br-button.inverted.circle",
+          "observation": "O botão de remover o filtro aplicado (\"Últimos 7 dias\") contém só o ícone fa-times (aria-hidden) e não tem aria-label, title nem texto: nome acessível vazio.",
+          "decision": "accepted",
+          "findings": [
+            6
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c8",
+          "state": "s3",
+          "origin": "browser",
+          "subject": "pnip-multiple-search-table-utils .br-tag button.br-button.inverted.circle",
+          "observation": "Acionar o botão de remover do filtro \"Últimos 7 dias\", por clique de mouse ou Enter com foco, não remove o filtro: a tag continua na tela e a tabela continua com 2 itens. Só \"Limpar filtros\" remove o filtro.",
+          "decision": "accepted",
+          "findings": [
+            7
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c9",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "table input[type=\"checkbox\"]",
+          "observation": "Os 7 checkboxes (1 no cabeçalho, 6 nas linhas) não têm label, aria-label nem aria-labelledby; o nome acessível está vazio (a árvore de acessibilidade mostra só \"checkbox\").",
+          "decision": "accepted",
+          "findings": [
+            8
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c10",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "pnip-status-solicitacao-utils .bg-orange-vivid-40 > div",
+          "observation": "Texto branco (#FFFFFF) sobre laranja rgb(230,111,14) em 14px, peso 500 (\"Em análise analista\", \"Em análise supervisor\", \"Em análise diretor\"): contraste medido de 3,16:1.",
+          "decision": "accepted",
+          "findings": [
+            9
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c11",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "pnip-status-solicitacao-utils .bg-indigo-vivid-40 > div",
+          "observation": "Texto branco sobre rgb(130,137,255) em 14px, peso 500 (\"Aguarda complementos\"): contraste medido de 3,01:1.",
+          "decision": "accepted",
+          "findings": [
+            10
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c12",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "pnip-status-solicitacao-utils .bg-secondary-06 > div",
+          "observation": "Texto branco sobre cinza rgb(136,136,136) em 14px, peso 500 (\"Aguardando plano de ação\", \"Aguardando SFPA\"): contraste medido de 3,54:1.",
+          "decision": "accepted",
+          "findings": [
+            11
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c13",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-input#search",
+          "observation": "O campo de busca (input#search no shadow DOM de br-input) não tem label nem aria-label; a única identificação é o placeholder \"Pesquise aqui ...\", que some ao digitar.",
+          "decision": "accepted",
+          "findings": [
+            12
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c14",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#avatar-dropdown-trigger",
+          "observation": "O botão do usuário tem aria-label=\"Avatar com dropdown\", que substitui o texto visível \"Olá, Usuária de Teste, SUPERVISOR\"; o nome acessível não contém o rótulo visível nem descreve a função.",
+          "decision": "accepted",
+          "findings": [
+            13
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c15",
+          "state": "s7",
+          "origin": "browser",
+          "subject": "#avatar-menu",
+          "observation": "O painel aberto tem role=\"menu\", mas nenhum descendente tem role=\"menuitem\"; contém texto solto, um span clicável (\"Trocar unidade\") e um button comum (\"Sair\"), com Tab normal e sem navegação por setas.",
+          "decision": "accepted",
+          "findings": [
+            14
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c16",
+          "state": "s7",
+          "origin": "browser",
+          "subject": "#avatar-menu .text-center > span.text-blue-vivid-60",
+          "observation": "\"Trocar unidade\" é um <span> com cursor:pointer, sem tabindex nem role; com o menu aberto, o Tab vai do acionador direto para \"Sair\", sem passar por ele.",
+          "decision": "accepted",
+          "findings": [
+            15
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c17",
+          "state": "s7",
+          "origin": "browser",
+          "subject": "#avatar-menu button.dropdown-button img",
+          "observation": "A imagem exit-icon.png no botão \"Sair\" não tem atributo alt.",
+          "decision": "accepted",
+          "findings": [
+            16
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c18",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-header",
+          "observation": "A imagem do logotipo gov.br (img no shadow DOM de br-header, src assets/images/govbr-logo.png) tem alt=\"logo\", que não identifica o conteúdo.",
+          "decision": "accepted",
+          "findings": [
+            17
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c19",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-header",
+          "observation": "O botão \"Menu\" do cabeçalho (#navigation, data-target=\"#main-navigation\") não abre nada ao ser clicado: não existe #main-navigation no documento nem no shadow DOM, e a tela não muda.",
+          "decision": "accepted",
+          "findings": [
+            18
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c20",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-breadcrumb",
+          "observation": "O link \"Home\" da trilha aponta para \"/portal-mpa/\" (resolve para http://screens:3300/portal-mpa/, fora da base /pnip-f3/); um GET nesse endereço devolve HTTP 404.",
+          "decision": "accepted",
+          "findings": [
+            19
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c21",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-breadcrumb",
+          "observation": "No shadow DOM de br-breadcrumb, o link \"Home\" (<a href>) contém um <button> \"Home\": um controle interativo dentro de outro. São dois pontos de Tab consecutivos para o mesmo destino (foco no A, depois no BUTTON).",
+          "decision": "accepted",
+          "findings": [
+            20
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c22",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "pnip-mpa-processos h2",
+          "observation": "O primeiro e único título da tela é o h2 \"Processos\"; não há h1 no documento nem no shadow DOM do cabeçalho (o título \"Plataforma Nacional...\" é um div).",
+          "decision": "accepted",
+          "findings": [
+            21
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c23",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "title",
+          "observation": "O título do documento é só \"PNIP\" nesta tela e continua igual nas rotas de detalhe e de exportação.",
+          "decision": "accepted",
+          "findings": [
+            22
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c24",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "pnip-mpa-processos > iframe",
+          "observation": "Há um <iframe> sem title, sem src e sem conteúdo, com 1160×500 px, focalizável (tabIndex 0), no fim do conteúdo principal.",
+          "decision": "accepted",
+          "findings": [
+            23
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c25",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "pnip-mpa-processos thead th:first-child",
+          "observation": "A coluna \"Aberto há\" (e \"Data/Hora\" em Concluídos) mostra o ícone sort-down indicando ordenação, mas o th não tem aria-sort; o ícone é aria-hidden.",
+          "decision": "accepted",
+          "findings": [
+            24
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c26",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "nav[aria-label=\"Paginação de resultados\"] > ul > li > li",
+          "observation": "Na paginação, cada número de página fica num <li> aninhado diretamente dentro de outro <li> (li > li), estrutura de lista inválida.",
+          "decision": "accepted",
+          "findings": [
+            25
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c27",
+          "state": "s6",
+          "origin": "browser",
+          "subject": "nav[aria-label=\"Paginação de resultados\"] a.page.active",
+          "observation": "A página atual só é indicada pela classe \"active\"; o link não tem aria-current=\"page\" (e todos os números usam href=\"javascript:void(0)\").",
+          "decision": "accepted",
+          "findings": [
+            26
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c28",
+          "state": "s6",
+          "origin": "browser",
+          "subject": "nav[aria-label=\"Paginação de resultados\"]",
+          "observation": "Na página 2 de Concluídos (11–14 de 14), a paginação mostra só os números e o botão \"Página seguinte\" (desativado); não há botão \"Página anterior\".",
+          "decision": "accepted",
+          "findings": [
+            27
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c29",
+          "state": "s6",
+          "origin": "browser",
+          "subject": "#page",
+          "observation": "Depois de ir para a página 2 com \"Página seguinte\", o seletor \"Página\" continua mostrando o valor \"1\", embora a listagem mostre os itens 11–14 e o link \"2\" esteja ativo.",
+          "decision": "accepted",
+          "findings": [
+            28
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c30",
+          "state": "s10",
+          "origin": "browser",
+          "subject": "pnip-mpa-processos table tbody",
+          "observation": "A tabela se atualiza sozinha cerca de uma vez por minuto (linhas recriadas a 49,8 s e 109,8 s de observação, e \"Última atualização\" muda de 09:39 para 09:40), sem nenhum controle para pausar, parar ou ajustar a atualização.",
+          "decision": "accepted",
+          "findings": [
+            29
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c31",
+          "state": "s10",
+          "origin": "browser",
+          "subject": "pnip-mpa-processos table tbody",
+          "observation": "Quando a atualização automática recria as linhas, o elemento com foco (checkbox da linha) é removido e o foco vai para o BODY (document.activeElement = BODY depois da atualização).",
+          "decision": "accepted",
+          "findings": [
+            30
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c32",
+          "state": "s8",
+          "origin": "browser",
+          "subject": ".swal2-popup",
+          "observation": "O diálogo de assinatura (role=\"dialog\", aria-modal=\"true\") tem aria-labelledby=\"swal2-title\", mas h2#swal2-title está vazio e com display:none; o diálogo fica sem nome acessível.",
+          "decision": "accepted",
+          "findings": [
+            31
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c33",
+          "state": "s8",
+          "origin": "browser",
+          "subject": ".swal2-close",
+          "observation": "O botão de fechar o diálogo de assinatura tem aria-label=\"Close this dialog\", em inglês, numa página lang=\"pt-br\", sem lang=\"en\".",
+          "decision": "accepted",
+          "findings": [
+            32
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c34",
+          "state": "s8",
+          "origin": "browser",
+          "subject": ".swal2-html-container object",
+          "observation": "O documento PDF exibido no diálogo de assinatura é um <object type=\"application/pdf\"> sem title, aria-label nem conteúdo alternativo; foi ele que recebeu o foco ao abrir o diálogo.",
+          "decision": "accepted",
+          "findings": [
+            33
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c35",
+          "state": "s9",
+          "origin": "browser",
+          "subject": ".swal2-popup",
+          "observation": "O diálogo de confirmação \"Tem certeza que deseja desassociar esse processo...?\" (role=\"dialog\") referencia por aria-labelledby o h2#swal2-title vazio e oculto, e fica sem nome acessível.",
+          "decision": "accepted",
+          "findings": [
+            34
+          ],
+          "evidence": []
+        },
+        {
+          "id": "c36",
+          "state": "s9",
+          "origin": "browser",
+          "subject": "br-button[title=\"Desassociar processo do analista responsável\"]:not([disabled])",
+          "observation": "Com o foco no botão Desassociar, ao abrir o diálogo e fechá-lo com Escape, o foco foi para o BODY, não voltou ao botão que o abriu.",
+          "decision": "accepted",
+          "findings": [
+            35
+          ],
+          "evidence": []
+        },
+        {
+          "id": "u1",
+          "state": "s7",
+          "origin": "browser",
+          "subject": "#avatar-menu",
+          "observation": "Escape não fecha o menu do avatar",
+          "decision": "uncertain",
+          "reason": "Não há exigência normativa clara de Escape fora do padrão menu; o menu fecha pelo próprio acionador",
+          "evidence": []
+        },
+        {
+          "id": "u2",
+          "state": "s8",
+          "origin": "browser",
+          "subject": ".swal2-popup",
+          "observation": "Ao fechar o diálogo Assinar, o foco foi para o BODY",
+          "decision": "uncertain",
+          "reason": "O acionador foi clicado via script, sem foco prévio; não dá para concluir a falha de retorno de foco nesse caso",
+          "evidence": []
+        },
+        {
+          "id": "u3",
+          "state": "s3",
+          "origin": "browser",
+          "subject": "br-button[label=\"Limpar filtros\"]",
+          "observation": "Depois de \"Limpar filtros\", o foco vai para o BODY porque o botão é desativado",
+          "decision": "uncertain",
+          "reason": "Efeito da desativação do próprio botão; impacto incerto, sem exigência específica",
+          "evidence": []
+        },
+        {
+          "id": "u4",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "br-breadcrumb",
+          "observation": "Trilha sem landmark nav e item atual como link sem aria-current",
+          "decision": "uncertain",
+          "reason": "Prática recomendada do DS; não confirmei uma regra normativa específica",
+          "evidence": []
+        },
+        {
+          "id": "u5",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "#total",
+          "observation": "Input do seletor Exibir/Página sem role=\"combobox\"/aria-expanded",
+          "decision": "uncertain",
+          "reason": "Funciona pelo teclado; não conferi a exposição completa na árvore de acessibilidade",
+          "evidence": []
+        },
+        {
+          "id": "u6",
+          "state": "s1",
+          "origin": "browser",
+          "subject": "td br-button",
+          "observation": "Botões de ação com aria-label=\"\" e nome vindo de title",
+          "decision": "rejected",
+          "reason": "O nome acessível resultante (\"Ver processo\", \"Desassociar...\") existe; rejeitado",
+          "evidence": []
+        }
+      ],
+      "limitations": [
+        {
+          "kind": "tool-failure",
+          "detail": "Não havia ferramenta de validação (só o navegador Playwright); os estados ficaram como \"declared\", sem originRef nem cláusulas."
+        },
+        {
+          "kind": "out-of-scope",
+          "detail": "As rotas de detalhe (/processos/alteracao-certificado/..., certificacao-caol, habilitacao-tr, vinculacao-embarcacao, certificacao-higienico-sanitario) e /processos/exportar são outras URLs, com dados não simulados (respostas vazias e erros no console); foram abertas para cada status listado, mas não avaliadas."
+        },
+        {
+          "kind": "other",
+          "detail": "Outros filtros (Tipo de processo, Status, Espécie alvo, Método de pesca, Petrecho) e \"Meus processos\" não foram abertos um a um; assumi a mesma marcação dos acionadores span.br-tag, conferida no DOM."
+        },
+        {
+          "kind": "other",
+          "detail": "A confirmação dos diálogos (Sim, Assinar com gov.br, Solicitar Revisão) não foi acionada, para não executar ações sobre registros."
+        }
+      ],
+      "clauses": []
+    }
+  }
+}
