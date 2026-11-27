@@ -1,0 +1,48 @@
+{
+  "check": "controle de cobertura (addendum 3 §5.1), tela F3, varredura não guiada",
+  "data": "2026-11-27",
+  "totalSinalizadas": 3,
+  "totalSeSpecDuvidosaExcluida": 2,
+  "condicaoPreDeclarada": { "expressao": "total >= 1 e < 12", "satisfeita": true },
+  "sinalizadas": [
+    { "spec": "F3-05", "tipo": "T2", "controleDaVarredura": true,
+      "achados": [ { "cena": "1280x900@lista-exibir", "id": "F-001", "rule": "govbr-3.7.0-foundation-global-21b1a2733f7b", "target": "div:nth-of-type(2) > div > div:nth-of-type(1) > div > span", "mensagem": "background-color: rgb(23, 85, 169) (#1755a9) não corresponde a nenhum token do DS" } ],
+      "porque": "Mesma propriedade (background-color) com o mesmo valor semeado fora da paleta (#1755a9) num span, no estado inicial; o achado some nas cenas pagina-2 e exibir-25." },
+    { "spec": "F3-06", "tipo": "T2", "controleDaVarredura": true,
+      "achados": [ { "cena": "1280x900@lista-exibir", "id": "F-004", "rule": "govbr-3.7.0-development-global-137c50bea6ca", "target": "div:nth-of-type(2) > nav > ul > li:nth-of-type(2) > button", "mensagem": "border-radius: 7px fora da escala do DS" } ],
+      "porque": "Mesma propriedade e valor semeado (border-radius 7px) num botão de nav > ul > li, a posição da seta depois dos números de página (li 2 na página 1, li 3 na cena pagina-2)." },
+    { "spec": "F3-07", "tipo": "T1", "controleDaVarredura": true,
+      "achados": [ { "cena": "1280x900@lista-exibir", "id": "F-010", "rule": "govbr-3.7.0-component-breadcrumb-478cffdbb111", "target": "pnip-root > main > pnip-mpa > pnip-mpa-processos > br-breadcrumb >>> div", "mensagem": "o último item (\"Processos\") é link para outra página e não é \"PNIP\" (título da página atual ausente)" } ],
+      "porque": "O alvo é a raiz do breadcrumb, mas a mensagem nomeia o elemento semeado (o último item, \"Processos\") e a mesma estrutura (é um link, não o texto da página atual).",
+      "ressalvas": "O id da regra não é nenhum dos dois listados na spec (c54865b466d0, 53db61fa81f9); a mensagem diz que o link vai 'para outra página' (o link semeado aponta para a própria página) e não fala em data-active. Ela entra pelo critério da mesma propriedade, não pelo da mesma regra." }
+  ],
+  "porTipo": { "T1": { "total": 3, "sinalizadas": 1, "specs": ["F3-07"] }, "T2": { "total": 2, "sinalizadas": 2, "specs": ["F3-05","F3-06"] }, "T3": { "total": 1, "sinalizadas": 0 }, "T4": { "total": 5, "sinalizadas": 0 }, "R": { "total": 1, "sinalizadas": 0 } },
+  "controlesDaVarredura": { "total": 3, "sinalizados": 3, "specs": ["F3-05","F3-06","F3-07"] },
+  "duvidosas": [],
+  "naoSinalizadas": {
+    "F3-01": "Sim: o único achado na paginação é F-004, border-radius 7px na seta 'Página seguinte' (outra propriedade, já contado para F3-06); nenhum sobre a seta anterior ausente.",
+    "F3-02": "Não: nenhum achado no avatar do cabeçalho.",
+    "F3-03": "Provavelmente: na cena filtro-removido, F-010 wcag:4.1.2 'Elemento interativo apenas com ícone, sem nome acessível (br-button)' em #searchTableUtils > div > div:nth-of-type(1) > div > span > button, ao que tudo indica o × da tag. É sobre o nome acessível, não sobre o × não remover o filtro.",
+    "F3-04": "Não: nenhum achado em células tbody td:nth-of-type(5). O F-003 (margin 5px) mira um input em thead th:nth-of-type(2), outro elemento.",
+    "F3-08": "Não: nenhum achado nos rótulos das abas.",
+    "F3-09": "Não: nenhum achado no seletor Exibir (input#total) na cena exibir-25.",
+    "F3-10": "Não: nenhum achado nos botões desabilitados da coluna de ações.",
+    "F3-11": "Não: nenhum achado nos itens das abas.",
+    "F3-12": "Não: nenhum achado no botão de lote 'Confirmar' na cena assinatura-cancelada."
+  },
+  "fatosTecnicos": {
+    "fonte": "bruta.json, passes[*].validator.unguided (mode 'nao-guiada', selectors null, checks tokens+structure+page, policy 'pagina-inteira ... sem seletor do gabarito'). baseline.json é um resumo de 2.7 KB sem 'passes' (chaves: contract, fixture, baselineId, campaignId, screen, attempt, rerunOf, rerunReason, producer, scope, status, error, raw, timestamps, links, identity, comparable, diagnosticOnly, eslint); só as chaves dele foram lidas.",
+    "passes": 5,
+    "achadosNaoGuiadosPorCena": { "1280x900@lista-exibir": 8, "1280x900@assinatura-cancelada": 8, "1280x900@pagina-2": 6, "1280x900@exibir-25": 6, "1280x900@filtro-removido": 9 },
+    "specsPorCena": { "1280x900@lista-exibir": ["F3-02","F3-04","F3-05","F3-06","F3-07","F3-08","F3-10","F3-11"], "1280x900@assinatura-cancelada": ["F3-12"], "1280x900@pagina-2": [], "1280x900@exibir-25": ["F3-09"], "1280x900@filtro-removido": ["F3-01","F3-03"] },
+    "sha256": {
+      "bruta.json": "e114e6325eee0089014e6cf57a79eec27e27994e77b90afab0dbbbfbb2da1848",
+      "baseline.json": "cc2121feade570e6b18ac275a71038768859fc849c178db270def21e81f1ed01",
+      "ground-truth-processos-f3.json": "14baee19d40b8818e9d44d2b00b6636b94fbaee5d79cefddedc97307ebfbd7b0",
+      "estratos-1.0.0.json": "ad48fb747aecc897f20985bda0a6994f36d00bf992f9e02441d6353e08806f54"
+    },
+    "estratosReferenciamGabaritoComMesmoSha": true,
+    "lacrados": "validator.guided e axe não foram lidos (só os nomes das chaves apareceram na listagem de estrutura). O campo 'resolution' de cada pass não foi lido.",
+    "impedimentos": "nenhum"
+  }
+}
