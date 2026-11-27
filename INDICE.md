@@ -7,6 +7,7 @@ no govbr-eval.
 
 | Data (UTC) | Tipo | Campanha | Tela | Braço | Modelo | Técnico | Isolamento | Oráculo | Submissão | Linha de base | Evidências | Caminho |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 2026-11-27T06:07:41Z | ensaio | ensaio-portao-ferramentas-f3-01 | processos-f3 | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · acd32605718e | `ensaios/ensaio-portao-ferramentas-f3-01/2026-11-27T06-07-41Z__processos-f3__opus__ferramentas__rep-01__20261127-060741-processos-f3-ferramentas-76df` |
 | 2026-11-27T06:04:00Z | ensaio | ensaio-portao-ferramentas-f3-01 | processos-f3 | ferramentas | — | passed | passed | used-adherent | accepted | — | confirmado · 3e395ed579ed | `ensaios/ensaio-portao-ferramentas-f3-01/2026-11-27T06-04-00Z__processos-f3__opus__ferramentas__rep-01__20261127-060400-processos-f3-ferramentas-f030` |
 | 2026-11-27T05:56:57Z | ensaio | ensaio-trio-f3-01 | processos-f3 | com | — | passed | passed | used-adherent | accepted | — | confirmado · 69321cf02115 | `ensaios/ensaio-trio-f3-01/2026-11-27T05-56-57Z__processos-f3__opus__com__rep-01__20261127-055657-processos-f3-com-26f4` |
 | 2026-11-27T05:56:39Z | linha de base | ensaio-trio-f3-01 | processos-f3 | — | — | complete | — | — | — | utilizavel | — | `linhas-de-base/ensaio-trio-f3-01/processos-f3/lb-20261127-055639-processos-f3-69d0bb` |
